@@ -1,14 +1,14 @@
 {
   "Amor": [
-    { "frase": "El amor lo conquista todo.", "autor": "Virgilio" },
-    { "frase": "El amor es ciego.", "autor": "William Shakespeare" }
+    { "frase": "El amor lo conquista todo.", "autor": "Virgilio", "autor_url": "virgilio" },
+    { "frase": "El amor es ciego.", "autor": "William Shakespeare", "autor_url": "shakespeare" }
   ],
   "Inspiración": [
-    { "frase": "La inspiración existe, pero tiene que encontrarte trabajando.", "autor": "Pablo Picasso" },
-    { "frase": "No cuentes los días, haz que los días cuenten.", "autor": "Muhammad Ali" }
+    { "frase": "La inspiración existe, pero tiene que encontrarte trabajando.", "autor": "Pablo Picasso", "autor_url": "picasso" },
+    { "frase": "No cuentes los días, haz que los días cuenten.", "autor": "Muhammad Ali", "autor_url": "ali" }
   ],
   "Éxito": [
-    { "frase": "El éxito es la suma de pequeños esfuerzos repetidos día tras día.", "autor": "Robert Collier" },
-    { "frase": "El único lugar donde el éxito viene antes que el trabajo es en el diccionario.", "autor": "Vidal Sassoon" }
+    { "frase": "El éxito es la suma de pequeños esfuerzos repetidos día tras día.", "autor": "Robert Collier", "autor_url": "collier" },
+    { "frase": "El único lugar donde el éxito viene antes que el trabajo es en el diccionario.", "autor": "Vidal Sassoon", "autor_url": "sassoon" }
   ]
 }
