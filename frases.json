@@ -1,0 +1,15 @@
+{
+    "Amor": [
+      { "frase": "El amor lo conquista todo.", "autor": "Virgilio" },
+      { "frase": "El amor es ciego.", "autor": "William Shakespeare" }
+    ],
+    "Inspiración": [
+      { "frase": "La inspiración existe, pero tiene que encontrarte trabajando.", "autor": "Pablo Picasso" },
+      { "frase": "No cuentes los días, haz que los días cuenten.", "autor": "Muhammad Ali" }
+    ],
+    "Éxito": [
+      { "frase": "El éxito es la suma de pequeños esfuerzos repetidos día tras día.", "autor": "Robert Collier" },
+      { "frase": "El único lugar donde el éxito viene antes que el trabajo es en el diccionario.", "autor": "Vidal Sassoon" }
+    ]
+  }
+  
