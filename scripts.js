@@ -91,3 +91,65 @@ fetch(jsonUrl)
         }
     })
     .catch(error => console.error('Error cargando el JSON:', error));
+
+// Función para filtrar las frases y autores en base a la búsqueda
+function filtrarFrases(frases, query) {
+    const resultados = [];
+    const queryLower = query.toLowerCase();
+
+    Object.keys(frases).forEach(categoria => {
+        frases[categoria].forEach(fraseObj => {
+            const fraseLower = fraseObj.frase.toLowerCase();
+            const autorLower = fraseObj.autor.toLowerCase();
+
+            if (fraseLower.includes(queryLower) || autorLower.includes(queryLower)) {
+                resultados.push(fraseObj);
+            }
+        });
+    });
+
+    return resultados;
+}
+
+// Función para mostrar los resultados de búsqueda
+function mostrarResultados(resultados) {
+    const resultadosDiv = document.getElementById('resultados-busqueda');
+    resultadosDiv.innerHTML = ''; // Limpiar resultados anteriores
+
+    if (resultados.length > 0) {
+        resultados.forEach(fraseObj => {
+            const div = document.createElement('div');
+            div.classList.add('resultado-item', 'list-group-item');
+            div.innerHTML = `
+                <p><strong>Frase:</strong> ${fraseObj.frase}</p>
+                <p><strong>Autor:</strong> <a href="autor.html?autor=${fraseObj.autor_url}">${fraseObj.autor}</a></p>
+            `;
+            resultadosDiv.appendChild(div);
+        });
+    } else {
+        resultadosDiv.innerHTML = '<p>No se encontraron resultados.</p>';
+    }
+}
+
+// Función para manejar el evento de búsqueda
+function manejarBusqueda(frases) {
+    const inputBusqueda = document.getElementById('barra-busqueda');
+
+    inputBusqueda.addEventListener('input', () => {
+        const query = inputBusqueda.value;
+        if (query.length > 0) {
+            const resultados = filtrarFrases(frases, query);
+            mostrarResultados(resultados);
+        } else {
+            document.getElementById('resultados-busqueda').innerHTML = ''; // Limpiar si no hay búsqueda
+        }
+    });
+}
+
+// Cargar el JSON y configurar la barra de búsqueda
+fetch(jsonUrl)
+    .then(response => response.json())
+    .then(frases => {
+        manejarBusqueda(frases);
+    })
+    .catch(error => console.error('Error cargando el JSON:', error));
