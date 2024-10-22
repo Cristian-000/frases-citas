@@ -40,7 +40,7 @@ function mostrarFrasesPorCategoria(frases, categoriaSeleccionada) {
 }
 
 // Función para cargar las frases de un autor específico
-fufunction mostrarFrasesPorAutor(frases, autorSeleccionado) {
+function mostrarFrasesPorAutor(frases, autorSeleccionado) {
     const listaFrases = document.getElementById('lista-frases');
     let frasesDelAutor = [];
 
@@ -84,7 +84,7 @@ function filtrarFrases(frases, query) {
     return resultados;
 }
 
-// function mostrarResultados(resultados) {
+function mostrarResultados(resultados) {
     const resultadosDiv = document.getElementById('resultados-busqueda');
     resultadosDiv.innerHTML = ''; // Limpiar resultados anteriores
 
