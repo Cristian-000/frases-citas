@@ -30,11 +30,8 @@ function mostrarFrasesPorCategoria(frases, categoriaSeleccionada) {
         frasesCategoria.forEach(fraseObj => {
             const li = document.createElement('li');
             li.classList.add('list-group-item');
-            const categoriasTags = fraseObj.categorias.map(cat => `<span class="badge badge-secondary">${cat}</span>`).join(' ');
-            li.innerHTML = `
-                <p>${fraseObj.frase} - <a href="autor.html?autor=${fraseObj.autor_url}"><strong>${fraseObj.autor}</strong></a></p>
-                <p>Categorías: ${categoriasTags}</p>
-            `;
+            // Agregar enlace a la página de la categoría o frase específica
+            li.innerHTML = `${fraseObj.frase} - <a href="autor.html?autor=${fraseObj.autor_url}"><strong>${fraseObj.autor}</strong></a>`;
             listaFrases.appendChild(li);
         });
     } else {
@@ -43,7 +40,7 @@ function mostrarFrasesPorCategoria(frases, categoriaSeleccionada) {
 }
 
 // Función para cargar las frases de un autor específico
-function mostrarFrasesPorAutor(frases, autorSeleccionado) {
+fufunction mostrarFrasesPorAutor(frases, autorSeleccionado) {
     const listaFrases = document.getElementById('lista-frases');
     let frasesDelAutor = [];
 
@@ -60,18 +57,14 @@ function mostrarFrasesPorAutor(frases, autorSeleccionado) {
         frasesDelAutor.forEach(fraseObj => {
             const li = document.createElement('li');
             li.classList.add('list-group-item');
-            const categoriasTags = fraseObj.categorias.map(cat => `<span class="badge badge-secondary">${cat}</span>`).join(' ');
-            li.innerHTML = `
-                <p>${fraseObj.frase} - <a href="autor.html?autor=${fraseObj.autor_url}"><strong>${fraseObj.autor}</strong></a></p>
-                <p>Categorías: ${categoriasTags}</p>
-            `;
+            // Aquí puedes enlazar cada frase a su respectiva categoría o página específica de la frase
+            li.innerHTML = `${fraseObj.frase} - <a href="categoria.html?categoria=${fraseObj.categoria_url}">${fraseObj.categoria}</a>`;
             listaFrases.appendChild(li);
         });
     } else {
         listaFrases.textContent = "No hay frases de este autor.";
     }
 }
-
 // Función para filtrar las frases y autores en base a la búsqueda
 function filtrarFrases(frases, query) {
     const resultados = [];
@@ -91,20 +84,19 @@ function filtrarFrases(frases, query) {
     return resultados;
 }
 
-// Función para mostrar los resultados de búsqueda
-function mostrarResultados(resultados) {
+// function mostrarResultados(resultados) {
     const resultadosDiv = document.getElementById('resultados-busqueda');
     resultadosDiv.innerHTML = ''; // Limpiar resultados anteriores
 
     if (resultados.length > 0) {
         resultados.forEach(fraseObj => {
-            const categoriasTags = fraseObj.categorias.map(cat => `<span class="badge badge-secondary">${cat}</span>`).join(' ');
             const div = document.createElement('div');
             div.classList.add('resultado-item', 'list-group-item');
+            // Enlazar a la categoría y al autor
             div.innerHTML = `
                 <p><strong>Frase:</strong> ${fraseObj.frase}</p>
                 <p><strong>Autor:</strong> <a href="autor.html?autor=${fraseObj.autor_url}">${fraseObj.autor}</a></p>
-                <p>Categorías: ${categoriasTags}</p>
+                <p><strong>Categoría:</strong> <a href="categoria.html?categoria=${fraseObj.categoria_url}">${fraseObj.categoria}</a></p>
             `;
             resultadosDiv.appendChild(div);
         });
