@@ -18,3 +18,9 @@ h1 {
 .list-group-item a:hover {
     text-decoration: underline;
 }
+.tags {
+    margin-top: 10px;
+}
+.tags .badge {
+    margin-right: 5px;
+}
