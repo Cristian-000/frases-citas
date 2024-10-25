@@ -294,33 +294,22 @@ function crearImagenCompartible() {
     const fuente = document.getElementById("fuente-selector").value; // Obtener la fuente seleccionada
     const tamanoFuente = document.getElementById("fuente-tamano-selector").value; // Obtener el tamaño de fuente
 
-    const imagenDataURL = generarImagenFrase(textoImagen, colorTexto, colorFondo, fuente, tamanoFuente); // Pasar tamaño de fuente
+    // Opciones de textura
+const texturas = [
+    "https://www.transparenttextures.com/patterns/asfalt-dark.png",
+    "https://www.transparenttextures.com/patterns/paper.png",
+    "https://www.transparenttextures.com/patterns/linen.png",
+    "https://www.transparenttextures.com/patterns/wood-pattern.png",
+    "https://www.transparenttextures.com/patterns/diagonal-stripes.png"
+];
 
-    // Mostrar la vista previa
-    const previewCanvas = document.getElementById("preview");
-    const previewContext = previewCanvas.getContext('2d');
-    const img = new Image();
-    img.onload = function() {
-        previewContext.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
-        previewContext.drawImage(img, 0, 0);
-    }
-    img.src = imagenDataURL;
-
-    // Crear un enlace para compartir la imagen
-    const link = document.createElement('a');
-    link.href = imagenDataURL;
-    link.download = `${fraseCompartir}.png`; // Nombre del archivo de la imagen
-    document.body.appendChild(link);
-    link.click(); // Simular un clic en el enlace
-    document.body.removeChild(link); // Limpiar el DOM
-}
 
 function actualizarPreview() {
     const textoImagen = `${fraseCompartir}\n- ${autorCompartir}`;
     const colorTexto = document.getElementById("color-selector").value; // Obtener el color de texto
     const colorFondo = document.getElementById("fondo-selector").value; // Obtener el color de fondo
     const fuente = document.getElementById("fuente-selector").value; // Obtener la fuente seleccionada
-    const tamanoFuente = document.getElementById("fuente-tamano-selector").value; // Obtener el tamaño de fuente
+    const tamanoFuente = parseInt(document.getElementById("fuente-tamano-selector").value); // Tamaño de fuente
 
     const imagenDataURL = generarImagenFrase(textoImagen, colorTexto, colorFondo, fuente, tamanoFuente);
 
@@ -331,17 +320,96 @@ function actualizarPreview() {
     img.onload = function() {
         previewContext.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
         previewContext.drawImage(img, 0, 0);
-    }
+    };
     img.src = imagenDataURL;
 }
 
-// Agregar eventos de cambio a los selectores
+// Cambiar textura al azar y aplicarla al preview
+function cambiarTextura() {
+    const canvas = document.getElementById("preview");
+    const ctx = canvas.getContext("2d");
+    const textura = new Image();
+    textura.src = texturas[Math.floor(Math.random() * texturas.length)];
+    textura.onload = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(textura, 0, 0, canvas.width, canvas.height);
+        actualizarPreview();
+    };
+}
+
+// Generar imagen con frase y aplicar textura, color de fondo, y estilo de texto
+function generarImagenFrase(texto, colorTexto, colorFondo, fuente, tamanoFuente) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 800;
+    canvas.height = 1200;
+    const ctx = canvas.getContext("2d");
+
+    // Fondo con color o textura
+    const textura = new Image();
+    textura.src = texturas[Math.floor(Math.random() * texturas.length)];
+    ctx.fillStyle = colorFondo;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    textura.onload = () => {
+        ctx.drawImage(textura, 0, 0, canvas.width, canvas.height);
+
+        // Configurar el texto principal
+        ctx.font = `${tamanoFuente}px ${fuente}`;
+        ctx.fillStyle = colorTexto;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        const lineasTexto = texto.split("\n");
+        lineasTexto.forEach((linea, index) => {
+            ctx.fillText(linea, canvas.width / 2, canvas.height / 2 + index * (tamanoFuente + 10));
+        });
+
+        // Marca de agua
+        ctx.font = "20px Arial";
+        ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
+        ctx.fillText(marcaAgua, canvas.width - 100, canvas.height - 30);
+    };
+
+    return canvas.toDataURL("image/png");
+}
+
+// Crear la imagen final descargable
+function crearImagenCompartible() {
+    const textoImagen = `${fraseCompartir}\n- ${autorCompartir}`;
+    const colorTexto = document.getElementById("color-selector").value;
+    const colorFondo = document.getElementById("fondo-selector").value;
+    const fuente = document.getElementById("fuente-selector").value;
+    const tamanoFuente = parseInt(document.getElementById("fuente-tamano-selector").value);
+
+    const imagenDataURL = generarImagenFrase(textoImagen, colorTexto, colorFondo, fuente, tamanoFuente);
+
+    // Generar preview de la imagen
+    const previewCanvas = document.getElementById("preview");
+    const previewContext = previewCanvas.getContext('2d');
+    const img = new Image();
+    img.onload = function() {
+        previewContext.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
+        previewContext.drawImage(img, 0, 0, previewCanvas.width, previewCanvas.height);
+    };
+    img.src = imagenDataURL;
+
+    // Crear enlace de descarga
+    const link = document.createElement('a');
+    link.href = imagenDataURL;
+    link.download = `${fraseCompartir}.png`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+// Event listeners para los selectores de estilo y fondo
 document.getElementById("color-selector").addEventListener("input", actualizarPreview);
 document.getElementById("fondo-selector").addEventListener("input", actualizarPreview);
 document.getElementById("fuente-selector").addEventListener("change", actualizarPreview);
-document.getElementById("fuente-tamano-selector").addEventListener("change", actualizarPreview); // Evento para el tamaño de fuente
+document.getElementById("fuente-tamano-selector").addEventListener("change", actualizarPreview);
 
-// Llamar a la función para generar el preview inicial
-actualizarPreview();
 // Event listener para el botón de crear imagen compartible
 document.getElementById("btn-crear-imagen").addEventListener("click", crearImagenCompartible);
+
+// Inicializar el preview
+actualizarPreview();
