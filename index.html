@@ -19,20 +19,25 @@
                     <a class="nav-link" href="#">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Categorías</a>
+                    <a class="nav-link" href="categorias.html">Categorías</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="autores.html">Autores</a>
                 </li>
             </ul>
         </div>
     </nav>
-<h1>Frase del día</h1>
-        <p id="frase-del-dia" class="lead"></p>
-        <hr>
+
     <div class="container mt-5">
+        <h1>Frase del día</h1>
+        <p id="carrusel-frase" class="lead"></p> <!-- Ajustado para el id 'carrusel-frase' -->
+
+        <hr>
+
         <div class="form-group">
-    <input type="text" id="barra-busqueda" class="form-control" placeholder="Buscar por frase o autor">
-</div>
-<div id="resultados-busqueda" class="list-group"></div>
-        
+            <input type="text" id="busqueda" class="form-control" placeholder="Buscar por frase o autor"> <!-- Ajustado id a 'busqueda' -->
+        </div>
+        <div id="resultados-busqueda" class="list-group"></div>
 
         <h2>Categorías de Frases</h2>
         <ul id="categorias" class="list-group"></ul>
