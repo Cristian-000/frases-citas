@@ -83,30 +83,31 @@ function cargarFraseDelDia() {
     }
 }
 
-// Configurar la barra de búsqueda para filtrar frases
 function configurarBarraBusqueda() {
     const barraBusqueda = document.getElementById("barra-busqueda");
     const resultadosBusqueda = document.getElementById("resultados-busqueda");
 
     barraBusqueda.addEventListener("input", () => {
         const query = barraBusqueda.value.toLowerCase();
-        resultadosBusqueda.innerHTML = ""; // Limpiar resultados anteriores
+        resultadosBusqueda.innerHTML = "";
 
         if (query) {
             fetch('frases.json')
                 .then(response => response.json())
                 .then(data => {
-                    const frasesEncontradas = data.frases.filter(fraseObj => {
-                        return fraseObj.frase.toLowerCase().includes(query) || fraseObj.autor_url.toLowerCase().includes(query);
-                    });
+                    const frasesEncontradas = data.frases.filter(fraseObj => 
+                        fraseObj.frase.toLowerCase().includes(query) || fraseObj.autor_url.toLowerCase().includes(query)
+                    );
 
-                    // Mostrar resultados en la lista
                     frasesEncontradas.forEach(fraseObj => {
                         const li = document.createElement("a");
                         li.className = "list-group-item list-group-item-action";
                         li.innerHTML = `
                             <p>${fraseObj.frase}</p>
                             <small><a href="autor.html?autor=${fraseObj.autor_url}">${fraseObj.autor_url}</a></small>
+                            <div class="tags">
+                                ${fraseObj.categorias.map(categoria => `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-secondary">${categoria}</a>`).join(' ')}
+                            </div>
                         `;
                         resultadosBusqueda.appendChild(li);
                     });
@@ -116,37 +117,35 @@ function configurarBarraBusqueda() {
     });
 }
 
-// Cargar frases de la categoría seleccionada en categoria.html
 function cargarFrasesPorCategoria() {
-    return new Promise((resolve, reject) => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const categoriaSeleccionada = urlParams.get("categoria");
+    const urlParams = new URLSearchParams(window.location.search);
+    const categoriaSeleccionada = urlParams.get("categoria");
 
-        if (!categoriaSeleccionada) return resolve();
+    if (!categoriaSeleccionada) return;
 
-        document.getElementById("titulo-categoria").innerText = `Frases de ${categoriaSeleccionada}`;
-        fetch('frases.json')
-            .then(response => response.json())
-            .then(data => {
-                const listaFrases = document.getElementById("lista-frases");
-                data.frases.forEach(fraseObj => {
-                    if (fraseObj.categorias.includes(categoriaSeleccionada)) {
-                        const li = document.createElement("li");
-                        li.className = "list-group-item";
-                        li.innerHTML = `
-                            <p>${fraseObj.frase}</p>
-                            <small><a href="autor.html?autor=${fraseObj.autor_url}">${fraseObj.autor_url}</a></small>
-                        `;
-                        listaFrases.appendChild(li);
-                    }
-                });
-                resolve(); // Resolver la promesa al finalizar la carga
-            })
-            .catch(error => {
-                console.error("Error al cargar frases por categoría:", error);
-                reject(error); // Rechazar la promesa en caso de error
+    document.getElementById("titulo-categoria").innerText = `Frases de ${categoriaSeleccionada}`;
+    fetch('frases.json')
+        .then(response => response.json())
+        .then(data => {
+            const listaFrases = document.getElementById("lista-frases");
+            listaFrases.innerHTML = '';
+
+            data.frases.forEach(fraseObj => {
+                if (fraseObj.categorias.includes(categoriaSeleccionada)) {
+                    const li = document.createElement("li");
+                    li.className = "list-group-item";
+                    li.innerHTML = `
+                        <p>${fraseObj.frase}</p>
+                        <small><a href="autor.html?autor=${fraseObj.autor_url}">${fraseObj.autor_url}</a></small>
+                        <div class="tags">
+                            ${fraseObj.categorias.map(categoria => `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-secondary">${categoria}</a>`).join(' ')}
+                        </div>
+                    `;
+                    listaFrases.appendChild(li);
+                }
             });
-    });
+        })
+        .catch(error => console.error("Error al cargar frases por categoría:", error));
 }
 
 // Cargar información del autor en autor.html
