@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const promises = []; // Array para almacenar las promesas
+    const promises = [];
 
     if (document.getElementById("categorias")) {
         promises.push(cargarCategorias());
@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch(error => console.error("Error en la carga:", error));
 });
 
-// Cargar categorías de frases únicas a partir de frases.json
 function cargarCategorias() {
     return fetch('frases.json')
         .then(response => response.json())
@@ -27,12 +26,10 @@ function cargarCategorias() {
             const listaCategorias = document.getElementById("categorias");
             const categoriasUnicas = new Set();
 
-            // Extraer todas las categorías únicas
             data.frases.forEach(fraseObj => {
                 fraseObj.categorias.forEach(categoria => categoriasUnicas.add(categoria));
             });
 
-            // Crear la lista de categorías
             categoriasUnicas.forEach(categoria => {
                 const li = document.createElement("li");
                 li.className = "list-group-item";
@@ -42,19 +39,18 @@ function cargarCategorias() {
         })
         .catch(error => console.error("Error al cargar categorías:", error));
 }
-// Cargar una frase aleatoria del día
+
 function cargarFraseDelDia() {
     const today = new Date().toDateString();
     const storedDate = localStorage.getItem("fechaFraseDelDia");
-    const storedFrase = localStorage.getItem("fraseDelDia");
+    const storedFrase = JSON.parse(localStorage.getItem("fraseDelDia"));
 
     if (storedDate === today && storedFrase) {
-        const fraseObj = JSON.parse(storedFrase);
         document.getElementById("frase-del-dia").innerHTML = `
-            <p>${fraseObj.frase}</p>
+            <p>${storedFrase.frase}</p>
             <div>
-                <small><a href="autor.html?autor=${fraseObj.autor_url}">${fraseObj.autor_url}</a></small>
-                ${fraseObj.categorias.map(categoria => `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-secondary ml-2">${categoria}</a>`).join(' ')}
+                <small><a href="autor.html?autor=${storedFrase.autor_url}">${storedFrase.autor_url}</a></small>
+                ${storedFrase.categorias.map(categoria => `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-secondary ml-2">${categoria}</a>`).join(' ')}
             </div>
         `;
     } else {
@@ -77,7 +73,6 @@ function cargarFraseDelDia() {
     }
 }
 
-function configurarBarraBusqueda() {
 function configurarBarraBusqueda() {
     const barraBusqueda = document.getElementById("barra-busqueda");
     const resultadosBusqueda = document.getElementById("resultados-busqueda");
@@ -143,7 +138,6 @@ function cargarFrasesPorCategoria() {
         .catch(error => console.error("Error al cargar frases por categoría:", error));
 }
 
-// Cargar información del autor en autor.html
 function cargarAutor() {
     return new Promise((resolve, reject) => {
         const urlParams = new URLSearchParams(window.location.search);
@@ -156,6 +150,8 @@ function cargarAutor() {
             .then(response => response.json())
             .then(data => {
                 const listaFrases = document.getElementById("lista-frases");
+                listaFrases.innerHTML = '';
+
                 data.frases.forEach(fraseObj => {
                     if (fraseObj.autor_url === autorSeleccionado) {
                         const li = document.createElement("li");
@@ -164,11 +160,11 @@ function cargarAutor() {
                         listaFrases.appendChild(li);
                     }
                 });
-                resolve(); // Resolver la promesa al finalizar la carga
+                resolve();
             })
             .catch(error => {
                 console.error("Error al cargar frases del autor:", error);
-                reject(error); // Rechazar la promesa en caso de error
+                reject(error);
             });
     });
 }
