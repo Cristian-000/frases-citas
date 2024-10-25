@@ -18,9 +18,35 @@ h1 {
 .list-group-item a:hover {
     text-decoration: underline;
 }
-.tags {
-    margin-top: 10px;
-}
+
 .tags .badge {
-    margin-right: 5px;
+    margin-left: 5px;
+}
+/* Colores básicos para los tags */
+.badge-secondary {
+    background-color: #4CAF50; /* Color de fondo del tag */
+    color: #FFFFFF; /* Color de texto del tag */
+    font-weight: bold; /* Negrita en el texto */
+}
+
+/* Opciones de color adicionales para tags específicos */
+.badge-tag-1 {
+    background-color: #FF5733; /* Fondo naranja */
+    color: #FFFFFF;
+}
+
+.badge-tag-2 {
+    background-color: #007BFF; /* Fondo azul */
+    color: #FFFFFF;
+}
+
+.badge-tag-3 {
+    background-color: #FFC107; /* Fondo amarillo */
+    color: #333333; /* Texto oscuro */
+}
+
+/* Opcional: Hover para resaltar tags cuando el usuario pasa el cursor */
+.badge:hover {
+    opacity: 0.9;
+    cursor: pointer;
 }
