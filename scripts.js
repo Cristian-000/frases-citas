@@ -42,16 +42,45 @@ function cargarCategorias() {
         })
         .catch(error => console.error("Error al cargar categorías:", error));
 }
-
 // Cargar una frase aleatoria del día
 function cargarFraseDelDia() {
-    return fetch('frases.json')
-        .then(response => response.json())
-        .then(data => {
-            const fraseDelDia = data.frases[Math.floor(Math.random() * data.frases.length)];
-            document.getElementById("frase-del-dia").innerText = fraseDelDia.frase;
-        })
-        .catch(error => console.error("Error al cargar frase del día:", error));
+    const today = new Date().toDateString(); // Obtener la fecha actual en formato de cadena
+    const storedDate = localStorage.getItem("fechaFraseDelDia");
+    const storedFrase = localStorage.getItem("fraseDelDia");
+
+    if (storedDate === today && storedFrase) {
+        // Si la fecha almacenada es igual a la fecha de hoy, usar la frase almacenada
+        document.getElementById("frase-del-dia").innerHTML = `
+            ${storedFrase.frase} <br>
+            <small><a href="autor.html?autor=${storedFrase.autor_url}">${storedFrase.autor_url}</a></small>
+        `;
+    } else {
+        // Si no, cargar una nueva frase aleatoria
+        return fetch('frases.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error en la respuesta de la red: ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                const fraseDelDia = data.frases[Math.floor(Math.random() * data.frases.length)];
+                
+                // Almacenar la nueva frase y la fecha
+                localStorage.setItem("fraseDelDia", JSON.stringify({
+                    frase: fraseDelDia.frase,
+                    autor_url: fraseDelDia.autor_url
+                }));
+                localStorage.setItem("fechaFraseDelDia", today); // Almacenar la fecha
+
+                // Mostrar la nueva frase del día
+                document.getElementById("frase-del-dia").innerHTML = `
+                    ${fraseDelDia.frase} <br>
+                    <small><a href="autor.html?autor=${fraseDelDia.autor_url}">${fraseDelDia.autor_url}</a></small>
+                `;
+            })
+            .catch(error => console.error("Error al cargar frase del día:", error));
+    }
 }
 
 // Configurar la barra de búsqueda para filtrar frases
