@@ -1,17 +1,27 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const promises = []; // Array para almacenar las promesas
+
     if (document.getElementById("categorias")) {
-        cargarCategorias();
-        cargarFraseDelDia();
+        promises.push(cargarCategorias());
+        promises.push(cargarFraseDelDia());
         configurarBarraBusqueda();
     }
     if (document.getElementById("titulo-categoria")) {
-        cargarFrasesPorCategoria();
+        promises.push(cargarFrasesPorCategoria());
     }
+    if (document.getElementById("titulo-autor")) {
+        promises.push(cargarAutor());
+    }
+
+    // Esperar a que todas las promesas se resuelvan
+    Promise.all(promises)
+        .then(() => console.log("Carga completada"))
+        .catch(error => console.error("Error en la carga:", error));
 });
 
 // Cargar categorías de frases únicas a partir de frases.json
 function cargarCategorias() {
-    fetch('frases.json')
+    return fetch('frases.json')
         .then(response => response.json())
         .then(data => {
             const listaCategorias = document.getElementById("categorias");
@@ -35,7 +45,7 @@ function cargarCategorias() {
 
 // Cargar una frase aleatoria del día
 function cargarFraseDelDia() {
-    fetch('frases.json')
+    return fetch('frases.json')
         .then(response => response.json())
         .then(data => {
             const fraseDelDia = data.frases[Math.floor(Math.random() * data.frases.length)];
@@ -79,51 +89,63 @@ function configurarBarraBusqueda() {
 
 // Cargar frases de la categoría seleccionada en categoria.html
 function cargarFrasesPorCategoria() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const categoriaSeleccionada = urlParams.get("categoria");
+    return new Promise((resolve, reject) => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const categoriaSeleccionada = urlParams.get("categoria");
 
-    if (!categoriaSeleccionada) return;
+        if (!categoriaSeleccionada) return resolve();
 
-    document.getElementById("titulo-categoria").innerText = `Frases de ${categoriaSeleccionada}`;
-    fetch('frases.json')
-        .then(response => response.json())
-        .then(data => {
-            const listaFrases = document.getElementById("lista-frases");
-            data.frases.forEach(fraseObj => {
-                if (fraseObj.categorias.includes(categoriaSeleccionada)) {
-                    const li = document.createElement("li");
-                    li.className = "list-group-item";
-                    li.innerHTML = `
-                        <p>${fraseObj.frase}</p>
-                        <small><a href="autor.html?autor=${fraseObj.autor_url}">${fraseObj.autor_url}</a></small>
-                    `;
-                    listaFrases.appendChild(li);
-                }
+        document.getElementById("titulo-categoria").innerText = `Frases de ${categoriaSeleccionada}`;
+        fetch('frases.json')
+            .then(response => response.json())
+            .then(data => {
+                const listaFrases = document.getElementById("lista-frases");
+                data.frases.forEach(fraseObj => {
+                    if (fraseObj.categorias.includes(categoriaSeleccionada)) {
+                        const li = document.createElement("li");
+                        li.className = "list-group-item";
+                        li.innerHTML = `
+                            <p>${fraseObj.frase}</p>
+                            <small><a href="autor.html?autor=${fraseObj.autor_url}">${fraseObj.autor_url}</a></small>
+                        `;
+                        listaFrases.appendChild(li);
+                    }
+                });
+                resolve(); // Resolver la promesa al finalizar la carga
+            })
+            .catch(error => {
+                console.error("Error al cargar frases por categoría:", error);
+                reject(error); // Rechazar la promesa en caso de error
             });
-        })
-        .catch(error => console.error("Error al cargar frases por categoría:", error));
+    });
 }
 
 // Cargar información del autor en autor.html
 function cargarAutor() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const autorSeleccionado = urlParams.get("autor");
+    return new Promise((resolve, reject) => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const autorSeleccionado = urlParams.get("autor");
 
-    if (!autorSeleccionado) return;
+        if (!autorSeleccionado) return resolve();
 
-    document.getElementById("titulo-autor").innerText = `Frases de ${autorSeleccionado}`;
-    fetch('frases.json')
-        .then(response => response.json())
-        .then(data => {
-            const listaFrases = document.getElementById("lista-frases-autor");
-            data.frases.forEach(fraseObj => {
-                if (fraseObj.autor_url === autorSeleccionado) {
-                    const li = document.createElement("li");
-                    li.className = "list-group-item";
-                    li.innerHTML = `<p>${fraseObj.frase}</p>`;
-                    listaFrases.appendChild(li);
-                }
+        document.getElementById("titulo-autor").innerText = `Frases de ${autorSeleccionado}`;
+        fetch('frases.json')
+            .then(response => response.json())
+            .then(data => {
+                const listaFrases = document.getElementById("lista-frases");
+                data.frases.forEach(fraseObj => {
+                    if (fraseObj.autor_url === autorSeleccionado) {
+                        const li = document.createElement("li");
+                        li.className = "list-group-item";
+                        li.innerHTML = `<p>${fraseObj.frase}</p>`;
+                        listaFrases.appendChild(li);
+                    }
+                });
+                resolve(); // Resolver la promesa al finalizar la carga
+            })
+            .catch(error => {
+                console.error("Error al cargar frases del autor:", error);
+                reject(error); // Rechazar la promesa en caso de error
             });
-        })
-        .catch(error => console.error("Error al cargar frases del autor:", error));
+    });
 }
