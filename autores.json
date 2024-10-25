@@ -1,0 +1,29 @@
+{
+  "autores": [
+    {
+      "nombre": "Robert Collier",
+      "autor_url": "robert-collier",
+      "biografia": "Robert Collier fue un escritor y editor estadounidense conocido por sus libros sobre autoayuda y éxito personal."
+    },
+    {
+      "nombre": "Lou Holtz",
+      "autor_url": "lou-holtz",
+      "biografia": "Lou Holtz es un famoso entrenador de fútbol americano y orador motivacional."
+    },
+    {
+      "nombre": "Vidal Sassoon",
+      "autor_url": "vidal-sassoon",
+      "biografia": "Vidal Sassoon fue un renombrado peluquero británico y empresario, famoso por revolucionar la industria de la belleza."
+    },
+    {
+      "nombre": "Pablo Neruda",
+      "autor_url": "pablo-neruda",
+      "biografia": "Pablo Neruda fue un poeta chileno, considerado uno de los más grandes poetas del siglo XX."
+    },
+    {
+      "nombre": "Platón",
+      "autor_url": "platon",
+      "biografia": "Platón fue un filósofo griego, discípulo de Sócrates y maestro de Aristóteles, y fundó la Academia en Atenas."
+    }
+  ]
+}
