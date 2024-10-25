@@ -287,15 +287,14 @@ function generarImagenFrase(texto, colorTexto = '#000000', colorFondo = '#ffffff
 
     return canvas.toDataURL('image/png'); // Devuelve la imagen en formato base64
 }
-
-
 function crearImagenCompartible() {
     const textoImagen = `${fraseCompartir}\n- ${autorCompartir}`;
     const colorTexto = document.getElementById("color-selector").value; // Obtener el color de texto
     const colorFondo = document.getElementById("fondo-selector").value; // Obtener el color de fondo
     const fuente = document.getElementById("fuente-selector").value; // Obtener la fuente seleccionada
+    const tamanoFuente = document.getElementById("fuente-tamano-selector").value; // Obtener el tamaño de fuente
 
-    const imagenDataURL = generarImagenFrase(textoImagen, colorTexto, colorFondo, fuente);
+    const imagenDataURL = generarImagenFrase(textoImagen, colorTexto, colorFondo, fuente, tamanoFuente); // Pasar tamaño de fuente
 
     // Mostrar la vista previa
     const previewCanvas = document.getElementById("preview");
@@ -315,6 +314,7 @@ function crearImagenCompartible() {
     link.click(); // Simular un clic en el enlace
     document.body.removeChild(link); // Limpiar el DOM
 }
+
 function actualizarPreview() {
     const textoImagen = `${fraseCompartir}\n- ${autorCompartir}`;
     const colorTexto = document.getElementById("color-selector").value; // Obtener el color de texto
