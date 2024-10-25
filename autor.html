@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,13 +8,64 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="index.html">Frases Célebres</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="categorias.html">Categorías</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="autores.html">Autores</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
     <div class="container mt-5">
         <h1 id="titulo-autor"></h1>
         <ul id="lista-frases" class="list-group"></ul>
-        <a href="index.html" class="btn btn-primary mt-3">Volver</a>
     </div>
 
+    <!--prueba de canvas -->
+    <div id="opciones-compartir" style="display: none;">
+        <label for="color-selector">Color del Texto:</label>
+        <input type="color" id="color-selector" value="#000000" />
+        <input type="color" id="fondo-selector" value="#ffffff" />
+        <select id="fuente-selector">
+            <option value="Arial">Arial</option>
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Courier New">Courier New</option>
+        </select>
+        <label for="fuente-tamano-selector">Tamaño de Fuente:</label>
+        <select id="fuente-tamano-selector">
+            <option value="30">30px</option>
+            <option value="40" selected>40px</option>
+            <option value="50">50px</option>
+            <option value="60">60px</option>
+        </select>
+
+
+
+        <button id="btn-crear-imagen">Crear Imagen</button>
+        <br><br>
+        <canvas id="preview" width="400" height="800" style="border: 1px solid #000;"></canvas>
+
+
+    </div>
+
+
+
     <script src="scripts.js" defer></script>
+    <!--<script src="scriptCanvas.js" defer></script> -->
 </body>
+
 </html>
