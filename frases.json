@@ -1,48 +1,34 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Frases Célebres</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Frases Célebres</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="categorias.html">Categorías</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="autores.html">Autores</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <div class="container mt-5">
-        <h1>Frase del día</h1>
-        <p id="carrusel-frase" class="lead"></p> <!-- Ajustado para el id 'carrusel-frase' -->
-
-        <hr>
-
-        <div class="form-group">
-            <input type="text" id="busqueda" class="form-control" placeholder="Buscar por frase o autor"> <!-- Ajustado id a 'busqueda' -->
-        </div>
-        <div id="resultados-busqueda" class="list-group"></div>
-
-        <h2>Categorías de Frases</h2>
-        <ul id="categorias" class="list-group"></ul>
-    </div>
-
-    <script src="scripts.js" defer></script>
-</body>
-</html>
+{
+  "frases": [
+    {
+      "frase": "El éxito es la suma de pequeños esfuerzos repetidos día tras día.",
+      "autor_url": "robert-collier",
+      "categorias": ["Motivación", "Vida"]
+    },
+    {
+      "frase": "No es la carga lo que te derrota, sino la forma en que la llevas.",
+      "autor_url": "lou-holtz",
+      "categorias": ["Motivación"]
+    },
+    {
+      "frase": "El único lugar donde el éxito viene antes que el trabajo es en el diccionario.",
+      "autor_url": "vidal-sassoon",
+      "categorias": ["Motivación", "Trabajo"]
+    },
+    {
+      "frase": "El amor no se mira, se siente, y aún más cuando ella está junto a ti.",
+      "autor_url": "pablo-neruda",
+      "categorias": ["Amor"]
+    },
+    {
+      "frase": "El amor es tan corto y el olvido tan largo.",
+      "autor_url": "pablo-neruda",
+      "categorias": ["Amor", "Tristeza"]
+    },
+    {
+      "frase": "Donde reina el amor, sobran las leyes.",
+      "autor_url": "platon",
+      "categorias": ["Amor", "Filosofía"]
+    }
+  ]
+}
