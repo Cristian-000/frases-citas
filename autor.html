@@ -37,28 +37,37 @@
 
     <!--prueba de canvas -->
     <div id="opciones-compartir" style="display: none;">
-        <label for="color-selector">Color del Texto:</label>
-        <input type="color" id="color-selector" value="#000000" />
-        <input type="color" id="fondo-selector" value="#ffffff" />
-        <select id="fuente-selector">
-            <option value="Arial">Arial</option>
-            <option value="Times New Roman">Times New Roman</option>
-            <option value="Courier New">Courier New</option>
-        </select>
-        <label for="fuente-tamano-selector">Tamaño de Fuente:</label>
-        <select id="fuente-tamano-selector">
-            <option value="30">30px</option>
-            <option value="40" selected>40px</option>
-            <option value="50">50px</option>
-            <option value="60">60px</option>
-        </select>
+        <div>
+    <label>Color de Fondo:</label>
+    <input type="color" id="fondo-selector" value="#ffffff">
+</div>
 
+<div>
+    <label>Color de Texto:</label>
+    <input type="color" id="color-selector" value="#000000">
+</div>
 
+<div>
+    <label>Fuente:</label>
+    <select id="fuente-selector">
+        <option value="Dancing Script">Dancing Script</option>
+        <option value="Playfair Display">Playfair Display</option>
+        <option value="Roboto">Roboto</option>
+        <option value="Lora">Lora</option>
+    </select>
+</div>
 
-        <button id="btn-crear-imagen">Crear Imagen</button>
-        <br><br>
-        <canvas id="preview" width="400" height="800" style="border: 1px solid #000;"></canvas>
+<div>
+    <label>Tamaño de Texto:</label>
+    <input type="number" id="tamano-selector" value="40">
+</div>
 
+<div>
+    <button onclick="cambiarTextura()">Cambiar Textura</button>
+    <button onclick="crearImagenCompartible()">Crear Imagen Compartible</button>
+</div>
+
+<canvas id="preview" width="400" height="600"></canvas>
 
     </div>
 
