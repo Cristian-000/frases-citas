@@ -1,102 +1,34 @@
 {
-  "Motivación": [
+  "frases": [
     {
       "frase": "El éxito es la suma de pequeños esfuerzos repetidos día tras día.",
-      "autor": "Robert Collier",
       "autor_url": "robert-collier",
       "categorias": ["Motivación", "Vida"]
     },
     {
       "frase": "No es la carga lo que te derrota, sino la forma en que la llevas.",
-      "autor": "Lou Holtz",
       "autor_url": "lou-holtz",
       "categorias": ["Motivación"]
     },
     {
       "frase": "El único lugar donde el éxito viene antes que el trabajo es en el diccionario.",
-      "autor": "Vidal Sassoon",
       "autor_url": "vidal-sassoon",
       "categorias": ["Motivación", "Trabajo"]
-    }
-  ],
-  "Amor": [
+    },
     {
       "frase": "El amor no se mira, se siente, y aún más cuando ella está junto a ti.",
-      "autor": "Pablo Neruda",
       "autor_url": "pablo-neruda",
       "categorias": ["Amor"]
     },
     {
       "frase": "El amor es tan corto y el olvido tan largo.",
-      "autor": "Pablo Neruda",
       "autor_url": "pablo-neruda",
       "categorias": ["Amor", "Tristeza"]
     },
     {
       "frase": "Donde reina el amor, sobran las leyes.",
-      "autor": "Platón",
       "autor_url": "platon",
       "categorias": ["Amor", "Filosofía"]
-    }
-  ],
-  "Vida": [
-    {
-      "frase": "La vida es lo que pasa mientras estás ocupado haciendo otros planes.",
-      "autor": "John Lennon",
-      "autor_url": "john-lennon",
-      "categorias": ["Vida"]
-    },
-    {
-      "frase": "Vive como si fueras a morir mañana. Aprende como si fueras a vivir para siempre.",
-      "autor": "Mahatma Gandhi",
-      "autor_url": "mahatma-gandhi",
-      "categorias": ["Vida", "Motivación"]
-    },
-    {
-      "frase": "La vida es 10% lo que te ocurre y 90% cómo reaccionas ante ello.",
-      "autor": "Charles R. Swindoll",
-      "autor_url": "charles-swindoll",
-      "categorias": ["Vida", "Motivación"]
-    }
-  ],
-  "Muerte": [
-    {
-      "frase": "La muerte no es el mayor de los males.",
-      "autor": "Sócrates",
-      "autor_url": "socrates",
-      "categorias": ["Muerte", "Filosofía"]
-    },
-    {
-      "frase": "El miedo a la muerte nos impide vivir, no la muerte en sí.",
-      "autor": "Paul C. Roud",
-      "autor_url": "paul-roud",
-      "categorias": ["Muerte", "Reflexión"]
-    },
-    {
-      "frase": "Lo que damos por seguro, lo perderemos; lo que damos por perdido, lo encontraremos.",
-      "autor": "Haruki Murakami",
-      "autor_url": "haruki-murakami",
-      "categorias": ["Muerte", "Vida"]
-    }
-  ],
-  "Cotidianas": [
-    {
-      "frase": "La mejor manera de predecir el futuro es creándolo.",
-      "autor": "Peter Drucker",
-      "autor_url": "peter-drucker",
-      "categorias": ["Cotidianas", "Motivación"]
-    },
-    {
-      "frase": "La felicidad no es algo hecho. Proviene de tus propias acciones.",
-      "autor": "Dalai Lama",
-      "autor_url": "dalai-lama",
-      "categorias": ["Cotidianas", "Vida"]
-    },
-    {
-      "frase": "El día que te encuentres a ti mismo, comenzarás a vivir realmente.",
-      "autor": "Oscar Wilde",
-      "autor_url": "oscar-wilde",
-      "categorias": ["Cotidianas", "Reflexión"]
     }
   ]
 }
