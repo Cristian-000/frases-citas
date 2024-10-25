@@ -44,45 +44,40 @@ function cargarCategorias() {
 }
 // Cargar una frase aleatoria del día
 function cargarFraseDelDia() {
-    const today = new Date().toDateString(); // Obtener la fecha actual en formato de cadena
+    const today = new Date().toDateString();
     const storedDate = localStorage.getItem("fechaFraseDelDia");
     const storedFrase = localStorage.getItem("fraseDelDia");
 
     if (storedDate === today && storedFrase) {
-        // Si la fecha almacenada es igual a la fecha de hoy, usar la frase almacenada
+        const fraseObj = JSON.parse(storedFrase);
         document.getElementById("frase-del-dia").innerHTML = `
-            ${storedFrase.frase} <br>
-            <small><a href="autor.html?autor=${storedFrase.autor_url}">${storedFrase.autor_url}</a></small>
+            <p>${fraseObj.frase}</p>
+            <div>
+                <small><a href="autor.html?autor=${fraseObj.autor_url}">${fraseObj.autor_url}</a></small>
+                ${fraseObj.categorias.map(categoria => `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-secondary ml-2">${categoria}</a>`).join(' ')}
+            </div>
         `;
     } else {
-        // Si no, cargar una nueva frase aleatoria
         return fetch('frases.json')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Error en la respuesta de la red: ' + response.statusText);
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
                 const fraseDelDia = data.frases[Math.floor(Math.random() * data.frases.length)];
-                
-                // Almacenar la nueva frase y la fecha
-                localStorage.setItem("fraseDelDia", JSON.stringify({
-                    frase: fraseDelDia.frase,
-                    autor_url: fraseDelDia.autor_url
-                }));
-                localStorage.setItem("fechaFraseDelDia", today); // Almacenar la fecha
+                localStorage.setItem("fraseDelDia", JSON.stringify(fraseDelDia));
+                localStorage.setItem("fechaFraseDelDia", today);
 
-                // Mostrar la nueva frase del día
                 document.getElementById("frase-del-dia").innerHTML = `
-                    ${fraseDelDia.frase} <br>
-                    <small><a href="autor.html?autor=${fraseDelDia.autor_url}">${fraseDelDia.autor_url}</a></small>
+                    <p>${fraseDelDia.frase}</p>
+                    <div>
+                        <small><a href="autor.html?autor=${fraseDelDia.autor_url}">${fraseDelDia.autor_url}</a></small>
+                        ${fraseDelDia.categorias.map(categoria => `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-secondary ml-2">${categoria}</a>`).join(' ')}
+                    </div>
                 `;
             })
             .catch(error => console.error("Error al cargar frase del día:", error));
     }
 }
 
+function configurarBarraBusqueda() {
 function configurarBarraBusqueda() {
     const barraBusqueda = document.getElementById("barra-busqueda");
     const resultadosBusqueda = document.getElementById("resultados-busqueda");
@@ -104,9 +99,9 @@ function configurarBarraBusqueda() {
                         li.className = "list-group-item list-group-item-action";
                         li.innerHTML = `
                             <p>${fraseObj.frase}</p>
-                            <small><a href="autor.html?autor=${fraseObj.autor_url}">${fraseObj.autor_url}</a></small>
-                            <div class="tags">
-                                ${fraseObj.categorias.map(categoria => `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-secondary">${categoria}</a>`).join(' ')}
+                            <div>
+                                <small><a href="autor.html?autor=${fraseObj.autor_url}">${fraseObj.autor_url}</a></small>
+                                ${fraseObj.categorias.map(categoria => `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-secondary ml-2">${categoria}</a>`).join(' ')}
                             </div>
                         `;
                         resultadosBusqueda.appendChild(li);
@@ -136,9 +131,9 @@ function cargarFrasesPorCategoria() {
                     li.className = "list-group-item";
                     li.innerHTML = `
                         <p>${fraseObj.frase}</p>
-                        <small><a href="autor.html?autor=${fraseObj.autor_url}">${fraseObj.autor_url}</a></small>
-                        <div class="tags">
-                            ${fraseObj.categorias.map(categoria => `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-secondary">${categoria}</a>`).join(' ')}
+                        <div>
+                            <small><a href="autor.html?autor=${fraseObj.autor_url}">${fraseObj.autor_url}</a></small>
+                            ${fraseObj.categorias.map(categoria => `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-secondary ml-2">${categoria}</a>`).join(' ')}
                         </div>
                     `;
                     listaFrases.appendChild(li);
