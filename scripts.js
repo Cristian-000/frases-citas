@@ -228,7 +228,7 @@ function cargarAutor() {
 const texturas = [
     "https://www.example.com/textura1.png",
     "https://www.example.com/textura2.png",
-    "https://www.example.com/textura3.png"
+    "pngkey.com-fancy-border-png-71261.png"
 ];
 
 // Marca de agua personalizada
