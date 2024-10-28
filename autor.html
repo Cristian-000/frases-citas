@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="index.html">Frases Célebres</a>
@@ -33,8 +35,10 @@
         <ul id="lista-frases" class="list-group"></ul>
     </div>
 
+
     <!-- Opciones para personalizar la imagen compartible -->
     <div id="opciones-compartir" style="display: none;">
+
         <div>
             <label>Color de Fondo:</label>
             <input type="color" id="fondo-selector" value="#ffffff">
@@ -58,11 +62,15 @@
         </div>
         <div>
             <button onclick="cambiarTextura()">Cambiar Textura</button>
-            <button id="crear-imagen-compartible">Crear Imagen Compartible</button>
+            <button id="crear-imagen-compartible">Descargar</button>
+
+            <button id="compartir-imagen">Compartir</button>
+
         </div>
         <canvas id="preview" width="400" height="600"></canvas>
     </div>
 
     <script src="compartirImagenAutor.js" defer></script>
 </body>
+
 </html>

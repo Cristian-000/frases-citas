@@ -9,6 +9,18 @@ document.addEventListener("DOMContentLoaded", () => {
     Promise.all(promises)
         .then(() => console.log("Carga completada"))
         .catch(error => console.error("Error en la carga:", error));
+
+    // Event listeners para actualizar el preview en tiempo real
+    document.getElementById("fondo-selector").addEventListener("change", actualizarPreview);
+    document.getElementById("color-selector").addEventListener("change", actualizarPreview);
+    document.getElementById("tamano-selector").addEventListener("input", actualizarPreview);
+    document.getElementById("fuente-selector").addEventListener("change", actualizarPreview);
+
+     // Event listener para el botón de crear imagen compartible
+     document.getElementById("crear-imagen-compartible").addEventListener("click", crearImagenCompartible);
+
+    document.getElementById("compartir-imagen").addEventListener("click", compartirImagen);
+
 });
 
 function cargarAutor() {
@@ -70,23 +82,70 @@ function actualizarPreview() {
     const canvas = document.getElementById("preview");
     const ctx = canvas.getContext("2d");
 
+    // Limpiar el canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Configuración del fondo
     ctx.fillStyle = document.getElementById("fondo-selector").value;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+    // Cargar y dibujar la textura
     const texturaImg = new Image();
     texturaImg.src = texturas[0];
     texturaImg.onload = () => {
         ctx.drawImage(texturaImg, 0, 0, canvas.width, canvas.height);
 
+        // Configuración de texto
+        const fontSize = document.getElementById("tamano-selector").value;
+        const fontFamily = document.getElementById("fuente-selector").value;
         ctx.fillStyle = document.getElementById("color-selector").value;
-        ctx.font = `${document.getElementById("tamano-selector").value}px ${document.getElementById("fuente-selector").value}`;
+        ctx.font = `${fontSize}px ${fontFamily}`;
         ctx.textAlign = "center";
-        ctx.fillText(fraseCompartir, canvas.width / 2, canvas.height / 2);
-        ctx.fillText(`- ${autorCompartir}`, canvas.width / 2, canvas.height / 2 + 40);
 
+        // Definir margen
+        const margen = 20;
+        const maxAnchoTexto = canvas.width - margen * 2; // Ancho máximo de la frase dentro del canvas
+
+        // Dividir la frase en líneas si excede el ancho del canvas
+        const fraseLineas = dividirTexto(ctx, fraseCompartir, maxAnchoTexto);
+
+        // Posición inicial de la frase (ajustada según el número de líneas)
+        let posicionY = (canvas.height - (fraseLineas.length * parseInt(fontSize))) / 2;
+
+        // Dibujar cada línea de la frase dentro del margen
+        fraseLineas.forEach(linea => {
+            ctx.fillText(linea, canvas.width / 2, posicionY);
+            posicionY += parseInt(fontSize) + 5; // Incrementar la posición para la siguiente línea
+        });
+
+        // Dibujar el autor debajo de la frase
+        ctx.fillText(`- ${autorCompartir}`, canvas.width / 2, posicionY + 20);
+
+        // Dibujar marca de agua
         ctx.font = "12px Arial";
         ctx.fillText(marcaAgua, canvas.width - 50, canvas.height - 10);
     };
+}
+
+// Función para dividir el texto en líneas dentro del ancho máximo
+function dividirTexto(ctx, texto, maxAncho) {
+    const palabras = texto.split(" ");
+    const lineas = [];
+    let linea = "";
+
+    palabras.forEach(palabra => {
+        const lineaPrueba = linea + palabra + " ";
+        const anchoPrueba = ctx.measureText(lineaPrueba).width;
+        if (anchoPrueba > maxAncho && linea !== "") {
+            lineas.push(linea);
+            linea = palabra + " ";
+        } else {
+            linea = lineaPrueba;
+        }
+    });
+    lineas.push(linea.trim()); // Añadir la última línea
+
+    return lineas;
 }
 
 function cambiarTextura() {
@@ -98,7 +157,27 @@ function cambiarTextura() {
 function crearImagenCompartible() {
     const canvas = document.getElementById("preview");
     const enlace = document.createElement("a");
-    enlace.href = canvas.toDataURL();
+    enlace.href = canvas.toDataURL("image/png"); // Especificar el formato
     enlace.download = "frase_compartible.png";
     enlace.click();
+}// Guarda el canvas como imagen
+
+
+
+function compartirImagen() {
+    const canvas = document.getElementById("preview");
+    canvas.toBlob(blob => {
+        const archivoImagen = new File([blob], "frase_compartible.png", { type: "image/png" });
+        
+        if (navigator.canShare && navigator.canShare({ files: [archivoImagen] })) {
+            navigator.share({
+                files: [archivoImagen],
+                title: 'Frase Compartible',
+                text: '¡Mira esta frase!',
+            }).then(() => console.log('Imagen compartida exitosamente'))
+            .catch(error => console.error('Error al compartir:', error));
+        } else {
+            alert("La funcionalidad de compartir no está disponible en este dispositivo.");
+        }
+    });
 }
