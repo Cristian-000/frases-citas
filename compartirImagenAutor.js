@@ -60,9 +60,9 @@ function setFraseParaCompartir(frase, autor) {
 }
 
 const texturas = [
-    "textura1.png",
-    "textura2.png",
-    "textura3.png"
+    "—Pngtree—simple border png material_4484003.png",
+    "pngkey.com-fancy-border-png-71261.png",
+    "pngkey.com-fancy-border-png-71261.png"
 ];
 const marcaAgua = 'Tu Marca de Agua';
 
