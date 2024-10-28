@@ -223,95 +223,28 @@ function cargarAutor() {
     });
 }
 
-// Variables globales para compartir
-const marcaAgua = 'TuPáginaWeb.com'; // Variable para la marca de agua
-let fraseCompartir = "Tu frase aquí"; // Frase de ejemplo
-let autorCompartir = "Autor aquí"; // Autor de ejemplo
-
-function setFraseParaCompartir(frase, autor) {
-    fraseCompartir = frase;
-    autorCompartir = autor;
-    mostrarOpcionesCompartir();
-}
-
-function mostrarOpcionesCompartir() {
-    const opcionesDiv = document.getElementById("opciones-compartir");
-    opcionesDiv.style.display = "block"; // Muestra el contenedor de opciones
-}
-
-function generarImagenFrase(texto, colorTexto = '#000000', colorFondo = '#ffffff', fuente = 'Arial', tamanoFuente = '40') {
-    const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d');
-
-    // Configura el tamaño del canvas (vertical)
-    canvas.width = 400;
-    canvas.height = 800;
-
-    // Configura el fondo
-    context.fillStyle = colorFondo;
-    context.fillRect(0, 0, canvas.width, canvas.height);
-
-    // Configura el estilo de la fuente
-    context.font = `${tamanoFuente}px ${fuente}`; // Tamaño de fuente desde el selector
-    context.fillStyle = colorTexto;
-    context.textAlign = 'center';
-    context.textBaseline = 'middle';
-
-    // Dibuja el texto en el canvas
-    const lineHeight = parseInt(tamanoFuente) * 1.2; // Ajuste de la altura de línea
-    const words = texto.split(" ");
-    let line = "";
-    let y = canvas.height / 2 - (lineHeight * (Math.ceil(words.length / 2))) / 2; // Centrar verticalmente
-
-    // Ajuste para evitar que el texto se salga del canvas
-    for (let i = 0; i < words.length; i++) {
-        const testLine = line + words[i] + " ";
-        const metrics = context.measureText(testLine);
-        const testWidth = metrics.width;
-
-        if (testWidth > canvas.width && line) {
-            context.fillText(line, canvas.width / 2, y);
-            line = words[i] + " ";
-            y += lineHeight;
-        } else {
-            line = testLine;
-        }
-    }
-    context.fillText(line, canvas.width / 2, y); // Última línea
-
-    // Agregar la marca de agua
-    context.font = '20px Arial';
-    context.fillStyle = 'rgba(0, 0, 0, 0.1)'; // Color con opacidad para la marca de agua
-    context.textAlign = 'center';
-    context.fillText(marcaAgua, canvas.width / 2, canvas.height - 30); // Posición de la marca de agua
-
-    return canvas.toDataURL('image/png'); // Devuelve la imagen en formato base64
-}
-function crearImagenCompartible() {
-    const textoImagen = `${fraseCompartir}\n- ${autorCompartir}`;
-    const colorTexto = document.getElementById("color-selector").value; // Obtener el color de texto
-    const colorFondo = document.getElementById("fondo-selector").value; // Obtener el color de fondo
-    const fuente = document.getElementById("fuente-selector").value; // Obtener la fuente seleccionada
-    const tamanoFuente = document.getElementById("fuente-tamano-selector").value; // Obtener el tamaño de fuente
-
-    // Opciones de textura
+// imagen preview y demás
+// Opciones de textura de fondo
 const texturas = [
-    "https://www.transparenttextures.com/patterns/asfalt-dark.png",
-    "https://www.transparenttextures.com/patterns/paper.png",
-    "https://www.transparenttextures.com/patterns/linen.png",
-    "https://www.transparenttextures.com/patterns/wood-pattern.png",
-    "https://www.transparenttextures.com/patterns/diagonal-stripes.png"
+    "https://www.example.com/textura1.png",
+    "https://www.example.com/textura2.png",
+    "https://www.example.com/textura3.png"
 ];
 
+// Marca de agua personalizada
+const marcaAgua = 'Tu Marca de Agua';
 
 function actualizarPreview() {
     const textoImagen = `${fraseCompartir}\n- ${autorCompartir}`;
-    const colorTexto = document.getElementById("color-selector").value; // Obtener el color de texto
-    const colorFondo = document.getElementById("fondo-selector").value; // Obtener el color de fondo
-    const fuente = document.getElementById("fuente-selector").value; // Obtener la fuente seleccionada
-    const tamanoFuente = parseInt(document.getElementById("fuente-tamano-selector").value); // Tamaño de fuente
+    const colorTexto = document.getElementById("color-selector").value;
+    const colorFondo = document.getElementById("fondo-selector").value;
+    const fuente = document.getElementById("fuente-selector").value;
+    const tamanoFuente = parseInt(document.getElementById("fuente-tamano-selector").value);
+    const borde = document.getElementById("borde-selector").value;
+    const sombra = document.getElementById("sombra-selector").checked;
+    const gradienteFondo = document.getElementById("gradiente-selector").checked;
 
-    const imagenDataURL = generarImagenFrase(textoImagen, colorTexto, colorFondo, fuente, tamanoFuente);
+    const imagenDataURL = generarImagenFrase(textoImagen, colorTexto, colorFondo, fuente, tamanoFuente, borde, sombra, gradienteFondo);
 
     // Mostrar la vista previa
     const previewCanvas = document.getElementById("preview");
@@ -324,64 +257,82 @@ function actualizarPreview() {
     img.src = imagenDataURL;
 }
 
-// Cambiar textura al azar y aplicarla al preview
-function cambiarTextura() {
-    const canvas = document.getElementById("preview");
-    const ctx = canvas.getContext("2d");
-    const textura = new Image();
-    textura.src = texturas[Math.floor(Math.random() * texturas.length)];
-    textura.onload = () => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(textura, 0, 0, canvas.width, canvas.height);
-        actualizarPreview();
-    };
-}
-
-// Generar imagen con frase y aplicar textura, color de fondo, y estilo de texto
-function generarImagenFrase(texto, colorTexto, colorFondo, fuente, tamanoFuente) {
+function generarImagenFrase(texto, colorTexto, colorFondo, fuente, tamanoFuente, borde, sombra, gradienteFondo) {
     const canvas = document.createElement("canvas");
     canvas.width = 800;
     canvas.height = 1200;
     const ctx = canvas.getContext("2d");
 
-    // Fondo con color o textura
-    const textura = new Image();
-    textura.src = texturas[Math.floor(Math.random() * texturas.length)];
-    ctx.fillStyle = colorFondo;
+    // Fondo con gradiente o textura
+    if (gradienteFondo) {
+        const gradiente = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        gradiente.addColorStop(0, colorFondo);
+        gradiente.addColorStop(1, "#FFFFFF"); // Cambia el color final del gradiente si lo deseas
+        ctx.fillStyle = gradiente;
+    } else {
+        ctx.fillStyle = colorFondo;
+    }
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    textura.onload = () => {
-        ctx.drawImage(textura, 0, 0, canvas.width, canvas.height);
+    // Fondo con textura si no se usa gradiente
+    if (!gradienteFondo) {
+        const textura = new Image();
+        textura.src = texturas[Math.floor(Math.random() * texturas.length)];
+        textura.onload = () => {
+            ctx.globalAlpha = 0.3; // Ajustar transparencia de la textura
+            ctx.drawImage(textura, 0, 0, canvas.width, canvas.height);
+            ctx.globalAlpha = 1.0;
+        };
+    }
 
-        // Configurar el texto principal
-        ctx.font = `${tamanoFuente}px ${fuente}`;
-        ctx.fillStyle = colorTexto;
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
+    // Configuración de borde
+    if (borde !== 'none') {
+        ctx.lineWidth = 10;
+        ctx.strokeStyle = borde;
+        ctx.strokeRect(0, 0, canvas.width, canvas.height);
+    }
 
-        const lineasTexto = texto.split("\n");
-        lineasTexto.forEach((linea, index) => {
-            ctx.fillText(linea, canvas.width / 2, canvas.height / 2 + index * (tamanoFuente + 10));
-        });
+    // Sombra de texto
+    if (sombra) {
+        ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
+        ctx.shadowOffsetX = 4;
+        ctx.shadowOffsetY = 4;
+        ctx.shadowBlur = 10;
+    }
 
-        // Marca de agua
-        ctx.font = "20px Arial";
-        ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
-        ctx.fillText(marcaAgua, canvas.width - 100, canvas.height - 30);
-    };
+    // Configuración de texto
+    ctx.font = `${tamanoFuente}px ${fuente}`;
+    ctx.fillStyle = colorTexto;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+
+    const lineasTexto = texto.split("\n");
+    lineasTexto.forEach((linea, index) => {
+        ctx.fillText(linea, canvas.width / 2, canvas.height / 2 + index * (tamanoFuente + 10));
+    });
+
+    // Marca de agua
+    ctx.font = "20px Arial";
+    ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
+    ctx.fillText(marcaAgua, canvas.width - 100, canvas.height - 30);
 
     return canvas.toDataURL("image/png");
 }
 
-// Crear la imagen final descargable
 function crearImagenCompartible() {
+    const fraseCompartir = "Tu frase aquí";
+    const autorCompartir = "Autor";
     const textoImagen = `${fraseCompartir}\n- ${autorCompartir}`;
+
     const colorTexto = document.getElementById("color-selector").value;
     const colorFondo = document.getElementById("fondo-selector").value;
     const fuente = document.getElementById("fuente-selector").value;
     const tamanoFuente = parseInt(document.getElementById("fuente-tamano-selector").value);
+    const borde = document.getElementById("borde-selector").value;
+    const sombra = document.getElementById("sombra-selector").checked;
+    const gradienteFondo = document.getElementById("gradiente-selector").checked;
 
-    const imagenDataURL = generarImagenFrase(textoImagen, colorTexto, colorFondo, fuente, tamanoFuente);
+    const imagenDataURL = generarImagenFrase(textoImagen, colorTexto, colorFondo, fuente, tamanoFuente, borde, sombra, gradienteFondo);
 
     // Generar preview de la imagen
     const previewCanvas = document.getElementById("preview");
@@ -402,11 +353,14 @@ function crearImagenCompartible() {
     document.body.removeChild(link);
 }
 
-// Event listeners para los selectores de estilo y fondo
+// Event listeners para actualizaciones en tiempo real
 document.getElementById("color-selector").addEventListener("input", actualizarPreview);
 document.getElementById("fondo-selector").addEventListener("input", actualizarPreview);
 document.getElementById("fuente-selector").addEventListener("change", actualizarPreview);
 document.getElementById("fuente-tamano-selector").addEventListener("change", actualizarPreview);
+document.getElementById("borde-selector").addEventListener("change", actualizarPreview);
+document.getElementById("sombra-selector").addEventListener("change", actualizarPreview);
+document.getElementById("gradiente-selector").addEventListener("change", actualizarPreview);
 
 // Event listener para el botón de crear imagen compartible
 document.getElementById("btn-crear-imagen").addEventListener("click", crearImagenCompartible);
