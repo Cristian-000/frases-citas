@@ -226,8 +226,8 @@ function cargarAutor() {
 // imagen preview y demás
 // Opciones de textura de fondo
 const texturas = [
-    "https://www.example.com/textura1.png",
-    "https://www.example.com/textura2.png",
+    "—Pngtree—simple border png material_4484003.png",
+    "/—Pngtree—simple border png material_4484003.png",
     "pngkey.com-fancy-border-png-71261.png"
 ];
 
