@@ -223,7 +223,7 @@ function cargarAutor() {
     });
 }
 
-//* imagen preview y demás
+/* imagen preview y demás
 // Opciones de textura de fondo
 const texturas = [
     "—Pngtree—simple border png material_4484003.png",
@@ -367,4 +367,4 @@ document.getElementById("btn-crear-imagen").addEventListener("click", crearImage
 
 // Inicializar el preview
 actualizarPreview();
-*//
+*/
