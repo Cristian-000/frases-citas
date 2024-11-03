@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Frases por Autor</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="index.html">Frases Célebres</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -30,63 +30,114 @@
             </ul>
         </div>
     </nav>
+
+    <!-- Contenedor principal -->
     <div class="container mt-5">
         <h1 id="titulo-autor"></h1>
         <ul id="lista-frases" class="list-group"></ul>
     </div>
 
+    <!-- Barra de opciones de personalización -->
+    <div id="barra-opciones" class="d-flex overflow-auto" style="padding: 1em; background-color: #f5f5f5;">
+        <!-- Cada opción con íconos de FontAwesome y minipaneles -->
+        <div class="opcion mx-2">
+            <i class="fas fa-palette" onclick="togglePanel('color-panel')"></i>
+            <div id="color-panel" class="panel">
+                <label>Color de Fondo:</label>
+                <input type="color" id="fondo-selector" value="#ffffff">
+            </div>
+        </div>
+        <div class="opcion mx-2">
+            <i class="fas fa-font" onclick="togglePanel('texto-panel')"></i>
+            <div id="texto-panel" class="panel">
+                <label>Color de Texto:</label>
+                <input type="color" id="color-selector" value="#000000">
+            </div>
+        </div>
+        <div class="opcion mx-2">
+            <i class="fas fa-text-height" onclick="togglePanel('tamano-panel')"></i>
+            <div id="tamano-panel" class="panel">
+                <label>Tamaño de Texto:</label>
+                <input type="number" id="tamano-selector" value="40">
+            </div>
+        </div>
+        <div class="opcion mx-2">
+            <i class="fas fa-font" onclick="togglePanel('fuente-panel')"></i>
+            <div id="fuente-panel" class="panel">
+                <label>Fuente:</label>
+                <select id="fuente-selector">
+                    <option value="Dancing Script">Dancing Script</option>
+                    <option value="Playfair Display">Playfair Display</option>
+                    <option value="Roboto">Roboto</option>
+                    <option value="Lora">Lora</option>
+                </select>
+            </div>
+        </div>
+        <div class="opcion mx-2">
+            <i class="fas fa-sync-alt" onclick="togglePanel('rotacion-panel')"></i>
+            <div id="rotacion-panel" class="panel">
+                <label>Rotación:</label>
+                <input type="range" id="rotacion-selector" min="-30" max="30" value="0">
+            </div>
+        </div>
+    </div>
 
-    <!-- Opciones para personalizar la imagen compartible -->
-    <div id="opciones-compartir" style="display: none;">
-
-<div>
-    <label>Grosor del Borde:</label>
-    <input type="number" id="borde-grosor-selector" value="5" min="0" max="20">
-</div>
-<div>
-    <label>Color del Borde:</label>
-    <input type="color" id="borde-color-selector" value="#000000">
-</div>
-<div>
-    <label>Opacidad de Fondo:</label>
-    <input type="range" id="opacidad-selector" min="0" max="1" step="0.1" value="1">
-</div>
-<div>
-    <label>Rotación de Texto (grados):</label>
-    <input type="number" id="rotacion-selector" value="0" min="-180" max="180">
-</div>
-        <div>
-            <label>Color de Fondo:</label>
-            <input type="color" id="fondo-selector" value="#ffffff">
-        </div>
-        <div>
-            <label>Color de Texto:</label>
-            <input type="color" id="color-selector" value="#000000">
-        </div>
-        <div>
-            <label>Fuente:</label>
-            <select id="fuente-selector">
-                <option value="Dancing Script">Dancing Script</option>
-                <option value="Playfair Display">Playfair Display</option>
-                <option value="Roboto">Roboto</option>
-                <option value="Lora">Lora</option>
-            </select>
-        </div>
-        <div>
-            <label>Tamaño de Texto:</label>
-            <input type="number" id="tamano-selector" value="40">
-        </div>
-        <div>
-            <button onclick="cambiarTextura()">Cambiar Textura</button>
-            <button id="crear-imagen-compartible">Descargar</button>
-
-            <button id="compartir-imagen">Compartir</button>
-
-        </div>
+    <!-- Preview de la imagen compartible -->
+    <div class="container mt-3 text-center">
         <canvas id="preview" width="400" height="600"></canvas>
     </div>
 
-    <script src="compartirImagenAutor.js" defer></script>
-</body>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const elementosPersonalizacion = [
+                "fondo-selector", "color-selector", "tamano-selector", 
+                "fuente-selector", "rotacion-selector"
+            ];
+            
+            elementosPersonalizacion.forEach(id => {
+                document.getElementById(id).addEventListener("input", actualizarPreview);
+            });
+        });
 
+        function actualizarPreview() {
+            const canvas = document.getElementById("preview");
+            const ctx = canvas.getContext("2d");
+
+            // Limpiar el canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Configuración del fondo
+            ctx.fillStyle = document.getElementById("fondo-selector").value;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Rotación
+            const rotacion = document.getElementById("rotacion-selector").value;
+            ctx.save();
+            ctx.translate(canvas.width / 2, canvas.height / 2);
+            ctx.rotate((rotacion * Math.PI) / 180);
+            ctx.translate(-canvas.width / 2, -canvas.height / 2);
+
+            // Configuración de texto
+            const fontSize = document.getElementById("tamano-selector").value;
+            const fontFamily = document.getElementById("fuente-selector").value;
+            ctx.fillStyle = document.getElementById("color-selector").value;
+            ctx.font = `${fontSize}px ${fontFamily}`;
+            ctx.textAlign = "center";
+
+            // Dibujar frase y autor
+            ctx.fillText(fraseCompartir, canvas.width / 2, canvas.height / 2);
+            ctx.fillText(`- ${autorCompartir}`, canvas.width / 2, canvas.height / 2 + 40);
+
+            ctx.restore(); // Restaurar para cancelar la rotación
+        }
+
+        function togglePanel(panelId) {
+            document.querySelectorAll('.panel').forEach(panel => panel.style.display = 'none');
+            const panel = document.getElementById(panelId);
+            if (panel) {
+                panel.style.display = 'block';
+            }
+        }
+    </script>
+</body>
 </html>
