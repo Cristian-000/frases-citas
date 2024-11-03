@@ -85,15 +85,26 @@ function actualizarPreview() {
     // Limpiar el canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Configuración del fondo
-    ctx.fillStyle = document.getElementById("fondo-selector").value;
+    // Configuración de fondo con opacidad
+    const fondoColor = document.getElementById("fondo-selector").value;
+    const opacidad = document.getElementById("opacidad-selector").value;
+    ctx.globalAlpha = opacidad;
+    ctx.fillStyle = fondoColor;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.globalAlpha = 1;  // Resetear la opacidad para el resto
 
-    // Cargar y dibujar la textura
+    // Cargar y dibujar textura (opcional)
     const texturaImg = new Image();
     texturaImg.src = texturas[0];
     texturaImg.onload = () => {
         ctx.drawImage(texturaImg, 0, 0, canvas.width, canvas.height);
+
+        // Configuración de borde
+        const bordeGrosor = document.getElementById("borde-grosor-selector").value;
+        const bordeColor = document.getElementById("borde-color-selector").value;
+        ctx.lineWidth = bordeGrosor;
+        ctx.strokeStyle = bordeColor;
+        ctx.strokeRect(0, 0, canvas.width, canvas.height);
 
         // Configuración de texto
         const fontSize = document.getElementById("tamano-selector").value;
@@ -102,26 +113,25 @@ function actualizarPreview() {
         ctx.font = `${fontSize}px ${fontFamily}`;
         ctx.textAlign = "center";
 
-        // Definir margen
-        const margen = 20;
-        const maxAnchoTexto = canvas.width - margen * 2; // Ancho máximo de la frase dentro del canvas
+        // Aplicar rotación de texto
+        const rotacion = document.getElementById("rotacion-selector").value;
+        ctx.save(); // Guardar el estado antes de rotar
+        ctx.translate(canvas.width / 2, canvas.height / 2);
+        ctx.rotate(rotacion * Math.PI / 180);
 
-        // Dividir la frase en líneas si excede el ancho del canvas
+        // Dibujar texto y autor
+        const maxAnchoTexto = canvas.width - 40;
         const fraseLineas = dividirTexto(ctx, fraseCompartir, maxAnchoTexto);
+        let posicionY = -((fraseLineas.length - 1) * parseInt(fontSize) / 2);
 
-        // Posición inicial de la frase (ajustada según el número de líneas)
-        let posicionY = (canvas.height - (fraseLineas.length * parseInt(fontSize))) / 2;
-
-        // Dibujar cada línea de la frase dentro del margen
         fraseLineas.forEach(linea => {
-            ctx.fillText(linea, canvas.width / 2, posicionY);
-            posicionY += parseInt(fontSize) + 5; // Incrementar la posición para la siguiente línea
+            ctx.fillText(linea, 0, posicionY);
+            posicionY += parseInt(fontSize) + 5;
         });
+        ctx.fillText(`- ${autorCompartir}`, 0, posicionY + 20);
+        ctx.restore(); // Restaurar el estado para que no afecte otros elementos
 
-        // Dibujar el autor debajo de la frase
-        ctx.fillText(`- ${autorCompartir}`, canvas.width / 2, posicionY + 20);
-
-        // Dibujar marca de agua
+        // Marca de agua
         ctx.font = "12px Arial";
         ctx.fillText(marcaAgua, canvas.width - 50, canvas.height - 10);
     };
