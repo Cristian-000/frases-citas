@@ -17,9 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Event listener para el botón de crear imagen compartible
     document.getElementById("crear-imagen-compartible").addEventListener("click", crearImagenCompartible);
-
     document.getElementById("compartir-imagen").addEventListener("click", compartirImagen);
-
 });
 
 function cargarAutor() {
@@ -67,7 +65,7 @@ function setFraseParaCompartir(frase, autor) {
     fraseCompartir = frase;
     autorCompartir = autor;
     document.getElementById("opciones-compartir").style.display = "block";
-    actualizarPreview();
+    establecerFrase(frase);
 }
 
 const texturas = [
@@ -173,4 +171,15 @@ function compartirImagen() {
             alert("La función de compartir no está soportada en este dispositivo.");
         }
     });
+}
+
+function establecerFrase(frase) {
+    mostrarPreview(frase);
+}
+
+function mostrarPreview(frase) {
+    const canvas = document.getElementById("preview");
+    const ctx = canvas.getContext("2d");
+    canvas.setAttribute("data-frase", frase);
+    actualizarPreview();
 }
