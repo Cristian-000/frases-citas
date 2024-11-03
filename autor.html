@@ -3,141 +3,201 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Frases por Autor</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Generador de Imagen Compartible</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        #opciones-barra {
+            display: flex;
+            overflow-x: auto;
+            padding: 10px;
+            gap: 20px;
+        }
+        .opcion {
+            position: relative;
+            display: inline-block;
+            text-align: center;
+        }
+        .opcion-panel {
+            display: none;
+            position: absolute;
+            top: -100px;
+            left: -20px;
+            background: white;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+        .opcion:hover .opcion-panel {
+            display: block;
+        }
+    </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="index.html">Frases Célebres</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="index.html">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="categorias.html">Categorías</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="autores.html">Autores</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
 
-    <!-- Contenedor principal -->
-    <div class="container mt-5">
-        <h1 id="titulo-autor"></h1>
-        <ul id="lista-frases" class="list-group"></ul>
-    </div>
-
-    <!-- Barra de opciones de personalización -->
-    <div id="barra-opciones" class="d-flex overflow-auto" style="padding: 1em; background-color: #f5f5f5;">
-        <!-- Cada opción con íconos de FontAwesome y minipaneles -->
-        <div class="opcion mx-2">
-            <i class="fas fa-palette" onclick="togglePanel('color-panel')"></i>
-            <div id="color-panel" class="panel">
-                <label>Color de Fondo:</label>
-                <input type="color" id="fondo-selector" value="#ffffff">
-            </div>
-        </div>
-        <div class="opcion mx-2">
-            <i class="fas fa-font" onclick="togglePanel('texto-panel')"></i>
-            <div id="texto-panel" class="panel">
-                <label>Color de Texto:</label>
-                <input type="color" id="color-selector" value="#000000">
-            </div>
-        </div>
-        <div class="opcion mx-2">
-            <i class="fas fa-text-height" onclick="togglePanel('tamano-panel')"></i>
-            <div id="tamano-panel" class="panel">
-                <label>Tamaño de Texto:</label>
-                <input type="number" id="tamano-selector" value="40">
-            </div>
-        </div>
-        <div class="opcion mx-2">
-            <i class="fas fa-font" onclick="togglePanel('fuente-panel')"></i>
-            <div id="fuente-panel" class="panel">
-                <label>Fuente:</label>
-                <select id="fuente-selector">
-                    <option value="Dancing Script">Dancing Script</option>
-                    <option value="Playfair Display">Playfair Display</option>
-                    <option value="Roboto">Roboto</option>
-                    <option value="Lora">Lora</option>
-                </select>
-            </div>
-        </div>
-        <div class="opcion mx-2">
-            <i class="fas fa-sync-alt" onclick="togglePanel('rotacion-panel')"></i>
-            <div id="rotacion-panel" class="panel">
-                <label>Rotación:</label>
-                <input type="range" id="rotacion-selector" min="-30" max="30" value="0">
-            </div>
+<div id="opciones-barra">
+    <div class="opcion">
+        <i class="fas fa-fill" title="Color de Fondo"></i>
+        <div class="opcion-panel">
+            <input type="color" id="fondo-selector" value="#ffffff">
+            <input type="range" id="opacidad-selector" min="0" max="1" step="0.1" value="1" title="Opacidad">
         </div>
     </div>
-
-    <!-- Preview de la imagen compartible -->
-    <div class="container mt-3 text-center">
-        <canvas id="preview" width="400" height="600"></canvas>
+    <div class="opcion">
+        <i class="fas fa-text-height" title="Tamaño del Texto"></i>
+        <div class="opcion-panel">
+            <input type="number" id="tamano-selector" value="24" min="10" max="100">
+        </div>
     </div>
+    <div class="opcion">
+        <i class="fas fa-font" title="Fuente"></i>
+        <div class="opcion-panel">
+            <select id="fuente-selector">
+                <option value="Arial">Arial</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Verdana">Verdana</option>
+            </select>
+        </div>
+    </div>
+    <div class="opcion">
+        <i class="fas fa-paint-brush" title="Color del Texto"></i>
+        <div class="opcion-panel">
+            <input type="color" id="color-selector" value="#000000">
+        </div>
+    </div>
+    <div class="opcion">
+        <i class="fas fa-border-style" title="Borde"></i>
+        <div class="opcion-panel">
+            <input type="number" id="borde-grosor-selector" value="2" min="0" max="10">
+            <input type="color" id="borde-color-selector" value="#000000">
+        </div>
+    </div>
+    <div class="opcion">
+        <i class="fas fa-sync-alt" title="Rotación"></i>
+        <div class="opcion-panel">
+            <input type="range" id="rotacion-selector" min="-30" max="30" step="1" value="0">
+        </div>
+    </div>
+</div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const elementosPersonalizacion = [
-                "fondo-selector", "color-selector", "tamano-selector", 
-                "fuente-selector", "rotacion-selector"
-            ];
-            
-            elementosPersonalizacion.forEach(id => {
-                document.getElementById(id).addEventListener("input", actualizarPreview);
-            });
+<canvas id="preview" width="500" height="500" style="border:1px solid #000;"></canvas>
+<button id="crear-imagen-compartible">Crear Imagen Compartible</button>
+<button id="compartir-imagen">Compartir Imagen</button>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const promises = [];
+
+    if (document.getElementById("titulo-autor")) {
+        promises.push(cargarAutor());
+    }
+
+    Promise.all(promises)
+        .then(() => console.log("Carga completada"))
+        .catch(error => console.error("Error en la carga:", error));
+
+    const opciones = ["fondo-selector", "opacidad-selector", "tamano-selector", "fuente-selector", "color-selector", "borde-grosor-selector", "borde-color-selector", "rotacion-selector"];
+    opciones.forEach(opcion => document.getElementById(opcion).addEventListener("input", actualizarPreview));
+
+    document.getElementById("crear-imagen-compartible").addEventListener("click", crearImagenCompartible);
+    document.getElementById("compartir-imagen").addEventListener("click", compartirImagen);
+});
+
+function actualizarPreview() {
+    const canvas = document.getElementById("preview");
+    const ctx = canvas.getContext("2d");
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const fondoColor = document.getElementById("fondo-selector").value;
+    const opacidad = document.getElementById("opacidad-selector").value;
+    ctx.globalAlpha = opacidad;
+    ctx.fillStyle = fondoColor;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.globalAlpha = 1;
+
+    const texturaImg = new Image();
+    texturaImg.src = "—Pngtree—simple border png material_4484003.png";
+    texturaImg.onload = () => {
+        ctx.drawImage(texturaImg, 0, 0, canvas.width, canvas.height);
+        const bordeGrosor = document.getElementById("borde-grosor-selector").value;
+        const bordeColor = document.getElementById("borde-color-selector").value;
+        ctx.lineWidth = bordeGrosor;
+        ctx.strokeStyle = bordeColor;
+        ctx.strokeRect(0, 0, canvas.width, canvas.height);
+
+        const fontSize = document.getElementById("tamano-selector").value;
+        const fontFamily = document.getElementById("fuente-selector").value;
+        ctx.fillStyle = document.getElementById("color-selector").value;
+        ctx.font = `${fontSize}px ${fontFamily}`;
+        ctx.textAlign = "center";
+
+        const rotacion = document.getElementById("rotacion-selector").value;
+        ctx.save();
+        ctx.translate(canvas.width / 2, canvas.height / 2);
+        ctx.rotate(rotacion * Math.PI / 180);
+
+        const fraseCompartir = "Frase de Ejemplo";  // Ejemplo de frase
+        const autorCompartir = "Autor Ejemplo";
+        const maxAnchoTexto = canvas.width - 40;
+        const fraseLineas = dividirTexto(ctx, fraseCompartir, maxAnchoTexto);
+        let posicionY = -((fraseLineas.length - 1) * parseInt(fontSize) / 2);
+
+        fraseLineas.forEach(linea => {
+            ctx.fillText(linea, 0, posicionY);
+            posicionY += parseInt(fontSize) + 5;
         });
+        ctx.fillText(`- ${autorCompartir}`, 0, posicionY + 20);
+        ctx.restore();
 
-        function actualizarPreview() {
-            const canvas = document.getElementById("preview");
-            const ctx = canvas.getContext("2d");
+        ctx.font = "12px Arial";
+        ctx.fillText("Tu Marca de Agua", canvas.width - 50, canvas.height - 10);
+    };
+}
 
-            // Limpiar el canvas
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+function dividirTexto(ctx, texto, maxAncho) {
+    const palabras = texto.split(" ");
+    const lineas = [];
+    let linea = "";
 
-            // Configuración del fondo
-            ctx.fillStyle = document.getElementById("fondo-selector").value;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // Rotación
-            const rotacion = document.getElementById("rotacion-selector").value;
-            ctx.save();
-            ctx.translate(canvas.width / 2, canvas.height / 2);
-            ctx.rotate((rotacion * Math.PI) / 180);
-            ctx.translate(-canvas.width / 2, -canvas.height / 2);
-
-            // Configuración de texto
-            const fontSize = document.getElementById("tamano-selector").value;
-            const fontFamily = document.getElementById("fuente-selector").value;
-            ctx.fillStyle = document.getElementById("color-selector").value;
-            ctx.font = `${fontSize}px ${fontFamily}`;
-            ctx.textAlign = "center";
-
-            // Dibujar frase y autor
-            ctx.fillText(fraseCompartir, canvas.width / 2, canvas.height / 2);
-            ctx.fillText(`- ${autorCompartir}`, canvas.width / 2, canvas.height / 2 + 40);
-
-            ctx.restore(); // Restaurar para cancelar la rotación
+    palabras.forEach(palabra => {
+        const lineaPrueba = linea + palabra + " ";
+        const anchoPrueba = ctx.measureText(lineaPrueba).width;
+        if (anchoPrueba > maxAncho && linea !== "") {
+            lineas.push(linea);
+            linea = palabra + " ";
+        } else {
+            linea = lineaPrueba;
         }
+    });
+    lineas.push(linea.trim());
+    return lineas;
+}
 
-        function togglePanel(panelId) {
-            document.querySelectorAll('.panel').forEach(panel => panel.style.display = 'none');
-            const panel = document.getElementById(panelId);
-            if (panel) {
-                panel.style.display = 'block';
-            }
+function crearImagenCompartible() {
+    const canvas = document.getElementById("preview");
+    const enlace = document.createElement("a");
+    enlace.href = canvas.toDataURL("image/png");
+    enlace.download = "frase_compartible.png";
+    enlace.click();
+}
+
+function compartirImagen() {
+    const canvas = document.getElementById("preview");
+    canvas.toBlob(blob => {
+        const archivoImagen = new File([blob], "frase_compartible.png", { type: "image/png" });
+        if (navigator.canShare && navigator.canShare({ files: [archivoImagen] })) {
+            navigator.share({
+                files: [archivoImagen],
+                title: 'Frase Compartible',
+                text: '¡Mira esta frase!',
+            }).then(() => console.log('Imagen compartida exitosamente'))
+            .catch(error => console.error('Error al compartir:', error));
+        } else {
+            alert("La funcionalidad de compartir no está disponible en este dispositivo.");
         }
-    </script>
+    });
+}
+</script>
 </body>
 </html>
