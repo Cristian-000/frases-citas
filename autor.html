@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generador de Frases Compartibles</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Link para usar Font Awesome para los iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
-        <h1 id="titulo-autor">Generador de Frases Compartibles</h1>
+        <h1>Generador de Frases Compartibles</h1>
     </header>
 
     <main>
@@ -62,16 +61,21 @@
         </div>
 
         <!-- Vista previa del canvas -->
-        <canvas id="preview" width="400" height="400"></canvas>
-
-        <!-- Botones de acción -->
-        <div class="acciones">
-            <button id="crear-imagen-compartible">Crear Imagen Compartible</button>
-            <button id="compartir-imagen">Compartir Imagen</button>
-        </div>
+        <canvas id="preview" width="400" height="400" style="display: none;"></canvas>
 
         <!-- Lista de frases -->
-        <ul id="lista-frases" class="list-group"></ul>
+        <ul id="lista-frases" class="list-group">
+            <!-- Frases de ejemplo, puedes añadir más o cargarlas dinámicamente -->
+            <li class="frase-item">
+                "La vida es bella, pero aún más contigo."
+                <button onclick="mostrarPreview('La vida es bella, pero aún más contigo.')">Compartir Imagen</button>
+            </li>
+            <li class="frase-item">
+                "El amor es como el viento, no puedes verlo pero puedes sentirlo."
+                <button onclick="mostrarPreview('El amor es como el viento, no puedes verlo pero puedes sentirlo.')">Compartir Imagen</button>
+            </li>
+            <!-- Añade más frases aquí -->
+        </ul>
     </main>
 
     <script src="compartirImagenAutor.js"></script>
