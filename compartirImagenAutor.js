@@ -132,11 +132,17 @@ function togglePanel(panelId) {
 }
 
 function mostrarPreview(texto) {
+    const canvasContainer = document.getElementById('canvas-container');
     const canvas = document.getElementById('preview');
     const ctx = canvas.getContext('2d');
 
+    // Mostrar el contenedor del canvas
+    canvasContainer.classList.remove('hidden');
+
+    // Limpiar el canvas antes de dibujar
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    // Dibujar el texto en el canvas
     ctx.font = "30px Arial";
     ctx.fillStyle = "#000";
     ctx.textAlign = "center";
