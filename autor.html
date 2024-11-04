@@ -13,9 +13,12 @@
     </header>
 
     <main>
-        <!-- Contenedor para la barra de opciones y el preview -->
-        <div class="editor-container">
-            <!-- Barra de opciones en horizontal solo con íconos -->
+        <!-- Contenedor del canvas y la barra de iconos, inicialmente oculto -->
+        <div id="canvas-container" class="hidden">
+            <!-- Canvas de vista previa -->
+            <canvas id="preview" width="400" height="400"></canvas>
+
+            <!-- Barra de opciones en horizontal solo con íconos debajo del canvas -->
             <div class="opciones-container-horizontal">
                 <i class="fas fa-fill-drip" title="Color de fondo" onclick="togglePanel('fondo-panel')"></i>
                 <i class="fas fa-palette" title="Color de texto" onclick="togglePanel('color-panel')"></i>
@@ -25,9 +28,6 @@
                 <i class="fas fa-border-style" title="Borde" onclick="togglePanel('borde-panel')"></i>
                 <i class="fas fa-shapes" title="Textura" onclick="togglePanel('textura-panel')"></i>
             </div>
-
-            <!-- Vista previa del canvas -->
-            <canvas id="preview" width="400" height="400"></canvas>
         </div>
 
         <!-- Paneles ocultos para cada opción -->
