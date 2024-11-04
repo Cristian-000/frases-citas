@@ -99,28 +99,33 @@ function descargarImagen() {
     enlace.click();
 }
 
-function compartirImagen() {
-    const canvas = document.getElementById('preview');
-    canvas.toBlob((blob) => {
-        const file = new File([blob], 'frase.png', { type: 'image/png' });
-        if (navigator.share) {
-            navigator.share({
-                files: [file],
-                title: 'Frase Compartible',
-                text: 'Mira esta frase inspiradora que creé'
-            });
-        } else {
-            alert('Tu navegador no soporta compartir archivos.');
-        }
-    });
-}
-
 function descargarImagen() {
     const canvas = document.getElementById('preview');
     const enlace = document.createElement('a');
     enlace.href = canvas.toDataURL('image/png');
     enlace.download = 'frase.png';
     enlace.click();
+}
+
+function compartirImagen() {
+    const canvas = document.getElementById('preview');
+    canvas.toBlob(async (blob) => {
+        const file = new File([blob], 'frase.png', { type: 'image/png' });
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            try {
+                await navigator.share({
+                    files: [file],
+                    title: 'Frase Generada',
+                    text: 'Aquí tienes una frase especial!',
+                });
+                console.log('Compartido con éxito');
+            } catch (error) {
+                console.error('Error al compartir:', error);
+            }
+        } else {
+            alert('La opción de compartir no es compatible con este navegador.');
+        }
+    });
 }
 
 function togglePanel(panelId) {
