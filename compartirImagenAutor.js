@@ -8,7 +8,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 const fraseItem = document.createElement("button");
                 fraseItem.classList.add("frase-item");
                 fraseItem.textContent = frase.texto;
-                fraseItem.addEventListener("click", () => mostrarPreview(frase.texto));
+                fraseItem.addEventListener("click", () => {
+                    mostrarPreview(frase.texto);
+                    document.getElementById("customization-options").style.display = "block"; // Mostrar opciones de personalización
+                });
                 frasesContainer.appendChild(fraseItem);
             });
         })
@@ -22,7 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("rotacion-selector").addEventListener("input", actualizarPreview);
     document.getElementById("borde-grosor-selector").addEventListener("input", actualizarPreview);
     document.getElementById("borde-color-selector").addEventListener("change", actualizarPreview);
-    document.getElementById("textura-selector").addEventListener("change", actualizarPreview);
 });
 
 // Función para mostrar la vista previa de la imagen con la frase seleccionada
@@ -33,6 +35,16 @@ function mostrarPreview(frase) {
     actualizarPreview(); // Llamar a la función de actualización
 }
 
+// Función para ajustar el tamaño de fuente para que el texto no se salga del canvas
+function ajustarTexto(ctx, text, maxWidth) {
+    let fontSize = parseInt(document.getElementById("tamano-selector").value);
+    do {
+        ctx.font = `${fontSize}px ${document.getElementById("fuente-selector").value}`;
+        fontSize--;
+    } while (ctx.measureText(text).width > maxWidth && fontSize > 10); // Reducir hasta ajustarse o alcanzar tamaño mínimo
+    return fontSize;
+}
+
 // Función para actualizar la vista previa en el canvas
 function actualizarPreview() {
     const canvas = document.getElementById("preview");
@@ -41,7 +53,7 @@ function actualizarPreview() {
     // Borrar el canvas antes de redibujar
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Configuración del color de fondo y textura
+    // Configuración del color de fondo
     const fondoColor = document.getElementById("fondo-selector").value;
     ctx.fillStyle = fondoColor;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -56,7 +68,7 @@ function actualizarPreview() {
     }
 
     // Configuración del texto
-    const fontSize = document.getElementById("tamano-selector").value;
+    const fontSize = ajustarTexto(ctx, canvas.getAttribute("data-frase"), canvas.width - 20); // Ajustar para evitar que se salga
     const fontFamily = document.getElementById("fuente-selector").value;
     const textColor = document.getElementById("color-selector").value;
     ctx.fillStyle = textColor;
@@ -85,6 +97,23 @@ function descargarImagen() {
     enlace.download = "frase.png";
     enlace.href = canvas.toDataURL("image/png");
     enlace.click();
+}
+
+// Función para compartir la imagen generada en el canvas (si es compatible)
+function compartirImagen() {
+    const canvas = document.getElementById("preview");
+    canvas.toBlob(blob => {
+        const file = new File([blob], "frase.png", { type: "image/png" });
+        if (navigator.share) {
+            navigator.share({
+                title: "Mi Frase",
+                text: "Mira esta frase que creé",
+                files: [file]
+            }).catch(error => console.error("Error al compartir:", error));
+        } else {
+            alert("La opción de compartir no está soportada en este navegador.");
+        }
+    });
 }
 
 // Función para alternar la visibilidad de un panel
