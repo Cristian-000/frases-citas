@@ -130,7 +130,6 @@ function togglePanel(panelId) {
     // Abrir el panel seleccionado
     document.getElementById(panelId).classList.add('active');
 }
-
 function mostrarPreview(texto) {
     const canvasContainer = document.getElementById('canvas-container');
     const canvas = document.getElementById('preview');
@@ -142,9 +141,52 @@ function mostrarPreview(texto) {
     // Limpiar el canvas antes de dibujar
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Dibujar el texto en el canvas
+    // Configuración inicial de texto
     ctx.font = "30px Arial";
     ctx.fillStyle = "#000";
     ctx.textAlign = "center";
-    ctx.fillText(texto, canvas.width / 2, canvas.height / 2);
+
+    // Tamaño máximo de fuente y reducción de tamaño si el texto es largo
+    const maxWidth = canvas.width - 40; // Margen de 20px en ambos lados
+    let fontSize = 30;
+    ctx.font = `${fontSize}px Arial`;
+
+    // Ajustar el tamaño de fuente si el texto es muy largo
+    while (ctx.measureText(texto).width > maxWidth && fontSize > 10) {
+        fontSize -= 2;
+        ctx.font = `${fontSize}px Arial`;
+    }
+
+    // Dividir el texto en líneas si es necesario
+    const lines = wrapText(ctx, texto, maxWidth);
+
+    // Calcular la posición inicial para centrar verticalmente el texto
+    const lineHeight = fontSize * 1.2;
+    const textY = (canvas.height - lines.length * lineHeight) / 2 + lineHeight;
+
+    // Dibujar cada línea de texto en el canvas
+    lines.forEach((line, index) => {
+        ctx.fillText(line, canvas.width / 2, textY + index * lineHeight);
+    });
+}
+
+// Función para dividir el texto en líneas
+function wrapText(ctx, text, maxWidth) {
+    const words = text.split(' ');
+    const lines = [];
+    let line = '';
+
+    words.forEach(word => {
+        const testLine = line + word + ' ';
+        const { width } = ctx.measureText(testLine);
+        
+        if (width > maxWidth && line) {
+            lines.push(line.trim());
+            line = word + ' ';
+        } else {
+            line = testLine;
+        }
+    });
+    lines.push(line.trim());
+    return lines;
 }
