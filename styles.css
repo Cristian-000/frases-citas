@@ -50,9 +50,12 @@ h1 {
     opacity: 0.9;
     cursor: pointer;
 }
-
 body {
     font-family: Arial, sans-serif;
+}
+
+.hidden {
+    display: none;
 }
 
 .editor-container {
