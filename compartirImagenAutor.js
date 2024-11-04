@@ -99,21 +99,28 @@ function descargarImagen() {
     enlace.click();
 }
 
-// Función para compartir la imagen generada en el canvas (si es compatible)
 function compartirImagen() {
-    const canvas = document.getElementById("preview");
-    canvas.toBlob(blob => {
-        const file = new File([blob], "frase.png", { type: "image/png" });
+    const canvas = document.getElementById('preview');
+    canvas.toBlob((blob) => {
+        const file = new File([blob], 'frase.png', { type: 'image/png' });
         if (navigator.share) {
             navigator.share({
-                title: "Mi Frase",
-                text: "Mira esta frase que creé",
-                files: [file]
-            }).catch(error => console.error("Error al compartir:", error));
+                files: [file],
+                title: 'Frase Compartible',
+                text: 'Mira esta frase inspiradora que creé'
+            });
         } else {
-            alert("La opción de compartir no está soportada en este navegador.");
+            alert('Tu navegador no soporta compartir archivos.');
         }
     });
+}
+
+function descargarImagen() {
+    const canvas = document.getElementById('preview');
+    const enlace = document.createElement('a');
+    enlace.href = canvas.toDataURL('image/png');
+    enlace.download = 'frase.png';
+    enlace.click();
 }
 
 // Función para alternar la visibilidad de un panel
