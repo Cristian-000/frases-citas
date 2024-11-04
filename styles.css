@@ -112,3 +112,24 @@ body {
 .mini-panel.active {
     display: block;
 }
+#action-buttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+#action-buttons button {
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #800020;
+    color: #ffffff;
+    transition: background-color 0.3s ease;
+}
+
+#action-buttons button:hover {
+    background-color: #560014;
+}
