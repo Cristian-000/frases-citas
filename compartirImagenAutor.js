@@ -123,8 +123,22 @@ function descargarImagen() {
     enlace.click();
 }
 
-// Función para alternar la visibilidad de un panel
 function togglePanel(panelId) {
-    const panel = document.getElementById(panelId);
-    panel.classList.toggle("visible");
+    // Cerrar todos los paneles
+    document.querySelectorAll('.mini-panel').forEach(panel => panel.classList.remove('active'));
+
+    // Abrir el panel seleccionado
+    document.getElementById(panelId).classList.add('active');
+}
+
+function mostrarPreview(texto) {
+    const canvas = document.getElementById('preview');
+    const ctx = canvas.getContext('2d');
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.font = "30px Arial";
+    ctx.fillStyle = "#000";
+    ctx.textAlign = "center";
+    ctx.fillText(texto, canvas.width / 2, canvas.height / 2);
 }
