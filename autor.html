@@ -13,8 +13,8 @@
     </header>
 
     <main>
-        <!-- Barra de opciones -->
         <div class="opciones-container">
+            <!-- Opciones de personalización -->
             <div class="opcion">
                 <i class="fas fa-fill-drip" title="Color de fondo" onclick="togglePanel('fondo-panel')"></i>
                 <div id="fondo-panel" class="mini-panel">
@@ -22,60 +22,25 @@
                     <input type="color" id="fondo-selector">
                 </div>
             </div>
-
-            <div class="opcion">
-                <i class="fas fa-palette" title="Color de texto" onclick="togglePanel('color-panel')"></i>
-                <div id="color-panel" class="mini-panel">
-                    <label for="color-selector">Color de Texto</label>
-                    <input type="color" id="color-selector">
-                </div>
-            </div>
-
-            <div class="opcion">
-                <i class="fas fa-text-height" title="Tamaño de texto" onclick="togglePanel('tamano-panel')"></i>
-                <div id="tamano-panel" class="mini-panel">
-                    <label for="tamano-selector">Tamaño de Texto</label>
-                    <input type="number" id="tamano-selector" min="10" max="100" value="30">
-                </div>
-            </div>
-
-            <div class="opcion">
-                <i class="fas fa-font" title="Fuente" onclick="togglePanel('fuente-panel')"></i>
-                <div id="fuente-panel" class="mini-panel">
-                    <label for="fuente-selector">Fuente</label>
-                    <select id="fuente-selector">
-                        <option value="Arial">Arial</option>
-                        <option value="Times New Roman">Times New Roman</option>
-                        <option value="Courier New">Courier New</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="opcion">
-                <i class="fas fa-sync-alt" title="Rotación" onclick="togglePanel('rotacion-panel')"></i>
-                <div id="rotacion-panel" class="mini-panel">
-                    <label for="rotacion-selector">Rotación</label>
-                    <input type="range" id="rotacion-selector" min="-30" max="30" value="0">
-                </div>
-            </div>
+            <!-- Repite similar para otras opciones -->
         </div>
 
-        <!-- Vista previa del canvas -->
         <canvas id="preview" width="400" height="400" style="display: none;"></canvas>
 
         <!-- Lista de frases -->
         <ul id="lista-frases" class="list-group">
-            <!-- Frases de ejemplo, puedes añadir más o cargarlas dinámicamente -->
             <li class="frase-item">
                 "La vida es bella, pero aún más contigo."
-                <button onclick="mostrarPreview('La vida es bella, pero aún más contigo.')">Compartir Imagen</button>
+                <button onclick="setFraseParaCompartir('La vida es bella, pero aún más contigo', 'Desconocido')">Compartir Imagen</button>
             </li>
             <li class="frase-item">
                 "El amor es como el viento, no puedes verlo pero puedes sentirlo."
-                <button onclick="mostrarPreview('El amor es como el viento, no puedes verlo pero puedes sentirlo.')">Compartir Imagen</button>
+                <button onclick="setFraseParaCompartir('El amor es como el viento, no puedes verlo pero puedes sentirlo', 'Desconocido')">Compartir Imagen</button>
             </li>
-            <!-- Añade más frases aquí -->
         </ul>
+
+        <button id="crear-imagen-compartible">Crear Imagen</button>
+        <button id="compartir-imagen">Compartir Imagen</button>
     </main>
 
     <script src="compartirImagenAutor.js"></script>
