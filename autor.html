@@ -22,7 +22,6 @@
                     <input type="color" id="fondo-selector">
                 </div>
             </div>
-
             <div class="opcion">
                 <i class="fas fa-palette" title="Color de texto" onclick="togglePanel('color-panel')"></i>
                 <div id="color-panel" class="mini-panel">
@@ -30,7 +29,6 @@
                     <input type="color" id="color-selector">
                 </div>
             </div>
-
             <div class="opcion">
                 <i class="fas fa-text-height" title="Tamaño de texto" onclick="togglePanel('tamano-panel')"></i>
                 <div id="tamano-panel" class="mini-panel">
@@ -38,7 +36,6 @@
                     <input type="number" id="tamano-selector" min="10" max="100" value="30">
                 </div>
             </div>
-
             <div class="opcion">
                 <i class="fas fa-font" title="Fuente" onclick="togglePanel('fuente-panel')"></i>
                 <div id="fuente-panel" class="mini-panel">
@@ -50,7 +47,6 @@
                     </select>
                 </div>
             </div>
-
             <div class="opcion">
                 <i class="fas fa-sync-alt" title="Rotación" onclick="togglePanel('rotacion-panel')"></i>
                 <div id="rotacion-panel" class="mini-panel">
@@ -58,8 +54,6 @@
                     <input type="range" id="rotacion-selector" min="-30" max="30" value="0">
                 </div>
             </div>
-
-            <!-- Nuevos controles adicionales -->
             <div class="opcion">
                 <i class="fas fa-border-style" title="Borde" onclick="togglePanel('borde-panel')"></i>
                 <div id="borde-panel" class="mini-panel">
@@ -69,7 +63,6 @@
                     <input type="color" id="borde-color-selector" value="#000000">
                 </div>
             </div>
-
             <div class="opcion">
                 <i class="fas fa-shapes" title="Textura" onclick="togglePanel('textura-panel')"></i>
                 <div id="textura-panel" class="mini-panel">
@@ -98,6 +91,12 @@
                 <button onclick="mostrarPreview('El amor es como el viento, no puedes verlo pero puedes sentirlo.')">Compartir Imagen</button>
             </li>
         </ul>
+
+        <!-- Botones de compartir y descargar -->
+        <div class="acciones-container" style="display: none;">
+            <button id="btn-compartir" onclick="compartirImagen()">Compartir</button>
+            <button id="btn-descargar" onclick="descargarImagen()">Descargar</button>
+        </div>
     </main>
 
     <script src="compartirImagenAutor.js"></script>
