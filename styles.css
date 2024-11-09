@@ -86,12 +86,18 @@ body {
 }
 
 .mini-panel {
-    display: none;
-    position: absolute;
+    display: none; /* Ocultos inicialmente */
+    position: fixed;
+    background: #fff;
+    border: 1px solid #ddd;
     padding: 10px;
-    background-color: #ffffff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%; /* Ancho del panel en móvil */
+    max-width: 300px;
+    z-index: 1000;
+}
+.mini-panel.active {
+    display: block;
 }
 
 .mini-panel input,
@@ -109,9 +115,6 @@ body {
 }
 
 /* Panel activo */
-.mini-panel.active {
-    display: block;
-}
 #action-buttons {
     margin-top: 10px;
     display: flex;
@@ -132,4 +135,39 @@ body {
 
 #action-buttons button:hover {
     background-color: #560014;
+}
+/* Estilos para pantallas pequeñas */
+@media (max-width: 768px) {
+    #canvas-container {
+        width: 100%;
+        max-width: 300px;
+        margin: auto;
+    }
+
+    .opciones-container-horizontal {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .mini-panel {
+        position: absolute;
+        width: 90%; /* Ocupa un mayor ancho en móvil */
+        top: 10px; /* Ajusta la posición según sea necesario */
+        margin: 5px auto;
+        z-index: 10;
+    }
+    
+    /* Ajustes para botones de acción */
+    #action-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    #frases-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 }
