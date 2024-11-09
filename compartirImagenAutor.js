@@ -195,3 +195,11 @@ function wrapText(ctx, text, maxWidth) {
     lines.push(line.trim());
     return lines;
 }
+document.addEventListener("click", (event) => {
+    const miniPaneles = document.querySelectorAll(".mini-panel");
+    miniPaneles.forEach((panel) => {
+        if (!panel.contains(event.target) && !event.target.classList.contains("fas")) {
+            panel.classList.remove("active");
+        }
+    });
+});
