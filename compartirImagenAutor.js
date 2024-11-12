@@ -111,7 +111,7 @@ function actualizarCanvas() {
     });
 }
 
-// Añade event listeners para actualizar el canvas en tiempo real cuando cambian las opciones
+// Añadir event listeners para actualizar el canvas en tiempo real
 colorFondoInput.addEventListener('input', actualizarCanvas);
 colorFraseInput.addEventListener('input', actualizarCanvas);
 tamanoFraseInput.addEventListener('input', actualizarCanvas);
