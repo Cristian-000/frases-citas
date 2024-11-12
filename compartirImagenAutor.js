@@ -53,8 +53,7 @@ let fraseSeleccionada = "";
 const colorFondoInput = document.getElementById('colorFondo');
 const colorFraseInput = document.getElementById('colorFrase');
 const tamanoFraseInput = document.getElementById('tamanoFrase');
-const posicionXInput = document.getElementById('posicionX');
-const posicionYInput = document.getElementById('posicionY');
+const tipoFuenteInput = document.getElementById('tipoFuente');
 
 // Función para establecer una frase seleccionada y actualizar el canvas
 function setFraseParaCompartir(frase, autor) {
@@ -67,7 +66,7 @@ function ajustarTexto(ctx, texto, maxWidth, fontSize) {
     const palabras = texto.split(" ");
     let linea = "";
     const lineas = [];
-    ctx.font = `${fontSize}px Arial`;
+    ctx.font = `${fontSize}px ${tipoFuenteInput.value}`;
 
     for (let i = 0; i < palabras.length; i++) {
         const pruebaLinea = linea + palabras[i] + " ";
@@ -91,24 +90,27 @@ function actualizarCanvas() {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    // Fondo
     ctx.fillStyle = colorFondoInput.value;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+    // Frase
     ctx.fillStyle = colorFraseInput.value;
     ctx.textAlign = 'center';
     let fontSize = parseInt(tamanoFraseInput.value);
-    const maxWidth = canvas.width - 40;  // Dejar un margen de 20 en cada lado
+    const maxWidth = canvas.width - 40;
 
     let lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, fontSize);
 
+    // Reducir fontSize si las líneas no caben
     while (lineas.length * fontSize > canvas.height - 40 && fontSize > 10) {
         fontSize -= 2;
         lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, fontSize);
     }
 
-    ctx.font = `${fontSize}px Arial`;
+    ctx.font = `${fontSize}px ${tipoFuenteInput.value}`;
 
-    // Calcular la posición vertical para centrar las líneas
+    // Posición centrada
     const posicionYInicial = (canvas.height - lineas.length * fontSize) / 2;
 
     lineas.forEach((linea, index) => {
@@ -120,8 +122,7 @@ function actualizarCanvas() {
 colorFondoInput.addEventListener('input', actualizarCanvas);
 colorFraseInput.addEventListener('input', actualizarCanvas);
 tamanoFraseInput.addEventListener('input', actualizarCanvas);
-posicionXInput.addEventListener('input', actualizarCanvas);
-posicionYInput.addEventListener('input', actualizarCanvas);
+tipoFuenteInput.addEventListener('change', actualizarCanvas);
 
 // Función para descargar la imagen del canvas
 function descargarImagen() {
