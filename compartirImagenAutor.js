@@ -85,6 +85,10 @@ function ajustarTexto(ctx, texto, maxWidth, fontSize) {
 
 // Actualizar el canvas con la frase seleccionada y las opciones de estilo
 function actualizarCanvas() {
+    // Ajustar el tamaño del canvas al tamaño de la ventana
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = colorFondoInput.value;
@@ -93,21 +97,22 @@ function actualizarCanvas() {
     ctx.fillStyle = colorFraseInput.value;
     ctx.textAlign = 'center';
     let fontSize = parseInt(tamanoFraseInput.value);
-    const maxWidth = canvas.width - 20;
+    const maxWidth = canvas.width - 40;  // Dejar un margen de 20 en cada lado
 
     let lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, fontSize);
 
-    while (lineas.length * fontSize > canvas.height - 20 && fontSize > 10) {
+    while (lineas.length * fontSize > canvas.height - 40 && fontSize > 10) {
         fontSize -= 2;
         lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, fontSize);
     }
 
     ctx.font = `${fontSize}px Arial`;
 
-    const posicionYInicial = parseInt(posicionYInput.value) - (lineas.length - 1) * fontSize / 2;
+    // Calcular la posición vertical para centrar las líneas
+    const posicionYInicial = (canvas.height - lineas.length * fontSize) / 2;
 
     lineas.forEach((linea, index) => {
-        ctx.fillText(linea, parseInt(posicionXInput.value), posicionYInicial + index * fontSize);
+        ctx.fillText(linea, canvas.width / 2, posicionYInicial + index * fontSize);
     });
 }
 
@@ -125,3 +130,6 @@ function descargarImagen() {
     enlace.download = 'frase_personalizada.png';
     enlace.click();
 }
+
+// Ajustar el tamaño del canvas cuando cambie el tamaño de la ventana
+window.addEventListener('resize', actualizarCanvas);
