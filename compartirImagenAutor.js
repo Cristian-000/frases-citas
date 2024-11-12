@@ -60,6 +60,7 @@ const colorFraseInput = document.getElementById('colorFrase');
 const tamanoFraseInput = document.getElementById('tamanoFrase');
 const posicionXInput = document.getElementById('posicionX');
 const posicionYInput = document.getElementById('posicionY');
+const tipoFuenteInput = document.getElementById('tipoFuente');
 
 // Establece el tamaño inicial del canvas al tamaño de la ventana
 canvas.width = window.innerWidth * 0.8; // 90% del ancho de la ventana
@@ -77,7 +78,8 @@ function ajustarTexto(ctx, texto, maxWidth, fontSize) {
     const palabras = texto.split(" ");
     let linea = "";
     const lineas = [];
-    ctx.font = `${fontSize}px Arial`;
+    const lineas = [];
+    ctx.font = `${fontSize}px ${tipoFuenteInput.value}`;
 
     for (let i = 0; i < palabras.length; i++) {
         const pruebaLinea = linea + palabras[i] + " ";
@@ -128,6 +130,7 @@ colorFraseInput.addEventListener('input', actualizarCanvas);
 tamanoFraseInput.addEventListener('input', actualizarCanvas);
 posicionXInput.addEventListener('input', actualizarCanvas);
 posicionYInput.addEventListener('input', actualizarCanvas);
+tipoFuenteInput.addEventListener('change', actualizarCanvas);
 
 // Función para descargar la imagen del canvas
 function descargarImagen() {
