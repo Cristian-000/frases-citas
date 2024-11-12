@@ -121,7 +121,7 @@ function actualizarCanvas() {
 // Añadir event listeners para actualizar el canvas en tiempo real
 colorFondoInput.addEventListener('input', actualizarCanvas);
 colorFraseInput.addEventListener('input', actualizarCanvas);
-tamanoFraseInput.addEventListener('input', actualizarCanvas);
+//tamanoFraseInput.addEventListener('input', actualizarCanvas);
 tipoFuenteInput.addEventListener('change', actualizarCanvas);
 
 // Función para descargar la imagen del canvas
