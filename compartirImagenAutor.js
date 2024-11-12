@@ -47,7 +47,7 @@ function cargarAutor() {
 // Llama a cargarAutor al cargar la página
 document.addEventListener("DOMContentLoaded", () => {
     cargarAutor();
-
+    actualizarCanvas();
     // Ocultar el canvas y controles de ajuste al inicio
     document.getElementById("canvas-container").style.display = "none";
     document.getElementById("div-modificadores").style.display = "none";
