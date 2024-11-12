@@ -120,7 +120,8 @@ function actualizarCanvas() {
         lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, fontSize);
     }
 
-    ctx.font = `${fontSize}px Arial`;
+    // Aquí usamos el tipo de fuente seleccionado por el usuario
+    ctx.font = `${fontSize}px ${tipoFuenteInput.value || 'Arial'}`;
 
     // Calcular la posición vertical para centrar las líneas
     const posicionYInicial = (canvas.height - lineas.length * fontSize) / 2;
