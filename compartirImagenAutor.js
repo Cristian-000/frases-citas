@@ -80,9 +80,10 @@ function ajustarTexto(ctx, texto, maxWidth, fontSize) {
     const palabras = texto.split(" ");
     let linea = "";
     const lineas = [];
-    const lineas = [];
     ctx.font = `${fontSize}px ${tipoFuenteInput.value}`;
-
+if (!tipoFuenteInput.value) {
+    tipoFuenteInput.value = "Arial";  // Valor por defecto
+}
     for (let i = 0; i < palabras.length; i++) {
         const pruebaLinea = linea + palabras[i] + " ";
         const ancho = ctx.measureText(pruebaLinea).width;
