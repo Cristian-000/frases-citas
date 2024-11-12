@@ -62,8 +62,8 @@ const posicionXInput = document.getElementById('posicionX');
 const posicionYInput = document.getElementById('posicionY');
 
 // Establece el tamaño inicial del canvas al tamaño de la ventana
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width = window.innerWidth * 0.8; // 90% del ancho de la ventana
+canvas.height = window.innerHeight * 0.8; // 90% del alto de la ventana
 
 // Función para establecer una frase seleccionada y mostrar el canvas
 function setFraseParaCompartir(frase, autor) {
