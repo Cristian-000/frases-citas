@@ -171,3 +171,52 @@ body {
         align-items: center;
     }
 }
+/* nuevos */
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    color: #343a40;
+}
+
+#frases-container {
+    margin: 20px 0;
+}
+
+#miCanvas {
+    background-color: #ffffff; /* Fondo blanco */
+    border: 1px solid #ccc; /* Borde gris */
+}
+
+.list-group-item a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.list-group-item a:hover {
+    text-decoration: underline;
+}
+
+#action-buttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+#action-buttons button {
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #800020;
+    color: #ffffff;
+    transition: background-color 0.3s ease;
+}
+
+#action-buttons button:hover {
+    background-color: #560014;
+}
