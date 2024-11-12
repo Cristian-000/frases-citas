@@ -27,7 +27,9 @@ function cargarAutor() {
                         // Crear botón y agregar listener
                         const button = document.createElement("button");
                         button.textContent = "Usar en Canvas";
-                        button.onclick = () => setFraseParaCompartir(fraseObj.frase, fraseObj.autor_url);
+                        button.onclick = () => { setFraseParaCompartir(fraseObj.frase, fraseObj.autor_url); 
+                                                actualizarCanvas();
+                                               };
                         li.appendChild(button);
 
                         listaFrases.appendChild(li);
