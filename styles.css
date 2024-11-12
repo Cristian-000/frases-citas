@@ -172,3 +172,25 @@ h1 {
         align-items: center;
     }
 }
+/*css mod de modificadores canvas*/
+.modificadores {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    padding: 10px;
+}
+
+.modificadores label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+}
+
+.modificadores input[type="color"],
+.modificadores input[type="range"],
+.modificadores select {
+    margin-left: 5px;
+}
