@@ -64,6 +64,8 @@ const tamanoFraseInput = document.getElementById('tamanoFrase');
 const posicionXInput = document.getElementById('posicionX');
 const posicionYInput = document.getElementById('posicionY');
 const tipoFuenteInput = document.getElementById('tipoFuente');
+// Elemento del selector de alineación
+const alineacionTextoInput = document.getElementById('alineacionTexto');
 
 // Establece el tamaño inicial del canvas al tamaño de la ventana
 canvas.width = window.innerWidth * 0.8; // 90% del ancho de la ventana
@@ -108,7 +110,7 @@ function actualizarCanvas() {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = colorFraseInput.value;
-    ctx.textAlign = 'center';
+    ctx.textAlign = alineacionTextoInput.value; // Alineación seleccionada
 
     let fontSize = parseInt(tamanoFraseInput.value) || 16;  // 16 es un valor predeterminado
     const maxWidth = canvas.width - 40;  // Dejar un margen de 20 en cada lado
@@ -120,17 +122,23 @@ function actualizarCanvas() {
         lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, fontSize);
     }
 
-    // Aquí usamos el tipo de fuente seleccionado por el usuario
     ctx.font = `${fontSize}px ${tipoFuenteInput.value || 'Arial'}`;
+
+    // Ajustar posición en X según la alineación seleccionada
+    const posicionX = alineacionTextoInput.value === 'left' ? 20 :
+                      alineacionTextoInput.value === 'right' ? canvas.width - 20 :
+                      canvas.width / 2;
 
     // Calcular la posición vertical para centrar las líneas
     const posicionYInicial = (canvas.height - lineas.length * fontSize) / 2;
 
     lineas.forEach((linea, index) => {
-        ctx.fillText(linea, canvas.width / 2, posicionYInicial + index * fontSize);
+        ctx.fillText(linea, posicionX, posicionYInicial + index * fontSize);
     });
 }
 
+// Añadir event listener para actualizar el canvas al cambiar la alineación
+alineacionTextoInput.addEventListener('change', actualizarCanvas);
 // Añadir event listeners para actualizar el canvas en tiempo real
 colorFondoInput.addEventListener('input', actualizarCanvas);
 colorFraseInput.addEventListener('input', actualizarCanvas);
