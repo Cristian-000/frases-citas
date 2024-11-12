@@ -38,6 +38,27 @@ function seleccionarFrase(frase) {
     actualizarCanvas();
 }
 
+// Función para ajustar el texto dentro del canvas
+function ajustarTexto(ctx, texto, maxWidth, fontSize) {
+    const palabras = texto.split(" ");
+    let linea = "";
+    const lineas = [];
+    ctx.font = `${fontSize}px Arial`;
+
+    for (let i = 0; i < palabras.length; i++) {
+        const pruebaLinea = linea + palabras[i] + " ";
+        const ancho = ctx.measureText(pruebaLinea).width;
+        if (ancho > maxWidth && i > 0) {
+            lineas.push(linea);
+            linea = palabras[i] + " ";
+        } else {
+            linea = pruebaLinea;
+        }
+    }
+    lineas.push(linea);
+    return lineas;
+}
+
 // Actualizar el contenido del canvas con las opciones seleccionadas
 function actualizarCanvas() {
     // Limpiar el canvas
@@ -47,11 +68,30 @@ function actualizarCanvas() {
     ctx.fillStyle = colorFondoInput.value;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Dibujar la frase seleccionada con las opciones de estilo
-    ctx.font = `${tamanoFraseInput.value}px Arial`;
+    // Configurar las opciones de la frase
     ctx.fillStyle = colorFraseInput.value;
     ctx.textAlign = 'center';
-    ctx.fillText(fraseSeleccionada, posicionXInput.value, posicionYInput.value);
+    let fontSize = parseInt(tamanoFraseInput.value);
+    const maxWidth = canvas.width - 20; // Margen de 10px en cada lado
+
+    // Ajustar el tamaño de la fuente si es necesario
+    let lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, fontSize);
+
+    // Reducir el tamaño de la fuente si hay demasiadas líneas
+    while (lineas.length * fontSize > canvas.height - 20 && fontSize > 10) {
+        fontSize -= 2;
+        lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, fontSize);
+    }
+
+    ctx.font = `${fontSize}px Arial`;
+
+    // Posicionar las líneas centradas en Y
+    const posicionYInicial = posicionYInput.value - (lineas.length - 1) * fontSize / 2;
+
+    // Dibujar cada línea de la frase
+    lineas.forEach((linea, index) => {
+        ctx.fillText(linea, posicionXInput.value, posicionYInicial + index * fontSize);
+    });
 }
 
 // Descargar la imagen del canvas
