@@ -1,15 +1,23 @@
+/* General */
 body {
     background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
 }
 
 h1 {
     color: #343a40;
 }
 
-.lead {
-    font-style: italic;
+#frases-container {
+    margin: 20px 0;
 }
 
+#miCanvas {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+}
+
+/* Enlaces */
 .list-group-item a {
     text-decoration: none;
     color: #007bff;
@@ -19,51 +27,75 @@ h1 {
     text-decoration: underline;
 }
 
+/* Contenedor y botones de acción */
+#action-buttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+#action-buttons button {
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #800020;
+    color: #ffffff;
+    transition: background-color 0.3s ease;
+}
+
+#action-buttons button:hover {
+    background-color: #560014;
+}
+
+/* Tags */
 .tags .badge {
     margin-left: 5px;
 }
-/* Colores básicos para los tags */
+
 .badge-secondary {
-    background-color: #4CAF50; /* Color de fondo del tag */
-    color: #FFFFFF; /* Color de texto del tag */
-    font-weight: bold; /* Negrita en el texto */
+    background-color: #4CAF50;
+    color: #FFFFFF;
+    font-weight: bold;
 }
 
-/* Opciones de color adicionales para tags específicos */
 .badge-tag-1 {
-    background-color: #FF5733; /* Fondo naranja */
+    background-color: #FF5733;
     color: #FFFFFF;
 }
 
 .badge-tag-2 {
-    background-color: #007BFF; /* Fondo azul */
+    background-color: #007BFF;
     color: #FFFFFF;
 }
 
 .badge-tag-3 {
-    background-color: #FFC107; /* Fondo amarillo */
-    color: #333333; /* Texto oscuro */
+    background-color: #FFC107;
+    color: #333333;
 }
 
-/* Opcional: Hover para resaltar tags cuando el usuario pasa el cursor */
 .badge:hover {
     opacity: 0.9;
     cursor: pointer;
 }
-body {
-    font-family: Arial, sans-serif;
-}
 
-.hidden {
-    display: none;
-}
-
-.editor-container {
+/* Editor */
+#editor-container {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
 }
 
+.opcion {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Contenedor de opciones */
 .opciones-container-horizontal {
     display: flex;
     gap: 10px;
@@ -85,17 +117,19 @@ body {
     color: #800020;
 }
 
+/* Panel oculto */
 .mini-panel {
-    display: none; /* Ocultos inicialmente */
+    display: none;
     position: fixed;
     background: #fff;
     border: 1px solid #ddd;
     padding: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 90%; /* Ancho del panel en móvil */
+    width: 90%;
     max-width: 300px;
     z-index: 1000;
 }
+
 .mini-panel.active {
     display: block;
 }
@@ -105,38 +139,7 @@ body {
     width: 100%;
 }
 
-#preview {
-    border: 1px solid #ccc;
-    margin-left: 20px;
-}
-
-.frase-item {
-    margin: 10px 0;
-}
-
-/* Panel activo */
-#action-buttons {
-    margin-top: 10px;
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-}
-
-#action-buttons button {
-    padding: 8px 12px;
-    font-size: 14px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    background-color: #800020;
-    color: #ffffff;
-    transition: background-color 0.3s ease;
-}
-
-#action-buttons button:hover {
-    background-color: #560014;
-}
-/* Estilos para pantallas pequeñas */
+/* Pantallas pequeñas */
 @media (max-width: 768px) {
     #canvas-container {
         width: 100%;
@@ -152,15 +155,13 @@ body {
 
     .mini-panel {
         position: absolute;
-        width: 90%; /* Ocupa un mayor ancho en móvil */
-        top: 10px; /* Ajusta la posición según sea necesario */
+        width: 90%;
+        top: 10px;
         margin: 5px auto;
         z-index: 10;
     }
     
-    /* Ajustes para botones de acción */
     #action-buttons {
-        display: flex;
         flex-direction: column;
         gap: 10px;
     }
@@ -170,115 +171,4 @@ body {
         flex-direction: column;
         align-items: center;
     }
-}
-/* nuevos */
-body {
-    background-color: #f8f9fa;
-    font-family: Arial, sans-serif;
-}
-
-h1 {
-    color: #343a40;
-}
-
-#frases-container {
-    margin: 20px 0;
-}
-
-#miCanvas {
-    background-color: #ffffff; /* Fondo blanco */
-    border: 1px solid #ccc; /* Borde gris */
-}
-
-.list-group-item a {
-    text-decoration: none;
-    color: #007bff;
-}
-
-.list-group-item a:hover {
-    text-decoration: underline;
-}
-
-#action-buttons {
-    margin-top: 10px;
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-}
-
-#action-buttons button {
-    padding: 8px 12px;
-    font-size: 14px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    background-color: #800020;
-    color: #ffffff;
-    transition: background-color 0.3s ease;
-}
-
-#action-buttons button:hover {
-    background-color: #560014;
-}
-/*nuevo 2*/
-body {
-    background-color: #f8f9fa;
-    font-family: Arial, sans-serif;
-}
-
-h1 {
-    color: #343a40;
-}
-
-#frases-container {
-    margin: 20px 0;
-}
-
-#miCanvas {
-    background-color: #ffffff;
-    border: 1px solid #ccc;
-}
-
-.list-group-item a {
-    text-decoration: none;
-    color: #007bff;
-}
-
-.list-group-item a:hover {
-    text-decoration: underline;
-}
-
-#editor-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.opcion {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-#action-buttons {
-    margin-top: 10px;
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-}
-
-#action-buttons button {
-    padding: 8px 12px;
-    font-size: 14px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    background-color: #800020;
-    color: #ffffff;
-    transition: background-color 0.3s ease;
-}
-
-#action-buttons button:hover {
-    background-color: #560014;
 }
