@@ -107,7 +107,8 @@ function actualizarCanvas() {
 
     ctx.fillStyle = colorFraseInput.value;
     ctx.textAlign = 'center';
-    let fontSize = parseInt(tamanoFraseInput.value);
+
+    let fontSize = parseInt(tamanoFraseInput.value) || 16;  // 16 es un valor predeterminado
     const maxWidth = canvas.width - 40;  // Dejar un margen de 20 en cada lado
 
     let lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, fontSize);
