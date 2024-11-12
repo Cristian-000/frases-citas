@@ -48,6 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Ocultar el canvas y controles de ajuste al inicio
     document.getElementById("canvas-container").style.display = "none";
+    document.getElementById("div-modificadores").style.display = "none";
 });
 
 const canvas = document.getElementById('miCanvas');
@@ -70,6 +71,7 @@ canvas.height = window.innerHeight * 0.8; // 90% del alto de la ventana
 function setFraseParaCompartir(frase, autor) {
     fraseSeleccionada = `${frase} - ${autor}`;
     document.getElementById("canvas-container").style.display = "block"; // Mostrar el canvas y los controles de ajuste
+    document.getElementById("div-modificadores").style.display = "block";
     actualizarCanvas();
 }
 
