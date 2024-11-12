@@ -3,56 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editor de Frases</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Personalizar Frases</title>
 </head>
 <body>
+    <h1 id="titulo-autor">Frases del Autor</h1>
+    <ul id="lista-frases" class="list-group"></ul>
+    <canvas id="miCanvas" width="600" height="400"></canvas>
 
-    <h1>Editor de Frases</h1>
+    <!-- Opciones de personalización -->
+    <label for="colorFondo">Color de fondo:</label>
+    <input type="color" id="colorFondo" value="#ffffff">
+    
+    <label for="colorFrase">Color de frase:</label>
+    <input type="color" id="colorFrase" value="#343a40">
+    
+    <label for="tamanoFrase">Tamaño de frase:</label>
+    <input type="number" id="tamanoFrase" value="24">
+    
+    <label for="posicionX">Posición X:</label>
+    <input type="number" id="posicionX" value="300">
+    
+    <label for="posicionY">Posición Y:</label>
+    <input type="number" id="posicionY" value="200">
 
-    <!-- Lista de frases para seleccionar -->
-    <div id="frases-container" class="list-group">
-        <p class="lead">Selecciona una frase para personalizar:</p>
-        <ul id="lista-frases" class="list-group">
-            <!-- Aquí se cargarán las frases -->
-        </ul>
-    </div>
-
-    <!-- Canvas para mostrar la frase -->
-    <div id="canvas-container">
-        <canvas id="miCanvas" width="500" height="500"></canvas>
-    </div>
-
-    <!-- Controles de edición de la imagen -->
-    <div id="editor-container">
-        <div class="opcion">
-            <label>Color de fondo:</label>
-            <input type="color" id="colorFondo" value="#ffffff" onchange="actualizarCanvas()">
-        </div>
-        <div class="opcion">
-            <label>Color de la frase:</label>
-            <input type="color" id="colorFrase" value="#000000" onchange="actualizarCanvas()">
-        </div>
-        <div class="opcion">
-            <label>Tamaño de la frase:</label>
-            <input type="range" id="tamanoFrase" min="10" max="40" value="20" onchange="actualizarCanvas()">
-        </div>
-        <div class="opcion">
-            <label>Posición X:</label>
-            <input type="range" id="posicionX" min="0" max="500" value="250" onchange="actualizarCanvas()">
-        </div>
-        <div class="opcion">
-            <label>Posición Y:</label>
-            <input type="range" id="posicionY" min="0" max="500" value="250" onchange="actualizarCanvas()">
-        </div>
-    </div>
-
-    <!-- Botones para acciones finales -->
-    <div id="action-buttons">
-        <button onclick="descargarImagen()">Descargar Imagen</button>
-        <button onclick="compartirImagen()">Compartir Imagen</button>
-    </div>
-
+    <button onclick="descargarImagen()">Descargar Imagen</button>
+    
     <script src="compartirImagenAutor.js"></script>
+    <script src="autorScript.js"></script>
 </body>
 </html>
