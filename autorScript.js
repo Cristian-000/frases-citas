@@ -18,12 +18,18 @@ function cargarAutor() {
                         li.className = "list-group-item";
                         li.innerHTML = `
                             <p>${fraseObj.frase}</p>
-                            <button onclick="setFraseParaCompartir('${fraseObj.frase}', '${fraseObj.autor_url}')">Usar en Canvas</button>
                             <div>
                                 <small><a href="autor.html?autor=${fraseObj.autor_url}">${fraseObj.autor_url}</a></small>
                                 ${fraseObj.categorias.map(categoria => `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-secondary ml-2">${categoria}</a>`).join(' ')}
                             </div>
                         `;
+
+                        // Crear botón y agregar listener
+                        const button = document.createElement("button");
+                        button.textContent = "Usar en Canvas";
+                        button.onclick = () => setFraseParaCompartir(fraseObj.frase, fraseObj.autor_url);
+                        li.appendChild(button);
+
                         listaFrases.appendChild(li);
                     }
                 });
