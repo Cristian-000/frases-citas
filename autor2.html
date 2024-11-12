@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor de Frases</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <h1>Editor de Frases</h1>
+
+    <!-- Lista de frases para seleccionar -->
+    <div id="frases-container" class="list-group">
+        <p class="lead">Selecciona una frase para personalizar:</p>
+        <ul id="lista-frases" class="list-group">
+            <!-- Aquí se cargarán las frases -->
+        </ul>
+    </div>
+
+    <!-- Canvas para mostrar la frase -->
+    <div id="canvas-container">
+        <canvas id="miCanvas" width="500" height="500"></canvas>
+    </div>
+
+    <!-- Controles de edición -->
+    <div id="action-buttons">
+        <button onclick="descargarImagen()">Descargar Imagen</button>
+        <button onclick="compartirImagen()">Compartir Imagen</button>
+    </div>
+
+    <script src="cargarFraseAutor.js"></script>
+</body>
+</html>
