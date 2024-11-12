@@ -43,7 +43,12 @@ function cargarAutor() {
 }
 
 // Llama a cargarAutor al cargar la página
-document.addEventListener("DOMContentLoaded", cargarAutor);
+document.addEventListener("DOMContentLoaded", () => {
+    cargarAutor();
+
+    // Ocultar el canvas y controles de ajuste al inicio
+    document.getElementById("canvas-container").style.display = "none";
+});
 
 const canvas = document.getElementById('miCanvas');
 const ctx = canvas.getContext('2d');
@@ -53,11 +58,17 @@ let fraseSeleccionada = "";
 const colorFondoInput = document.getElementById('colorFondo');
 const colorFraseInput = document.getElementById('colorFrase');
 const tamanoFraseInput = document.getElementById('tamanoFrase');
-const tipoFuenteInput = document.getElementById('tipoFuente');
+const posicionXInput = document.getElementById('posicionX');
+const posicionYInput = document.getElementById('posicionY');
 
-// Función para establecer una frase seleccionada y actualizar el canvas
+// Establece el tamaño inicial del canvas al tamaño de la ventana
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+// Función para establecer una frase seleccionada y mostrar el canvas
 function setFraseParaCompartir(frase, autor) {
     fraseSeleccionada = `${frase} - ${autor}`;
+    document.getElementById("canvas-container").style.display = "block"; // Mostrar el canvas y los controles de ajuste
     actualizarCanvas();
 }
 
@@ -66,7 +77,7 @@ function ajustarTexto(ctx, texto, maxWidth, fontSize) {
     const palabras = texto.split(" ");
     let linea = "";
     const lineas = [];
-    ctx.font = `${fontSize}px ${tipoFuenteInput.value}`;
+    ctx.font = `${fontSize}px Arial`;
 
     for (let i = 0; i < palabras.length; i++) {
         const pruebaLinea = linea + palabras[i] + " ";
@@ -84,33 +95,26 @@ function ajustarTexto(ctx, texto, maxWidth, fontSize) {
 
 // Actualizar el canvas con la frase seleccionada y las opciones de estilo
 function actualizarCanvas() {
-    // Ajustar el tamaño del canvas al tamaño de la ventana
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Fondo
     ctx.fillStyle = colorFondoInput.value;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Frase
     ctx.fillStyle = colorFraseInput.value;
     ctx.textAlign = 'center';
     let fontSize = parseInt(tamanoFraseInput.value);
-    const maxWidth = canvas.width - 40;
+    const maxWidth = canvas.width - 40;  // Dejar un margen de 20 en cada lado
 
     let lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, fontSize);
 
-    // Reducir fontSize si las líneas no caben
     while (lineas.length * fontSize > canvas.height - 40 && fontSize > 10) {
         fontSize -= 2;
         lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, fontSize);
     }
 
-    ctx.font = `${fontSize}px ${tipoFuenteInput.value}`;
+    ctx.font = `${fontSize}px Arial`;
 
-    // Posición centrada
+    // Calcular la posición vertical para centrar las líneas
     const posicionYInicial = (canvas.height - lineas.length * fontSize) / 2;
 
     lineas.forEach((linea, index) => {
@@ -121,8 +125,9 @@ function actualizarCanvas() {
 // Añadir event listeners para actualizar el canvas en tiempo real
 colorFondoInput.addEventListener('input', actualizarCanvas);
 colorFraseInput.addEventListener('input', actualizarCanvas);
-//tamanoFraseInput.addEventListener('input', actualizarCanvas);
-tipoFuenteInput.addEventListener('change', actualizarCanvas);
+tamanoFraseInput.addEventListener('input', actualizarCanvas);
+posicionXInput.addEventListener('input', actualizarCanvas);
+posicionYInput.addEventListener('input', actualizarCanvas);
 
 // Función para descargar la imagen del canvas
 function descargarImagen() {
@@ -131,6 +136,3 @@ function descargarImagen() {
     enlace.download = 'frase_personalizada.png';
     enlace.click();
 }
-
-// Ajustar el tamaño del canvas cuando cambie el tamaño de la ventana
-window.addEventListener('resize', actualizarCanvas);
