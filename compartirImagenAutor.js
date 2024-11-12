@@ -44,6 +44,7 @@ function cargarAutor() {
 
 // Llama a cargarAutor al cargar la página
 document.addEventListener("DOMContentLoaded", cargarAutor);
+
 const canvas = document.getElementById('miCanvas');
 const ctx = canvas.getContext('2d');
 let fraseSeleccionada = "";
@@ -103,12 +104,19 @@ function actualizarCanvas() {
 
     ctx.font = `${fontSize}px Arial`;
 
-    const posicionYInicial = posicionYInput.value - (lineas.length - 1) * fontSize / 2;
+    const posicionYInicial = parseInt(posicionYInput.value) - (lineas.length - 1) * fontSize / 2;
 
     lineas.forEach((linea, index) => {
-        ctx.fillText(linea, posicionXInput.value, posicionYInicial + index * fontSize);
+        ctx.fillText(linea, parseInt(posicionXInput.value), posicionYInicial + index * fontSize);
     });
 }
+
+// Añade event listeners para actualizar el canvas en tiempo real cuando cambian las opciones
+colorFondoInput.addEventListener('input', actualizarCanvas);
+colorFraseInput.addEventListener('input', actualizarCanvas);
+tamanoFraseInput.addEventListener('input', actualizarCanvas);
+posicionXInput.addEventListener('input', actualizarCanvas);
+posicionYInput.addEventListener('input', actualizarCanvas);
 
 // Función para descargar la imagen del canvas
 function descargarImagen() {
