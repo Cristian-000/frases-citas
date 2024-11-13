@@ -27,8 +27,8 @@ function cargarAutor() {
                         // Crear botón y agregar listener
                         const button = document.createElement("button");
                         button.textContent = "Usar en Canvas";
-                        button.onclick = () => { 
-                            setFraseParaCompartir(fraseObj.frase, fraseObj.autor_url); 
+                        button.onclick = () => {
+                            setFraseParaCompartir(fraseObj.frase, fraseObj.autor_url);
                             actualizarCanvas();
                         };
                         li.appendChild(button);
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
     actualizarCanvas();
     // Ocultar el canvas y controles de ajuste al inicio
     document.getElementById("canvas-container").style.display = "none";
-    document.getElementById("div-modificadores").style.display = "none";
+    document.getElementById("barra-modificadores").style.display = "none";
 });
 
 const canvas = document.getElementById('miCanvas');
@@ -78,9 +78,10 @@ tipoFuenteInput.value = "Arial"; // Tipo de fuente por defecto
 // Función para establecer una frase seleccionada y mostrar el canvas
 function setFraseParaCompartir(frase, autor) {
     fraseSeleccionada = `${frase} - ${autor}`;
-    document.getElementById("canvas-container").style.display = "block";
-    document.getElementById("div-modificadores").style.display = "block";
     actualizarCanvas();
+    document.getElementById("canvas-container").style.display = "block";
+    document.getElementById("barra-modificadores").style.display = "block";
+
 }
 
 // Ajuste de texto dentro del canvas
@@ -88,7 +89,7 @@ function ajustarTexto(ctx, texto, maxWidth, fontSize) {
     const palabras = texto.split(" ");
     let linea = "";
     const lineas = [];
-    
+
     ctx.font = `${fontSize}px ${tipoFuenteInput.value || 'Arial'}`;
 
     for (let i = 0; i < palabras.length; i++) {
@@ -120,16 +121,34 @@ imagenFondoInput.addEventListener('change', (event) => {
     }
 });
 
-
-// Modifica la función actualizarCanvas para incluir la imagen de fondo
 function actualizarCanvas() {
+    // Ajuste del tamaño del canvas para pantallas de alta resolución
+    const scale = window.devicePixelRatio || 1;
+    const canvasWidth = 300;  // Ancho visible en píxeles
+    const canvasHeight = 420; // Altura visible en píxeles
+
+    // Establecer el tamaño del canvas en el DOM
+    canvas.style.width = `${canvasWidth}px`;
+    canvas.style.height = `${canvasHeight}px`;
+
+    // Ajustar el tamaño interno del canvas según la resolución
+    canvas.width = canvasWidth * scale;
+    canvas.height = canvasHeight * scale;
+
+    // Escalar el contexto del canvas para mantener la calidad en pantallas de alta resolución
+    ctx.scale(scale, scale);
+
+    // Limpiar el canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Dibujar imagen de fondo si existe
-    if (imagenFondo) {
+    // Verificar si se debe quitar el fondo
+    const quitarFondo = document.getElementById("removeFondoCheckbox").checked;
+
+    // Si no se marca la opción de quitar fondo, dibujar la imagen de fondo
+    if (imagenFondo && !quitarFondo) {
         ctx.drawImage(imagenFondo, 0, 0, canvas.width, canvas.height);
     } else {
-        // Fondo del canvas con color seleccionado
+        // Fondo del canvas con color seleccionado si no hay imagen o si se desea quitar el fondo
         ctx.fillStyle = colorFondoInput.value;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
@@ -151,16 +170,37 @@ function actualizarCanvas() {
 
     ctx.font = `${fontSize}px ${tipoFuenteInput.value || 'Arial'}`;
     const posicionX = alineacionTextoInput.value === 'left' ? 20 :
-                      alineacionTextoInput.value === 'right' ? canvas.width - 20 :
-                      canvas.width / 2;
- 
- // Usa el valor de posicionYInput para desplazar el texto en el eje Y
- const posicionYInicial = (canvas.height - lineas.length * fontSize) / 2 + parseInt(posicionYInput.value);
+        alineacionTextoInput.value === 'right' ? canvas.width - 20 :
+            canvas.width / 2;
 
+    // Cálculo de la posición inicial del texto en el eje Y
+    const espacioVerticalDisponible = canvas.height - lineas.length * fontSize;
+    let posicionYInicial = espacioVerticalDisponible / 2; // Centrado verticalmente
+
+    // Obtener el valor de posicionYInput y ajustarlo dentro del rango permitido
+    let posicionYInputValue = parseInt(posicionYInput.value);
+
+    // Aquí calculamos los límites superior e inferior para la posición Y
+    const maxPosY = espacioVerticalDisponible / 2;  // Limite superior (centrado)
+    const minPosY = -maxPosY; // Limite inferior
+
+    // Ajustar el rango de posicionY para que el texto pueda moverse más libremente
+    if (posicionYInputValue > maxPosY) {
+        posicionYInputValue = maxPosY;
+    } else if (posicionYInputValue < minPosY) {
+        posicionYInputValue = minPosY;
+    }
+
+    // Ajustar la posición Y con el valor dinámico
+    posicionYInicial += posicionYInputValue;
+
+    // Dibujar las líneas de texto
     lineas.forEach((linea, index) => {
         ctx.fillText(linea, posicionX, posicionYInicial + index * fontSize);
     });
 }
+
+
 
 
 // Event listeners para actualizar el canvas en tiempo real
@@ -178,17 +218,30 @@ const observer = new MutationObserver(() => actualizarCanvas());
 observer.observe(tipoFuenteInput, { attributes: true, childList: true, subtree: true });
 observer.observe(alineacionTextoInput, { attributes: true, childList: true, subtree: true });
 
-// Función para descargar la imagen del canvas
+// Función para descargar la imagen del canvas con nombre personalizado
 function descargarImagen() {
+    // Obtener la fecha actual en formato YYYY-MM-DD
+    const fecha = new Date().toISOString().split('T')[0];
+
+    // Limitar la frase a los primeros 15 caracteres y quitar espacios adicionales
+    const fraseCorta = fraseSeleccionada.split(' - ')[0].substring(0, 15).replace(/\s+/g, '_');
+
+    // Generar el nombre del archivo
+    const nombreArchivo = `${fraseCorta}_${fecha}.png`;
+
+    // Crear un enlace temporal para la descarga
     const enlace = document.createElement('a');
     enlace.href = canvas.toDataURL('image/png');
-    enlace.download = 'frase_personalizada.png';
+    enlace.download = nombreArchivo;
     enlace.click();
 }
 
-document.querySelector('.share').addEventListener('click', async () => {
+// Asignar el evento al botón de descarga
+document.getElementById('botonDescargar').addEventListener('click', descargarImagen);
+
+document.getElementById('botonShare').addEventListener('click', async () => {
     try {
-      
+
         // Convierte el canvas a Blob para usarlo en la API Web Share
         const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
 
@@ -206,8 +259,8 @@ document.querySelector('.share').addEventListener('click', async () => {
             // Mensaje alternativo para dispositivos que no pueden compartir archivos
             alert("Tu dispositivo no admite la función de compartir archivos. Puedes descargar la imagen en su lugar.");
         }
-          // Verifica si el navegador y dispositivo admiten la API de Web Share
-          if (!navigator.canShare || !navigator.share) {
+        // Verifica si el navegador y dispositivo admiten la API de Web Share
+        if (!navigator.canShare || !navigator.share) {
             alert("La opción de compartir no está disponible en este dispositivo.");
             return;
         }
