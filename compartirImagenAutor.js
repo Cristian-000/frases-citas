@@ -151,9 +151,9 @@ colorFraseInput.addEventListener('input', actualizarCanvas);
 tamanoFraseInput.addEventListener('input', actualizarCanvas);
 posicionXInput.addEventListener('input', actualizarCanvas);
 posicionYInput.addEventListener('input', actualizarCanvas);
-tipoFuenteInput.addEventListener('click', actualizarCanvas);   // Tipo de fuente (click para anticipar cambio)
+tipoFuenteInput.addEventListener('blur', actualizarCanvas);   // Tipo de fuente (click para anticipar cambio)
 //alineacionTextoInput.addEventListener('change', actualizarCanvas);  // Alineación de texto
-alineacionTextoInput.addEventListener('click', actualizarCanvas);   // Alineación de texto (click)
+alineacionTextoInput.addEventListener('blur', actualizarCanvas);   // Alineación de texto (click)
 
 
 
