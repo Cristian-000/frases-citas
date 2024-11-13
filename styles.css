@@ -62,15 +62,9 @@ h1 {
 }
 /* General */
 /* General */
-body {
-    background-color: #f8f9fa;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
 
 #contenido {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -93,16 +87,16 @@ h1 {
     background-color: #ffffff;
     border: 1px solid #ccc;
     width: 100%;
-    max-width: 300px;
-    height: 420px;
+    max-width:600px;
+    height: 800px;
 }
 
 /* Barra de opciones de personalización */
 #barra-modificadores {
     display: flex;
-    flex-wrap: wrap; /* Permite que los elementos se muevan a una nueva fila si no hay espacio suficiente */
-    gap: 15px;
-    justify-content: flex-start; /* Alineación a la izquierda en pantallas grandes */
+    flex-wrap: wrap; /* Permite que los elementos se muevan a la siguiente línea si no hay suficiente espacio */
+    gap: 15px; /* Espacio entre los elementos */
+    justify-content: flex-start; /* Alineación a la izquierda */
     align-items: center;
     margin-top: 10px;
     padding: 10px 15px;
@@ -111,38 +105,51 @@ h1 {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Asegúrate de que las etiquetas se alineen correctamente con los inputs */
 #barra-modificadores label {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 5px; /* Espacio entre el ícono y el input */
     font-size: 0.9rem;
     color: #333;
 }
 
 #barra-modificadores input[type="color"],
 #barra-modificadores input[type="range"],
-#barra-modificadores select {
+#barra-modificadores select,
+#barra-modificadores input[type="file"],
+#barra-modificadores input[type="checkbox"] {
     border: 1px solid #ddd;
     border-radius: 4px;
     padding: 3px;
 }
 
+/* Ajustes para los botones de acción */
+#action-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap; /* Si hay espacio, los botones se alinean en fila */
+    justify-content: flex-start;
+}
 
 /* Ajustes de diseño responsivo */
-@media (max-width: 768px) {
+@media (max-width: 500px) {
     #canvas-container {
         width: 100%;
     }
     
     #barra-modificadores {
-        flex-direction: column;  /* Cambio a columna para pantallas pequeñas */
-        align-items: flex-start;  /* Alineación a la izquierda */
+        flex-direction: column; /* En pantallas pequeñas, los elementos se apilan en columna */
+        align-items: flex-start;
     }
 
     #action-buttons {
-        flex-direction: column;
+        flex-direction: column; /* Los botones se apilan en pantallas pequeñas */
+        width: 100%; /* Los botones ocuparán el ancho completo */
     }
 }
+
+
 
 
 /* Botones de acción */

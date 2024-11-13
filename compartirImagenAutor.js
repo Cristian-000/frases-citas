@@ -80,7 +80,7 @@ function setFraseParaCompartir(frase, autor) {
     fraseSeleccionada = `${frase} - ${autor}`;
     actualizarCanvas();
     document.getElementById("canvas-container").style.display = "block";
-    document.getElementById("barra-modificadores").style.display = "block";
+    document.getElementById("barra-modificadores").style.display = "flex";
 
 }
 
