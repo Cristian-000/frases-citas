@@ -108,21 +108,18 @@ function ajustarTexto(ctx, texto, maxWidth, fontSize) {
 const imagenFondoInput = document.getElementById('imagenFondo');
 let imagenFondo = null;
 
-// Cargar la imagen seleccionada por el usuario
+
 imagenFondoInput.addEventListener('change', (event) => {
     const archivo = event.target.files[0];
     if (archivo) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            imagenFondo = new Image();
-            imagenFondo.src = e.target.result;
-            imagenFondo.onload = () => {
-                actualizarCanvas();
-            };
+        imagenFondo = new Image();
+        imagenFondo.src = URL.createObjectURL(archivo); // Usar createObjectURL
+        imagenFondo.onload = () => {
+            actualizarCanvas();
         };
-        reader.readAsDataURL(archivo);
     }
 });
+
 
 // Modifica la función actualizarCanvas para incluir la imagen de fondo
 function actualizarCanvas() {
