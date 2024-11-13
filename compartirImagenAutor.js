@@ -151,8 +151,10 @@ colorFraseInput.addEventListener('input', actualizarCanvas);
 tamanoFraseInput.addEventListener('input', actualizarCanvas);
 posicionXInput.addEventListener('input', actualizarCanvas);
 posicionYInput.addEventListener('input', actualizarCanvas);
-tipoFuenteInput.addEventListener('input', actualizarCanvas); // Cambio de tipo de fuente
-alineacionTextoInput.addEventListener('input', actualizarCanvas); // Cambio de alineación
+tipoFuenteInput.addEventListener('click', actualizarCanvas);   // Tipo de fuente (click para anticipar cambio)
+//alineacionTextoInput.addEventListener('change', actualizarCanvas);  // Alineación de texto
+alineacionTextoInput.addEventListener('click', actualizarCanvas);   // Alineación de texto (click)
+
 
 
 // Función para descargar la imagen del canvas
