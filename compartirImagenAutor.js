@@ -63,11 +63,11 @@ const colorFondoInput = document.getElementById('colorFondo');
 const colorFraseInput = document.getElementById('colorFrase');
 const tamanoFraseInput = document.getElementById('tamanoFrase');
 const posicionXInput = document.getElementById('posicionX');
-const posicionYInput = document.getElementById('posicionY');
+
 const tipoFuenteInput = document.getElementById('tipoFuente');
 // Elemento del selector de alineación
 const alineacionTextoInput = document.getElementById('alineacionTexto');
-
+const posicionYInput = document.getElementById('posicionY'); // Captura el control de posición Y
 // Establece el tamaño inicial del canvas al tamaño de la ventana
 canvas.width = window.innerWidth * 0.9; // 90% del ancho de la ventana
 canvas.height = window.innerHeight * 0.8; // 90% del alto de la ventana
@@ -105,50 +105,69 @@ function ajustarTexto(ctx, texto, maxWidth, fontSize) {
     return lineas;
 }
 
-// Actualizar el canvas con la frase seleccionada y las opciones de estilo
-function actualizarCanvas() {
-    console.log("Actualizando canvas con los siguientes valores:");
-    console.log("Tipo de fuente:", tipoFuenteInput.value);
-    console.log("Alineación de texto:", alineacionTextoInput.value);
-    
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+const imagenFondoInput = document.getElementById('imagenFondo');
+let imagenFondo = null;
 
-        // Fondo del canvas
+// Cargar la imagen seleccionada por el usuario
+imagenFondoInput.addEventListener('change', (event) => {
+    const archivo = event.target.files[0];
+    if (archivo) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            imagenFondo = new Image();
+            imagenFondo.src = e.target.result;
+            imagenFondo.onload = () => {
+                actualizarCanvas();
+            };
+        };
+        reader.readAsDataURL(archivo);
+    }
+});
+
+// Modifica la función actualizarCanvas para incluir la imagen de fondo
+function actualizarCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Dibujar imagen de fondo si existe
+    if (imagenFondo) {
+        ctx.drawImage(imagenFondo, 0, 0, canvas.width, canvas.height);
+    } else {
+        // Fondo del canvas con color seleccionado
         ctx.fillStyle = colorFondoInput.value;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
 
-        // Estilos de texto
-        ctx.fillStyle = colorFraseInput.value;
-        ctx.textAlign = alineacionTextoInput.value; // Alineación seleccionada
+    // Configuración y dibujo de texto como antes
+    ctx.fillStyle = colorFraseInput.value;
+    ctx.textAlign = alineacionTextoInput.value;
 
-        let fontSize = parseInt(tamanoFraseInput.value) || 16;
-        const maxWidth = canvas.width - 40;
+    let fontSize = parseInt(tamanoFraseInput.value) || 16;
+    const maxWidth = canvas.width - 40;
+    ctx.font = `${fontSize}px ${tipoFuenteInput.value || 'Arial'}`;
 
-        ctx.font = `${fontSize}px ${tipoFuenteInput.value || 'Arial'}`;
+    let lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, fontSize);
 
-        let lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, fontSize);
+    while (lineas.length * fontSize > canvas.height - 40 && fontSize > 10) {
+        fontSize -= 4;
+        lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, fontSize);
+    }
 
-        while (lineas.length * fontSize > canvas.height - 40 && fontSize > 10) {
-            fontSize -= 4;
-            lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, fontSize);
-        }
+    ctx.font = `${fontSize}px ${tipoFuenteInput.value || 'Arial'}`;
+    const posicionX = alineacionTextoInput.value === 'left' ? 20 :
+                      alineacionTextoInput.value === 'right' ? canvas.width - 20 :
+                      canvas.width / 2;
+ 
+ // Usa el valor de posicionYInput para desplazar el texto en el eje Y
+ const posicionYInicial = (canvas.height - lineas.length * fontSize) / 2 + parseInt(posicionYInput.value);
 
-        ctx.font = `${fontSize}px ${tipoFuenteInput.value || 'Arial'}`;
-
-        const posicionX = alineacionTextoInput.value === 'left' ? 20 :
-                        alineacionTextoInput.value === 'right' ? canvas.width - 20 :
-                        canvas.width / 2;
-
-        const posicionYInicial = (canvas.height - lineas.length * fontSize) / 2;
-
-        lineas.forEach((linea, index) => {
-            ctx.fillText(linea, posicionX, posicionYInicial + index * fontSize);
-        });
-   
+    lineas.forEach((linea, index) => {
+        ctx.fillText(linea, posicionX, posicionYInicial + index * fontSize);
+    });
 }
 
 
 // Event listeners para actualizar el canvas en tiempo real
+posicionYInput.addEventListener('input', actualizarCanvas);
 colorFondoInput.addEventListener('input', actualizarCanvas);
 colorFraseInput.addEventListener('input', actualizarCanvas);
 tamanoFraseInput.addEventListener('input', actualizarCanvas);
@@ -169,3 +188,34 @@ function descargarImagen() {
     enlace.download = 'frase_personalizada.png';
     enlace.click();
 }
+
+document.querySelector('.share').addEventListener('click', async () => {
+    try {
+        // Verifica si el navegador y dispositivo admiten la API de Web Share
+        if (!navigator.canShare || !navigator.share) {
+            alert("La opción de compartir no está disponible en este dispositivo.");
+            return;
+        }
+
+        // Convierte el canvas a Blob para usarlo en la API Web Share
+        const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+
+        // Verifica que se pueda compartir archivos
+        if (navigator.canShare({ files: [new File([blob], "imagen.png", { type: "image/png" })] })) {
+            const file = new File([blob], "imagen.png", { type: "image/png" });
+
+            await navigator.share({
+                files: [file],
+                title: 'Mira esta imagen',
+                text: '¡Mira la imagen que creé!',
+            });
+            console.log("Imagen compartida exitosamente");
+        } else {
+            // Mensaje alternativo para dispositivos que no pueden compartir archivos
+            alert("Tu dispositivo no admite la función de compartir archivos. Puedes descargar la imagen en su lugar.");
+        }
+    } catch (error) {
+        console.error("Error al compartir la imagen:", error);
+        alert("Hubo un error al intentar compartir la imagen.");
+    }
+});
