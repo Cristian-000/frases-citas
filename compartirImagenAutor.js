@@ -120,81 +120,76 @@ imagenFondoInput.addEventListener('change', (event) => {
         };
     }
 });
-
 function actualizarCanvas() {
-    // Ajuste del tamaño del canvas para pantallas de alta resolución
+    // Escala para pantallas de alta resolución
     const scale = window.devicePixelRatio || 1;
-    const canvasWidth = 300;  // Ancho visible en píxeles
-    const canvasHeight = 420; // Altura visible en píxeles
 
-    // Establecer el tamaño del canvas en el DOM
+    // Tamaño del canvas según el dispositivo
+    let canvasWidth = window.innerWidth > 500 ? 300 : window.innerWidth * 0.9;
+    let canvasHeight = window.innerWidth > 500 ? 420 : window.innerHeight * 0.5;
+
+    // Configuración del tamaño visible del canvas
     canvas.style.width = `${canvasWidth}px`;
     canvas.style.height = `${canvasHeight}px`;
 
-    // Ajustar el tamaño interno del canvas según la resolución
+    // Ajustar tamaño interno del canvas para alta resolución
     canvas.width = canvasWidth * scale;
     canvas.height = canvasHeight * scale;
-
-    // Escalar el contexto del canvas para mantener la calidad en pantallas de alta resolución
     ctx.scale(scale, scale);
 
-    // Limpiar el canvas
+    // Limpiar el canvas antes de dibujar
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Verificar si se debe quitar el fondo
     const quitarFondo = document.getElementById("removeFondoCheckbox").checked;
 
-    // Si no se marca la opción de quitar fondo, dibujar la imagen de fondo
+    // Fondo del canvas
     if (imagenFondo && !quitarFondo) {
         ctx.drawImage(imagenFondo, 0, 0, canvas.width, canvas.height);
     } else {
-        // Fondo del canvas con color seleccionado si no hay imagen o si se desea quitar el fondo
         ctx.fillStyle = colorFondoInput.value;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
-    // Configuración y dibujo de texto como antes
+    // Configuración de estilo de texto
     ctx.fillStyle = colorFraseInput.value;
     ctx.textAlign = alineacionTextoInput.value;
 
+    // Tamaño inicial de la fuente y ajuste dinámico en caso de desbordamiento
     let fontSize = parseInt(tamanoFraseInput.value) || 16;
-    const maxWidth = canvas.width - 40;
+    const maxWidth = canvas.width - 40; // Margen lateral
     ctx.font = `${fontSize}px ${tipoFuenteInput.value || 'Arial'}`;
-
+    
+    // Ajustar el texto dentro del ancho disponible en el canvas
     let lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, fontSize);
-
     while (lineas.length * fontSize > canvas.height - 40 && fontSize > 10) {
-        fontSize -= 4;
+        fontSize -= 2;  // Disminuir el tamaño de la fuente en 2px para evitar desbordamiento
         lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, fontSize);
     }
 
+    // Reaplicar la fuente después del ajuste
     ctx.font = `${fontSize}px ${tipoFuenteInput.value || 'Arial'}`;
+
+    // Cálculo de la posición del texto
     const posicionX = alineacionTextoInput.value === 'left' ? 20 :
-        alineacionTextoInput.value === 'right' ? canvas.width - 20 :
-            canvas.width / 2;
+                      alineacionTextoInput.value === 'right' ? canvas.width - 20 :
+                      canvas.width / 2;
 
-    // Cálculo de la posición inicial del texto en el eje Y
+    // Centrando el texto verticalmente y aplicando ajustes
     const espacioVerticalDisponible = canvas.height - lineas.length * fontSize;
-    let posicionYInicial = espacioVerticalDisponible / 2; // Centrado verticalmente
+    let posicionYInicial = espacioVerticalDisponible / 2;
 
-    // Obtener el valor de posicionYInput y ajustarlo dentro del rango permitido
+    // Ajustar la posición Y usando el input de posición Y y limitando su valor
     let posicionYInputValue = parseInt(posicionYInput.value);
+    const maxPosY = espacioVerticalDisponible / 2;
+    const minPosY = -maxPosY;
+    if (posicionYInputValue > maxPosY) posicionYInputValue = maxPosY;
+    if (posicionYInputValue < minPosY) posicionYInputValue = minPosY;
 
-    // Aquí calculamos los límites superior e inferior para la posición Y
-    const maxPosY = espacioVerticalDisponible / 2;  // Limite superior (centrado)
-    const minPosY = -maxPosY; // Limite inferior
-
-    // Ajustar el rango de posicionY para que el texto pueda moverse más libremente
-    if (posicionYInputValue > maxPosY) {
-        posicionYInputValue = maxPosY;
-    } else if (posicionYInputValue < minPosY) {
-        posicionYInputValue = minPosY;
-    }
-
-    // Ajustar la posición Y con el valor dinámico
+    // Posición final del texto ajustada
     posicionYInicial += posicionYInputValue;
 
-    // Dibujar las líneas de texto
+    // Dibujar cada línea de texto en el canvas
     lineas.forEach((linea, index) => {
         ctx.fillText(linea, posicionX, posicionYInicial + index * fontSize);
     });
