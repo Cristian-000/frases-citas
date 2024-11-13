@@ -126,15 +126,15 @@ function actualizarCanvas() {
 
     // Reducir el tamaño de fuente si no cabe en el canvas
     while (lineas.length * fontSize > canvas.height - 40 && fontSize > 10) {
-        fontSize -= 2;
+        fontSize -= 4;
         lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, fontSize);
     }
 
     ctx.font = `${fontSize}px ${tipoFuenteInput.value || 'Arial'}`;
 
     // Ajustar posición en X según la alineación seleccionada
-    const posicionX = alineacionTextoInput.value === 'left' ? 0 :
-                  alineacionTextoInput.value === 'right' ? canvas.width :
+    const posicionX = alineacionTextoInput.value === 'left' ? 20 :
+                  alineacionTextoInput.value === 'right' ? canvas.width - 20 :
                   canvas.width / 2;
 
     // Calcular la posición vertical para centrar las líneas
