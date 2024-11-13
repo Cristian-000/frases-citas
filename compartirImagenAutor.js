@@ -133,9 +133,9 @@ function actualizarCanvas() {
     ctx.font = `${fontSize}px ${tipoFuenteInput.value || 'Arial'}`;
 
     // Ajustar posición en X según la alineación seleccionada
-    const posicionX = alineacionTextoInput.value === 'left' ? 20 :
-                      alineacionTextoInput.value === 'right' ? canvas.width - 20 :
-                      canvas.width / 2;
+    const posicionX = alineacionTextoInput.value === 'left' ? 0 :
+                  alineacionTextoInput.value === 'right' ? canvas.width :
+                  canvas.width / 2;
 
     // Calcular la posición vertical para centrar las líneas
     const posicionYInicial = (canvas.height - lineas.length * fontSize) / 2;
