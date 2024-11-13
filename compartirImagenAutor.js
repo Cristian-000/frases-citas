@@ -27,9 +27,10 @@ function cargarAutor() {
                         // Crear botón y agregar listener
                         const button = document.createElement("button");
                         button.textContent = "Usar en Canvas";
-                        button.onclick = () => { setFraseParaCompartir(fraseObj.frase, fraseObj.autor_url); 
-                                                actualizarCanvas();
-                                               };
+                        button.onclick = () => { 
+                            setFraseParaCompartir(fraseObj.frase, fraseObj.autor_url); 
+                            actualizarCanvas();
+                        };
                         li.appendChild(button);
 
                         listaFrases.appendChild(li);
@@ -71,6 +72,9 @@ const alineacionTextoInput = document.getElementById('alineacionTexto');
 canvas.width = window.innerWidth * 0.8; // 90% del ancho de la ventana
 canvas.height = window.innerHeight * 0.8; // 90% del alto de la ventana
 
+// Establecer valor predeterminado de tipo de fuente
+tipoFuenteInput.value = "Arial"; // Tipo de fuente por defecto
+
 // Función para establecer una frase seleccionada y mostrar el canvas
 function setFraseParaCompartir(frase, autor) {
     fraseSeleccionada = `${frase} - ${autor}`;
@@ -84,10 +88,8 @@ function ajustarTexto(ctx, texto, maxWidth, fontSize) {
     const palabras = texto.split(" ");
     let linea = "";
     const lineas = [];
-    if (!tipoFuenteInput.value) {
-    tipoFuenteInput.value = "Arial";  // Valor por defecto
-    }
-    ctx.font = `${fontSize}px ${tipoFuenteInput.value}`;
+    
+    ctx.font = `${fontSize}px ${tipoFuenteInput.value || 'Arial'}`;
 
     for (let i = 0; i < palabras.length; i++) {
         const pruebaLinea = linea + palabras[i] + " ";
@@ -107,17 +109,22 @@ function ajustarTexto(ctx, texto, maxWidth, fontSize) {
 function actualizarCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    // Fondo del canvas
     ctx.fillStyle = colorFondoInput.value;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+    // Estilos de texto
     ctx.fillStyle = colorFraseInput.value;
     ctx.textAlign = alineacionTextoInput.value; // Alineación seleccionada
 
     let fontSize = parseInt(tamanoFraseInput.value) || 16;  // 16 es un valor predeterminado
     const maxWidth = canvas.width - 40;  // Dejar un margen de 20 en cada lado
 
+    ctx.font = `${fontSize}px ${tipoFuenteInput.value || 'Arial'}`;
+
     let lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, fontSize);
 
+    // Reducir el tamaño de fuente si no cabe en el canvas
     while (lineas.length * fontSize > canvas.height - 40 && fontSize > 10) {
         fontSize -= 2;
         lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, fontSize);
@@ -138,15 +145,14 @@ function actualizarCanvas() {
     });
 }
 
-// Añadir event listener para actualizar el canvas al cambiar la alineación
-alineacionTextoInput.addEventListener('change', actualizarCanvas);
-// Añadir event listeners para actualizar el canvas en tiempo real
+// Event listeners para actualizar el canvas en tiempo real
 colorFondoInput.addEventListener('input', actualizarCanvas);
 colorFraseInput.addEventListener('input', actualizarCanvas);
 tamanoFraseInput.addEventListener('input', actualizarCanvas);
 posicionXInput.addEventListener('input', actualizarCanvas);
 posicionYInput.addEventListener('input', actualizarCanvas);
-tipoFuenteInput.addEventListener('change', actualizarCanvas);
+tipoFuenteInput.addEventListener('change', actualizarCanvas); // Cambio de tipo de fuente
+alineacionTextoInput.addEventListener('change', actualizarCanvas); // Cambio de alineación
 
 // Función para descargar la imagen del canvas
 function descargarImagen() {
