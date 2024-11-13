@@ -69,7 +69,7 @@ const tipoFuenteInput = document.getElementById('tipoFuente');
 const alineacionTextoInput = document.getElementById('alineacionTexto');
 
 // Establece el tamaño inicial del canvas al tamaño de la ventana
-canvas.width = window.innerWidth * 0.8; // 90% del ancho de la ventana
+canvas.width = window.innerWidth * 0.95; // 90% del ancho de la ventana
 canvas.height = window.innerHeight * 0.8; // 90% del alto de la ventana
 
 // Establecer valor predeterminado de tipo de fuente
