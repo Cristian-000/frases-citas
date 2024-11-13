@@ -153,6 +153,9 @@ posicionXInput.addEventListener('input', actualizarCanvas);
 posicionYInput.addEventListener('input', actualizarCanvas);
 tipoFuenteInput.addEventListener('change', actualizarCanvas); // Cambio de tipo de fuente
 alineacionTextoInput.addEventListener('change', actualizarCanvas); // Cambio de alineación
+tipoFuenteInput.addEventListener('input', actualizarCanvas); // Cambio de tipo de fuente
+alineacionTextoInput.addEventListener('input', actualizarCanvas); // Cambio de alineación
+
 
 // Función para descargar la imagen del canvas
 function descargarImagen() {
