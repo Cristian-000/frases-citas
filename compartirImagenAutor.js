@@ -191,12 +191,7 @@ function descargarImagen() {
 
 document.querySelector('.share').addEventListener('click', async () => {
     try {
-        // Verifica si el navegador y dispositivo admiten la API de Web Share
-        if (!navigator.canShare || !navigator.share) {
-            alert("La opción de compartir no está disponible en este dispositivo.");
-            return;
-        }
-
+      
         // Convierte el canvas a Blob para usarlo en la API Web Share
         const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
 
@@ -214,6 +209,12 @@ document.querySelector('.share').addEventListener('click', async () => {
             // Mensaje alternativo para dispositivos que no pueden compartir archivos
             alert("Tu dispositivo no admite la función de compartir archivos. Puedes descargar la imagen en su lugar.");
         }
+          // Verifica si el navegador y dispositivo admiten la API de Web Share
+          if (!navigator.canShare || !navigator.share) {
+            alert("La opción de compartir no está disponible en este dispositivo.");
+            return;
+        }
+
     } catch (error) {
         console.error("Error al compartir la imagen:", error);
         alert("Hubo un error al intentar compartir la imagen.");
