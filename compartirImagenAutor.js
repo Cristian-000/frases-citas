@@ -120,7 +120,6 @@ imagenFondoInput.addEventListener('change', (event) => {
         };
     }
 });
-
 function actualizarCanvas() {
     // Obtener el factor de escala para alta densidad de píxeles
     const scale = window.devicePixelRatio || 1;
@@ -175,20 +174,29 @@ function actualizarCanvas() {
     // Reaplicar la fuente después del ajuste
     ctx.font = `${fontSize}px ${tipoFuenteInput.value || 'Arial'}`;
 
+    // Calcular los límites verticales del texto
+    const textoAlturaTotal = lineas.length * fontSize;
+    const minPosY = 0; // El límite superior del canvas
+    const maxPosY = canvasHeight - textoAlturaTotal; // El límite inferior, menos la altura del texto
+
+    // Actualizar los límites del control deslizante de `posicionY`
+    posicionYInput.min = minPosY;
+    posicionYInput.max = maxPosY;
+
     // Cálculo de la posición del texto
     const posicionX = alineacionTextoInput.value === 'left' ? 20 :
                       alineacionTextoInput.value === 'right' ? canvasWidth - 20 :
                       canvasWidth / 2;
 
-    // Obtener el valor del control de ajuste Y
-    const ajusteY = parseInt(posicionYInput.value) || 0;
+    // Tomar el valor de `posicionY` dentro de los nuevos límites
+    let posicionY = parseFloat(posicionYInput.value);
+    if (posicionY < minPosY) posicionY = minPosY;
+    if (posicionY > maxPosY) posicionY = maxPosY;
 
-    // Cálculo de la posición vertical inicial, sumando el ajuste Y
-    let posicionY = (canvasHeight - lineas.length * fontSize) / 2 + ajusteY;
-
-    // Dibujar cada línea de texto
-    lineas.forEach((linea, index) => {
-        ctx.fillText(linea, posicionX, posicionY + index * fontSize);
+    // Dibujar cada línea de texto en el canvas
+    lineas.forEach(linea => {
+        ctx.fillText(linea, posicionX, posicionY);
+        posicionY += fontSize;
     });
 }
 // _\
