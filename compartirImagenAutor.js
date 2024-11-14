@@ -26,7 +26,7 @@ function cargarAutor() {
 
                         // Crear botón y agregar listener
                         const button = document.createElement("button");
-                        button.textContent = "Usar en Canvas";
+                        button.textContent = "Crear Imagen";
                         button.onclick = () => {
                             setFraseParaCompartir(fraseObj.frase, fraseObj.autor_url);
                             actualizarCanvas();
@@ -77,7 +77,7 @@ tipoFuenteInput.value = "Arial"; // Tipo de fuente por defecto
 
 // Función para establecer una frase seleccionada y mostrar el canvas
 function setFraseParaCompartir(frase, autor) {
-    fraseSeleccionada = `${frase} - ${autor}`;
+    fraseSeleccionada = `${frase}<br>- ${autor}`;
     actualizarCanvas();
     document.getElementById("canvas-container").style.display = "block";
     document.getElementById("barra-modificadores").style.display = "flex";
