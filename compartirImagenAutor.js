@@ -24,14 +24,20 @@ function cargarAutor() {
                             </div>
                         `;
 
-                        // Crear botón y agregar listener
-                        const button = document.createElement("button");
-                        button.textContent = "Crear Imagen";
-                        button.onclick = () => {
+                        // Crear botón de "Crear Imagen"
+                        const imageButton = document.createElement("button");
+                        imageButton.textContent = "Crear Imagen";
+                        imageButton.onclick = () => {
                             setFraseParaCompartir(fraseObj.frase, fraseObj.autor_url);
                             actualizarCanvas();
                         };
-                        li.appendChild(button);
+                        li.appendChild(imageButton);
+
+                        // Crear botón de "Compartir"
+                        const shareButton = document.createElement("button");
+                        shareButton.textContent = "Compartir esta frase";
+                        shareButton.onclick = () => compartirFrase(fraseObj.frase, fraseObj.autor_url);
+                        li.appendChild(shareButton);
 
                         listaFrases.appendChild(li);
                     }
@@ -45,6 +51,23 @@ function cargarAutor() {
     });
 }
 
+// Función para compartir la frase seleccionada
+function compartirFrase(frase, autor) {
+    const textoCompartir = `${frase} - ${autor}`;
+    const urlCompartir = window.location.href; // URL actual
+
+    if (navigator.share) {
+        navigator.share({
+            title: "Frase Inspiradora",
+            text: textoCompartir,
+            url: urlCompartir
+        })
+        .then(() => console.log("Frase compartida exitosamente"))
+        .catch(error => console.error("Error al compartir:", error));
+    } else {
+        alert("La funcionalidad de compartir no está disponible en este navegador.");
+    }
+}
 // Llama a cargarAutor al cargar la página
 document.addEventListener("DOMContentLoaded", () => {
     cargarAutor();
