@@ -120,19 +120,21 @@ imagenFondoInput.addEventListener('change', (event) => {
         };
     }
 });
+
+
 function actualizarCanvas() {
-    // Escala para pantallas de alta resolución
+    // Escala según la densidad de píxeles de la pantalla
     const scale = window.devicePixelRatio || 1;
 
     // Tamaño del canvas según el dispositivo
-    let canvasWidth = window.innerWidth > 500 ? 300 : window.innerWidth * 0.9;
-    let canvasHeight = window.innerWidth > 500 ? 420 : window.innerHeight * 0.5;
+    let canvasWidth = window.innerWidth * 0.9;  // Ancho al 90% de la pantalla
+    let canvasHeight = window.innerHeight * 0.8; // Alto al 80% de la pantalla
 
     // Configuración del tamaño visible del canvas
     canvas.style.width = `${canvasWidth}px`;
     canvas.style.height = `${canvasHeight}px`;
 
-    // Ajustar tamaño interno del canvas para alta resolución
+    // Ajuste del tamaño interno del canvas para alta resolución
     canvas.width = canvasWidth * scale;
     canvas.height = canvasHeight * scale;
     ctx.scale(scale, scale);
@@ -179,22 +181,14 @@ function actualizarCanvas() {
     const espacioVerticalDisponible = canvas.height - lineas.length * fontSize;
     let posicionYInicial = espacioVerticalDisponible / 2;
 
-    // Ajustar la posición Y usando el input de posición Y y limitando su valor
-    let posicionYInputValue = parseInt(posicionYInput.value);
-    const maxPosY = espacioVerticalDisponible / 2;
-    const minPosY = -maxPosY;
-    if (posicionYInputValue > maxPosY) posicionYInputValue = maxPosY;
-    if (posicionYInputValue < minPosY) posicionYInputValue = minPosY;
+    // Ajustar la posición Y usando el input de posición Y y limitando para que no se salga del canvas
+    let posicionY = posicionYInicial + parseInt(posicionYInput.value);
 
-    // Posición final del texto ajustada
-    posicionYInicial += posicionYInputValue;
-
-    // Dibujar cada línea de texto en el canvas
+    // Dibujar cada línea de texto
     lineas.forEach((linea, index) => {
-        ctx.fillText(linea, posicionX, posicionYInicial + index * fontSize);
+        ctx.fillText(linea, posicionX, posicionY + index * fontSize);
     });
 }
-
 
 
 
