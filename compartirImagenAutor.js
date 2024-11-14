@@ -180,11 +180,13 @@ function actualizarCanvas() {
                       alineacionTextoInput.value === 'right' ? canvasWidth - 20 :
                       canvasWidth / 2;
 
-    // Calcular la posición vertical inicial y aplicar un margen superior e inferior
-    const espacioVerticalDisponible = canvasHeight - lineas.length * fontSize;
-    let posicionY = espacioVerticalDisponible / 2 + fontSize;
+    // Obtener el valor del control de ajuste Y
+    const ajusteY = parseInt(posicionYInput.value) || 0;
 
-    // Dibujar cada línea de texto en el centro del canvas
+    // Cálculo de la posición vertical inicial, sumando el ajuste Y
+    let posicionY = (canvasHeight - lineas.length * fontSize) / 2 + ajusteY;
+
+    // Dibujar cada línea de texto
     lineas.forEach((linea, index) => {
         ctx.fillText(linea, posicionX, posicionY + index * fontSize);
     });
