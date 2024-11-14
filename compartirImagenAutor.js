@@ -120,6 +120,12 @@ imagenFondoInput.addEventListener('change', (event) => {
         };
     }
 });
+
+// _/
+
+// Variable para la marca de agua
+const marcaDeAgua = "NombreDeLaPagina.com";
+
 function actualizarCanvas() {
     // Obtener el factor de escala para alta densidad de píxeles
     const scale = window.devicePixelRatio || 1;
@@ -198,6 +204,17 @@ function actualizarCanvas() {
         ctx.fillText(linea, posicionX, posicionY);
         posicionY += fontSize;
     });
+
+    // Dibujar la marca de agua en la esquina inferior derecha
+    ctx.font = "14px Arial"; // Tamaño y fuente de la marca de agua
+    ctx.globalAlpha = 0.3; // Opacidad para la marca de agua
+    ctx.fillStyle = "#000000"; // Color de la marca de agua
+    const margen = 10; // Margen desde el borde
+    const anchoTextoMarcaDeAgua = ctx.measureText(marcaDeAgua).width;
+    ctx.fillText(marcaDeAgua, canvasWidth - anchoTextoMarcaDeAgua - margen, canvasHeight - margen);
+
+    // Restablecer la opacidad global después de dibujar la marca de agua
+    ctx.globalAlpha = 1.0;
 }
 // _\
 // Event listeners para actualizar el canvas en tiempo real
