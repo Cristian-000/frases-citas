@@ -121,8 +121,6 @@ imagenFondoInput.addEventListener('change', (event) => {
     }
 });
 
-// _/
-
 function actualizarCanvas() {
     // Obtener el factor de escala para alta densidad de píxeles
     const scale = window.devicePixelRatio || 1;
@@ -148,27 +146,9 @@ function actualizarCanvas() {
     // Verificar si se debe quitar el fondo
     const quitarFondo = document.getElementById("removeFondoCheckbox").checked;
 
-    // Dibujar el fondo sin estirarlo
+    // Dibujar el fondo
     if (imagenFondo && !quitarFondo) {
-        const imgAspectRatio = imagenFondo.width / imagenFondo.height;
-        const canvasAspectRatio = canvasWidth / canvasHeight;
-        let imgWidth, imgHeight, imgX, imgY;
-
-        if (imgAspectRatio > canvasAspectRatio) {
-            // La imagen es más ancha que el canvas
-            imgWidth = canvasWidth;
-            imgHeight = canvasWidth / imgAspectRatio;
-            imgX = 0;
-            imgY = (canvasHeight - imgHeight) / 2;
-        } else {
-            // La imagen es más alta que el canvas
-            imgWidth = canvasHeight * imgAspectRatio;
-            imgHeight = canvasHeight;
-            imgX = (canvasWidth - imgWidth) / 2;
-            imgY = 0;
-        }
-
-        ctx.drawImage(imagenFondo, imgX, imgY, imgWidth, imgHeight);
+        ctx.drawImage(imagenFondo, 0, 0, canvasWidth, canvasHeight);
     } else {
         ctx.fillStyle = colorFondoInput.value;
         ctx.fillRect(0, 0, canvasWidth, canvasHeight);
@@ -200,17 +180,15 @@ function actualizarCanvas() {
                       alineacionTextoInput.value === 'right' ? canvasWidth - 20 :
                       canvasWidth / 2;
 
-    // Ajustar la posición vertical inicial con el control de rango
-    const posYControl = document.getElementById("posYRange").value;
+    // Calcular la posición vertical inicial y aplicar un margen superior e inferior
     const espacioVerticalDisponible = canvasHeight - lineas.length * fontSize;
-    let posicionY = (espacioVerticalDisponible / 2) + parseInt(posYControl);
+    let posicionY = espacioVerticalDisponible / 2 + fontSize;
 
-    // Dibujar cada línea de texto en el canvas
+    // Dibujar cada línea de texto en el centro del canvas
     lineas.forEach((linea, index) => {
         ctx.fillText(linea, posicionX, posicionY + index * fontSize);
     });
 }
-
 // _\
 // Event listeners para actualizar el canvas en tiempo real
 posicionYInput.addEventListener('input', actualizarCanvas);
