@@ -121,51 +121,56 @@ imagenFondoInput.addEventListener('change', (event) => {
     }
 });
 
+// _/
 
 function actualizarCanvas() {
-    // Escala según la densidad de píxeles de la pantalla
+    // Obtener el factor de escala para alta densidad de píxeles
     const scale = window.devicePixelRatio || 1;
 
-    // Tamaño del canvas según el dispositivo
-    let canvasWidth = window.innerWidth * 0.9;  // Ancho al 90% de la pantalla
-    let canvasHeight = window.innerHeight * 0.8; // Alto al 80% de la pantalla
+    // Calcular el tamaño del canvas en píxeles físicos
+    let canvasWidth = window.innerWidth * 0.9;  // Ancho al 90% de la ventana
+    let canvasHeight = window.innerHeight * 0.8; // Alto al 80% de la ventana
 
-    // Configuración del tamaño visible del canvas
+    // Establecer el tamaño en CSS
     canvas.style.width = `${canvasWidth}px`;
     canvas.style.height = `${canvasHeight}px`;
 
-    // Ajuste del tamaño interno del canvas para alta resolución
+    // Configurar el tamaño interno del canvas en píxeles físicos para asegurar alta resolución
     canvas.width = canvasWidth * scale;
     canvas.height = canvasHeight * scale;
-    ctx.scale(scale, scale);
 
-    // Limpiar el canvas antes de dibujar
+    // Escalar el contexto para que los elementos se dibujen correctamente
+    ctx.setTransform(scale, 0, 0, scale, 0, 0);
+
+    // Limpiar el canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Verificar si se debe quitar el fondo
     const quitarFondo = document.getElementById("removeFondoCheckbox").checked;
 
-    // Fondo del canvas
+    // Dibujar el fondo
     if (imagenFondo && !quitarFondo) {
-        ctx.drawImage(imagenFondo, 0, 0, canvas.width, canvas.height);
+        ctx.drawImage(imagenFondo, 0, 0, canvasWidth, canvasHeight);
     } else {
         ctx.fillStyle = colorFondoInput.value;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillRect(0, 0, canvasWidth, canvasHeight);
     }
 
     // Configuración de estilo de texto
     ctx.fillStyle = colorFraseInput.value;
     ctx.textAlign = alineacionTextoInput.value;
 
-    // Tamaño inicial de la fuente y ajuste dinámico en caso de desbordamiento
+    // Tamaño inicial de la fuente y ajuste dinámico
     let fontSize = parseInt(tamanoFraseInput.value) || 16;
-    const maxWidth = canvas.width - 40; // Margen lateral
+    const maxWidth = canvasWidth - 40; // Margen lateral
+
+    // Aplicar el tamaño de la fuente inicial al contexto
     ctx.font = `${fontSize}px ${tipoFuenteInput.value || 'Arial'}`;
-    
-    // Ajustar el texto dentro del ancho disponible en el canvas
+
+    // Ajustar el texto al ancho disponible en el canvas
     let lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, fontSize);
-    while (lineas.length * fontSize > canvas.height - 40 && fontSize > 10) {
-        fontSize -= 2;  // Disminuir el tamaño de la fuente en 2px para evitar desbordamiento
+    while (lineas.length * fontSize > canvasHeight - 40 && fontSize > 10) {
+        fontSize -= 2;
         lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, fontSize);
     }
 
@@ -174,23 +179,18 @@ function actualizarCanvas() {
 
     // Cálculo de la posición del texto
     const posicionX = alineacionTextoInput.value === 'left' ? 20 :
-                      alineacionTextoInput.value === 'right' ? canvas.width - 20 :
-                      canvas.width / 2;
+                      alineacionTextoInput.value === 'right' ? canvasWidth - 20 :
+                      canvasWidth / 2;
 
-    // Centrando el texto verticalmente y aplicando ajustes
-    const espacioVerticalDisponible = canvas.height - lineas.length * fontSize;
-    let posicionYInicial = espacioVerticalDisponible / 2;
+    // Calcular la posición vertical inicial y aplicar un margen superior e inferior
+    const espacioVerticalDisponible = canvasHeight - lineas.length * fontSize;
+    let posicionY = espacioVerticalDisponible / 2 + fontSize;
 
-    // Ajustar la posición Y usando el input de posición Y y limitando para que no se salga del canvas
-    let posicionY = posicionYInicial + parseInt(posicionYInput.value);
-
-    // Dibujar cada línea de texto
+    // Dibujar cada línea de texto en el centro del canvas
     lineas.forEach((linea, index) => {
         ctx.fillText(linea, posicionX, posicionY + index * fontSize);
     });
 }
-
-
 
 // Event listeners para actualizar el canvas en tiempo real
 posicionYInput.addEventListener('input', actualizarCanvas);
