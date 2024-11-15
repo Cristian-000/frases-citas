@@ -5,7 +5,7 @@ function cargarAutor() {
 
         if (!autorSeleccionado) return resolve();
 
-        document.getElementById("titulo-autor").innerText = `Frases de ${autorSeleccionado}`;
+        document.getElementById("titulo-autor").innerText = `Frases de ${capitalizarIniciales(autorSeleccionado)}`;
         fetch('frases.json')
             .then(response => response.json())
             .then(data => {
@@ -19,7 +19,7 @@ function cargarAutor() {
                         li.innerHTML = `
                             <p>${fraseObj.frase}</p>
                             <div>
-                                <small><a href="autor.html?autor=${fraseObj.autor_url}">${fraseObj.autor_url}</a></small>
+                                <small><a href="autor.html?autor=${fraseObj.autor_url}">${capitalizarIniciales(fraseObj.autor_url)}</a></small>
                                 ${fraseObj.categorias.map(categoria => `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-secondary ml-2">${categoria}</a>`).join(' ')}
                             </div>
                         `;
@@ -28,7 +28,7 @@ function cargarAutor() {
                         const imageButton = document.createElement("button");
                         imageButton.textContent = "Crear Imagen";
                         imageButton.onclick = () => {
-                            setFraseParaCompartir(fraseObj.frase, fraseObj.autor_url);
+                            setFraseParaCompartir(fraseObj.frase, capitalizarIniciales(fraseObj.autor_url));
                             actualizarCanvas();
                         };
                         li.appendChild(imageButton);
@@ -36,7 +36,7 @@ function cargarAutor() {
                         // Crear botón de "Compartir"
                         const shareButton = document.createElement("button");
                         shareButton.textContent = "Compartir esta frase";
-                        shareButton.onclick = () => compartirFrase(fraseObj.frase, fraseObj.autor_url);
+                        shareButton.onclick = () => compartirFrase(fraseObj.frase, capitalizarIniciales(fraseObj.autor_url));
                         li.appendChild(shareButton);
 
                         listaFrases.appendChild(li);
@@ -50,6 +50,8 @@ function cargarAutor() {
             });
     });
 }
+
+
 function capitalizarIniciales(texto) {
     return texto.toLowerCase().split('-').map(palabra => {
         return palabra.charAt(0).toUpperCase() + palabra.slice(1);
