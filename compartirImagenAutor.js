@@ -53,7 +53,7 @@ function cargarAutor() {
 function capitalizarIniciales(texto) {
     return texto.toLowerCase().split('-').map(palabra => {
         return palabra.charAt(0).toUpperCase() + palabra.slice(1);
-    }).join('-');
+    }).join(' '); // Reemplazamos el guión por un espacio
 }
 // Función para compartir la frase seleccionada
 function compartirFrase(frase, autor) {
