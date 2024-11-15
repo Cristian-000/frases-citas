@@ -53,7 +53,8 @@ function cargarAutor() {
 
 // Función para compartir la frase seleccionada
 function compartirFrase(frase, autor) {
-    const textoCompartir = `${frase} - ${autor}`;
+    // Añade el salto de línea para que el autor quede debajo de la frase
+    const textoCompartir = `${frase}\n- ${autor.toUpperCase()}`;
     const urlCompartir = window.location.href; // URL actual
 
     if (navigator.share) {
@@ -100,13 +101,12 @@ tipoFuenteInput.value = "Arial"; // Tipo de fuente por defecto
 
 // Función para establecer una frase seleccionada y mostrar el canvas
 function setFraseParaCompartir(frase, autor) {
-    fraseSeleccionada = `${frase}<br>- ${autor}`;
+    // Divide la frase y el autor en líneas separadas usando `\n`
+    fraseSeleccionada = `${frase}\n- ${autor.toUpperCase()}`;
     actualizarCanvas();
     document.getElementById("canvas-container").style.display = "block";
     document.getElementById("barra-modificadores").style.display = "flex";
-
 }
-
 // Ajuste de texto dentro del canvas
 function ajustarTexto(ctx, texto, maxWidth, fontSize) {
     const palabras = texto.split(" ");
