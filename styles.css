@@ -87,9 +87,9 @@ h1 {
 #miCanvas {
     background-color: #ffffff;
     border: 1px solid #ccc;
-    width: 100%;
-    max-width:600px;
-    height: 800px;
+    width: 70%;
+    max-width:500px;
+    height: 500px;
 }
 
 /* Barra de opciones de personalización */
@@ -134,7 +134,7 @@ h1 {
 }
 
 /* Ajustes de diseño responsivo */
-@media (max-width: 500px) {
+@media (max-width: 400px) {
     #canvas-container {
         width: 100%;
     }
@@ -180,3 +180,57 @@ h1 {
     background-color: #555;
 }
 
+/*autor*/
+/* Lista de autores */
+.list-group-item {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+    transition: box-shadow 0.3s ease;
+}
+
+.list-group-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Enlaces del autor */
+.author-link {
+    text-decoration: none;
+    color: #007bff;
+    transition: color 0.3s ease;
+}
+
+.author-link:hover {
+    color: #0056b3;
+}
+
+/* Badge de frases */
+.badge {
+    font-size: 0.85rem;
+    padding: 0.4em 0.6em;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.badge:hover {
+    opacity: 0.8;
+}
+
+/* Mostrar las frases del autor como badges */
+.tags {
+    margin-top: 10px;
+}
+
+.tags .badge {
+    margin-right: 5px;
+    margin-top: 5px;
+}
+
+/* Biografía del autor */
+.text-muted {
+    font-size: 0.9rem;
+    line-height: 1.5;
+}

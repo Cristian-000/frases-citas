@@ -1,3 +1,4 @@
+//compartirImagenAutor.js
 function cargarAutor() {
     return new Promise((resolve, reject) => {
         const urlParams = new URLSearchParams(window.location.search);
