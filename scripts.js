@@ -64,10 +64,11 @@ function cargarFraseDelDia() {
 
     if (storedDate === today && storedFrase) {
         document.getElementById("frase-del-dia").innerHTML = `
-            <p>${storedFrase.frase}</p>
+            <p class="frase-dia"><strong>${storedFrase.frase}</strong></p>
             <div>
-                <small><a href="autor.html?autor=${storedFrase.autor_url}">${storedFrase.autor_url}</a></small>
-                ${storedFrase.categorias.map(categoria => `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-secondary ml-2">${categoria}</a>`).join(' ')}
+              <small><a href="autor.html?autor=${storedFrase.autor_url}" class="autor-link">${storedFrase.autor_url}</a></small>
+
+                ${storedFrase.categorias.map(categoria => `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-primary ml-2">${categoria}</a>`).join(' ')}
             </div>
         `;
     } else {
@@ -103,17 +104,20 @@ function configurarBarraBusqueda() {
                 .then(response => response.json())
                 .then(data => {
                     const frasesEncontradas = data.frases.filter(fraseObj => 
-                        fraseObj.frase.toLowerCase().includes(query) || fraseObj.autor_url.toLowerCase().includes(query)
+                        fraseObj.frase.toLowerCase().includes(query) || fraseObj.autor_url.toLowerCase().includes(query) ||   fraseObj.categorias.some(categoria => categoria.toLowerCase().includes(query))
                     );
 
                     frasesEncontradas.forEach(fraseObj => {
+                        // Capitalizar la primera letra del autor y reemplazar guiones por espacios
+                        const autorCapitalizado = fraseObj.autor_url.charAt(0).toUpperCase() + fraseObj.autor_url.slice(1).toLowerCase().replace('-', ' ');
+
                         const li = document.createElement("a");
                         li.className = "list-group-item list-group-item-action";
                         li.innerHTML = `
                             <p>${fraseObj.frase}</p>
                             <div>
-                                <small><a href="autor.html?autor=${fraseObj.autor_url}">${fraseObj.autor_url}</a></small>
-                                ${fraseObj.categorias.map(categoria => `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-secondary ml-2">${categoria}</a>`).join(' ')}
+                                <small><a href="autor.html?autor=${fraseObj.autor_url}">${autorCapitalizado}</a></small>
+                                ${fraseObj.categorias.map(categoria => `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-primary ml-2">${categoria}</a>`).join(' ')}
                             </div>
                         `;
                         resultadosBusqueda.appendChild(li);
@@ -138,14 +142,16 @@ function cargarFrasesPorCategoria() {
             listaFrases.innerHTML = '';
 
             data.frases.forEach(fraseObj => {
+                const autorCapitalizadoCat = fraseObj.autor_url.charAt(0).toUpperCase() + fraseObj.autor_url.slice(1).toLowerCase().replace('-', ' ');
                 if (fraseObj.categorias.includes(categoriaSeleccionada)) {
                     const li = document.createElement("li");
                     li.className = "list-group-item";
                     li.innerHTML = `
                         <p>${fraseObj.frase}</p>
                         <div>
-                            <small><a href="autor.html?autor=${fraseObj.autor_url}">${fraseObj.autor_url}</a></small>
-                            ${fraseObj.categorias.map(categoria => `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-secondary ml-2">${categoria}</a>`).join(' ')}
+                        
+                            <small><a href="autor.html?autor=${fraseObj.autor_url}">${autorCapitalizadoCat}</a></small>
+                            ${fraseObj.categorias.map(categoria => `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-primary ml-2">${categoria}</a>`).join(' ')}
                         </div>
                     `;
                     listaFrases.appendChild(li);

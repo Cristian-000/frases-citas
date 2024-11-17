@@ -6,7 +6,12 @@ function cargarAutor() {
 
         if (!autorSeleccionado) return resolve();
 
-        document.getElementById("titulo-autor").innerText = `Frases de ${capitalizarIniciales(autorSeleccionado)}`;
+        // Título del autor
+        const tituloAutor = document.getElementById("titulo-autor");
+        tituloAutor.innerText = `Frases de ${capitalizarIniciales(autorSeleccionado)}`;
+        tituloAutor.classList.add("text-center", "mb-4"); // Aseguramos que el título sea centrado y tenga un margen
+
+        // Fetch de frases
         fetch('frases.json')
             .then(response => response.json())
             .then(data => {
@@ -16,29 +21,22 @@ function cargarAutor() {
                 data.frases.forEach(fraseObj => {
                     if (fraseObj.autor_url === autorSeleccionado) {
                         const li = document.createElement("li");
-                        li.className = "list-group-item";
+                        li.className = "list-group-item d-flex justify-content-between align-items-center";
+
                         li.innerHTML = `
-                            <p>${fraseObj.frase}</p>
-                            <div>
-                                <small><a href="autor.html?autor=${fraseObj.autor_url}">${capitalizarIniciales(fraseObj.autor_url)}</a></small>
-                                ${fraseObj.categorias.map(categoria => `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-secondary ml-2">${categoria}</a>`).join(' ')}
+                            <div class="frase-content">
+                                <p class="mb-2">${fraseObj.frase}</p>
+                                <div>
+                                    ${fraseObj.categorias.map(categoria => 
+                                        `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-primary ml-2">${categoria}</a>`
+                                    ).join(' ')}
+                                </div>
+                            </div>
+                            <div class="button-group">
+                                <button class="btn btn-outline-secondary btn-sm mt-2" onclick="setFraseParaCompartir('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}'); actualizarCanvas();">Crear Imagen</button>
+                                <button class="btn btn-outline-secondary btn-sm mt-2" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');">Compartir esta frase</button>
                             </div>
                         `;
-
-                        // Crear botón de "Crear Imagen"
-                        const imageButton = document.createElement("button");
-                        imageButton.textContent = "Crear Imagen";
-                        imageButton.onclick = () => {
-                            setFraseParaCompartir(fraseObj.frase, capitalizarIniciales(fraseObj.autor_url));
-                            actualizarCanvas();
-                        };
-                        li.appendChild(imageButton);
-
-                        // Crear botón de "Compartir"
-                        const shareButton = document.createElement("button");
-                        shareButton.textContent = "Compartir esta frase";
-                        shareButton.onclick = () => compartirFrase(fraseObj.frase, capitalizarIniciales(fraseObj.autor_url));
-                        li.appendChild(shareButton);
 
                         listaFrases.appendChild(li);
                     }
@@ -51,7 +49,6 @@ function cargarAutor() {
             });
     });
 }
-
 
 function capitalizarIniciales(texto) {
     return texto.toLowerCase().split('-').map(palabra => {

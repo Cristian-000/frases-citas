@@ -1,67 +1,31 @@
+/* Variables */
+:root {
+    --color-fondo: #f8f9fa;
+    --color-texto: #343a40;
+    --color-acento: #007bff;
+    --color-hover: #0056b3;
+    --color-badge-secundario: #4CAF50;
+    --color-badge-tag-1: #FF5733;
+    --color-badge-tag-2: #007BFF;
+    --color-badge-tag-3: #FFC107;
+    --color-background-card: #ffffff;
+    --color-border-light: #ddd;
+    --color-light-shadow: rgba(0, 0, 0, 0.1);
+    --color-dark-shadow: rgba(0, 0, 0, 0.2);
+}
+
 /* General */
 body {
-    background-color: #f8f9fa;
+    background-color: var(--color-fondo);
     font-family: Arial, sans-serif;
+    color: var(--color-texto);
 }
 
 h1 {
-    color: #343a40;
+    color: var(--color-texto);
+    font-size: 2rem;
+    margin-bottom: 20px;
 }
-
-#frases-container {
-    margin: 20px 0;
-}
-
-#miCanvas {
-    background-color: #ffffff;
-    border: 1px solid #ccc;
-}
-
-/* Enlaces */
-.list-group-item a {
-    text-decoration: none;
-    color: #007bff;
-}
-
-.list-group-item a:hover {
-    text-decoration: underline;
-}
-
-
-
-
-/* Tags */
-.tags .badge {
-    margin-left: 5px;
-}
-
-.badge-secondary {
-    background-color: #4CAF50;
-    color: #FFFFFF;
-    font-weight: bold;
-}
-
-.badge-tag-1 {
-    background-color: #FF5733;
-    color: #FFFFFF;
-}
-
-.badge-tag-2 {
-    background-color: #007BFF;
-    color: #FFFFFF;
-}
-
-.badge-tag-3 {
-    background-color: #FFC107;
-    color: #333333;
-}
-
-.badge:hover {
-    opacity: 0.9;
-    cursor: pointer;
-}
-/* General */
-/* General */
 
 #contenido {
     max-width: 900px;
@@ -69,107 +33,63 @@ h1 {
     padding: 20px;
 }
 
-/* Título */
-h1 {
-    color: #343a40;
+.frase-dia{
     font-size: 1.5rem;
-    margin-bottom: 20px;
 }
-
-
+/* Canvas */
 #canvas-container {
-    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden; /* Evita el desbordamiento */
-}
-#miCanvas {
-    background-color: #ffffff;
-    border: 1px solid #ccc;
-    width: 70%;
-    max-width:500px;
-    height: 500px;
+    overflow: hidden;
+    margin-top: 20px;
 }
 
-/* Barra de opciones de personalización */
+#miCanvas {
+    background-color: var(--color-background-card);
+    border: 1px solid var(--color-border-light);
+    width: 70%;
+    max-width: 500px;
+    height: 500px;
+    box-shadow: 0 4px 10px var(--color-light-shadow);
+}
+
+/* Barra de personalización */
 #barra-modificadores {
     display: flex;
-    flex-wrap: wrap; /* Permite que los elementos se muevan a la siguiente línea si no hay suficiente espacio */
-    gap: 15px; /* Espacio entre los elementos */
-    justify-content: flex-start; /* Alineación a la izquierda */
-    align-items: center;
-    margin-top: 10px;
-    padding: 10px 15px;
-    background-color: #f5f5f5;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Asegúrate de que las etiquetas se alineen correctamente con los inputs */
-#barra-modificadores label {
-    display: flex;
-    align-items: center;
-    gap: 5px; /* Espacio entre el ícono y el input */
-    font-size: 0.9rem;
-    color: #333;
-}
-
-#barra-modificadores input[type="color"],
-#barra-modificadores input[type="range"],
-#barra-modificadores select,
-#barra-modificadores input[type="file"],
-#barra-modificadores input[type="checkbox"] {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 3px;
-}
-
-/* Ajustes para los botones de acción */
-#action-buttons {
-    display: flex;
+    flex-wrap: wrap;
     gap: 15px;
-    flex-wrap: wrap; /* Si hay espacio, los botones se alinean en fila */
     justify-content: flex-start;
+    align-items: center;
+    padding: 15px;
+    background-color: var(--color-background-card);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px var(--color-dark-shadow);
 }
 
-/* Ajustes de diseño responsivo */
-@media (max-width: 400px) {
-    #canvas-container {
-        width: 100%;
-    }
-    
-    #barra-modificadores {
-        flex-direction: column; /* En pantallas pequeñas, los elementos se apilan en columna */
-        align-items: flex-start;
-    }
-
-    #action-buttons {
-        flex-direction: column; /* Los botones se apilan en pantallas pequeñas */
-        width: 100%; /* Los botones ocuparán el ancho completo */
-    }
+#barra-modificadores label {
+    font-size: 1rem;
+    color: var(--color-texto);
 }
 
-
-
-
-/* Botones de acción */
-#action-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 15px;
+#barra-modificadores input,
+#barra-modificadores select {
+    border: 1px solid var(--color-border-light);
+    border-radius: 4px;
+    padding: 5px;
+    background-color: #fff;
 }
 
+/* Botones */
 .minimal-button {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 5px;
     padding: 8px 12px;
-    font-size: 0.9rem;
-    color: #ffffff;
-    background-color: #343a40;
+    font-size: 1rem;
+    color: #fff;
+    background-color: var(--color-acento);
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -177,14 +97,45 @@ h1 {
 }
 
 .minimal-button:hover {
-    background-color: #555;
+    background-color: var(--color-hover);
 }
 
-/*autor*/
-/* Lista de autores */
+
+/* Tags y Badges */
+.badge {
+    font-size: 0.85rem;
+    padding: 0.4em 0.6em;
+    border-radius: 12px;
+    text-decoration: none;
+ 
+    display: inline-block;
+}
+
+.badge-secondary {
+    background-color: var(--color-badge-secundario);
+    color: #fff;
+}
+
+.badge-tag-1 {
+    background-color: var(--color-badge-tag-1);
+    color: #fff;
+}
+
+.badge-tag-2 {
+    background-color: var(--color-badge-tag-2);
+    color: #fff;
+}
+
+.badge-tag-3 {
+    background-color: var(--color-badge-tag-3);
+    color: #333;
+}
+
+
+/* Cards */
 .list-group-item {
-    background-color: #ffffff;
-    border: 1px solid #ddd;
+    background-color: var(--color-background-card);
+    border: 1px solid var(--color-border-light);
     border-radius: 8px;
     padding: 15px;
     margin-bottom: 10px;
@@ -192,45 +143,47 @@ h1 {
 }
 
 .list-group-item:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px var(--color-light-shadow);
 }
 
-/* Enlaces del autor */
+/* Autor */
 .author-link {
     text-decoration: none;
-    color: #007bff;
+    color: var(--color-acento);
     transition: color 0.3s ease;
 }
 
 .author-link:hover {
-    color: #0056b3;
+    color: var(--color-hover);
 }
 
-/* Badge de frases */
-.badge {
-    font-size: 0.85rem;
-    padding: 0.4em 0.6em;
-    border-radius: 12px;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-}
-
-.badge:hover {
-    opacity: 0.8;
-}
-
-/* Mostrar las frases del autor como badges */
-.tags {
-    margin-top: 10px;
-}
-
-.tags .badge {
-    margin-right: 5px;
-    margin-top: 5px;
-}
-
-/* Biografía del autor */
+/* Biografía */
 .text-muted {
     font-size: 0.9rem;
     line-height: 1.5;
+    color: #6c757d;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    #canvas-container,
+    #barra-modificadores {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #action-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+}
+
+@media (max-width: 400px) {
+    #miCanvas {
+        width: 90%;
+        height: 400px;
+    }
+}
+.autor-link {
+    text-transform: capitalize;
 }
