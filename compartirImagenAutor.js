@@ -103,13 +103,39 @@ canvas.height = window.innerHeight * 0.8; // 90% del alto de la ventana
 // Establecer valor predeterminado de tipo de fuente
 tipoFuenteInput.value = "Arial"; // Tipo de fuente por defecto
 
-// Función para establecer una frase seleccionada y mostrar el canvas
+// Función para establecer una frase seleccionada y mostrar el canvas en el modal
 function setFraseParaCompartir(frase, autor) {
+    // Divide la frase y el autor en líneas separadas usando `\n`
+    fraseSeleccionada = `${frase}\n- ${capitalizarIniciales(autor)}`;
+    actualizarCanvas();
+    
+    // Mostrar el modal con el canvas
+    document.getElementById("editorModal").style.display = "flex";
+    
+    // Aquí puedes agregar lógica para asegurarte de que el canvas y los controles estén visibles
+    document.getElementById("canvas-container").style.display = "flex";  // Asegurarse de que el canvas se muestre
+    document.getElementById("barra-modificadores").style.display = "flex";  // Asegurarse de que la barra de modificadores esté visible
+    
+    // Opcional: Ajustar el estado de los controles para que aparezcan correctamente
+    mostrarControles(true);  // Llama a tu función para mostrar los controles si es necesario
+}
+// Función para establecer una frase seleccionada y mostrar el canvas
+/*function setFraseParaCompartir(frase, autor) {
     // Divide la frase y el autor en líneas separadas usando `\n`
     fraseSeleccionada = `${frase}\n- ${capitalizarIniciales(autor)}`;
     actualizarCanvas();
     document.getElementById("canvas-container").style.display = "block";
     document.getElementById("barra-modificadores").style.display = "flex";
+}*/
+function mostrarControles(mostrar) {
+    const controles = document.querySelectorAll('.controles-desplegables');
+    controles.forEach((control) => {
+        if (mostrar) {
+            control.style.display = 'flex';  // Muestra los controles
+        } else {
+            control.style.display = 'none';  // Oculta los controles
+        }
+    });
 }
 // Ajuste de texto dentro del canvas
 function ajustarTexto(ctx, texto, maxWidth, fontSize) {
