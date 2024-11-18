@@ -311,3 +311,34 @@ document.getElementById('botonShare').addEventListener('click', async () => {
         alert("Hubo un error al intentar compartir la imagen.");
     }
 });
+
+// nuevo modal
+document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("editor-modal");
+    const btnAbrir = document.getElementById("btn-abrir-editor");
+    const btnCerrar = document.getElementById("cerrar-editor");
+    const btnGuardar = document.getElementById("guardar-imagen");
+    const canvas = document.getElementById("miCanvas");
+    const ctx = canvas.getContext("2d");
+
+    btnAbrir.addEventListener("click", () => {
+        modal.style.display = "flex";
+    });
+
+    btnCerrar.addEventListener("click", () => {
+        modal.style.display = "none";
+    });
+
+    btnGuardar.addEventListener("click", () => {
+        const link = document.createElement("a");
+        link.download = "imagen.png";
+        link.href = canvas.toDataURL();
+        link.click();
+    });
+
+    // Configuración inicial del canvas
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight * 0.9;
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+});
