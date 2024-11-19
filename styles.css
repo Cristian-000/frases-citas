@@ -194,3 +194,47 @@ h1 {
 .autor-link {
     text-transform: capitalize;
 }
+#barra-modificadores {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+    background-color: #f8f9fa;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+    z-index: 1000;
+}
+
+#barra-modificadores label {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+#barra-modificadores label:hover {
+    transform: scale(1.1);
+}
+
+#barra-modificadores input,
+#barra-modificadores select {
+    display: none;
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 5px;
+    border-radius: 5px;
+    z-index: 10;
+}
+
+#barra-modificadores label:hover input,
+#barra-modificadores label:hover select {
+    display: block;
+}
