@@ -34,8 +34,8 @@ function compartirDicho(dicho) {
     if (navigator.share) {
         navigator.share({
             title: "Dicho Inspirador",
-            text: textoCompartir,
-            url: urlCompartir
+            text: textoCompartir
+        
         })
         .then(() => console.log("Dicho compartido exitosamente"))
         .catch(error => console.error("Error al compartir:", error));
