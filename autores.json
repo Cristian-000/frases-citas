@@ -24,6 +24,21 @@
       "nombre": "Platón",
       "autor_url": "platon",
       "biografia": "Platón fue un filósofo griego, discípulo de Sócrates y maestro de Aristóteles, y fundó la Academia en Atenas."
+    },
+    {
+      "nombre": "Anónimo",
+      "autor_url": "anonimo",
+      "biografia": "Frases y citas de autores desconocidos o anónimos."
+    },
+    {
+      "nombre": "Confucio",
+      "autor_url": "confucio",
+      "biografia": "Confucio fue un influyente filósofo chino, conocido por sus enseñanzas sobre la ética y la moralidad."
+    },
+    {
+      "nombre": "Mahatma Gandhi",
+      "autor_url": "mahatma-gandhi",
+      "biografia": "Líder pacifista indio que promovió la resistencia no violenta para lograr la independencia de la India."
     }
   ]
 }
