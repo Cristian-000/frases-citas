@@ -29,6 +29,111 @@
       "frase": "Donde reina el amor, sobran las leyes.",
       "autor_url": "platon",
       "categorias": ["Amor", "Filosofía"]
+    },
+    {
+      "frase": "La vida es un 10% lo que te ocurre y un 90% cómo reaccionas ante ello.",
+      "autor_url": "anonimo",
+      "categorias": ["Vida", "Motivación"]
+    },
+    {
+      "frase": "Sé el cambio que quieres ver en el mundo.",
+      "autor_url": "mahatma-gandhi",
+      "categorias": ["Inspiración", "Filosofía"]
+    },
+    {
+      "frase": "La mayor gloria no es nunca caer, sino levantarse siempre.",
+      "autor_url": "confucio",
+      "categorias": ["Motivación", "Superación"]
+    },
+    {
+      "frase": "No llores porque terminó, sonríe porque sucedió.",
+      "autor_url": "anonimo",
+      "categorias": ["Tristeza", "Vida"]
+    },
+    {
+      "frase": "El verdadero amor no es otra cosa que el deseo inevitable de ayudar al otro para que sea quien es.",
+      "autor_url": "anonimo",
+      "categorias": ["Amor", "Filosofía"]
+    },
+    {
+      "frase": "Aprender sin reflexionar es malgastar la energía.",
+      "autor_url": "confucio",
+      "categorias": ["Filosofía", "Educación"]
+    },
+    {
+      "frase": "El miedo puede hacerte prisionero, la esperanza puede liberarte.",
+      "autor_url": "anonimo",
+      "categorias": ["Superación", "Vida"]
+    },
+    {
+      "frase": "El conocimiento es poder.",
+      "autor_url": "francis-bacon",
+      "categorias": ["Filosofía", "Educación"]
+    },
+    {
+      "frase": "Nada es imposible, la propia palabra dice 'soy posible'.",
+      "autor_url": "audrey-hepburn",
+      "categorias": ["Motivación", "Inspiración"]
+    },
+    {
+      "frase": "Haz de cada día tu obra maestra.",
+      "autor_url": "john-wooden",
+      "categorias": ["Inspiración", "Vida"]
+    },
+    {
+      "frase": "No importa lo lento que vayas mientras no te detengas.",
+      "autor_url": "confucio",
+      "categorias": ["Superación", "Motivación"]
+    },
+    {
+      "frase": "Todo parece imposible hasta que se hace.",
+      "autor_url": "nelson-mandela",
+      "categorias": ["Inspiración", "Superación"]
+    },
+    {
+      "frase": "Tu tiempo es limitado, no lo desperdicies viviendo la vida de alguien más.",
+      "autor_url": "steve-jobs",
+      "categorias": ["Vida", "Inspiración"]
+    },
+    {
+      "frase": "La educación es el arma más poderosa que puedes usar para cambiar el mundo.",
+      "autor_url": "nelson-mandela",
+      "categorias": ["Educación", "Filosofía"]
+    },
+    {
+      "frase": "La paciencia es amarga, pero sus frutos son dulces.",
+      "autor_url": "jean-jacques-rousseau",
+      "categorias": ["Filosofía", "Vida"]
+    },
+    {
+      "frase": "No sobrevive el más fuerte, ni el más inteligente, sino el que mejor se adapta a los cambios.",
+      "autor_url": "charles-darwin",
+      "categorias": ["Filosofía", "Vida"]
+    },
+    {
+      "frase": "El éxito no es definitivo, el fracaso no es fatal: lo que cuenta es el valor para continuar.",
+      "autor_url": "winston-churchill",
+      "categorias": ["Motivación", "Superación"]
+    },
+    {
+      "frase": "El respeto a uno mismo es la piedra angular de todas las virtudes.",
+      "autor_url": "confucio",
+      "categorias": ["Filosofía", "Vida"]
+    },
+    {
+      "frase": "Lo que no te mata te hace más fuerte.",
+      "autor_url": "friedrich-nietzsche",
+      "categorias": ["Superación", "Vida"]
+    },
+    {
+      "frase": "Amar es encontrar en la felicidad de otro tu propia felicidad.",
+      "autor_url": "gottfried-leibniz",
+      "categorias": ["Amor", "Filosofía"]
+    },
+    {
+      "frase": "Cuando no se puede lograr lo que se quiere, mejor cambiar de actitud.",
+      "autor_url": "terencio",
+      "categorias": ["Superación", "Filosofía"]
     }
   ]
 }
