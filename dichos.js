@@ -12,7 +12,7 @@ function cargarDichos() {
 
                 li.innerHTML = `
                     <div class="dicho-content">
-                        <p class="mb-2">${dicho.dicho}</p>
+                        <p class="mb-2">${dicho.texto}</p>
                     </div>
                     <div class="button-group">
                         <button class="btn btn-outline-secondary btn-sm mt-2" onclick="compartirDicho('${dicho.texto}');">Compartir</button>
