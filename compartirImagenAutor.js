@@ -24,19 +24,20 @@ function cargarAutor() {
                         li.className = "list-group-item d-flex justify-content-between align-items-center";
 
                         li.innerHTML = `
-                            <div class="frase-content">
-                                <p class="mb-2">${fraseObj.frase}</p>
-                                <div>
-                                    ${fraseObj.categorias.map(categoria => 
-                                        `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-primary ml-2">${categoria}</a>`
-                                    ).join(' ')}
-                                </div>
-                            </div>
-                            <div class="button-group">
-                                <button class="btn btn-outline-secondary btn-sm mt-2" onclick="setFraseParaCompartir('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}'); actualizarCanvas();">Crear Imagen</button>
-                                <button class="btn btn-outline-secondary btn-sm mt-2" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');">Compartir esta frase</button>
-                            </div>
-                        `;
+    <div class="frase-content">
+        <p class="mb-2">${fraseObj.frase}</p>
+        <div>
+            ${fraseObj.categorias.map(categoria => 
+                `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-primary ml-2">${categoria}</a>`
+            ).join(' ')}
+        </div>
+    </div>
+    <div class="button-group">
+        <button class="btn btn-outline-secondary btn-sm mt-2" onclick="setFraseParaCompartir('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}'); actualizarCanvas();">Crear Imagen</button>
+        <button class="btn btn-outline-secondary btn-sm mt-2" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');">Compartir esta frase</button>
+        <button class="btn btn-outline-secondary btn-sm mt-2" onclick="copiarFrase('${fraseObj.frase}', '${window.location.href}');">Copiar frase</button>
+    </div>
+`;
 
                         listaFrases.appendChild(li);
                     }
@@ -54,6 +55,18 @@ function capitalizarIniciales(texto) {
     return texto.toLowerCase().split('-').map(palabra => {
         return palabra.charAt(0).toUpperCase() + palabra.slice(1);
     }).join(' '); // Reemplazamos el guión por un espacio
+}
+
+// Función para copiar la frase y el enlace al portapapeles
+function copiarFrase(frase, url) {
+    const textoCopiar = `${frase}\n${url}`;
+    navigator.clipboard.writeText(textoCopiar)
+        .then(() => {
+            alert("Frase copiada al portapapeles");
+        })
+        .catch(err => {
+            console.error("Error al copiar:", err);
+        });
 }
 // Función para compartir la frase seleccionada
 function compartirFrase(frase, autor) {
