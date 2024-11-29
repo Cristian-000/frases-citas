@@ -151,13 +151,13 @@ h1 {
 }
 
 /* Autor */
-.author-link {
+.autor-link {
     text-decoration: none;
     color: var(--color-acento);
     transition: color 0.3s ease;
 }
 
-.author-link:hover {
+.autor-link:hover {
     color: var(--color-hover);
 }
 
@@ -196,17 +196,21 @@ h1 {
 }
 #barra-modificadores {
     display: flex;
-    justify-content: space-around;
+    flex-wrap: wrap; /* Permite que los elementos pasen a la siguiente fila */
+    justify-content: center; /* Centra los elementos */
     align-items: center;
     position: fixed;
     bottom: 10px;
-    width: 100%;
-    background-color: #f8f9fa;
+    width: 95%; /* Reduce el ancho total de la barra */
+    max-width: 900px; /* Limita el ancho máximo */
+    margin: 0 auto; /* Centra la barra en la pantalla */
+    background-color: var(--color-background-card);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 10px 0;
+    padding: 8px 10px; /* Reduce el padding */
+    border-radius: 8px;
+    box-sizing: border-box; /* Evita que padding afecte el ancho total */
     z-index: 1000;
 }
-
 #barra-modificadores label {
     position: relative;
     display: flex;
@@ -216,15 +220,11 @@ h1 {
     transition: transform 0.3s ease;
 }
 
-#barra-modificadores label:hover {
-    transform: scale(1.1);
-}
-
-#barra-modificadores input,
-#barra-modificadores select {
+#barra-modificadores label input,
+#barra-modificadores label select {
     display: none;
     position: absolute;
-    top: -100%;
+    top: -220%;  /* Posición más cerca del label */
     left: 50%;
     transform: translateX(-50%);
     background: white;
@@ -234,7 +234,16 @@ h1 {
     z-index: 10;
 }
 
+/* Mostrar el minipanel al enfocar el input o select */
+#barra-modificadores label:focus-within input,
+#barra-modificadores label:focus-within select,
 #barra-modificadores label:hover input,
 #barra-modificadores label:hover select {
     display: block;
+}
+#action-buttons {
+    display: flex;
+    justify-content: center;  /* Centra los botones horizontalmente */
+    gap: 20px;  /* Espaciado entre botones */
+    margin-top: 20px;  /* Espaciado superior */
 }

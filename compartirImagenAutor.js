@@ -188,17 +188,17 @@ function actualizarCanvas() {
     // Limpiar el canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Verificar si se debe quitar el fondo
     const quitarFondo = document.getElementById("removeFondoCheckbox").checked;
-
-    // Dibujar el fondo
-    if (imagenFondo && !quitarFondo) {
-        ctx.drawImage(imagenFondo, 0, 0, canvasWidth, canvasHeight);
+    
+    if (quitarFondo) {
+        // Limpia el fondo o establece un fondo transparente
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
     } else {
-        ctx.fillStyle = colorFondoInput.value;
-        ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+        // Dibujar el fondo si está disponible
+        if (imagenFondo) {
+            ctx.drawImage(imagenFondo, 0, 0, canvas.width, canvas.height);
+        }
     }
-
     // Configuración de estilo de texto
     ctx.fillStyle = colorFraseInput.value;
     ctx.textAlign = alineacionTextoInput.value;
