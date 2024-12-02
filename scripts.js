@@ -127,7 +127,6 @@ function configurarBarraBusqueda() {
         }
     });
 }
-
 function cargarFrasesPorCategoria() {
     const urlParams = new URLSearchParams(window.location.search);
     const categoriaSeleccionada = urlParams.get("categoria");
@@ -141,19 +140,33 @@ function cargarFrasesPorCategoria() {
             const listaFrases = document.getElementById("lista-frases");
             listaFrases.innerHTML = '';
 
+            const favoritos = JSON.parse(localStorage.getItem("favoritos")) || []; // Cargar favoritos
+
             data.frases.forEach(fraseObj => {
                 const autorCapitalizadoCat = fraseObj.autor_url.charAt(0).toUpperCase() + fraseObj.autor_url.slice(1).toLowerCase().replace('-', ' ');
+
                 if (fraseObj.categorias.includes(categoriaSeleccionada)) {
+                    const isFavorito = favoritos.some(fav => fav.frase === fraseObj.frase);
+
                     const li = document.createElement("li");
-                    li.className = "list-group-item";
+                    li.className = "list-group-item d-flex justify-content-between align-items-center";
+
                     li.innerHTML = `
-                        <p>${fraseObj.frase}</p>
                         <div>
-                        
+                            <p><strong>${fraseObj.frase}</strong></p>
                             <small><a href="autor.html?autor=${fraseObj.autor_url}">${autorCapitalizadoCat}</a></small>
                             ${fraseObj.categorias.map(categoria => `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-primary ml-2">${categoria}</a>`).join(' ')}
                         </div>
+                        <button class="btn btn-link heart-button" data-frase="${encodeURIComponent(fraseObj.frase)}">
+                            <i class="${isFavorito ? 'fas' : 'far'} fa-heart text-danger"></i>
+                        </button>
                     `;
+
+                    // Agregar evento para el corazón
+                    li.querySelector(".heart-button").addEventListener("click", (e) => {
+                        toggleFavorito(fraseObj, e.currentTarget.querySelector("i"));
+                    });
+
                     listaFrases.appendChild(li);
                 }
             });
@@ -165,3 +178,20 @@ function cargarFrasesPorCategoria() {
 
 
 
+function toggleFavorito(fraseObj, icon) {
+    let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
+    const index = favoritos.findIndex(fav => fav.frase === fraseObj.frase);
+
+    if (index !== -1) {
+        // Eliminar de favoritos
+        favoritos.splice(index, 1);
+        icon.classList.replace("fas", "far");  // Cambiar a corazón vacío
+    } else {
+        // Agregar a favoritos
+        favoritos.push(fraseObj);
+        icon.classList.replace("far", "fas");  // Cambiar a corazón relleno
+    }
+
+    // Actualizar localStorage
+    localStorage.setItem("favoritos", JSON.stringify(favoritos));
+}

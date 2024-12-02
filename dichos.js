@@ -1,4 +1,3 @@
-// Función para cargar los dichos desde el JSON
 function cargarDichos() {
     fetch('dichos.json')
         .then(response => response.json())
@@ -6,7 +5,11 @@ function cargarDichos() {
             const listaDichos = document.getElementById("lista-dichos");
             listaDichos.innerHTML = '';
 
+            const favoritos = JSON.parse(localStorage.getItem("favoritos_dichos")) || []; // Cargar favoritos
+
             data.dichos.forEach(dicho => {
+                const isFavorito = favoritos.some(fav => fav.texto === dicho.texto);
+
                 const li = document.createElement("li");
                 li.className = "list-group-item d-flex justify-content-between align-items-center";
 
@@ -17,8 +20,16 @@ function cargarDichos() {
                     <div class="button-group">
                         <button class="btn btn-outline-secondary btn-sm mt-2" onclick="compartirDicho('${dicho.texto}');">Compartir</button>
                         <button class="btn btn-outline-secondary btn-sm mt-2" onclick="copiarDicho('${dicho.texto}');">Copiar</button>
+                        <button class="btn btn-link heart-button" data-texto="${encodeURIComponent(dicho.texto)}">
+                            <i class="${isFavorito ? 'fas' : 'far'} fa-heart text-danger"></i>
+                        </button>
                     </div>
                 `;
+
+                // Agregar evento para el corazón
+                li.querySelector(".heart-button").addEventListener("click", (e) => {
+                    toggleFavoritoDicho(dicho, e.currentTarget.querySelector("i"));
+                });
 
                 listaDichos.appendChild(li);
             });
@@ -35,7 +46,6 @@ function compartirDicho(dicho) {
         navigator.share({
             title: "Dicho Inspirador",
             text: textoCompartir
-        
         })
         .then(() => console.log("Dicho compartido exitosamente"))
         .catch(error => console.error("Error al compartir:", error));
@@ -52,6 +62,25 @@ function copiarDicho(dicho) {
     navigator.clipboard.writeText(textoCopiar)
         .then(() => alert("Dicho copiado al portapapeles"))
         .catch(error => console.error("Error al copiar:", error));
+}
+
+// Función para agregar/eliminar dicho de favoritos
+function toggleFavoritoDicho(dicho, icon) {
+    let favoritos = JSON.parse(localStorage.getItem("favoritos_dichos")) || [];
+    const index = favoritos.findIndex(fav => fav.texto === dicho.texto);
+
+    if (index !== -1) {
+        // Eliminar de favoritos
+        favoritos.splice(index, 1);
+        icon.classList.replace("fas", "far");  // Cambiar a corazón vacío
+    } else {
+        // Agregar a favoritos
+        favoritos.push(dicho);
+        icon.classList.replace("far", "fas");  // Cambiar a corazón relleno
+    }
+
+    // Actualizar localStorage
+    localStorage.setItem("favoritos_dichos", JSON.stringify(favoritos));
 }
 
 // Cargar los dichos al cargar la página

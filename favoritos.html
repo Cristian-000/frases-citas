@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Favoritos</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> <!-- Para iconos -->
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Mis Favoritos</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="categorias.html">Categorías</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="autores.html">Autores</a>
+                </li>
+               <li class="nav-item">
+                    <a class="nav-link" href="dichos.html">Dichos</a>
+                 </li>
+            </ul>
+        </div>
+    </nav>
+    <div id="breadcrumbs">
+        <!-- El historial de navegación se actualizará aquí -->
+    </div>
+    <div class="container mt-5">
+        <h1>Mis Frases Favoritas</h1>
+        <ul id="lista-frases-favoritas" class="list-group mt-3"></ul>
+
+        <h1 class="mt-5">Mis Dichos Favoritos</h1>
+        <ul id="lista-dichos-favoritos" class="list-group mt-3"></ul>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            cargarListaFavoritos('favoritos', 'lista-frases-favoritas', 'frase');
+            cargarListaFavoritos('favoritos_dichos', 'lista-dichos-favoritos', 'texto');
+        });
+
+        function cargarListaFavoritos(localStorageKey, listaId, propiedadTexto) {
+            const listaFavoritos = document.getElementById(listaId);
+            const favoritos = JSON.parse(localStorage.getItem(localStorageKey)) || [];
+
+            if (favoritos.length === 0) {
+                listaFavoritos.innerHTML = `<li class="list-group-item">No tienes elementos favoritos aún.</li>`;
+            } else {
+                favoritos.forEach(elemento => {
+                    const li = document.createElement('li');
+                    li.className = 'list-group-item d-flex justify-content-between align-items-center';
+
+                    li.innerHTML = `
+                        <div>
+                            <p class="mb-1"><strong>${elemento[propiedadTexto]}</strong></p>
+                        </div>
+                        <div class="button-group">
+                            <button class="btn btn-outline-secondary btn-sm mr-2" onclick='compartirElemento("${elemento[propiedadTexto]}")'>
+                                <i class="fas fa-share-alt"></i> Compartir
+                            </button>
+                            <button class="btn btn-outline-secondary btn-sm mr-2" onclick='copiarElemento("${elemento[propiedadTexto]}")'>
+                                <i class="fas fa-copy"></i> Copiar
+                            </button>
+                            <button class="btn btn-danger btn-sm" onclick='eliminarFavorito("${localStorageKey}", "${elemento[propiedadTexto]}", "${propiedadTexto}")'>
+                                <i class="fas fa-trash-alt"></i> Eliminar
+                            </button>
+                        </div>
+                    `;
+                    listaFavoritos.appendChild(li);
+                });
+            }
+        }
+
+        function compartirElemento(texto) {
+            const urlCompartir = "https://mipagina.com"; // URL de la página
+            const textoCompartir = `${texto}\n\n${urlCompartir}`;
+
+            if (navigator.share) {
+                navigator.share({
+                    title: "Frase Favorita",
+                    text: textoCompartir
+                })
+                .then(() => console.log("Elemento compartido exitosamente"))
+                .catch(error => console.error("Error al compartir:", error));
+            } else {
+                alert("La funcionalidad de compartir no está disponible en este navegador.");
+            }
+        }
+
+        function copiarElemento(texto) {
+            const urlCompartir = "https://mipagina.com"; // URL de la página
+            const textoCopiar = `${texto}\n\n${urlCompartir}`;
+
+            navigator.clipboard.writeText(textoCopiar)
+                .then(() => alert("Elemento copiado al portapapeles"))
+                .catch(error => console.error("Error al copiar:", error));
+        }
+
+        function eliminarFavorito(localStorageKey, elementoTexto, propiedadTexto) {
+            let favoritos = JSON.parse(localStorage.getItem(localStorageKey)) || [];
+            // Eliminamos el favorito que coincida exactamente con el texto
+            favoritos = favoritos.filter(elemento => elemento[propiedadTexto] !== elementoTexto);
+            localStorage.setItem(localStorageKey, JSON.stringify(favoritos));
+            location.reload(); // Recargar para actualizar la lista
+        }
+    </script>
+    
+</body>
+</html>
