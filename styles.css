@@ -131,7 +131,7 @@ background-color: rgb(155, 155, 155);
 
 
 /* Tags y Badges */
-.badge {
+.badgegg{
     font-size: 0.7rem;
     padding: 0.3em 0.4em;
     border-radius: 9px;
@@ -139,7 +139,7 @@ background-color: rgb(155, 155, 155);
     display: inline-block;
 
 }
-.badage-primary{
+.badage-primaryyy{
     background-color: var(--color-badge-secundario);
     color: #444;
 }
@@ -273,4 +273,32 @@ background-color: rgb(155, 155, 155);
     justify-content: center;  /* Centra los botones horizontalmente */
     gap: 20px;  /* Espaciado entre botones */
     margin-top: 20px;  /* Espaciado superior */
+}
+.frase-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.badges {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.badge {
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.button-group {
+    display: flex;
+    gap: 8px; /* Espaciado entre botones */
+}
+
+.button-group .btn {
+    color: #555;  /* Color gris suave */
+    transition: color 0.3s ease; /* Transición suave */
+}
+
+.button-group .btn:hover {
+    color: #800020;  /* Cambia a bordo en hover */
 }
