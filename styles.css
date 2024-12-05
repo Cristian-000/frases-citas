@@ -24,9 +24,35 @@ body {
 }
 
 h1 {
-    color: var(--color-texto);
-    font-size: 2rem;
-    margin-bottom: 20px;
+    color: var(--color-texto);                  /* Color del texto */
+    font-size: 2.5rem;                          /* Tamaño más grande */
+    font-weight: bold;                          /* Texto en negrita */
+    margin-bottom: 1.5rem;                      /* Espaciado inferior */
+    text-align: center;                         /* Centrado horizontal */
+    letter-spacing: 1.5px;                      /* Espaciado entre letras */
+           
+    display: inline-block;                      /* Ajusta el ancho al contenido */
+    padding-bottom: 0.5rem;                     /* Espaciado entre texto y borde */
+    width: 100%;                                /* Ocupa el ancho completo */
+    box-sizing: border-box;                     /* Incluye el borde en el ancho total */
+    transition: color 0.3s ease;                /* Transición suave de color */
+}
+h2 {
+    color: var(--color-texto);                  /* Color del texto */
+    font-size: 2rem;                          /* Tamaño más grande */
+                             /* Texto en negrita */
+    margin-bottom: 1.3rem;                      /* Espaciado inferior */
+    text-align: center;                         /* Centrado horizontal */
+    letter-spacing: 1.2px;                      /* Espaciado entre letras */
+    display: inline-block;                      /* Ajusta el ancho al contenido */
+    padding-bottom: 0.5rem;                     /* Espaciado entre texto y borde */
+    width: 100%;                                /* Ocupa el ancho completo */
+    box-sizing: border-box;                     /* Incluye el borde en el ancho total */
+    transition: color 0.3s ease;                /* Transición suave de color */
+}
+
+#resultados-busqueda{
+background-color: rgb(155, 155, 155);
 }
 
 #contenido {
@@ -34,6 +60,49 @@ h1 {
     margin: 0 auto;
     padding: 20px;
 }
+
+/* Estilos para el Navbar */
+.navbar {
+    background-color: var(--color-fondo); /* Fondo del navbar */
+    box-shadow: 0 2px 4px var(--color-light-shadow); /* Sombra sutil */
+}
+
+.navbar-nav .nav-link {
+    font-weight: bold; /* Texto más grueso */
+    color: var(--color-texto); /* Color de texto */
+    transition: color 0.3s ease; /* Transición suave */
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--color-hover); /* Color en hover */
+}
+
+.navbar-brand {
+    font-size: 1.5rem; /* Tamaño de la marca */
+    color: var(--color-acento); /* Color de acento */
+}
+
+.navbar-toggler {
+    border-color: var(--color-acento); /* Color del botón de toggle */
+}
+
+.navbar-toggler-icon {
+    background-image: none; /* Personalizar icono si lo deseas */
+}
+
+/* Centrado en pantallas pequeñas */
+@media (max-width: 992px) {
+    .navbar-nav {
+        text-align: center; /* Centra las opciones en dispositivos pequeños */
+        width: 100%; /* Asegura que ocupe todo el ancho */
+    }
+
+    .navbar-nav .nav-item {
+        display: inline-block; /* Muestra cada opción centrada */
+    }
+}
+
+
 
 .frase-dia {
     font-size: 1.5rem;
@@ -57,55 +126,9 @@ h1 {
     box-shadow: 0 4px 10px var(--color-light-shadow);
 }
 
-/* Barra de personalización */
-#barra-modificadores {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 15px;
-    background-color: var(--color-background-card);
-    border-radius: 8px;
-    box-shadow: 0 4px 15px var(--color-dark-shadow);
-}
 
-#barra-modificadores label {
-    font-size: 1rem;
-    color: var(--color-texto);
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
 
-#barra-modificadores input,
-#barra-modificadores select {
-    border: 1px solid var(--color-border-light);
-    border-radius: 4px;
-    padding: 5px;
-    background-color: #fff;
-    font-size: 1rem;
-}
 
-/* Botones */
-.minimal-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    padding: 8px 12px;
-    font-size: 1rem;
-    color: #fff;
-    background-color: var(--color-acento);
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.minimal-button:hover {
-    background-color: var(--color-hover);
-}
 
 /* Tags y Badges */
 .badge {
@@ -152,6 +175,7 @@ h1 {
 
 /* Autor */
 .autor-link {
+    text-transform: capitalize;
     text-decoration: none;
     color: var(--color-acento);
     transition: color 0.3s ease;
@@ -191,15 +215,14 @@ h1 {
     }
 }
 
-.autor-link {
-    text-transform: capitalize;
-}
+
 #barra-modificadores {
     display: flex;
     flex-wrap: wrap; /* Permite que los elementos pasen a la siguiente fila */
     justify-content: center; /* Centra los elementos */
     align-items: center;
     position: fixed;
+    gap: 15px;
     bottom: 10px;
     width: 95%; /* Reduce el ancho total de la barra */
     max-width: 900px; /* Limita el ancho máximo */
