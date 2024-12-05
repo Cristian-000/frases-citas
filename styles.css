@@ -159,7 +159,7 @@ background-color: rgb(155, 155, 155);
     color: #333;
 }
 
-/* Cards */
+/* Cards 
 .list-group-item {
     background-color: var(--color-background-card);
     border: 1px solid var(--color-border-light);
@@ -171,7 +171,7 @@ background-color: rgb(155, 155, 155);
 
 .list-group-item:hover {
     box-shadow: 0 4px 12px var(--color-light-shadow);
-}
+}*/
 
 /* Autor */
 .autor-link {
