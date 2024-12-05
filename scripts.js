@@ -160,7 +160,7 @@ function configurarBarraBusqueda() {
             </small>
             <div>
                 ${fraseObj.categorias.map(categoria => 
-                    `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-pill badge-secondary ml-1">${categoria}</a>`
+                    `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-primary ml-2">${categoria}</a>`
                 ).join(' ')}
             </div>
         </div>
