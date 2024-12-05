@@ -90,7 +90,41 @@ function cargarFraseDelDia() {
             .catch(error => console.error("Error al cargar frase del día:", error));
     }
 }
+function capitalizarIniciales(texto) {
+    return texto.toLowerCase().split('-').map(palabra => {
+        return palabra.charAt(0).toUpperCase() + palabra.slice(1);
+    }).join(' '); // Reemplazamos el guión por un espacio
+}
 
+// Función para copiar la frase y el enlace al portapapeles
+function copiarFrase(frase, url) {
+    const textoCopiar = `${frase}\n${url}`;
+    navigator.clipboard.writeText(textoCopiar)
+        .then(() => {
+            alert("Frase copiada al portapapeles");
+        })
+        .catch(err => {
+            console.error("Error al copiar:", err);
+        });
+}
+// Función para compartir la frase seleccionada
+function compartirFrase(frase, autor) {
+    // Añade el salto de línea para que el autor quede debajo de la frase
+    const textoCompartir = `${frase}\n- ${capitalizarIniciales(autor)}`;
+    const urlCompartir = window.location.href; // URL actual
+
+    if (navigator.share) {
+        navigator.share({
+            title: "Frase Inspiradora",
+            text: textoCompartir,
+            url: urlCompartir
+        })
+        .then(() => console.log("Frase compartida exitosamente"))
+        .catch(error => console.error("Error al compartir:", error));
+    } else {
+        alert("La funcionalidad de compartir no está disponible en este navegador.");
+    }
+}
 function configurarBarraBusqueda() {
     const barraBusqueda = document.getElementById("barra-busqueda");
     const resultadosBusqueda = document.getElementById("resultados-busqueda");
