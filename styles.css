@@ -221,7 +221,7 @@ background-color: rgb(155, 155, 155);
     flex-wrap: wrap; /* Permite que los elementos pasen a la siguiente fila */
     justify-content: center; /* Centra los elementos */
     align-items: center;
-    position: fixed;
+    
     gap: 15px;
     bottom: 10px;
     width: 95%; /* Reduce el ancho total de la barra */
