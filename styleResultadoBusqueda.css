@@ -1,17 +1,17 @@
 /* Estilo para los resultados de búsqueda */
 .frase-texto {
 
-    font-size: 0.8rem;
-    font-weight: 400;
+    font-size: 1rem;
+    font-weight: 500;
     color: #333;
 }
 
 .card-footer {
-    font-size: 0.6rem;
+    font-size: 0.8rem;
 }
 
 .card-footer .badge {
-    font-size: 0.6rem;
+    font-size: 0.8rem;
     padding: 0.2em 0.4em;
 }
 
