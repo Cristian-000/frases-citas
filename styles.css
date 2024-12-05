@@ -1,17 +1,17 @@
 /* Variables */
 :root {
-    --color-fondo: #f8f9fa;
-    --color-texto: #343a40;
-    --color-acento: #007bff;
-    --color-hover: #0056b3;
-    --color-badge-secundario: #4CAF50;
-    --color-badge-tag-1: #FF5733;
-    --color-badge-tag-2: #007BFF;
-    --color-badge-tag-3: #FFC107;
-    --color-background-card: #ffffff;
-    --color-border-light: #ddd;
-    --color-light-shadow: rgba(0, 0, 0, 0.1);
-    --color-dark-shadow: rgba(0, 0, 0, 0.2);
+    --color-fondo: #f8f9fa; /* Color de fondo general: un gris muy claro (casi blanco) */
+    --color-texto: #343a40; /* Color de texto principal: un gris oscuro (casi negro) */
+    --color-acento: #007bff; /* Color de acento o principal: azul brillante (similar al de Bootstrap) */
+    --color-hover: #0056b3; /* Color de acento en estado hover: azul más oscuro */
+    --color-badge-secundario: #4CAF50; /* Color secundario para insignias (badges): verde */
+    --color-badge-tag-1: #FF5733; /* Color para la primera etiqueta (tag): naranja rojizo */
+    --color-badge-tag-2: #007BFF; /* Color para la segunda etiqueta (tag): azul (igual a `--color-acento`) */
+    --color-badge-tag-3: #FFC107; /* Color para la tercera etiqueta (tag): amarillo dorado */
+    --color-background-card: #ffffff; /* Color de fondo para tarjetas: blanco puro */
+    --color-border-light: #ddd; /* Color de borde claro: gris claro */
+    --color-light-shadow: rgba(0, 0, 0, 0.1); /* Sombra ligera: negro con opacidad del 10% */
+    --color-dark-shadow: rgba(0, 0, 0, 0.2); /* Sombra oscura: negro con opacidad del 20% */
 }
 
 /* General */
@@ -132,13 +132,16 @@ background-color: rgb(155, 155, 155);
 
 /* Tags y Badges */
 .badge {
-    font-size: 0.85rem;
-    padding: 0.4em 0.6em;
-    border-radius: 12px;
+    font-size: 0.7rem;
+    padding: 0.3em 0.4em;
+    border-radius: 9px;
     text-decoration: none;
     display: inline-block;
 }
-
+.badage-primary{
+    background-color: var(--color-texto);
+    color: #444;
+}
 .badge-secondary {
     background-color: var(--color-badge-secundario);
     color: #fff;
