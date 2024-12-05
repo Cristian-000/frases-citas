@@ -137,6 +137,8 @@ background-color: rgb(155, 155, 155);
     border-radius: 9px;
     text-decoration: none;
     display: inline-block;
+    background-color: var(--color-texto);
+    color: #444;
 }
 .badage-primary{
     background-color: var(--color-texto);
