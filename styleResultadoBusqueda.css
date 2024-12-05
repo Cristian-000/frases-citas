@@ -1,0 +1,55 @@
+/* Estilo para los resultados de búsqueda */
+.frase-texto {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #333;
+}
+
+.card-footer {
+    font-size: 0.9rem;
+}
+
+.card-footer .badge {
+    font-size: 0.8rem;
+    padding: 0.4em 0.6em;
+}
+
+.btn-sm {
+    width: 30%;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-sm:hover {
+    transform: translateY(-2px);
+}
+
+.btn-outline-primary {
+    border-color: #800020; /* Bordó */
+    color: #800020;
+}
+
+.btn-outline-primary:hover {
+    background-color: #800020;
+    color: white;
+}
+
+.btn-outline-success {
+    border-color: #28a745;
+    color: #28a745;
+}
+
+.btn-outline-success:hover {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-outline-danger {
+    border-color: #dc3545;
+    color: #dc3545;
+}
+
+.btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: white;
+}
