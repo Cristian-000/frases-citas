@@ -51,9 +51,9 @@ h2 {
     transition: color 0.3s ease;                /* Transición suave de color */
 }
 
-#resultados-busqueda{
+/*#resultados-busqueda{
 background-color: rgb(155, 155, 155);
-}
+}*/
 
 #contenido {
     max-width: 900px;
