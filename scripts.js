@@ -165,7 +165,6 @@ function configurarBarraBusqueda() {
             </div>
         </div>
         <div class="card-footer d-flex justify-content-around">
-            <button class="btn btn-sm btn-outline-primary" onclick="setFraseParaCompartir('${fraseObj.frase}', '${autorCapitalizado}'); actualizarCanvas();">Crear Imagen</button>
             <button class="btn btn-sm btn-outline-success" onclick="compartirFrase('${fraseObj.frase}', '${autorCapitalizado}');">Compartir</button>
             <button class="btn btn-sm btn-outline-danger" onclick="copiarFrase('${fraseObj.frase}', '${window.location.href}');">Copiar Frase</button>
         </div>
