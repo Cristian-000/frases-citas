@@ -104,22 +104,32 @@ function configurarBarraBusqueda() {
                 .then(response => response.json())
                 .then(data => {
                     const frasesEncontradas = data.frases.filter(fraseObj => 
-                        fraseObj.frase.toLowerCase().includes(query) || fraseObj.autor_url.toLowerCase().includes(query) ||   fraseObj.categorias.some(categoria => categoria.toLowerCase().includes(query))
+                        fraseObj.frase.toLowerCase().includes(query) || 
+                        fraseObj.autor_url.toLowerCase().includes(query) || 
+                        fraseObj.categorias.some(categoria => categoria.toLowerCase().includes(query))
                     );
 
                     frasesEncontradas.forEach(fraseObj => {
-                        // Capitalizar la primera letra del autor y reemplazar guiones por espacios
-                        const autorCapitalizado = fraseObj.autor_url.charAt(0).toUpperCase() + fraseObj.autor_url.slice(1).toLowerCase().replace('-', ' ');
+                        const autorCapitalizado = capitalizarIniciales(fraseObj.autor_url);
 
-                        const li = document.createElement("a");
-                        
+                        const li = document.createElement("li");
+                        li.className = "list-group-item d-flex justify-content-between align-items-center";
+
                         li.innerHTML = `
-                            <p>${fraseObj.frase}</p>
-                            <div>
-                                <small><a href="autor.html?autor=${fraseObj.autor_url}">${autorCapitalizado}</a></small>
-                                ${fraseObj.categorias.map(categoria => `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-primary ml-2">${categoria}</a>`).join(' ')}
+                            <div class="frase-content">
+                                <p class="mb-2">${fraseObj.frase}</p>
+                                <div>
+                                    ${fraseObj.categorias.map(categoria => 
+                                        `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-primary ml-2">${categoria}</a>`
+                                    ).join(' ')}
+                                </div>
+                            </div>
+                            <div class="button-group">
+                                <button class="btn btn-outline-secondary btn-sm mt-2" onclick="compartirFrase('${fraseObj.frase}', '${autorCapitalizado}');">Compartir</button>
+                                <button class="btn btn-outline-secondary btn-sm mt-2" onclick="copiarFrase('${fraseObj.frase}', '${window.location.href}');">Copiar</button>
                             </div>
                         `;
+
                         resultadosBusqueda.appendChild(li);
                     });
                 })
