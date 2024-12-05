@@ -51,14 +51,5 @@
     background-color: #dc3545;
     color: white;
 }
-li {
-    width: 100%;           /* Ocupa todo el ancho */
-    padding: 0;            /* Elimina el padding por defecto */
-    margin: 0;             /* Elimina el margen por defecto */
-    list-style: none;      /* Elimina los estilos de lista */
-}
-.card {
-    width: 100%;           /* Asegura que la tarjeta ocupe todo el ancho */
-    margin: 0;             /* Elimina márgenes adicionales */
-    border-radius: 5px;    /* Opcional: define bordes redondeados */
+border-radius: 5px;    /* Opcional: define bordes redondeados */
 }
