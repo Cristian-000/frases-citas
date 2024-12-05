@@ -150,7 +150,7 @@ function configurarBarraBusqueda() {
                         li.className = "d-flex justify-content-between align-items-center";
 
                         li.innerHTML = `
-    <div class="card w-100 shadow-sm">
+    <div class="card mb-2 w-100 shadow-sm">
         <div class="card-body">
             <p class="card-text frase-texto">${fraseObj.frase}</p>
         </div>
