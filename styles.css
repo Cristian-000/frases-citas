@@ -4,7 +4,7 @@
     --color-texto: #343a40; /* Color de texto principal: un gris oscuro (casi negro) */
     --color-acento: #007bff; /* Color de acento o principal: azul brillante (similar al de Bootstrap) */
     --color-hover: #0056b3; /* Color de acento en estado hover: azul más oscuro */
-    --color-badge-secundario: #4CAF50; /* Color secundario para insignias (badges): verde */
+    --color-badge-secundario: #f8f9fa; /* Color secundario para insignias (badges): verde */
     --color-badge-tag-1: #FF5733; /* Color para la primera etiqueta (tag): naranja rojizo */
     --color-badge-tag-2: #007BFF; /* Color para la segunda etiqueta (tag): azul (igual a `--color-acento`) */
     --color-badge-tag-3: #FFC107; /* Color para la tercera etiqueta (tag): amarillo dorado */
@@ -137,11 +137,10 @@ background-color: rgb(155, 155, 155);
     border-radius: 9px;
     text-decoration: none;
     display: inline-block;
-    background-color: var(--color-texto);
-    color: #444;
+
 }
 .badage-primary{
-    background-color: var(--color-texto);
+    background-color: var(--color-badge-secundario);
     color: #444;
 }
 .badge-secondary {
