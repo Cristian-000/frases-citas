@@ -1,5 +1,6 @@
 /* Estilo para los resultados de búsqueda */
 .frase-texto {
+    width: 100%;
     font-size: 0.8rem;
     font-weight: 400;
     color: #333;
@@ -15,7 +16,7 @@
 }
 
 .btn-sm {
-    width: 50%;
+    width: 40%;
     font-weight: 400;
     transition: all 0.3s ease;
 }
