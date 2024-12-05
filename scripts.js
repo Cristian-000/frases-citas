@@ -112,7 +112,7 @@ function configurarBarraBusqueda() {
                         const autorCapitalizado = fraseObj.autor_url.charAt(0).toUpperCase() + fraseObj.autor_url.slice(1).toLowerCase().replace('-', ' ');
 
                         const li = document.createElement("a");
-                        li.className = "list-group-item list-group-item-action";
+                        
                         li.innerHTML = `
                             <p>${fraseObj.frase}</p>
                             <div>
