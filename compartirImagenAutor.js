@@ -21,10 +21,10 @@ function cargarAutor() {
                 data.frases.forEach(fraseObj => {
                     if (fraseObj.autor_url === autorSeleccionado) {
                         const li = document.createElement("li");
-                       // posible doble targetado. li.className = "list-group-item"; // Mantener estructura de lista si es necesario para contenedores
+                        li.className = "d-flex justify-content-between align-items-center";
 
                         li.innerHTML = `
-                            <div class="card w-100 shadow-sm">
+                            <div class="card mb-2 w-100 shadow-sm">
                                 <div class="card-body">
                                     <p class="card-text frase-texto">${fraseObj.frase}</p>
                                 </div>
