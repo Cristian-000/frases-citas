@@ -147,10 +147,10 @@ function configurarBarraBusqueda() {
                         const autorCapitalizado = capitalizarIniciales(fraseObj.autor_url);
 
                         const li = document.createElement("li");
-                        li.className = "list-group-item d-flex justify-content-between align-items-center";
+                        li.className = "d-flex justify-content-between align-items-center";
 
                         li.innerHTML = `
-    <div class="card w-100 mb-3 shadow-sm">
+    <div class="card w-100 shadow-sm">
         <div class="card-body">
             <p class="card-text frase-texto">${fraseObj.frase}</p>
         </div>
