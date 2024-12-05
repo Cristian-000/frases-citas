@@ -152,25 +152,26 @@ function configurarBarraBusqueda() {
                         li.innerHTML = `
     <div class="frase-content">
         <p class="mb-2">${fraseObj.frase}</p>
-        <div>
-            ${fraseObj.categorias.map(categoria => 
-                `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-primary ml-2">${categoria}</a>`
-            ).join(' ')}
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="badges">
+                ${fraseObj.categorias.map(categoria => 
+                    `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-primary ml-1">${categoria}</a>`
+                ).join(' ')}
+            </div>
+            <div class="button-group">
+                <button class="btn btn-sm btn-outline-secondary border-0" onclick="setFraseParaCompartir('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}'); actualizarCanvas();" title="Crear Imagen">
+                    <i class="fas fa-image"></i>
+                </button>
+                <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');" title="Compartir">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+                <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${window.location.href}');" title="Copiar frase">
+                    <i class="fas fa-copy"></i>
+                </button>
+            </div>
         </div>
     </div>
-    <div class="button-group d-flex justify-content-end">
-        <button class="btn btn-sm btn-outline-secondary border-0" onclick="setFraseParaCompartir('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}'); actualizarCanvas();" title="Crear Imagen">
-            <i class="fas fa-image"></i> <!-- Ícono de imagen -->
-        </button>
-        <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');" title="Compartir">
-            <i class="fas fa-share-alt"></i> <!-- Ícono de compartir -->
-        </button>
-        <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${window.location.href}');" title="Copiar frase">
-            <i class="fas fa-copy"></i> <!-- Ícono de copiar -->
-        </button>
-    </div>
 `;
-
                         resultadosBusqueda.appendChild(li);
                     });
                 })
