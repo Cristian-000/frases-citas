@@ -150,19 +150,27 @@ function configurarBarraBusqueda() {
                         li.className = "list-group-item d-flex justify-content-between align-items-center";
 
                         li.innerHTML = `
-                            <div class="frase-content">
-                                <p class="mb-2">${fraseObj.frase}</p>
-                                <div>
-                                    ${fraseObj.categorias.map(categoria => 
-                                        `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-primary ml-2">${categoria}</a>`
-                                    ).join(' ')}
-                                </div>
-                            </div>
-                            <div class="button-group">
-                                <button class="btn btn-outline-secondary btn-sm mt-2" onclick="compartirFrase('${fraseObj.frase}', '${autorCapitalizado}');">Compartir</button>
-                                <button class="btn btn-outline-secondary btn-sm mt-2" onclick="copiarFrase('${fraseObj.frase}', '${window.location.href}');">Copiar</button>
-                            </div>
-                        `;
+    <div class="card mb-3 shadow-sm">
+        <div class="card-body">
+            <p class="card-text frase-texto">${fraseObj.frase}</p>
+        </div>
+        <div class="card-footer d-flex justify-content-between align-items-center bg-light">
+            <small class="text-muted">
+                Autor: <a href="autor.html?autor=${fraseObj.autor_url}" class="text-primary">${autorCapitalizado}</a>
+            </small>
+            <div>
+                ${fraseObj.categorias.map(categoria => 
+                    `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-pill badge-secondary ml-1">${categoria}</a>`
+                ).join(' ')}
+            </div>
+        </div>
+        <div class="card-footer d-flex justify-content-around">
+            <button class="btn btn-sm btn-outline-primary" onclick="setFraseParaCompartir('${fraseObj.frase}', '${autorCapitalizado}'); actualizarCanvas();">Crear Imagen</button>
+            <button class="btn btn-sm btn-outline-success" onclick="compartirFrase('${fraseObj.frase}', '${autorCapitalizado}');">Compartir</button>
+            <button class="btn btn-sm btn-outline-danger" onclick="copiarFrase('${fraseObj.frase}', '${window.location.href}');">Copiar Frase</button>
+        </div>
+    </div>
+`;
 
                         resultadosBusqueda.appendChild(li);
                     });
