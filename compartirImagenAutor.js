@@ -9,7 +9,7 @@ function cargarAutor() {
         // Título del autor
         const tituloAutor = document.getElementById("titulo-autor");
         tituloAutor.innerText = `Frases de ${capitalizarIniciales(autorSeleccionado)}`;
-        tituloAutor.classList.add("text-center", "mb-4"); // Aseguramos que el título sea centrado y tenga un margen
+        tituloAutor.classList.add("text-center", "mb-4"); // Asegura que el título sea centrado y tenga margen
 
         // Fetch de frases
         fetch('frases.json')
@@ -21,23 +21,30 @@ function cargarAutor() {
                 data.frases.forEach(fraseObj => {
                     if (fraseObj.autor_url === autorSeleccionado) {
                         const li = document.createElement("li");
-                        li.className = "list-group-item d-flex justify-content-between align-items-center";
+                        li.className = "list-group-item"; // Mantener estructura de lista si es necesario para contenedores
 
                         li.innerHTML = `
-    <div class="frase-content">
-        <p class="mb-2">${fraseObj.frase}</p>
-        <div>
-            ${fraseObj.categorias.map(categoria => 
-                `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-primary ml-2">${categoria}</a>`
-            ).join(' ')}
-        </div>
-    </div>
-    <div class="button-group">
-        <button class="btn btn-outline-secondary btn-sm mt-2" onclick="setFraseParaCompartir('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}'); actualizarCanvas();">Crear Imagen</button>
-        <button class="btn btn-outline-secondary btn-sm mt-2" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');">Compartir esta frase</button>
-        <button class="btn btn-outline-secondary btn-sm mt-2" onclick="copiarFrase('${fraseObj.frase}', '${window.location.href}');">Copiar frase</button>
-    </div>
-`;
+                            <div class="card w-100 mb-3 shadow-sm">
+                                <div class="card-body">
+                                    <p class="card-text frase-texto">${fraseObj.frase}</p>
+                                </div>
+                                <div class="card-footer d-flex justify-content-between align-items-center bg-light">
+                                    <small class="text-muted">
+                                        Autor: <a href="autor.html?autor=${fraseObj.autor_url}" class="text-primary">${capitalizarIniciales(autorSeleccionado)}</a>
+                                    </small>
+                                    <div>
+                                        ${fraseObj.categorias.map(categoria => 
+                                            `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-pill badge-secondary ml-1">${categoria}</a>`
+                                        ).join(' ')}
+                                    </div>
+                                </div>
+                                <div class="card-footer d-flex justify-content-around">
+                                    <button class="btn btn-sm btn-outline-primary" onclick="setFraseParaCompartir('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}'); actualizarCanvas();">Crear Imagen</button>
+                                    <button class="btn btn-sm btn-outline-success" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');">Compartir</button>
+                                    <button class="btn btn-sm btn-outline-danger" onclick="copiarFrase('${fraseObj.frase}', '${window.location.href}');">Copiar Frase</button>
+                                </div>
+                            </div>
+                        `;
 
                         listaFrases.appendChild(li);
                     }
