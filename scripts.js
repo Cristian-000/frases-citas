@@ -158,7 +158,7 @@ function configurarBarraBusqueda() {
                     `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-primary ml-1">${categoria}</a>`
                 ).join(' ')}
             </div>
-            <div class="button-group">
+            <div class="button-group mr-1">
                 <button class="btn btn-sm btn-outline-secondary border-0" onclick="setFraseParaCompartir('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}'); actualizarCanvas();" title="Crear Imagen">
                     <i class="fas fa-image"></i>
                 </button>
