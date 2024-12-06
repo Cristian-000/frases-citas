@@ -150,28 +150,30 @@ function configurarBarraBusqueda() {
                         li.className = "d-flex justify-content-between align-items-center";
 
                         li.innerHTML = `
-    <div class="frase-content">
-        <p class="mb-2">${fraseObj.frase}</p>
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="badges">
-                ${fraseObj.categorias.map(categoria => 
-                    `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-primary ml-1">${categoria}</a>`
-                ).join(' ')}
-            </div>
-            <div class="button-group mr-1">
-                <button class="btn btn-sm btn-outline-secondary border-0" onclick="setFraseParaCompartir('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}'); actualizarCanvas();" title="Crear Imagen">
-                    <i class="fas fa-image"></i>
-                </button>
-                <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');" title="Compartir">
-                    <i class="fas fa-share-alt"></i>
-                </button>
-                <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${window.location.href}');" title="Copiar frase">
-                    <i class="fas fa-copy"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-`;
+                            <div class="frase-content">
+                                <p class="mb-2"><strong>${fraseObj.frase}</strong></p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="badges">
+                                        <small><a href="autor.html?autor=${fraseObj.autor_url}" class="badge badge-secondary">${autorCapitalizado}</a></small>
+                                        ${fraseObj.categorias.map(categoria => 
+                                            `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-primary ml-1">${categoria}</a>`
+                                        ).join(' ')}
+                                    </div>
+                                    <div class="button-group mr-1">
+                                        <button class="btn btn-sm btn-outline-secondary border-0" onclick="setFraseParaCompartir('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}'); actualizarCanvas();" title="Crear Imagen">
+                                            <i class="fas fa-image"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');" title="Compartir">
+                                            <i class="fas fa-share-alt"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${window.location.href}');" title="Copiar frase">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        `;
                         resultadosBusqueda.appendChild(li);
                     });
                 })
@@ -179,6 +181,8 @@ function configurarBarraBusqueda() {
         }
     });
 }
+
+
 function cargarFrasesPorCategoria() {
     const urlParams = new URLSearchParams(window.location.search);
     const categoriaSeleccionada = urlParams.get("categoria");
