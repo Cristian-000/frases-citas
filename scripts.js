@@ -150,8 +150,8 @@ function configurarBarraBusqueda() {
                         li.className = "d-flex justify-content-between align-items-center";
 
                         li.innerHTML = `
-                            <div class="frase-content">
-                                <p class="mb-2"><strong>${fraseObj.frase}</strong></p>
+                            <div class="w-100 frase-content">
+                                <p class="mb-1"><strong>${fraseObj.frase}</strong></p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="badges">
                                         <small><a href="autor.html?autor=${fraseObj.autor_url}" class="badge badge-secondary">${autorCapitalizado}</a></small>
