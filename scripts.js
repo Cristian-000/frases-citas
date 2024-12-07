@@ -160,9 +160,7 @@ function configurarBarraBusqueda() {
                                         ).join(' ')}
                                     </div>
                                     <div class="button-group mr-1">
-                                        <button class="btn btn-sm btn-outline-secondary border-0" onclick="setFraseParaCompartir('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}'); actualizarCanvas();" title="Crear Imagen">
-                                            <i class="fas fa-image"></i>
-                                        </button>
+                                        
                                         <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');" title="Compartir">
                                             <i class="fas fa-share-alt"></i>
                                         </button>
@@ -181,7 +179,11 @@ function configurarBarraBusqueda() {
         }
     });
 }
-
+/*
+<button class="btn btn-sm btn-outline-secondary border-0" onclick="setFraseParaCompartir('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}'); actualizarCanvas();" title="Crear Imagen">
+                                            <i class="fas fa-image"></i>
+                                        </button>
+*/
 
 function cargarFrasesPorCategoria() {
     const urlParams = new URLSearchParams(window.location.search);
