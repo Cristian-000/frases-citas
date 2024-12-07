@@ -145,7 +145,7 @@ background-color: rgb(155, 155, 155);
 }
 .badge-secondary {
     background-color: var(--color-badge-secundario);
-    color: #fff;
+    color: #444;
 }
 
 .badge-tag-1 {
