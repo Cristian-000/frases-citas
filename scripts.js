@@ -154,7 +154,7 @@ function configurarBarraBusqueda() {
                                 <p class="mb-1"><strong>${fraseObj.frase}</strong></p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="badges">
-                                        <small><a href="autor.html?autor=${fraseObj.autor_url}" class="badge badge-secondary">${autorCapitalizado}</a></small>
+                                        <small><a href="autor.html?autor=${fraseObj.autor_url}">${autorCapitalizado}</a></small>
                                         ${fraseObj.categorias.map(categoria => 
                                             `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-primary ml-1">${categoria}</a>`
                                         ).join(' ')}
