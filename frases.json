@@ -1,6 +1,156 @@
 {
   "frases": [
     {
+      "frase": "La felicidad es encontrar algo que te apasiona y dejar que te consuma.",
+      "autor_url": "anonimo",
+      "categorias": ["Felicidad", "Pasión"]
+    },
+    {
+      "frase": "La felicidad es un viaje, no un destino.",
+      "autor_url": "ralph-waldo-emerson",
+      "categorias": ["Felicidad", "Viaje"]
+    },
+    {
+      "frase": "La felicidad consiste en saber disfrutar de las pequeñas cosas.",
+      "autor_url": "anonimo",
+      "categorias": ["Felicidad", "Gratitud"]
+    },
+    {
+      "frase": "La felicidad se encuentra en las personas, no en las cosas.",
+      "autor_url": "anonimo",
+      "categorias": ["Felicidad", "Relaciones"]
+    },
+    {
+      "frase": "La felicidad no depende de lo que tienes, sino de cómo miras lo que tienes.",
+      "autor_url": "anonimo",
+      "categorias": ["Felicidad", "Perspectiva"]
+    },
+    {
+      "frase": "La felicidad es saber que todo lo que tienes, lo has ganado con esfuerzo.",
+      "autor_url": "anonimo",
+      "categorias": ["Felicidad", "Esfuerzo"]
+    },
+    {
+      "frase": "La felicidad está en el interior, no en las circunstancias exteriores.",
+      "autor_url": "anonimo",
+      "categorias": ["Felicidad", "Reflexión"]
+    },
+    {
+      "frase": "La felicidad es elegir ser feliz en lugar de esperar a que las circunstancias cambien.",
+      "autor_url": "anonimo",
+      "categorias": ["Felicidad", "Actitud"]
+    },
+    {
+      "frase": "La felicidad es el arte de saber disfrutar de lo que se tiene.",
+      "autor_url": "anonimo",
+      "categorias": ["Felicidad", "Disfrute"]
+    },
+    {
+      "frase": "La felicidad florece cuando vives en armonía con tu ser interior.",
+      "autor_url": "anonimo",
+      "categorias": ["Felicidad", "Armonía"]
+    },
+    {
+      "frase": "La felicidad no es algo que experimentas, es algo que recuerdas.",
+      "autor_url": "oscar-wilde",
+      "categorias": ["Felicidad", "Recuerdos"]
+    },
+    {
+      "frase": "La felicidad se encuentra cuando dejas de esperar y comienzas a vivir.",
+      "autor_url": "anonimo",
+      "categorias": ["Felicidad", "Vida"]
+    },
+    {
+      "frase": "La felicidad no es tener todo lo que deseas, sino disfrutar todo lo que tienes.",
+      "autor_url": "anonimo",
+      "categorias": ["Felicidad", "Gratitud"]
+    },
+    {
+      "frase": "La felicidad reside en el corazón de aquellos que se dan cuenta de que ya tienen todo lo que necesitan.",
+      "autor_url": "anonimo",
+      "categorias": ["Felicidad", "Apreciación"]
+    },
+    {
+      "frase": "La felicidad es el resultado de la paz interior, no de lo que sucede en el mundo exterior.",
+      "autor_url": "anonimo",
+      "categorias": ["Felicidad", "Paz Interior"]
+    },
+    {
+      "frase": "La felicidad se multiplica cuando se comparte.",
+      "autor_url": "anonimo",
+      "categorias": ["Felicidad", "Generosidad"]
+    },
+    {
+      "frase": "La felicidad es saber que tu corazón está en el lugar correcto.",
+      "autor_url": "anonimo",
+      "categorias": ["Felicidad", "Bienestar"]
+    },
+    {
+      "frase": "La felicidad no se mide en momentos perfectos, sino en momentos imperfectos que valen la pena.",
+      "autor_url": "anonimo",
+      "categorias": ["Felicidad", "Aventura"]
+    },
+    {
+      "frase": "La felicidad es como un boomerang, siempre regresa a quien la envía.",
+      "autor_url": "anonimo",
+      "categorias": ["Felicidad", "Ley de la Atracción"]
+    },
+    {
+      "frase": "La verdadera felicidad es disfrutar de las pequeñas cosas de la vida, sin esperar nada a cambio.",
+      "autor_url": "anonimo",
+      "categorias": ["Felicidad", "Simplicidad"]
+    },
+    {
+      "frase": "La felicidad no es un destino, es el camino que recorremos cada día.",
+      "autor_url": "anonimo",
+      "categorias": ["Felicidad", "Vida"]
+    },
+    {
+      "frase": "La verdadera felicidad está en disfrutar las cosas simples de la vida.",
+      "autor_url": "anonimo",
+      "categorias": ["Felicidad", "Simplicidad"]
+    },
+    {
+      "frase": "La felicidad no depende de lo que tienes, sino de cómo valoras lo que tienes.",
+      "autor_url": "anonimo",
+      "categorias": ["Felicidad", "Gratitud"]
+    },
+    {
+      "frase": "La alegría compartida es la semilla de la felicidad eterna.",
+      "autor_url": "anonimo",
+      "categorias": ["Felicidad", "Amistad"]
+    },
+    {
+      "frase": "Haz más de lo que te hace feliz y menos de lo que no.",
+      "autor_url": "anonimo",
+      "categorias": ["Felicidad", "Inspiración"]
+    },
+    {
+      "frase": "La felicidad no es algo hecho. Viene de tus propias acciones.",
+      "autor_url": "dalai-lama",
+      "categorias": ["Felicidad", "Acción"]
+    },
+    {
+      "frase": "La clave de la felicidad está en dejar ir lo que no puedes controlar.",
+      "autor_url": "anonimo",
+      "categorias": ["Felicidad", "Filosofía"]
+    },
+    {
+      "frase": "La felicidad no es tener lo que quieres, es amar lo que tienes.",
+      "autor_url": "anonimo",
+      "categorias": ["Felicidad", "Gratitud"]
+    },
+    {
+      "frase": "La sonrisa es el lenguaje universal de la felicidad.",
+      "autor_url": "anonimo",
+      "categorias": ["Felicidad", "Vida"]
+    },
+    {
+      "frase": "La felicidad es como un perfume: no puedes derramarlo en otros sin que unas gotas caigan sobre ti.",
+      "autor_url": "ralph-waldo-emerson",
+      "categorias": ["Felicidad", "Generosidad"]
+    },
+    {
       "frase": "La esperanza es la única cosa más fuerte que el miedo.",
       "autor_url": "suzanne-collins",
       "categorias": ["Esperanza", "Coraje"]
