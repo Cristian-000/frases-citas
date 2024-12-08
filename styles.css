@@ -168,7 +168,7 @@ background-color: rgb(155, 155, 155);
     background-color: #2196f3; /* Azul para confianza y profesionalismo */
     color: #ffffff;
 }
-.badge-tristeza {
+.badge-tristeza, .tristeza {
     background-color: #ab82ec; /* Azul para confianza y profesionalismo */
     color: #ffffff;
 }
