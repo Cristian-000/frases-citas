@@ -209,7 +209,41 @@ background-color: rgb(155, 155, 155);
     /* Rosa fuerte para simbolizar el amor */
     color: #ffffff;
 }
+.badge-accion {
+    background-color: #e74c3c;
+    /* Rojo para acción y energía */
+    color: #ffffff;
+}
 
+.badge-sueños {
+    background-color: #9b59b6;
+    /* Púrpura para sueños y creatividad */
+    color: #ffffff;
+}
+
+.badge-esperanza {
+    background-color: #2ecc71;
+    /* Verde brillante para esperanza y optimismo */
+    color: #ffffff;
+}
+
+.badge-melancolia {
+    background-color: #34495e;
+    /* Gris oscuro para melancolía y reflexión */
+    color: #ffffff;
+}
+
+.badge-fuerza {
+    background-color: #f39c12;
+    /* Naranja para fuerza y determinación */
+    color: #ffffff;
+}
+
+.badge-felicidad {
+    background-color: #f1c40f;
+    /* Amarillo brillante para felicidad y alegría */
+    color: #ffffff;
+}
 .badge-motivacion {
     background-color: #ff9800;
     /* Naranja vibrante para energía y entusiasmo */
