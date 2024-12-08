@@ -1,12 +1,12 @@
-  document.addEventListener("DOMContentLoaded", () => {
+   document.addEventListener("DOMContentLoaded", () => {
             const emociones = document.querySelectorAll('.emocion');
 
             emociones.forEach(emocion => {
                 emocion.addEventListener('click', () => {
                     const seleccion = emocion.dataset.emocion;
-                    console.log(`Seleccionaste: ${seleccion}`);
-                    // Aquí puedes redirigir a otra página
-                    window.location.href = `categoria.html?categoria=${encodeURIComponent(seleccion)}`;
+                    const baseUrl = "https://cristian-000.github.io/frases-citas/categoria.html";
+                    const url = `${baseUrl}?categoria=${encodeURIComponent(seleccion)}`;
+                    window.location.href = url;
                 });
             });
         });
