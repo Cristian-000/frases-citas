@@ -42,7 +42,8 @@ function cargarAutor() {
                         const autorCapitalizado = capitalizarIniciales(fraseObj.autor_url);
                         const li = document.createElement("li");
                         li.className = "mb-3"; // Añadir margen entre frases
-
+                        const li = document.createElement("li");
+                        li.className = "list-group-item mb-1"; // Clase de Bootstrap para listas
                         li.innerHTML = `
                             <div class="w-100 frase-content">
                                 <p class="mb-1"><strong>${fraseObj.frase}</strong></p>
