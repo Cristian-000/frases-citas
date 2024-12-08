@@ -1,6 +1,111 @@
 {
   "frases": [
     {
+      "frase": "La melancolía es la tinta con la que el alma escribe sus secretos.",
+      "autor_url": "anonimo",
+      "categorias": ["Melancolía", "Filosofía"]
+    },
+    {
+      "frase": "Entre la melancolía y la esperanza, el corazón siempre busca el equilibrio.",
+      "autor_url": "anonimo",
+      "categorias": ["Melancolía", "Esperanza"]
+    },
+    {
+      "frase": "La melancolía tiene el poder de convertir lo cotidiano en poesía.",
+      "autor_url": "anonimo",
+      "categorias": ["Melancolía", "Arte"]
+    },
+    {
+      "frase": "En los días de melancolía, incluso el viento parece susurrar memorias olvidadas.",
+      "autor_url": "anonimo",
+      "categorias": ["Melancolía", "Naturaleza"]
+    },
+    {
+      "frase": "La melancolía es un recordatorio de que el alma aún siente y sueña.",
+      "autor_url": "anonimo",
+      "categorias": ["Melancolía", "Sueños"]
+    },
+    {
+      "frase": "En el rincón más profundo de la melancolía, se encuentra la chispa de la inspiración.",
+      "autor_url": "anonimo",
+      "categorias": ["Melancolía", "Inspiración"]
+    },
+    {
+      "frase": "La melancolía es el refugio de quienes aman profundamente el pasado.",
+      "autor_url": "anonimo",
+      "categorias": ["Melancolía", "Recuerdos"]
+    },
+    {
+      "frase": "La melancolía nos enseña a apreciar la belleza en las grietas de la vida.",
+      "autor_url": "anonimo",
+      "categorias": ["Melancolía", "Vida"]
+    },
+    {
+      "frase": "El alma melancólica es un jardín donde florecen las emociones más profundas.",
+      "autor_url": "anonimo",
+      "categorias": ["Melancolía", "Emociones"]
+    },
+    {
+      "frase": "La melancolía convierte el vacío en un lienzo lleno de significado.",
+      "autor_url": "anonimo",
+      "categorias": ["Melancolía", "Filosofía"]
+    },
+    {
+      "frase": "En la melancolía se esconde la belleza de lo que nunca volverá.",
+      "autor_url": "anonimo",
+      "categorias": ["Melancolía", "Filosofía"]
+    },
+    {
+      "frase": "Los momentos más melancólicos son aquellos en los que recordamos lo que nunca fue.",
+      "autor_url": "anonimo",
+      "categorias": ["Melancolía", "Recuerdos"]
+    },
+    {
+      "frase": "La melancolía es la manera en que el corazón recuerda los días que nunca existieron.",
+      "autor_url": "anonimo",
+      "categorias": ["Melancolía", "Corazón"]
+    },
+    {
+      "frase": "El silencio de la melancolía es a menudo más fuerte que cualquier palabra.",
+      "autor_url": "anonimo",
+      "categorias": ["Melancolía", "Silencio"]
+    },
+    {
+      "frase": "La melancolía no es más que el arte de convivir con nuestras propias sombras.",
+      "autor_url": "anonimo",
+      "categorias": ["Melancolía", "Arte"]
+    },
+    {
+      "frase": "Hay una extraña paz en la melancolía, como si el alma abrazara su propia tristeza.",
+      "autor_url": "anonimo",
+      "categorias": ["Melancolía", "Paz"]
+    },
+    {
+      "frase": "La melancolía es el placer de estar triste.",
+      "autor_url": "victor-hugo",
+      "categorias": ["Melancolía", "Filosofía"]
+    },
+    {
+      "frase": "Algunas noches son como un pozo sin fondo, lleno de melancolía y recuerdos perdidos.",
+      "autor_url": "anonimo",
+      "categorias": ["Melancolía", "Tristeza"]
+    },
+    {
+      "frase": "La música, cuando está llena de melancolía, se convierte en el espejo del alma.",
+      "autor_url": "anonimo",
+      "categorias": ["Melancolía", "Arte"]
+    },
+    {
+      "frase": "La melancolía es el eco de un alma que se niega a olvidar.",
+      "autor_url": "anonimo",
+      "categorias": ["Melancolía", "Vida"]
+    },
+    {
+      "frase": "En la melancolía se esconde la belleza de lo que jamás podrá ser.",
+      "autor_url": "anonimo",
+      "categorias": ["Melancolía", "Filosofía"]
+    },
+    {
       "frase": "El éxito es la suma de pequeños esfuerzos repetidos día tras día.",
       "autor_url": "robert-collier",
       "categorias": ["Motivación", "Vida"]
