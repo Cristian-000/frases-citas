@@ -524,7 +524,7 @@ background-color: rgb(155, 155, 155);
     width: 4rem;
     height: 4rem;
     border-radius: 8%; /* Bordes redondeados */
-    background-color: #f5f5f5; /* Fondo suave */
+ /*   background-color: #f5f5f5; /* Fondo suave */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición para la animación */
@@ -532,8 +532,8 @@ background-color: rgb(155, 155, 155);
 }
 
 .emocion i {
-    font-size: 2.5rem; /* Corrige el espacio aquí */
-    color: #000; /* Color inicial del ícono */
+    font-size: 2.8rem; /* Corrige el espacio aquí */
+    color: #fff; /* Color inicial del ícono */
     transition: color 0.3s ease; /* Añade transición al color */
 }
 
@@ -542,9 +542,9 @@ background-color: rgb(155, 155, 155);
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Cambia la sombra al hacer hover */
 }
 
-.emocion:hover i {
-    color: #800020; /* Cambia el color del ícono en hover (opcional) */
-}
+/*.emocion:hover i {
+    color: #800020; /* Cambia el color del ícono en hover (opcional) 
+}*/
 /* Gradiente de colores */
 .tristeza {
     background: #ab82ec;
@@ -567,17 +567,17 @@ background-color: rgb(155, 155, 155);
 }
 .texto-emocion {
     text-align: center;
-    margin-bottom: 1rem; /* Espaciado entre el texto y el resto del contenido */
+   /* margin-bottom: 1rem; /* Espaciado entre el texto y el resto del contenido */
 }
 
 .texto-emocion h2 {
-    margin-bottom: 0.5rem; /* Espaciado entre el h2 y el párrafo */
-    font-size: 2rem; /* Tamaño opcional del encabezado */
+    margin-bottom: 0.2rem; /* Espaciado entre el h2 y el párrafo */
+    /*font-size: 2rem; /* Tamaño opcional del encabezado */
 }
 
 .texto-emocion p {
     margin-top: 0;
-    font-size: 1rem;
+    font-size: 0.8rem;
     color: #6c757d; /* Texto mutado (gris suave) */
 }
 
@@ -585,5 +585,5 @@ background-color: rgb(155, 155, 155);
     display: flex;
     justify-content: center;
     gap: 1rem; /* Espaciado entre los botones */
-    margin-top: 1rem; /* Espaciado entre el texto y las emociones */
+   /* margin-top: 1rem; /* Espaciado entre el texto y las emociones */
 }
