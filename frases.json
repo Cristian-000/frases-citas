@@ -1,6 +1,106 @@
 {
   "frases": [
     {
+      "frase": "El futuro pertenece a quienes se atreven a soñar.",
+      "autor_url": "anonimo",
+      "categorias": ["Futuro", "Sueños"]
+    },
+    {
+      "frase": "El futuro es una oportunidad para reinventarte y ser mejor cada día.",
+      "autor_url": "anonimo",
+      "categorias": ["Futuro", "Reinvención"]
+    },
+    {
+      "frase": "El futuro no es un regalo, es una conquista.",
+      "autor_url": "john-f-kennedy",
+      "categorias": ["Futuro", "Conquista"]
+    },
+    {
+      "frase": "La mejor manera de predecir el futuro es crearlo.",
+      "autor_url": "abraham-lincoln",
+      "categorias": ["Futuro", "Acción"]
+    },
+    {
+      "frase": "El futuro no está por venir, ya está aquí, pero aún no lo vemos.",
+      "autor_url": "anonimo",
+      "categorias": ["Futuro", "Percepción"]
+    },
+    {
+      "frase": "Lo que hagas hoy creará tu futuro.",
+      "autor_url": "anonimo",
+      "categorias": ["Futuro", "Decisiones"]
+    },
+    {
+      "frase": "El futuro es la suma de tus elecciones en el presente.",
+      "autor_url": "anonimo",
+      "categorias": ["Futuro", "Elecciones"]
+    },
+    {
+      "frase": "Cada día es una nueva oportunidad para construir el futuro que deseas.",
+      "autor_url": "anonimo",
+      "categorias": ["Futuro", "Oportunidad"]
+    },
+    {
+      "frase": "El futuro pertenece a aquellos que nunca dejan de aprender.",
+      "autor_url": "anonimo",
+      "categorias": ["Futuro", "Aprendizaje"]
+    },
+    {
+      "frase": "Lo que haces hoy puede mejorar todos tus mañanas.",
+      "autor_url": "ralph-marlowe",
+      "categorias": ["Futuro", "Mejora"]
+    },
+    {
+      "frase": "El futuro pertenece a quienes creen en la belleza de sus sueños.",
+      "autor_url": "eleanor-roosevelt",
+      "categorias": ["Futuro", "Sueños"]
+    },
+    {
+      "frase": "El futuro no está en nuestras manos, pero nuestras manos pueden moldearlo.",
+      "autor_url": "anonimo",
+      "categorias": ["Futuro", "Esperanza"]
+    },
+    {
+      "frase": "El futuro es incierto, pero eso no debe detenernos de seguir adelante.",
+      "autor_url": "anonimo",
+      "categorias": ["Futuro", "Determinación"]
+    },
+    {
+      "frase": "El futuro depende de lo que hagas hoy.",
+      "autor_url": "mahatma-gandhi",
+      "categorias": ["Futuro", "Acción"]
+    },
+    {
+      "frase": "El futuro no se predice, se crea.",
+      "autor_url": "anonimo",
+      "categorias": ["Futuro", "Creación"]
+    },
+    {
+      "frase": "La clave para el futuro está en aprender del pasado sin vivir en él.",
+      "autor_url": "anonimo",
+      "categorias": ["Futuro", "Aprendizaje"]
+    },
+    {
+      "frase": "El futuro es una página en blanco, depende de ti escribir la historia.",
+      "autor_url": "anonimo",
+      "categorias": ["Futuro", "Oportunidades"]
+    },
+    {
+      "frase": "No te preocupes por el futuro, solo asegúrate de estar listo para él.",
+      "autor_url": "anonimo",
+      "categorias": ["Futuro", "Preparación"]
+    },
+    {
+      "frase": "El futuro llega más rápido de lo que pensamos, así que prepárate para aprovechar cada oportunidad.",
+      "autor_url": "anonimo",
+      "categorias": ["Futuro", "Oportunidad"]
+    },
+    {
+      "frase": "El futuro está lleno de posibilidades, todo depende de la actitud con la que lo enfrentes.",
+      "autor_url": "anonimo",
+      "categorias": ["Futuro", "Actitud"]
+    },
+    {
       "frase": "La felicidad es encontrar algo que te apasiona y dejar que te consuma.",
       "autor_url": "anonimo",
       "categorias": ["Felicidad", "Pasión"]
