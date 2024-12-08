@@ -41,7 +41,7 @@ function cargarAutor() {
                         const isFavorito = favoritos.some(fav => fav.frase === fraseObj.frase);
                         const autorCapitalizado = capitalizarIniciales(fraseObj.autor_url);
                         const li = document.createElement("li");
-                        li.className = "list-unstyled mb-1"; // Añadir margen entre frases
+                        li.className = "w-100 list-unstyled mb-1"; // Añadir margen entre frases
                         li.innerHTML = `
                             <div class="w-100 frase-content">
                                 <p class="mb-1"><strong>${fraseObj.frase}</strong></p>
