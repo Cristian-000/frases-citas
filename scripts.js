@@ -61,16 +61,33 @@ async function cargarCategorias() {
             });
         });
 
+        // Convertimos las categorías en un array de objetos para poder mezclarlas
+        const categoriasArray = Object.keys(categoriasConFrases).map(categoria => ({
+            nombre: categoria,
+            cantidad: categoriasConFrases[categoria]
+        }));
+
+        // Función de mezcla aleatoria (Fisher-Yates)
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]]; // Intercambiar elementos
+            }
+        }
+
+        // Mezclamos el array de categorías
+        shuffle(categoriasArray);
+
         // Creamos los elementos de categoría con la cantidad de frases
-        Object.keys(categoriasConFrases).forEach(categoria => {
+        categoriasArray.forEach(categoriaObj => {
             const li = document.createElement("li");
             li.className = "list-group-item d-flex justify-content-between align-items-center";
 
             // Agregamos la categoría y el badge con la cantidad de frases
             li.innerHTML = `
-                <a href="categoria.html?categoria=${encodeURIComponent(categoria)}">${categoria}</a>
-                <a href="categoria.html?categoria=${encodeURIComponent(categoria)}">
-                    <span class="badge ${obtenerClaseColor(categoria)}">${categoriasConFrases[categoria]} frase${categoriasConFrases[categoria] !== 1 ? 's' : ''}</span>
+                <a href="categoria.html?categoria=${encodeURIComponent(categoriaObj.nombre)}">${categoriaObj.nombre}</a>
+                <a href="categoria.html?categoria=${encodeURIComponent(categoriaObj.nombre)}">
+                    <span class="badge ${obtenerClaseColor(categoriaObj.nombre)}">${categoriaObj.cantidad} frase${categoriaObj.cantidad !== 1 ? 's' : ''}</span>
                 </a>
             `;
             listaCategorias.appendChild(li);
