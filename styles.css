@@ -1,18 +1,30 @@
 /* Variables */
 :root {
-    --color-fondo: #f8f9fa; /* Color de fondo general: un gris muy claro (casi blanco) */
-    --color-texto: #343a40; /* Color de texto principal: un gris oscuro (casi negro) */
-    --color-acento: #a00a3c; /* Color de acento o principal: azul brillante (similar al de Bootstrap) */
-    --color-hover: #0056b3; /* Color de acento en estado hover: azul más oscuro */
-    --color-badge-secundario: #2874a6; /* Color secundario para insignias (badges): verde */
+    --color-fondo: #f8f9fa;
+    /* Color de fondo general: un gris muy claro (casi blanco) */
+    --color-texto: #343a40;
+    /* Color de texto principal: un gris oscuro (casi negro) */
+    --color-acento: #a00a3c;
+    /* Color de acento o principal: azul brillante (similar al de Bootstrap) */
+    --color-hover: #0056b3;
+    /* Color de acento en estado hover: azul más oscuro */
+    --color-badge-secundario: #2874a6;
+    /* Color secundario para insignias (badges): verde */
     --color-badge-primario: #5fb4ec;
-    --color-badge-tag-1: #FF5733; /* Color para la primera etiqueta (tag): naranja rojizo */
-    --color-badge-tag-2: #007BFF; /* Color para la segunda etiqueta (tag): azul (igual a `--color-acento`) */
-    --color-badge-tag-3: #FFC107; /* Color para la tercera etiqueta (tag): amarillo dorado */
-    --color-background-card: #ffffff; /* Color de fondo para tarjetas: blanco puro */
-    --color-border-light: #ddd; /* Color de borde claro: gris claro */
-    --color-light-shadow: rgba(0, 0, 0, 0.1); /* Sombra ligera: negro con opacidad del 10% */
-    --color-dark-shadow: rgba(0, 0, 0, 0.2); /* Sombra oscura: negro con opacidad del 20% */
+    --color-badge-tag-1: #FF5733;
+    /* Color para la primera etiqueta (tag): naranja rojizo */
+    --color-badge-tag-2: #007BFF;
+    /* Color para la segunda etiqueta (tag): azul (igual a `--color-acento`) */
+    --color-badge-tag-3: #FFC107;
+    /* Color para la tercera etiqueta (tag): amarillo dorado */
+    --color-background-card: #ffffff;
+    /* Color de fondo para tarjetas: blanco puro */
+    --color-border-light: #ddd;
+    /* Color de borde claro: gris claro */
+    --color-light-shadow: rgba(0, 0, 0, 0.1);
+    /* Sombra ligera: negro con opacidad del 10% */
+    --color-dark-shadow: rgba(0, 0, 0, 0.2);
+    /* Sombra oscura: negro con opacidad del 20% */
 }
 
 /* General */
@@ -25,42 +37,65 @@ body {
 }
 
 h1 {
-    color: var(--color-texto);                  /* Color del texto */
-    font-size: 2.5rem;                          /* Tamaño más grande */
-    font-weight: bold;                          /* Texto en negrita */
-    margin-bottom: 1.5rem;                      /* Espaciado inferior */
-    text-align: center;                         /* Centrado horizontal */
-    letter-spacing: 1.5px;                      /* Espaciado entre letras */
-           
-    display: inline-block;                      /* Ajusta el ancho al contenido */
-    padding-bottom: 0.5rem;                     /* Espaciado entre texto y borde */
-    width: 100%;                                /* Ocupa el ancho completo */
-    box-sizing: border-box;                     /* Incluye el borde en el ancho total */
-    transition: color 0.3s ease;                /* Transición suave de color */
+    color: var(--color-texto);
+    /* Color del texto */
+    font-size: 2.5rem;
+    /* Tamaño más grande */
+    font-weight: bold;
+    /* Texto en negrita */
+    margin-bottom: 1.5rem;
+    /* Espaciado inferior */
+    text-align: center;
+    /* Centrado horizontal */
+    letter-spacing: 1.5px;
+    /* Espaciado entre letras */
+
+    display: inline-block;
+    /* Ajusta el ancho al contenido */
+    padding-bottom: 0.5rem;
+    /* Espaciado entre texto y borde */
+    width: 100%;
+    /* Ocupa el ancho completo */
+    box-sizing: border-box;
+    /* Incluye el borde en el ancho total */
+    transition: color 0.3s ease;
+    /* Transición suave de color */
 }
+
 h2 {
-    color: var(--color-texto);                  /* Color del texto */
-    font-size: 2rem;                          /* Tamaño más grande */
-                             /* Texto en negrita */
-    margin-bottom: 1.3rem;                      /* Espaciado inferior */
-    text-align: center;                         /* Centrado horizontal */
-    letter-spacing: 1.2px;                      /* Espaciado entre letras */
-    display: inline-block;                      /* Ajusta el ancho al contenido */
-    padding-bottom: 0.5rem;                     /* Espaciado entre texto y borde */
-    width: 100%;                                /* Ocupa el ancho completo */
-    box-sizing: border-box;                     /* Incluye el borde en el ancho total */
-    transition: color 0.3s ease;                /* Transición suave de color */
+    color: var(--color-texto);
+    /* Color del texto */
+    font-size: 2rem;
+    /* Tamaño más grande */
+    /* Texto en negrita */
+    margin-bottom: 1.3rem;
+    /* Espaciado inferior */
+    text-align: center;
+    /* Centrado horizontal */
+    letter-spacing: 1.2px;
+    /* Espaciado entre letras */
+    display: inline-block;
+    /* Ajusta el ancho al contenido */
+    padding-bottom: 0.5rem;
+    /* Espaciado entre texto y borde */
+    width: 100%;
+    /* Ocupa el ancho completo */
+    box-sizing: border-box;
+    /* Incluye el borde en el ancho total */
+    transition: color 0.3s ease;
+    /* Transición suave de color */
 }
 
 /*#resultados-busqueda{
 background-color: rgb(155, 155, 155);
 }*/
 .scrollable-container {
-    max-height: 300px; /* Ajusta según tus necesidades */
+    max-height: 300px;
+    /* Ajusta según tus necesidades */
     overflow-y: auto;
-   /* border: 1px solid var(--color-light-shadow); /* Añade un borde para separar visualmente */
+    /* border: 1px solid var(--color-light-shadow); /* Añade un borde para separar visualmente */
     padding: 4px;
- /*   border-radius: 5px; /* Bordes redondeados */
+    /*   border-radius: 5px; /* Bordes redondeados */
 }
 
 /* Opcional: Estilo para la barra de desplazamiento */
@@ -81,42 +116,55 @@ background-color: rgb(155, 155, 155);
 
 /* Estilos para el Navbar */
 .navbar {
-    background-color: var(--color-fondo); /* Fondo del navbar */
-    box-shadow: 0 2px 4px var(--color-light-shadow); /* Sombra sutil */
+    background-color: var(--color-fondo);
+    /* Fondo del navbar */
+    box-shadow: 0 2px 4px var(--color-light-shadow);
+    /* Sombra sutil */
 }
 
 .navbar-nav .nav-link {
-    font-weight: bold; /* Texto más grueso */
-    color: var(--color-texto); /* Color de texto */
-    transition: color 0.3s ease; /* Transición suave */
+    font-weight: bold;
+    /* Texto más grueso */
+    color: var(--color-texto);
+    /* Color de texto */
+    transition: color 0.3s ease;
+    /* Transición suave */
 }
 
 .navbar-nav .nav-link:hover {
-    color: var(--color-hover); /* Color en hover */
+    color: var(--color-hover);
+    /* Color en hover */
 }
 
 .navbar-brand {
-    font-size: 1.5rem; /* Tamaño de la marca */
-    color: var(--color-acento); /* Color de acento */
+    font-size: 1.5rem;
+    /* Tamaño de la marca */
+    color: var(--color-acento);
+    /* Color de acento */
 }
 
 .navbar-toggler {
-    border-color: var(--color-acento); /* Color del botón de toggle */
+    border-color: var(--color-acento);
+    /* Color del botón de toggle */
 }
 
 .navbar-toggler-icon {
-    background-image: none; /* Personalizar icono si lo deseas */
+    background-image: none;
+    /* Personalizar icono si lo deseas */
 }
 
 /* Centrado en pantallas pequeñas */
 @media (max-width: 992px) {
     .navbar-nav {
-        text-align: center; /* Centra las opciones en dispositivos pequeños */
-        width: 100%; /* Asegura que ocupe todo el ancho */
+        text-align: center;
+        /* Centra las opciones en dispositivos pequeños */
+        width: 100%;
+        /* Asegura que ocupe todo el ancho */
     }
 
     .navbar-nav .nav-item {
-        display: inline-block; /* Muestra cada opción centrada */
+        display: inline-block;
+        /* Muestra cada opción centrada */
     }
 }
 
@@ -150,56 +198,71 @@ background-color: rgb(155, 155, 155);
 
 /* Tags y Badges */
 .badge-filosofia {
-    background-color: #6618f5; /* Púrpura para representar reflexión y sabiduría */
-    color: #ffffff; /* Texto blanco para buen contraste */
+    background-color: #6618f5;
+    /* Púrpura para representar reflexión y sabiduría */
+    color: #ffffff;
+    /* Texto blanco para buen contraste */
 }
 
 .badge-amor {
-    background-color: #e91e63; /* Rosa fuerte para simbolizar el amor */
+    background-color: #e91e63;
+    /* Rosa fuerte para simbolizar el amor */
     color: #ffffff;
 }
 
 .badge-motivacion {
-    background-color: #ff9800; /* Naranja vibrante para energía y entusiasmo */
+    background-color: #ff9800;
+    /* Naranja vibrante para energía y entusiasmo */
     color: #ffffff;
 }
 
 .badge-trabajo {
-    background-color: #2196f3; /* Azul para confianza y profesionalismo */
+    background-color: #2196f3;
+    /* Azul para confianza y profesionalismo */
     color: #ffffff;
 }
-.badge-tristeza, .tristeza {
-    background-color: #ab82ec; /* Azul para confianza y profesionalismo */
+
+.badge-tristeza,
+.tristeza {
+    background-color: #ab82ec;
+    /* Azul para confianza y profesionalismo */
     color: #ffffff;
 }
 
 .badge-inspiracion {
-    background-color: #4caf50; /* Verde para representar crecimiento e ideas frescas */
+    background-color: #4caf50;
+    /* Verde para representar crecimiento e ideas frescas */
     color: #ffffff;
 }
 
 .badge-superacion {
-    background-color: #ff5722; /* Naranja rojizo para esfuerzo y logros */
+    background-color: #ff5722;
+    /* Naranja rojizo para esfuerzo y logros */
     color: #ffffff;
 }
 
 .badge-navidad {
-    background-color: #d32f2f; /* Rojo clásico para Navidad */
+    background-color: #d32f2f;
+    /* Rojo clásico para Navidad */
     color: #ffffff;
 }
 
 .badge-año-nuevo {
-    background-color: #ffc107; /* Amarillo dorado para celebraciones y esperanza */
-    color: #000000; /* Texto negro para contraste */
+    background-color: #ffc107;
+    /* Amarillo dorado para celebraciones y esperanza */
+    color: #000000;
+    /* Texto negro para contraste */
 }
 
 .badge-vida {
-    background-color: #009688; /* Verde azulado para vitalidad y balance */
+    background-color: #009688;
+    /* Verde azulado para vitalidad y balance */
     color: #ffffff;
 }
 
 .badge-educacion {
-    background-color: #4151aa; /* Azul profundo para sabiduría y aprendizaje */
+    background-color: #4151aa;
+    /* Azul profundo para sabiduría y aprendizaje */
     color: #ffffff;
 }
 
@@ -212,23 +275,28 @@ background-color: rgb(155, 155, 155);
     text-transform: capitalize;
     white-space: nowrap;
     color: #ffffff;
-    transition: color 0.3s ease; /* Asegúrate de que la transición de color sea independiente */
-    will-change: transform; /* Informa al navegador que se animará el 'transform' */
+    transition: color 0.3s ease;
+    /* Asegúrate de que la transición de color sea independiente */
+    will-change: transform;
+    /* Informa al navegador que se animará el 'transform' */
 }
 
 .badge:hover {
-    transform: translateY(-3px); /* Mueve ligeramente hacia arriba */
-    color: #fff; /* Mantén el color del texto constante */
+    transform: translateY(-3px);
+    /* Mueve ligeramente hacia arriba */
+    color: #fff;
+    /* Mantén el color del texto constante */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 
 
-.badge-primary{
+.badge-primary {
     background-color: var(--color-badge-primario);
     color: #4d4d4d;
 }
+
 .badge-secondary {
     background-color: var(--color-badge-secundario);
     color: #444;
@@ -253,11 +321,11 @@ background-color: rgb(155, 155, 155);
 
 /* Autor */
 .autor-link {
-    
+
     text-transform: capitalize;
     text-decoration: none;
     color: var(--color-acento);
-   
+
 }
 
 .autor-link:hover {
@@ -273,9 +341,10 @@ background-color: rgb(155, 155, 155);
 
 /* Responsivo */
 @media (max-width: 768px) {
+
     #canvas-container,
     #barra-modificadores {
-      
+
         align-items: stretch;
     }
 
@@ -284,7 +353,7 @@ background-color: rgb(155, 155, 155);
         width: 100%;
     }
 
-  
+
 }
 
 @media (max-width: 400px) {
@@ -297,22 +366,30 @@ background-color: rgb(155, 155, 155);
 
 #barra-modificadores {
     display: flex;
-    flex-wrap: wrap; /* Permite que los elementos pasen a la siguiente fila */
-    justify-content: center; /* Centra los elementos */
+    flex-wrap: wrap;
+    /* Permite que los elementos pasen a la siguiente fila */
+    justify-content: center;
+    /* Centra los elementos */
     align-items: center;
-    
+
     gap: 15px;
     bottom: 10px;
-    width: 95%; /* Reduce el ancho total de la barra */
-    max-width: 900px; /* Limita el ancho máximo */
-    margin: 0 auto; /* Centra la barra en la pantalla */
+    width: 95%;
+    /* Reduce el ancho total de la barra */
+    max-width: 900px;
+    /* Limita el ancho máximo */
+    margin: 0 auto;
+    /* Centra la barra en la pantalla */
     background-color: var(--color-background-card);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 8px 10px; /* Reduce el padding */
+    padding: 8px 10px;
+    /* Reduce el padding */
     border-radius: 8px;
-    box-sizing: border-box; /* Evita que padding afecte el ancho total */
+    box-sizing: border-box;
+    /* Evita que padding afecte el ancho total */
     z-index: 1000;
 }
+
 #barra-modificadores label {
     position: relative;
     display: flex;
@@ -326,7 +403,8 @@ background-color: rgb(155, 155, 155);
 #barra-modificadores label select {
     display: none;
     position: absolute;
-    top: -220%;  /* Posición más cerca del label */
+    top: -220%;
+    /* Posición más cerca del label */
     left: 50%;
     transform: translateX(-50%);
     background: white;
@@ -343,21 +421,31 @@ background-color: rgb(155, 155, 155);
 #barra-modificadores label:hover select {
     display: block;
 }
+
 #action-buttons {
     display: flex;
-    justify-content: center;  /* Centra los botones horizontalmente */
-    gap: 20px;  /* Espaciado entre botones */
-    margin-top: 20px;  /* Espaciado superior */
+    justify-content: center;
+    /* Centra los botones horizontalmente */
+    gap: 20px;
+    /* Espaciado entre botones */
+    margin-top: 20px;
+    /* Espaciado superior */
 }
+
 .frase-content {
     display: flex;
     flex-direction: column;
     padding: 8px;
-    border: 1px solid #ccc; /* Borde fino en gris claro */
-    border-radius: 8px;  /* Bordes redondeados */
-    background-color: #fff; /* Fondo blanco */
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-    margin-bottom: 5px; /* Espacio entre tarjetas */
+    border: 1px solid #ccc;
+    /* Borde fino en gris claro */
+    border-radius: 8px;
+    /* Bordes redondeados */
+    background-color: #fff;
+    /* Fondo blanco */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    /* Sombra sutil */
+    margin-bottom: 5px;
+    /* Espacio entre tarjetas */
 }
 
 .badges {
@@ -372,54 +460,86 @@ background-color: rgb(155, 155, 155);
 
 .button-group {
     display: flex;
-    gap: 8px; /* Espaciado entre botones */
+    gap: 8px;
+    /* Espaciado entre botones */
 }
 
 .button-group .btn {
-    color: #555;  /* Color gris suave */
-    transition: color 0.3s ease; /* Transición suave */
+    color: #555;
+    /* Color gris suave */
+    transition: color 0.3s ease;
+    /* Transición suave */
 }
 
 .button-group .btn:hover {
-    color: #800020;  /* Cambia a bordo en hover */
+    color: #800020;
+    /* Cambia a bordo en hover */
 }
-  .contenedor-emociones {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-         /*   margin-top: 50px;*/
-        }
 
-        .emocion {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 25px;
-            color: #fff;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            width: 100px;
-            height: 100px;
-        }
+.contenedor-emociones {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    /*   margin-top: 50px;*/
+}
 
-        .emocion:hover {
-            transform: scale(1.1);
-        }
+/* Estilo para cada emoción */
+.emocion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 8%;
+    background-color: #f5f5f5; /* Fondo suave */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s;
+}
 
-        /* Gradiente de colores */
-        .tristeza {
-            background: #3b4d61; /* Azul oscuro */
-        }
+.emocion:hover {
+    transform: scale(1.1);
+}
 
-        .melancolia {
-            background: #5d6d7e; /* Azul grisáceo */
-        }
+/* Gradiente de colores */
+.tristeza {
+    background: #3b4d61;
+    /* Azul oscuro */
+}
 
-        .esperanza {
-            background: #92d36e; /* Verde claro */
-        }
+.melancolia {
+    background: #5d6d7e;
+    /* Azul grisáceo */
+}
 
-        .felicidad {
-            background: #f4a261; /* Naranja cálido */
+.esperanza {
+    background: #92d36e;
+    /* Verde claro */
+}
+
+.felicidad {
+    background: #f4a261;
+    /* Naranja cálido */
+}
+.texto-emocion {
+    text-align: center;
+    margin-bottom: 1rem; /* Espaciado entre el texto y el resto del contenido */
+}
+
+.texto-emocion h2 {
+    margin-bottom: 0.5rem; /* Espaciado entre el h2 y el párrafo */
+    font-size: 2rem; /* Tamaño opcional del encabezado */
+}
+
+.texto-emocion p {
+    margin-top: 0;
+    font-size: 1rem;
+    color: #6c757d; /* Texto mutado (gris suave) */
+}
+
+.contenedor-emociones {
+    display: flex;
+    justify-content: center;
+    gap: 1rem; /* Espaciado entre los botones */
+    margin-top: 1rem; /* Espaciado entre el texto y las emociones */
+}
