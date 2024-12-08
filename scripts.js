@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 const colorCategorias = {
-    "Futuro":"badge-futuro";
+    "Futuro":"badge-futuro",
     "Acción" :"badge-accion",
     "Sueños":"badge-sueños",
     "Esperanza":"badge-esperanza",
