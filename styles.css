@@ -58,9 +58,9 @@ background-color: rgb(155, 155, 155);
 .scrollable-container {
     max-height: 300px; /* Ajusta según tus necesidades */
     overflow-y: auto;
-    border: 1px solid var(--color-light-shadow); /* Añade un borde para separar visualmente */
+   /* border: 1px solid var(--color-light-shadow); /* Añade un borde para separar visualmente */
     padding: 4px;
-    border-radius: 5px; /* Bordes redondeados */
+ /*   border-radius: 5px; /* Bordes redondeados */
 }
 
 /* Opcional: Estilo para la barra de desplazamiento */
