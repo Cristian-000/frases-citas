@@ -1,6 +1,22 @@
 document.addEventListener("DOMContentLoaded", function() {
     const categoriasLista = document.getElementById("categorias");
 
+    const colorCategorias = {
+        "Filosofía": "badge-filosofia",
+        "Amor": "badge-amor",
+        "Educación": "badge-educacion",
+        "Trabajo": "badge-trabajo",
+        "Motivación": "badge-motivacion",
+        "Vida": "badge-vida",
+        "Tristeza": "badge-tristeza",
+        "Inspiración": "badge-inspiracion",
+        "Superación": "badge-superacion",
+        "default": "badge-primary" // Color por defecto
+    };
+    
+    function obtenerClaseColor(categoria) {
+        return colorCategorias[categoria] || colorCategorias["default"];
+    }
     fetch("frases.json") // Cambia el nombre si tu archivo JSON se llama diferente
         .then(response => response.json())
         .then(data => {
@@ -28,13 +44,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 const link = document.createElement("a");
                 link.href = `categoria.html?categoria=${encodeURIComponent(categoria)}`;
                 link.textContent = categoria; // Solo el nombre de la categoría
-           
+
+                // Obtener la clase de color para la categoría
+                const badgeColor = colorCategorias[categoria] || colorCategorias["default"];
 
                 // Crear badge con el número de frases, y también hacer de enlace
                 const badge = document.createElement("a"); // Cambiar a <a> para que sea un enlace
                 badge.href = `categoria.html?categoria=${encodeURIComponent(categoria)}`; // El mismo enlace
-                badge.classList.add("badge", "badge-primary");
-                badge.textContent = cantidad; // Mostrar el número de frases
+                badge.classList.add("badge", badgeColor); // Usar el color de la categoría
+                badge.textContent = `${cantidad} Frase${cantidad !== 1 ? 's' : ''}`// Mostrar el número de frases
                 badge.style.marginLeft = "10px"; // Espacio a la derecha del nombre de la categoría
 
                 // Añadir el enlace de la categoría y la badge al li

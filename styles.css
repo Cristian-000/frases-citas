@@ -2,9 +2,10 @@
 :root {
     --color-fondo: #f8f9fa; /* Color de fondo general: un gris muy claro (casi blanco) */
     --color-texto: #343a40; /* Color de texto principal: un gris oscuro (casi negro) */
-    --color-acento: #007bff; /* Color de acento o principal: azul brillante (similar al de Bootstrap) */
+    --color-acento: #a00a3c; /* Color de acento o principal: azul brillante (similar al de Bootstrap) */
     --color-hover: #0056b3; /* Color de acento en estado hover: azul más oscuro */
     --color-badge-secundario: #2874a6; /* Color secundario para insignias (badges): verde */
+    --color-badge-primario: #5fb4ec;
     --color-badge-tag-1: #FF5733; /* Color para la primera etiqueta (tag): naranja rojizo */
     --color-badge-tag-2: #007BFF; /* Color para la segunda etiqueta (tag): azul (igual a `--color-acento`) */
     --color-badge-tag-3: #FFC107; /* Color para la tercera etiqueta (tag): amarillo dorado */
@@ -131,37 +132,93 @@ background-color: rgb(155, 155, 155);
 
 
 /* Tags y Badges */
-.badgegg{
-    font-size: 0.7rem;
-    padding: 0.3em 0.4em;
-    border-radius: 9px;
-    text-decoration: none;
-    display: inline-block;
-
+.badge-filosofia {
+    background-color: #6618f5; /* Púrpura para representar reflexión y sabiduría */
+    color: #ffffff; /* Texto blanco para buen contraste */
 }
-.badage-primaryyy{
-    background-color: var(--color-badge-secundario);
-    color: #444;
+
+.badge-amor {
+    background-color: #e91e63; /* Rosa fuerte para simbolizar el amor */
+    color: #ffffff;
+}
+
+.badge-motivacion {
+    background-color: #ff9800; /* Naranja vibrante para energía y entusiasmo */
+    color: #ffffff;
+}
+
+.badge-trabajo {
+    background-color: #2196f3; /* Azul para confianza y profesionalismo */
+    color: #ffffff;
+}
+.badge-tristeza {
+    background-color: #ab82ec; /* Azul para confianza y profesionalismo */
+    color: #ffffff;
+}
+
+.badge-inspiracion {
+    background-color: #4caf50; /* Verde para representar crecimiento e ideas frescas */
+    color: #ffffff;
+}
+
+.badge-superacion {
+    background-color: #ff5722; /* Naranja rojizo para esfuerzo y logros */
+    color: #ffffff;
+}
+
+.badge-navidad {
+    background-color: #d32f2f; /* Rojo clásico para Navidad */
+    color: #ffffff;
+}
+
+.badge-año-nuevo {
+    background-color: #ffc107; /* Amarillo dorado para celebraciones y esperanza */
+    color: #000000; /* Texto negro para contraste */
+}
+
+.badge-vida {
+    background-color: #009688; /* Verde azulado para vitalidad y balance */
+    color: #ffffff;
+}
+
+.badge-educacion {
+    background-color: #4151aa; /* Azul profundo para sabiduría y aprendizaje */
+    color: #ffffff;
+}
+
+.badge {
+    position: relative;
+    padding: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 8px;
+    text-transform: capitalize;
+    white-space: nowrap;
+    color: #ffffff;
+    transition: color 0.3s ease; /* Asegúrate de que la transición de color sea independiente */
+    will-change: transform; /* Informa al navegador que se animará el 'transform' */
+}
+
+.badge:hover {
+    transform: translateY(-3px); /* Mueve ligeramente hacia arriba */
+    color: #fff; /* Mantén el color del texto constante */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+
+.badge-primary{
+    background-color: var(--color-badge-primario);
+    color: #4d4d4d;
 }
 .badge-secondary {
     background-color: var(--color-badge-secundario);
     color: #444;
 }
 
-.badge-tag-1 {
-    background-color: var(--color-badge-tag-1);
-    color: #fff;
-}
 
-.badge-tag-2 {
-    background-color: var(--color-badge-tag-2);
-    color: #fff;
-}
 
-.badge-tag-3 {
-    background-color: var(--color-badge-tag-3);
-    color: #333;
-}
 
 /* Cards 
 .list-group-item {
@@ -179,14 +236,15 @@ background-color: rgb(155, 155, 155);
 
 /* Autor */
 .autor-link {
+    
     text-transform: capitalize;
     text-decoration: none;
     color: var(--color-acento);
-    transition: color 0.3s ease;
+   
 }
 
 .autor-link:hover {
-    color: var(--color-hover);
+    color: var(--color-acento);
 }
 
 /* Biografía */

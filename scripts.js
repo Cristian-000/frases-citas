@@ -1,4 +1,3 @@
-// scripts.js
 document.addEventListener("DOMContentLoaded", () => {
     const promises = [];
 
@@ -19,6 +18,23 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(() => console.log("Carga completada"))
         .catch(error => console.error("Error en la carga:", error));
 });
+
+const colorCategorias = {
+    "Filosofía": "badge-filosofia",
+    "Amor": "badge-amor",
+    "Educación": "badge-educacion",
+    "Trabajo": "badge-trabajo",
+    "Motivación": "badge-motivacion",
+    "Vida": "badge-vida",
+    "Tristeza": "badge-tristeza",
+    "Inspiración": "badge-inspiracion",
+    "Superación": "badge-superacion",
+    "default": "badge-primary" // Color por defecto
+};
+
+function obtenerClaseColor(categoria) {
+    return colorCategorias[categoria] || colorCategorias["default"];
+}
 
 async function cargarCategorias() {
     try {
@@ -42,12 +58,13 @@ async function cargarCategorias() {
         Object.keys(categoriasConFrases).forEach(categoria => {
             const li = document.createElement("li");
             li.className = "list-group-item d-flex justify-content-between align-items-center";
-            
+
             // Agregamos la categoría y el badge con la cantidad de frases
             li.innerHTML = `
                 <a href="categoria.html?categoria=${encodeURIComponent(categoria)}">${categoria}</a>
-                 <a href="categoria.html?categoria=${encodeURIComponent(categoria)}"> <span class="badge badge-primary">${categoriasConFrases[categoria]} frase${categoriasConFrases[categoria] !== 1 ? 's' : ''}</span></a>
-               
+                <a href="categoria.html?categoria=${encodeURIComponent(categoria)}">
+                    <span class="badge ${obtenerClaseColor(categoria)}">${categoriasConFrases[categoria]} frase${categoriasConFrases[categoria] !== 1 ? 's' : ''}</span>
+                </a>
             `;
             listaCategorias.appendChild(li);
         });
@@ -56,45 +73,61 @@ async function cargarCategorias() {
     }
 }
 
-
 function cargarFraseDelDia() {
     const today = new Date().toDateString();
     const storedDate = localStorage.getItem("fechaFraseDelDia");
     const storedFrase = JSON.parse(localStorage.getItem("fraseDelDia"));
 
     if (storedDate === today && storedFrase) {
+        // Leer y capitalizar autor desde el almacenamiento
+        const autorCapitalizado = capitalizarIniciales(storedFrase.autor_url);
+
+        // Mostrar frase guardada
         document.getElementById("frase-del-dia").innerHTML = `
             <p class="frase-dia"><strong>${storedFrase.frase}</strong></p>
             <div>
-              <small><a href="autor.html?autor=${storedFrase.autor_url}" class="autor-link">${storedFrase.autor_url}</a></small>
-
-                ${storedFrase.categorias.map(categoria => `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-primary ml-2">${categoria}</a>`).join(' ')}
+                <small><a href="autor.html?autor=${storedFrase.autor_url}" class="autor-link">${autorCapitalizado}</a></small>
+                ${storedFrase.categorias.map(categoria => `
+                    <a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge ${obtenerClaseColor(categoria)} ml-3">${categoria}</a>
+                `).join(' ')}
             </div>
         `;
     } else {
-        return fetch('frases.json')
+        // Obtener nueva frase si no está en almacenamiento o la fecha no coincide
+        fetch('frases.json')
             .then(response => response.json())
             .then(data => {
                 const fraseDelDia = data.frases[Math.floor(Math.random() * data.frases.length)];
+                const autorCapitalizadoFD = capitalizarIniciales(fraseDelDia.autor_url);
+
+                // Guardar frase y fecha en almacenamiento
                 localStorage.setItem("fraseDelDia", JSON.stringify(fraseDelDia));
                 localStorage.setItem("fechaFraseDelDia", today);
 
+                // Mostrar nueva frase
                 document.getElementById("frase-del-dia").innerHTML = `
-                    <p>${fraseDelDia.frase}</p>
+                    <p><strong>${fraseDelDia.frase}</strong></p>
                     <div>
-                        <small><a href="autor.html?autor=${fraseDelDia.autor_url}">${fraseDelDia.autor_url}</a></small>
-                        ${fraseDelDia.categorias.map(categoria => `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-secondary ml-2">${categoria}</a>`).join(' ')}
+                        <small><a href="autor.html?autor=${fraseDelDia.autor_url}">${autorCapitalizadoFD}</a></small>
+                        ${fraseDelDia.categorias.map(categoria => `
+                            <a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge ${obtenerClaseColor(categoria)} ml-1">${categoria}</a>
+                        `).join(' ')}
                     </div>
                 `;
             })
             .catch(error => console.error("Error al cargar frase del día:", error));
     }
 }
+
 function capitalizarIniciales(texto) {
-    return texto.toLowerCase().split('-').map(palabra => {
-        return palabra.charAt(0).toUpperCase() + palabra.slice(1);
-    }).join(' '); // Reemplazamos el guión por un espacio
+    return texto
+        .toLowerCase()
+        .split('-')
+        .map(palabra => palabra.charAt(0).toUpperCase() + palabra.slice(1))
+        .join(' ');
 }
+
+
 
 // Función para copiar la frase y el enlace al portapapeles
 function copiarFrase(frase, url) {
@@ -119,12 +152,13 @@ function compartirFrase(frase, autor) {
             text: textoCompartir,
             url: urlCompartir
         })
-        .then(() => console.log("Frase compartida exitosamente"))
-        .catch(error => console.error("Error al compartir:", error));
+            .then(() => console.log("Frase compartida exitosamente"))
+            .catch(error => console.error("Error al compartir:", error));
     } else {
         alert("La funcionalidad de compartir no está disponible en este navegador.");
     }
 }
+
 function configurarBarraBusqueda() {
     const barraBusqueda = document.getElementById("barra-busqueda");
     const resultadosBusqueda = document.getElementById("resultados-busqueda");
@@ -137,48 +171,65 @@ function configurarBarraBusqueda() {
             fetch('frases.json')
                 .then(response => response.json())
                 .then(data => {
-                    const frasesEncontradas = data.frases.filter(fraseObj => 
-                        fraseObj.frase.toLowerCase().includes(query) || 
-                        fraseObj.autor_url.toLowerCase().includes(query) || 
+                    const frasesEncontradas = data.frases.filter(fraseObj =>
+                        fraseObj.frase.toLowerCase().includes(query) ||
+                        fraseObj.autor_url.toLowerCase().includes(query) ||
                         fraseObj.categorias.some(categoria => categoria.toLowerCase().includes(query))
                     );
 
+                    const favoritos = JSON.parse(localStorage.getItem("favoritos")) || []; // Cargar favoritos
+
                     frasesEncontradas.forEach(fraseObj => {
                         const autorCapitalizado = capitalizarIniciales(fraseObj.autor_url);
+
+                        // Verificar si la frase está en los favoritos
+                        const isFavorito = favoritos.some(fav => fav.frase === fraseObj.frase);
 
                         const li = document.createElement("li");
                         li.className = "d-flex justify-content-between align-items-center";
 
                         li.innerHTML = `
-                            <div class="w-100 frase-content">
-                                <p class="mb-1"><strong>${fraseObj.frase}</strong></p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="badges">
-                                        <small><a href="autor.html?autor=${fraseObj.autor_url}">${autorCapitalizado}</a></small>
-                                        ${fraseObj.categorias.map(categoria => 
-                                            `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-primary ml-1">${categoria}</a>`
-                                        ).join(' ')}
-                                    </div>
-                                    <div class="button-group mr-1">
-                                        
-                                        <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');" title="Compartir">
-                                            <i class="fas fa-share-alt"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${window.location.href}');" title="Copiar frase">
-                                            <i class="fas fa-copy"></i>
-                                        </button>
-                                    </div>
-                                    
+                        <div class="w-100 frase-content">
+                            <p class="mb-1"><strong>${fraseObj.frase}</strong></p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <small><a href="autor.html?autor=${fraseObj.autor_url}" class="autor-link">${autorCapitalizado}</a></small>
+                                    ${fraseObj.categorias.map(categoria => {
+                            // Aplicar la función obtenerClaseColor para obtener el color adecuado
+                            const claseColor = obtenerClaseColor(categoria);
+                            return `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge ${claseColor} ml-2">${categoria}</a>`;
+                        }).join(' ')}
+                                </div>
+                                <div class="button-group d-flex align-items-center mr-1">
+                                    <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');" title="Compartir">
+                                        <i class="fas fa-share-alt"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${window.location.href}');" title="Copiar frase">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                  
+                                    <button class="btn btn-link heart-button ml-2" data-frase="${encodeURIComponent(fraseObj.frase)}">
+                                        <i class="${isFavorito ? 'fas' : 'far'} fa-heart text-danger"></i>
+                                    </button>
                                 </div>
                             </div>
-                        `;
+                        </div>
+                    `;
+
                         resultadosBusqueda.appendChild(li);
+
+                        // Asignar el evento de clic al botón de favoritos
+                        li.querySelector(".heart-button").addEventListener("click", (e) => {
+                            toggleFavorito(fraseObj, e.currentTarget.querySelector("i"));
+                        });
                     });
                 })
                 .catch(error => console.error("Error al cargar frases para búsqueda:", error));
         }
     });
 }
+
+
 /*
 <button class="btn btn-sm btn-outline-secondary border-0" onclick="setFraseParaCompartir('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}'); actualizarCanvas();" title="Crear Imagen">
                                             <i class="fas fa-image"></i>
@@ -198,27 +249,43 @@ function cargarFrasesPorCategoria() {
             const listaFrases = document.getElementById("lista-frases");
             listaFrases.innerHTML = '';
 
-            const favoritos = JSON.parse(localStorage.getItem("favoritos")) || []; // Cargar favoritos
+
 
             data.frases.forEach(fraseObj => {
                 const autorCapitalizadoCat = fraseObj.autor_url.charAt(0).toUpperCase() + fraseObj.autor_url.slice(1).toLowerCase().replace('-', ' ');
-
+                const favoritos = JSON.parse(localStorage.getItem("favoritos")) || []; // Cargar favoritos
                 if (fraseObj.categorias.includes(categoriaSeleccionada)) {
                     const isFavorito = favoritos.some(fav => fav.frase === fraseObj.frase);
 
                     const li = document.createElement("li");
-                    li.className = "list-group-item d-flex justify-content-between align-items-center";
-
+                    li.className = "d-flex justify-content-between align-items-center";
                     li.innerHTML = `
-                        <div>
-                            <p><strong>${fraseObj.frase}</strong></p>
-                            <small><a href="autor.html?autor=${fraseObj.autor_url}">${autorCapitalizadoCat}</a></small>
-                            ${fraseObj.categorias.map(categoria => `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-primary ml-2">${categoria}</a>`).join(' ')}
+                    <div class="w-100 frase-content">
+                        <p class="mb-1"><strong>${fraseObj.frase}</strong></p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="badges">
+                                <small><a href="autor.html?autor=${fraseObj.autor_url}" class="autor-link">${autorCapitalizadoCat}</a></small>
+                                ${fraseObj.categorias.map(categoria => {
+                        const claseColor = obtenerClaseColor(categoria);
+                        return `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge ${claseColor} ml-2">${categoria}</a>`;
+                    }).join(' ')}
+                            </div>
+                            <div class="button-group d-flex align-items-center mr-1">
+                                <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');" title="Compartir">
+                                    <i class="fas fa-share-alt"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${window.location.href}');" title="Copiar frase">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                                <button class="btn btn-link heart-button ml-2" data-frase="${encodeURIComponent(fraseObj.frase)}">
+                                    <i class="${isFavorito ? 'fas' : 'far'} fa-heart text-danger"></i>
+                                </button>
+                         
+                            </div>
                         </div>
-                        <button class="btn btn-link heart-button" data-frase="${encodeURIComponent(fraseObj.frase)}">
-                            <i class="${isFavorito ? 'fas' : 'far'} fa-heart text-danger"></i>
-                        </button>
-                    `;
+                    </div>
+                `;
+
 
                     // Agregar evento para el corazón
                     li.querySelector(".heart-button").addEventListener("click", (e) => {
@@ -253,3 +320,4 @@ function toggleFavorito(fraseObj, icon) {
     // Actualizar localStorage
     localStorage.setItem("favoritos", JSON.stringify(favoritos));
 }
+

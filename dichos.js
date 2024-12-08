@@ -17,10 +17,14 @@ function cargarDichos() {
                     <div class="dicho-content">
                         <p class="mb-2">${dicho.texto}</p>
                     </div>
-                    <div class="button-group">
-                        <button class="btn btn-outline-secondary btn-sm mt-2" onclick="compartirDicho('${dicho.texto}');">Compartir</button>
-                        <button class="btn btn-outline-secondary btn-sm mt-2" onclick="copiarDicho('${dicho.texto}');">Copiar</button>
-                        <button class="btn btn-link heart-button" data-texto="${encodeURIComponent(dicho.texto)}">
+                    <div class="button-group d-flex align-items-center mr-1">
+                        <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirDicho('${dicho.texto}', '${window.location.href}');" title="Compartir">
+                            <i class="fas fa-share-alt"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarDicho('${dicho.texto}', '${window.location.href}');" title="Copiar frase">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                        <button class="btn btn-link heart-button ml-2" data-texto="${encodeURIComponent(dicho.texto)}">
                             <i class="${isFavorito ? 'fas' : 'far'} fa-heart text-danger"></i>
                         </button>
                     </div>
@@ -38,9 +42,8 @@ function cargarDichos() {
 }
 
 // Función para compartir el dicho
-function compartirDicho(dicho) {
-    const urlCompartir = "https://mipagina.com"; // URL de la página (puedes cambiarla)
-    const textoCompartir = `${dicho}\n\n${urlCompartir}`;
+function compartirDicho(dicho, url) {
+    const textoCompartir = `${dicho}\n\n${url}`;
 
     if (navigator.share) {
         navigator.share({
@@ -55,9 +58,8 @@ function compartirDicho(dicho) {
 }
 
 // Función para copiar el dicho al portapapeles
-function copiarDicho(dicho) {
-    const urlCompartir = "https://mipagina.com"; // URL de la página (puedes cambiarla)
-    const textoCopiar = `${dicho}\n\n${urlCompartir}`;
+function copiarDicho(dicho, url) {
+    const textoCopiar = `${dicho}\n\n${url}`;
 
     navigator.clipboard.writeText(textoCopiar)
         .then(() => alert("Dicho copiado al portapapeles"))

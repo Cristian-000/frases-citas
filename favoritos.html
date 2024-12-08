@@ -6,7 +6,7 @@
     <title>Mis Favoritos</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> <!-- Para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">   
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -40,7 +40,8 @@
         <h1 class="mt-5">Mis Dichos Favoritos</h1>
         <ul id="lista-dichos-favoritos" class="list-group mt-3"></ul>
     </div>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     
@@ -66,14 +67,14 @@
                             <p class="mb-1"><strong>${elemento[propiedadTexto]}</strong></p>
                         </div>
                         <div class="button-group">
-                            <button class="btn btn-outline-secondary btn-sm mr-2" onclick='compartirElemento("${elemento[propiedadTexto]}")'>
-                                <i class="fas fa-share-alt"></i> Compartir
+                            <button class="btn btn-sm mr-2" onclick='compartirElemento("${elemento[propiedadTexto]}")'>
+                                <i class="fas fa-share-alt"></i>
                             </button>
-                            <button class="btn btn-outline-secondary btn-sm mr-2" onclick='copiarElemento("${elemento[propiedadTexto]}")'>
-                                <i class="fas fa-copy"></i> Copiar
+                            <button class="btn  btn-sm mr-2" onclick='copiarElemento("${elemento[propiedadTexto]}")'>
+                                <i class="fas fa-copy"></i>
                             </button>
-                            <button class="btn btn-danger btn-sm" onclick='eliminarFavorito("${localStorageKey}", "${elemento[propiedadTexto]}", "${propiedadTexto}")'>
-                                <i class="fas fa-trash-alt"></i> Eliminar
+                            <button class="btn btn-danger" onclick='eliminarFavorito("${localStorageKey}", "${elemento[propiedadTexto]}", "${propiedadTexto}")'>
+                                <i class="fas fa-trash-alt"></i>
                             </button>
                         </div>
                     `;
@@ -115,6 +116,5 @@
             location.reload(); // Recargar para actualizar la lista
         }
     </script>
-    
 </body>
 </html>

@@ -1,10 +1,28 @@
 //compartirImagenAutor.js
+const colorCategorias = {
+    "Filosofía": "badge-filosofia",
+    "Amor": "badge-amor",
+    "Educación": "badge-educacion",
+    "Trabajo": "badge-trabajo",
+    "Motivación": "badge-motivacion",
+    "Vida": "badge-vida",
+    "Tristeza": "badge-tristeza",
+    "Inspiración": "badge-inspiracion",
+    "Superación": "badge-superacion",
+    "default": "badge-primary" // Color por defecto
+};
+
+function obtenerClaseColor(categoria) {
+    return colorCategorias[categoria] || colorCategorias["default"];
+}
+const favoritos = JSON.parse(localStorage.getItem("favoritos")) || []; // Cargar favoritos
+
 function cargarAutor() {
     return new Promise((resolve, reject) => {
         const urlParams = new URLSearchParams(window.location.search);
         const autorSeleccionado = urlParams.get("autor");
 
-        if (!autorSeleccionado) return resolve();
+        if (!autorSeleccionado) return resolve(); // Si no hay autor, resuelve inmediatamente
 
         // Título del autor
         const tituloAutor = document.getElementById("titulo-autor");
@@ -16,47 +34,81 @@ function cargarAutor() {
             .then(response => response.json())
             .then(data => {
                 const listaFrases = document.getElementById("lista-frases");
-                listaFrases.innerHTML = '';
+                listaFrases.innerHTML = ''; // Limpiar lista de frases
 
                 data.frases.forEach(fraseObj => {
                     if (fraseObj.autor_url === autorSeleccionado) {
+                        const isFavorito = favoritos.some(fav => fav.frase === fraseObj.frase);
+                        const autorCapitalizado = capitalizarIniciales(fraseObj.autor_url);
                         const li = document.createElement("li");
-                        li.className = "d-flex justify-content-between align-items-center";
+                        li.className = "mb-3"; // Añadir margen entre frases
 
                         li.innerHTML = `
-                            <div class="card mb-2 w-100 shadow-sm">
-                                <div class="card-body">
-                                    <p class="card-text frase-texto">${fraseObj.frase}</p>
-                                </div>
-                                <div class="card-footer d-flex justify-content-between align-items-center bg-light">
-                                    <small class="text-muted">
-                                        Autor: <a href="autor.html?autor=${fraseObj.autor_url}" class="text-primary">${capitalizarIniciales(autorSeleccionado)}</a>
-                                    </small>
+                            <div class="w-100 frase-content">
+                                <p class="mb-1"><strong>${fraseObj.frase}</strong></p>
+                                <div class="d-flex justify-content-between align-items-center">
                                     <div>
-                                        ${fraseObj.categorias.map(categoria => 
-                                            `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge badge-pill badge-secondary ml-1">${categoria}</a>`
-                                        ).join(' ')}
+                                        ${fraseObj.categorias.map(categoria => {
+                                            const claseColor = obtenerClaseColor(categoria);
+                                            return `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge ${claseColor} ml-2">${categoria}</a>`;
+                                        }).join(' ')}
                                     </div>
-                                </div>
-                                <div class="card-footer d-flex justify-content-around">
-                                    <button class="btn btn-sm btn-outline-primary" onclick="setFraseParaCompartir('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}'); actualizarCanvas();">Crear Imagen</button>
-                                    <button class="btn btn-sm btn-outline-success" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');">Compartir</button>
-                                    <button class="btn btn-sm btn-outline-danger" onclick="copiarFrase('${fraseObj.frase}', '${window.location.href}');">Copiar Frase</button>
+                                    <div class="button-group d-flex align-items-center mr-1">
+                                    <button class="btn btn-sm btn-outline-secondary border-0" onclick="setFraseParaCompartir('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}'); actualizarCanvas();" title="Crear Imagen">
+                                            <i class="fas fa-image"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${autorCapitalizado}');" title="Compartir">
+                                            <i class="fas fa-share-alt"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${window.location.href}');" title="Copiar frase">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                      
+                                        <button class="btn btn-link heart-button ml-2" data-frase="${encodeURIComponent(fraseObj.frase)}">
+                                            <i class="${isFavorito ? 'fas' : 'far'} fa-heart text-danger"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         `;
 
-                        listaFrases.appendChild(li);
+                        // Asignar el evento click para hacer toggle
+                        const heartButton = li.querySelector('.heart-button');
+                        const icon = heartButton.querySelector('i');
+                        heartButton.addEventListener('click', () => toggleFavorito(fraseObj, icon));
+
+                        listaFrases.appendChild(li); // Añadir el li a la lista
                     }
                 });
-                resolve();
+
+                resolve(); // Resolver la promesa después de cargar todas las frases
             })
             .catch(error => {
                 console.error("Error al cargar frases del autor:", error);
-                reject(error);
+                reject(error); // Rechazar la promesa si hay error
             });
     });
 }
+
+
+function toggleFavorito(fraseObj, icon) {
+    let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
+    const index = favoritos.findIndex(fav => fav.frase === fraseObj.frase);
+
+    if (index !== -1) {
+        // Eliminar de favoritos
+        favoritos.splice(index, 1);
+        icon.classList.replace("fas", "far");  // Cambiar a corazón vacío
+    } else {
+        // Agregar a favoritos
+        favoritos.push(fraseObj);
+        icon.classList.replace("far", "fas");  // Cambiar a corazón relleno
+    }
+
+    // Actualizar localStorage
+    localStorage.setItem("favoritos", JSON.stringify(favoritos));
+}
+
 
 function capitalizarIniciales(texto) {
     return texto.toLowerCase().split('-').map(palabra => {
@@ -93,6 +145,11 @@ function compartirFrase(frase, autor) {
         alert("La funcionalidad de compartir no está disponible en este navegador.");
     }
 }
+
+
+
+
+
 // Llama a cargarAutor al cargar la página
 document.addEventListener("DOMContentLoaded", () => {
     cargarAutor();
