@@ -20,6 +20,12 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 const colorCategorias = {
+    "Acción" :"badge-accion",
+    "Sueños":"badge-sueños",
+    "Esperanza":"badge-esperanza",
+    "Melancolía":"badge-melancolia",
+    "Fuerza":"badge-fuerza",
+    "Felicidad":"badge-felicidad",
     "Filosofía": "badge-filosofia",
     "Amor": "badge-amor",
     "Educación": "badge-educacion",
