@@ -1,5 +1,12 @@
 //compartirImagenAutor.js
 const colorCategorias = {
+    "Futuro":"badge-futuro";
+    "Acción" :"badge-accion",
+    "Sueños":"badge-sueños",
+    "Esperanza":"badge-esperanza",
+    "Melancolía":"badge-melancolia",
+    "Fuerza":"badge-fuerza",
+    "Felicidad":"badge-felicidad",
     "Filosofía": "badge-filosofia",
     "Amor": "badge-amor",
     "Educación": "badge-educacion",
@@ -11,6 +18,7 @@ const colorCategorias = {
     "Superación": "badge-superacion",
     "default": "badge-primary" // Color por defecto
 };
+
 
 function obtenerClaseColor(categoria) {
     return colorCategorias[categoria] || colorCategorias["default"];
