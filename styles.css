@@ -293,6 +293,12 @@ background-color: rgb(155, 155, 155);
     color: #ffffff;
 }
 
+.badge-futuro {
+    background-color: #009677;
+    /* Verde azulado para vitalidad y balance */
+    color: #ffffff;
+}
+
 .badge-educacion {
     background-color: #4151aa;
     /* Azul profundo para sabiduría y aprendizaje */
