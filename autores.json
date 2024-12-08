@@ -1,6 +1,41 @@
 {
   "autores": [
     {
+      "nombre": "John F. Kennedy",
+      "autor_url": "john-f-kennedy",
+      "biografia": "John F. Kennedy fue el 35º presidente de los Estados Unidos, conocido por su liderazgo durante la crisis de los misiles cubanos y su impulso por la igualdad de derechos civiles."
+    },
+    {
+      "nombre": "Abraham Lincoln",
+      "autor_url": "abraham-lincoln",
+      "biografia": "Abraham Lincoln fue el 16º presidente de los Estados Unidos, reconocido por su liderazgo durante la Guerra Civil y por la emancipación de los esclavos."
+    },
+    {
+      "nombre": "Ralph Marlowe",
+      "autor_url": "ralph-marlowe",
+      "biografia": "No se encuentra información relevante, posiblemente un error tipográfico o un autor menos conocido."
+    },
+    {
+      "nombre": "Eleanor Roosevelt",
+      "autor_url": "eleanor-roosevelt",
+      "biografia": "Eleanor Roosevelt fue una defensora de los derechos humanos y la primera dama de los Estados Unidos, conocida por su trabajo en la ONU y sus esfuerzos en favor de la igualdad."
+    },
+    {
+      "nombre": "Oscar Wilde",
+      "autor_url": "oscar-wilde",
+      "biografia": "Oscar Wilde fue un escritor y poeta irlandés conocido por sus obras como 'El retrato de Dorian Gray' y su aguda crítica social."
+    },
+    {
+      "nombre": "Ralph Waldo Emerson",
+      "autor_url": "ralph-waldo-emerson",
+      "biografia": "Ralph Waldo Emerson fue un filósofo, escritor y poeta estadounidense, conocido por sus ideas sobre el trascendentalismo y su defensa de la autosuficiencia."
+    },
+    {
+      "nombre": "Dalai Lama",
+      "autor_url": "dalai-lama",
+      "biografia": "El Dalai Lama es el líder espiritual tibetano, conocido por su promoción de la paz, la compasión y los derechos humanos."
+    },
+    {
       "nombre": "Robert Collier",
       "autor_url": "robert-collier",
       "biografia": "Robert Collier fue un escritor y editor estadounidense conocido por sus libros sobre autoayuda y éxito personal."
