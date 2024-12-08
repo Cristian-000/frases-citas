@@ -55,6 +55,28 @@ h2 {
 /*#resultados-busqueda{
 background-color: rgb(155, 155, 155);
 }*/
+.scrollable-container {
+    max-height: 300px; /* Ajusta según tus necesidades */
+    overflow-y: auto;
+    border: 1px solid var(--color-acento); /* Añade un borde para separar visualmente */
+    padding: 10px;
+    background-color: var(--color-secundario); /* Color del fondo secundario */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+/* Opcional: Estilo para la barra de desplazamiento */
+.scrollable-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scrollable-container::-webkit-scrollbar-thumb {
+    background-color: var(--color-acento);
+    border-radius: 5px;
+}
+
+.scrollable-container::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-texto);
+}
 
 #contenido {
     max-width: 900px;
