@@ -1,6 +1,156 @@
 {
   "frases": [
     {
+      "frase": "La esperanza es la única cosa más fuerte que el miedo.",
+      "autor_url": "suzanne-collins",
+      "categorias": ["Esperanza", "Coraje"]
+    },
+    {
+      "frase": "Cuando la esperanza se aferra al alma, no hay oscuridad que pueda vencerla.",
+      "autor_url": "anonimo",
+      "categorias": ["Esperanza", "Fuerza"]
+    },
+    {
+      "frase": "Nunca pierdas la esperanza; a menudo es en los momentos más oscuros cuando encontramos la luz.",
+      "autor_url": "anonimo",
+      "categorias": ["Esperanza", "Vida"]
+    },
+    {
+      "frase": "La esperanza es como el sol: cuando caminas hacia ella, la sombra queda detrás.",
+      "autor_url": "helen-keller",
+      "categorias": ["Esperanza", "Inspiración"]
+    },
+    {
+      "frase": "Por muy larga que sea la noche, el amanecer siempre llega.",
+      "autor_url": "anonimo",
+      "categorias": ["Esperanza", "Vida"]
+    },
+    {
+      "frase": "La esperanza es el viento que llena las velas del alma y nos impulsa hacia adelante.",
+      "autor_url": "anonimo",
+      "categorias": ["Esperanza", "Motivación"]
+    },
+    {
+      "frase": "Cuando sembramos esperanza, recogemos fortaleza.",
+      "autor_url": "anonimo",
+      "categorias": ["Esperanza", "Superación"]
+    },
+    {
+      "frase": "La esperanza no se rinde, incluso cuando la razón lo hace.",
+      "autor_url": "anonimo",
+      "categorias": ["Esperanza", "Filosofía"]
+    },
+    {
+      "frase": "La esperanza nos recuerda que siempre hay algo más grande por venir.",
+      "autor_url": "anonimo",
+      "categorias": ["Esperanza", "Futuro"]
+    },
+    {
+      "frase": "En el jardín del alma, la esperanza es la flor que nunca se marchita.",
+      "autor_url": "anonimo",
+      "categorias": ["Esperanza", "Filosofía"]
+    },
+    {
+      "frase": "La esperanza es el hilo invisible que conecta los sueños con la realidad.",
+      "autor_url": "anonimo",
+      "categorias": ["Esperanza", "Sueños"]
+    },
+    {
+      "frase": "Cada amanecer es una nueva oportunidad que la esperanza regala al corazón.",
+      "autor_url": "anonimo",
+      "categorias": ["Esperanza", "Vida"]
+    },
+    {
+      "frase": "La esperanza no necesita lógica ni razones, solo un corazón que crea.",
+      "autor_url": "anonimo",
+      "categorias": ["Esperanza", "Filosofía"]
+    },
+    {
+      "frase": "Incluso la más pequeña chispa de esperanza puede encender un gran fuego.",
+      "autor_url": "anonimo",
+      "categorias": ["Esperanza", "Motivación"]
+    },
+    {
+      "frase": "Cuando todo parece perdido, la esperanza es el último refugio del alma.",
+      "autor_url": "anonimo",
+      "categorias": ["Esperanza", "Superación"]
+    },
+    {
+      "frase": "La esperanza es el arte de ver el arcoíris en medio de la tormenta.",
+      "autor_url": "anonimo",
+      "categorias": ["Esperanza", "Inspiración"]
+    },
+    {
+      "frase": "La esperanza transforma los finales en nuevos comienzos.",
+      "autor_url": "anonimo",
+      "categorias": ["Esperanza", "Renacimiento"]
+    },
+    {
+      "frase": "Donde haya esperanza, habrá siempre una razón para seguir adelante.",
+      "autor_url": "anonimo",
+      "categorias": ["Esperanza", "Motivación"]
+    },
+    {
+      "frase": "La esperanza te enseña a bailar incluso cuando no hay música.",
+      "autor_url": "anonimo",
+      "categorias": ["Esperanza", "Filosofía"]
+    },
+    {
+      "frase": "La esperanza no es solo esperar, es actuar con fe en lo que puede ser.",
+      "autor_url": "anonimo",
+      "categorias": ["Esperanza", "Acción"]
+    },
+    {
+      "frase": "La esperanza es el sueño de los que están despiertos.",
+      "autor_url": "aristoteles",
+      "categorias": ["Esperanza", "Filosofía"]
+    },
+    {
+      "frase": "Incluso en la noche más oscura, siempre hay una estrella que guía el camino.",
+      "autor_url": "anonimo",
+      "categorias": ["Esperanza", "Vida"]
+    },
+    {
+      "frase": "La esperanza es la luz que nunca se apaga, incluso cuando todo parece perdido.",
+      "autor_url": "anonimo",
+      "categorias": ["Esperanza", "Superación"]
+    },
+    {
+      "frase": "Nunca subestimes el poder de la esperanza; puede mover montañas.",
+      "autor_url": "anonimo",
+      "categorias": ["Esperanza", "Motivación"]
+    },
+    {
+      "frase": "Donde florece la esperanza, no hay lugar para el miedo.",
+      "autor_url": "anonimo",
+      "categorias": ["Esperanza", "Coraje"]
+    },
+    {
+      "frase": "La esperanza es un camino en el corazón, antes de que el camino exista.",
+      "autor_url": "lu-xun",
+      "categorias": ["Esperanza", "Filosofía"]
+    },
+    {
+      "frase": "Aunque el invierno sea frío y largo, siempre llega la primavera.",
+      "autor_url": "anonimo",
+      "categorias": ["Esperanza", "Naturaleza"]
+    },
+    {
+      "frase": "La esperanza no es la convicción de que algo saldrá bien, sino la certeza de que tiene sentido intentarlo.",
+      "autor_url": "vaclav-havel",
+      "categorias": ["Esperanza", "Superación"]
+    },
+    {
+      "frase": "Un corazón lleno de esperanza es más fuerte que cualquier adversidad.",
+      "autor_url": "anonimo",
+      "categorias": ["Esperanza", "Fortaleza"]
+    },
+    {
+      "frase": "La esperanza es un faro en la tormenta, siempre visible desde el horizonte.",
+      "autor_url": "anonimo",
+      "categorias": ["Esperanza", "Vida"]
+    },
+    {
       "frase": "La melancolía es la tinta con la que el alma escribe sus secretos.",
       "autor_url": "anonimo",
       "categorias": ["Melancolía", "Filosofía"]
