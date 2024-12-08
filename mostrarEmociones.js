@@ -6,7 +6,7 @@
                     const seleccion = emocion.dataset.emocion;
                     console.log(`Seleccionaste: ${seleccion}`);
                     // Aquí puedes redirigir a otra página
-                    window.location.href = `categorias.html?categoria=${encodeURIComponent(seleccion)}`;
+                    window.location.href = `categoria.html?categoria=${encodeURIComponent(seleccion)}`;
                 });
             });
         });
