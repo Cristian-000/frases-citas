@@ -1,24 +1,26 @@
 function cargarAutores() {
     Promise.all([fetch('frases.json'), fetch('autores.json')])
-        .then(responses => Promise.all(responses.map(response => response.json())))
+        .then(responses => Promise.all(responses.map(response => {
+            if (!response.ok) {
+                throw new Error(`Error al cargar ${response.url}: ${response.statusText}`);
+            }
+            return response.json();
+        })))
         .then(([frasesData, autoresData]) => {
             const listaAutores = document.getElementById("lista-autores");
-            const autoresUnicos = new Map(); // Usamos un Map para contar las frases por autor
+            const autoresUnicos = new Map();
 
             // Contar las frases por autor
             frasesData.frases.forEach(fraseObj => {
                 if (fraseObj.autor_url) {
-                    // Si el autor ya existe, sumamos 1 a su contador
-                    if (autoresUnicos.has(fraseObj.autor_url)) {
-                        autoresUnicos.set(fraseObj.autor_url, autoresUnicos.get(fraseObj.autor_url) + 1);
-                    } else {
-                        // Si no existe, lo agregamos con el contador inicial de 1
-                        autoresUnicos.set(fraseObj.autor_url, 1);
-                    }
+                    autoresUnicos.set(
+                        fraseObj.autor_url,
+                        (autoresUnicos.get(fraseObj.autor_url) || 0) + 1
+                    );
                 }
             });
-
-            // Buscar información de autores y agregarla a la lista
+           
+            // Crear la lista de autores
             autoresUnicos.forEach((cantidad, autorUrl) => {
                 const autor = autoresData.autores.find(a => a.autor_url === autorUrl);
                 if (autor) {
@@ -29,13 +31,12 @@ function cargarAutores() {
                             <a href="autor.html?autor=${encodeURIComponent(autor.autor_url)}" class="author-link">
                                 <h5 class="font-weight-bold text-primary mb-0">${autor.nombre}</h5>
                             </a>
-                            <a href="autor.html?autor=${encodeURIComponent(autor.autor_url)}" class="author-link">
-                                <span class="badge badge-primary">${cantidad} frase${cantidad !== 1 ? 's' : ''}</span>
-                            </a>
+                            <span class="badge badge-primary">${cantidad} frase${cantidad !== 1 ? 's' : ''}</span>
                         </div>
-                        <p class="mb-1 text-muted">${autor.biografia}</p>
+                        <p class="mb-1 text-muted">${autor.biografia || "Sin biografía disponible."}</p>
                     `;
                     listaAutores.appendChild(li);
+                    console.log(autor)
                 }
             });
         })
@@ -44,7 +45,7 @@ function cargarAutores() {
 
 // Llamar a la función de cargar autores cuando el DOM esté listo
 document.addEventListener("DOMContentLoaded", () => {
-    if (document.getElementById("seccion-autores")) {
+    if (document.getElementById("lista-autores")) {
         cargarAutores();
     }
 });

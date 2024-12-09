@@ -29,13 +29,29 @@
 
 /* General */
 body {
-    background-color: var(--color-fondo);
-    font-family: Arial, sans-serif;
-    color: var(--color-texto);
     margin: 0;
-    padding: 0;
-}
-
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+  }
+  
+  .background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('arbol-fondo-00.png') center/cover no-repeat;
+    opacity: 0.1; /* Ajusta la opacidad */
+    z-index: -1; /* Detrás del contenido */
+  }
+  
+  .content {
+    position: relative;
+    z-index: 1; /* Frente del fondo */
+    color: black; /* Ajusta el texto para que sea legible */
+    padding: 20px;
+  }
+  
 h1 {
     color: var(--color-texto);
     /* Color del texto */
