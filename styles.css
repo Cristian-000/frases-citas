@@ -95,13 +95,12 @@ body {
 }
 
 .btn-holiday span {
-    background: linear-gradient(90deg, #ff0000, #ff7300, #ffff00, #00ff00, #0000ff, #8b00ff);
+    background: linear-gradient(90deg, #ffffff, #ff0000, #ffff00, #00ff00, #ffcc00);
     background-size: 400% 400%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: gradient-text 4s ease infinite;
+    animation: gradient-text 5s ease infinite;
 }
-
 .btn-holiday.navidad {
     background-image: url('./img-btn-navidad.jpg');
 }
