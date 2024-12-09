@@ -61,10 +61,21 @@ body {
     justify-content: center;
 }
 
+@keyframes gradient-text {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
 .btn-holiday {
     display: inline-block;
     text-decoration: none;
-    color: white;
     font-size: 16px;
     padding: 10px 20px;
     border-radius: 8px;
@@ -74,6 +85,21 @@ body {
     text-align: center;
     margin: 5px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    font-weight: bold;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-holiday i {
+    font-size: 20px;
+}
+
+.btn-holiday span {
+    background: linear-gradient(90deg, #ff0000, #ff7300, #ffff00, #00ff00, #0000ff, #8b00ff);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-text 4s ease infinite;
 }
 
 .btn-holiday.navidad {
@@ -84,14 +110,7 @@ body {
     background-image: url('./img-btn-anio-nuevo.jpg');
 }
 
-.btn-holiday:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
 
-.btn-holiday i {
-    font-size: 20px;
-}
 
 h1 {
     color: var(--color-texto);
