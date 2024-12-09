@@ -18,82 +18,80 @@
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="index.html">Frases Célebres</a>
+        <a class="navbar-brand" href="index.html" aria-label="Ir a la página de inicio">Frases Célebres</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Mostrar opciones de navegación">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
-
                 <li class="nav-item">
-                    <a class="nav-link" href="categorias.html">Categorías</a>
+                    <a class="nav-link" href="categorias.html" aria-label="Ir a la página de categorías">Categorías</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="autores.html">Autores</a>
+                    <a class="nav-link" href="autores.html" aria-label="Ir a la página de autores">Autores</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="dichos.html">Dichos</a>
+                    <a class="nav-link" href="dichos.html" aria-label="Ir a la página de dichos">Dichos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="favoritos.html">Favoritos</a>
+                    <a class="nav-link" href="favoritos.html" aria-label="Ir a la página de favoritos">Favoritos</a>
                 </li>
-
             </ul>
         </div>
     </nav>
+
     <div class="background"></div>
+
     <div class="container py-3">
-        <h1>Frase del día</h1>
-        <div id="frase-del-dia" class="alert alert-info mt-0">
+        <h1 aria-label="Frase del día">Frase del día</h1>
+        <div id="frase-del-dia" class="alert alert-info mt-0" aria-live="polite">
             <!-- La frase del día se mostrará aquí -->
         </div>
         <section>
             <div class="texto-emocion">
-                <h2>Comparte tus sentimientos</h2>
+                <h2 aria-label="Comparte tus sentimientos">Comparte tus sentimientos</h2>
                 <p class="text-muted">Te recomendaremos frases según tu sentimiento para que puedas compartirlo.</p>
             </div>
 
             <div class="contenedor-emociones">
                 <!-- Botones de emociones -->
-                <div class="emocion tristeza" data-emocion="Tristeza">
+                <div class="emocion tristeza" data-emocion="Tristeza" aria-label="Emoción tristeza">
                     <i class="fas fa-sad-tear"></i>
                 </div>
-                <div class="emocion melancolia" data-emocion="Melancolía">
+                <div class="emocion melancolia" data-emocion="Melancolía" aria-label="Emoción melancolía">
                     <i class="fas fa-frown"></i>
                 </div>
-                <div class="emocion esperanza" data-emocion="Esperanza">
+                <div class="emocion esperanza" data-emocion="Esperanza" aria-label="Emoción esperanza">
                     <i class="fas fa-meh"></i>
                 </div>
-                <div class="emocion felicidad" data-emocion="Felicidad">
+                <div class="emocion felicidad" data-emocion="Felicidad" aria-label="Emoción felicidad">
                     <i class="fas fa-smile-beam"></i>
                 </div>
             </div>
         </section>
 
-    
-      
-   <hr>
-       
+        <hr>
+
         <section>
-            <h2 class="mb-1">Categorías de Frases</h2>
+            <h2 class="mb-1" aria-label="Categorías de frases">Categorías de Frases</h2>
             <div class="holiday-buttons mb-4">
-    <a href="/frases-citas/categoria.html?categoria=Navidad" class="btn-holiday navidad">
-        <span><i class="fas fa-tree"></i> Navidad</span>
-    </a>
-    <a href="/frases-citas/categoria.html?categoria=Año%20Nuevo" class="btn-holiday ano-nuevo">
-        <span><i class="fas fa-glass-cheers"></i> Año Nuevo</span>
-    </a>
+                <a href="/frases-citas/categoria.html?categoria=Navidad" class="btn-holiday navidad" aria-label="Ver frases de Navidad">
+                    <span><i class="fas fa-tree"></i> Navidad</span>
+                </a>
+                <a href="/frases-citas/categoria.html?categoria=Año%20Nuevo" class="btn-holiday ano-nuevo" aria-label="Ver frases de Año Nuevo">
+                    <span><i class="fas fa-glass-cheers"></i> Año Nuevo</span>
+                </a>
             </div>
             <section>
                 <div class="form-group">
-                    <input type="text" id="barra-busqueda" class="form-control"
-                        placeholder="Buscar por frase, catrgoría o autor">
+                    <input type="text" id="barra-busqueda" class="form-control" placeholder="Buscar por frase, categoría o autor"
+                        aria-label="Campo de búsqueda">
+                    <i class="fas fa-search" aria-hidden="true"></i>
                 </div>
                 <div class="scrollable-container">
                     <div id="resultados-busqueda" class="list-group list-group-flush"></div>
                 </div>
-        
             </section>
             <div class="scrollable-container">
                 <ul id="categorias" class="list-group list-group-flush"></ul>
@@ -101,14 +99,14 @@
         </section>
 
         <section id="seccion-autores" class="mt-4">
-            <h2>Autores Destacados</h2>
+            <h2 aria-label="Autores destacados">Autores Destacados</h2>
             <div class="scrollable-container">
                 <ul id="lista-autores" class="list-group list-group-flush">
                     <!-- Aquí se llenarán los autores -->
                 </ul>
             </div>
         </section>
-    </div>
+
     <script src="scripts.js" defer></script>
     <script src="cargarAutoresIndex.js" defer></script>
     <script src="mostrarEmociones.js" defer></script>
