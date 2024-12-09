@@ -182,11 +182,11 @@ function compartirFrase(frase, autor) {
     const textoCompartir = autor 
         ? `"${frase}"\n- ${capitalizarIniciales(autor)}`
         : `"${frase}"`;
-    const mensajeFinal = `${textoCompartir}\n\n${urlCompartir}`;
+    const mensajeFinal = `${textoCompartir}\n\n`;
 
     if (navigator.share) {
         navigator.share({
-            title: "Frase Inspiradora",
+            title: "Frase",
             text: mensajeFinal,
             url: urlCompartir // Algunos navegadores prefieren incluirlo aquí
         })
