@@ -1,5 +1,7 @@
 //compartirImagenAutor.js
 const colorCategorias = {
+    "Navidad": "badge-navidad",
+    "Año Nuevo": "badge-ano-nuevo",
     "Futuro":"badge-futuro",
     "Acción" :"badge-accion",
     "Sueños":"badge-sueños",
@@ -18,7 +20,6 @@ const colorCategorias = {
     "Superación": "badge-superacion",
     "default": "badge-primary" // Color por defecto
 };
-
 
 function obtenerClaseColor(categoria) {
     return colorCategorias[categoria] || colorCategorias["default"];

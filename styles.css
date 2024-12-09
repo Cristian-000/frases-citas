@@ -31,27 +31,76 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    overflow: hidden;
-  }
-  
-  .background {
+}
+
+.background {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: url('arbol-fondo-00.png') center/cover no-repeat;
-    opacity: 0.1; /* Ajusta la opacidad */
-    z-index: -1; /* Detrás del contenido */
-  }
-  
-  .content {
+    opacity: 0.1;
+    /* Ajusta la opacidad */
+    z-index: -1;
+    /* Detrás del contenido */
+}
+
+.content {
     position: relative;
-    z-index: 1; /* Frente del fondo */
-    color: black; /* Ajusta el texto para que sea legible */
+    z-index: 1;
+    /* Frente del fondo */
+    color: black;
+    /* Ajusta el texto para que sea legible */
     padding: 20px;
-  }
-  
+}
+
+.holiday-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.btn-holiday {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-holiday i {
+    font-size: 20px;
+}
+
+.btn-holiday.navidad {
+    background: linear-gradient(90deg, #d32f2f, #388e3c);
+    /* Rojo cálido a verde oscuro */
+}
+
+.btn-holiday.navidad:hover {
+    background: linear-gradient(90deg, #c62828, #2e7d32);
+    /* Más oscuro al pasar el mouse */
+    color: var(--color-fondo);
+}
+
+.btn-holiday.ano-nuevo {
+    background: linear-gradient(90deg, #f39c12, #f1c40f);
+    /* Dorado degradado */
+}
+
+.btn-holiday.ano-nuevo:hover {
+    background: linear-gradient(90deg, #e67e22, #d4ac0d);
+    /* Más oscuro al pasar el mouse */
+    color: var(--color-fondo);
+}
+
 h1 {
     color: var(--color-texto);
     /* Color del texto */
@@ -225,6 +274,7 @@ background-color: rgb(155, 155, 155);
     /* Rosa fuerte para simbolizar el amor */
     color: #ffffff;
 }
+
 .badge-accion {
     background-color: #e74c3c;
     /* Rojo para acción y energía */
@@ -260,6 +310,7 @@ background-color: rgb(155, 155, 155);
     /* Amarillo brillante para felicidad y alegría */
     color: #ffffff;
 }
+
 .badge-motivacion {
     background-color: #ff9800;
     /* Naranja vibrante para energía y entusiasmo */
@@ -291,16 +342,15 @@ background-color: rgb(155, 155, 155);
 }
 
 .badge-navidad {
-    background-color: #d32f2f;
-    /* Rojo clásico para Navidad */
+    background: linear-gradient(90deg, #d32f2f, #388e3c);
+    /* Rojo cálido y verde oscuro */
     color: #ffffff;
 }
 
-.badge-año-nuevo {
-    background-color: #ffc107;
-    /* Amarillo dorado para celebraciones y esperanza */
-    color: #000000;
-    /* Texto negro para contraste */
+.badge-ano-nuevo {
+    background: linear-gradient(90deg, #f39c12, #f1c40f);
+    /* Dorado brillante */
+    color: #ffffff;
 }
 
 .badge-vida {
@@ -336,7 +386,7 @@ background-color: rgb(155, 155, 155);
     /* Informa al navegador que se animará el 'transform' */
 }
 
-.badge:hover{
+.badge:hover {
     transform: translateY(-3px);
     /* Mueve ligeramente hacia arriba */
     color: #fff;
@@ -545,23 +595,30 @@ background-color: rgb(155, 155, 155);
     justify-content: center;
     width: 4rem;
     height: 4rem;
-    border-radius: 8%; /* Bordes redondeados */
- /*   background-color: #f5f5f5; /* Fondo suave */
+    border-radius: 8%;
+    /* Bordes redondeados */
+    /*   background-color: #f5f5f5; /* Fondo suave */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición para la animación */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Transición para la animación */
     will-change: transform;
 }
 
 .emocion i {
-    font-size: 2.8rem; /* Corrige el espacio aquí */
-    color: #fff; /* Color inicial del ícono */
-    transition: color 0.3s ease; /* Añade transición al color */
+    font-size: 2.8rem;
+    /* Corrige el espacio aquí */
+    color: #fff;
+    /* Color inicial del ícono */
+    transition: color 0.3s ease;
+    /* Añade transición al color */
 }
 
 .emocion:hover {
-    transform: translateY(-3px); /* Animación de desplazamiento */
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Cambia la sombra al hacer hover */
+    transform: translateY(-3px);
+    /* Animación de desplazamiento */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+    /* Cambia la sombra al hacer hover */
 }
 
 /*.emocion:hover i {
@@ -587,25 +644,29 @@ background-color: rgb(155, 155, 155);
     background: #2ecc71;
     /* Naranja cálido */
 }
+
 .texto-emocion {
     text-align: center;
-   /* margin-bottom: 1rem; /* Espaciado entre el texto y el resto del contenido */
+    /* margin-bottom: 1rem; /* Espaciado entre el texto y el resto del contenido */
 }
 
 .texto-emocion h2 {
-    margin-bottom: 0.2rem; /* Espaciado entre el h2 y el párrafo */
+    margin-bottom: 0.2rem;
+    /* Espaciado entre el h2 y el párrafo */
     /*font-size: 2rem; /* Tamaño opcional del encabezado */
 }
 
 .texto-emocion p {
     margin-top: 0;
     font-size: 0.8rem;
-    color: #6c757d; /* Texto mutado (gris suave) */
+    color: #6c757d;
+    /* Texto mutado (gris suave) */
 }
 
 .contenedor-emociones {
     display: flex;
     justify-content: center;
-    gap: 1rem; /* Espaciado entre los botones */
-   /* margin-top: 1rem; /* Espaciado entre el texto y las emociones */
+    gap: 1rem;
+    /* Espaciado entre los botones */
+    /* margin-top: 1rem; /* Espaciado entre el texto y las emociones */
 }

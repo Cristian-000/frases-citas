@@ -10,13 +10,13 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="styles.css"> 
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  
+
 </head>
 
 <body>
-    
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="index.html">Frases Célebres</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -32,13 +32,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href="autores.html">Autores</a>
                 </li>
-               <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link" href="dichos.html">Dichos</a>
-                 </li>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="favoritos.html">Favoritos</a>
                 </li>
-               
+
             </ul>
         </div>
     </nav>
@@ -53,7 +53,7 @@
                 <h2>Comparte tus sentimientos</h2>
                 <p class="text-muted">Te recomendaremos frases según tu sentimiento para que puedas compartirlo.</p>
             </div>
-        
+
             <div class="contenedor-emociones">
                 <!-- Botones de emociones -->
                 <div class="emocion tristeza" data-emocion="Tristeza">
@@ -70,37 +70,49 @@
                 </div>
             </div>
         </section>
-        
-        <hr>
 
-        <div class="form-group">
-            <input type="text" id="barra-busqueda" class="form-control" placeholder="Buscar por frase, catrgoría o autor">
-        </div>
-        <div class="scrollable-container">
-        <div id="resultados-busqueda" class="list-group list-group-flush"></div>
-        </div>
- 
-     <section>
-              <h2>Categorías de Frases</h2>
-<div class="scrollable-container">
-    <ul id="categorias" class="list-group list-group-flush"></ul>
-</div>
-     </section>  
-   
-<hr>
-<section id="seccion-autores" class="mt-4">
-    <h2>Autores Destacados</h2>
-    <div class="scrollable-container">
-        <ul id="lista-autores" class="list-group list-group-flush">
-            <!-- Aquí se llenarán los autores -->
-        </ul>
-    </div>
-</section>
+    
+      
+   <hr>
+       
+        <section>
+            <h2 class="mb-1">Categorías de Frases</h2>
+            <div class="holiday-buttons mb-4">
+                <a href="/categoria.html?categoria=Navidad" class="btn-holiday navidad">
+                    <i class="fas fa-tree"></i> Navidad
+                </a>
+                <a href="/categoria.html?categoria=Año%20Nuevo" class="btn-holiday ano-nuevo">
+                    <i class="fas fa-glass-cheers"></i> Año Nuevo
+                </a>
+            </div>
+            <section>
+                <div class="form-group">
+                    <input type="text" id="barra-busqueda" class="form-control"
+                        placeholder="Buscar por frase, catrgoría o autor">
+                </div>
+                <div class="scrollable-container">
+                    <div id="resultados-busqueda" class="list-group list-group-flush"></div>
+                </div>
         
+            </section>
+            <div class="scrollable-container">
+                <ul id="categorias" class="list-group list-group-flush"></ul>
+            </div>
+        </section>
+
+        <section id="seccion-autores" class="mt-4">
+            <h2>Autores Destacados</h2>
+            <div class="scrollable-container">
+                <ul id="lista-autores" class="list-group list-group-flush">
+                    <!-- Aquí se llenarán los autores -->
+                </ul>
+            </div>
+        </section>
+
     </div>
     <script src="scripts.js" defer></script>
     <script src="cargarAutoresIndex.js" defer></script>
-<script src="mostrarEmociones.js" defer></script>
+    <script src="mostrarEmociones.js" defer></script>
 </body>
 
 </html>

@@ -1,6 +1,216 @@
 {
   "frases": [
     {
+      "frase": "La verdadera alegría de la Navidad está en el acto de dar y no en el de recibir.",
+      "autor_url": "anonimo",
+      "categorias": ["Navidad", "Alegría"]
+    },
+    {
+      "frase": "Un nuevo año es una nueva página en blanco; ¡haz que valga la pena escribirla!",
+      "autor_url": "anonimo",
+      "categorias": ["Año Nuevo", "Inspiración"]
+    },
+    {
+      "frase": "Que esta Navidad sea un recordatorio de lo afortunados que somos por tenernos unos a otros.",
+      "autor_url": "anonimo",
+      "categorias": ["Navidad", "Gratitud"]
+    },
+    {
+      "frase": "La magia de la Navidad no está en los regalos, sino en los momentos compartidos.",
+      "autor_url": "anonimo",
+      "categorias": ["Navidad", "Magia"]
+    },
+    {
+      "frase": "El Año Nuevo es la promesa de nuevas oportunidades y grandes sueños por cumplir.",
+      "autor_url": "anonimo",
+      "categorias": ["Año Nuevo", "Sueños"]
+    },
+    {
+      "frase": "Que la Navidad pinte tus días con amor, paz y felicidad infinita.",
+      "autor_url": "anonimo",
+      "categorias": ["Navidad", "Felicidad"]
+    },
+    {
+      "frase": "El Año Nuevo nos invita a dejar atrás el pasado y abrazar el presente con esperanza.",
+      "autor_url": "anonimo",
+      "categorias": ["Año Nuevo", "Esperanza"]
+    },
+    {
+      "frase": "La Navidad es tiempo de dar gracias y construir recuerdos que duren para siempre.",
+      "autor_url": "anonimo",
+      "categorias": ["Navidad", "Recuerdos"]
+    },
+    {
+      "frase": "Un Año Nuevo significa 365 nuevas oportunidades para ser feliz.",
+      "autor_url": "anonimo",
+      "categorias": ["Año Nuevo", "Felicidad"]
+    },
+    {
+      "frase": "Que la paz y el amor de la Navidad llenen cada rincón de tu vida.",
+      "autor_url": "anonimo",
+      "categorias": ["Navidad", "Amor"]
+    },
+    {
+      "frase": "El Año Nuevo es la promesa de que todo es posible si tienes fe en ti mismo.",
+      "autor_url": "anonimo",
+      "categorias": ["Año Nuevo", "Confianza"]
+    },
+    {
+      "frase": "La Navidad no es un momento, es un estado de ánimo que podemos llevar todo el año.",
+      "autor_url": "anonimo",
+      "categorias": ["Navidad", "Actitud"]
+    },
+    {
+      "frase": "El Año Nuevo es como una brújula que nos guía hacia nuevos horizontes.",
+      "autor_url": "anonimo",
+      "categorias": ["Año Nuevo", "Horizontes"]
+    },
+    {
+      "frase": "La Navidad no se trata de abrir regalos, sino de abrir corazones.",
+      "autor_url": "anonimo",
+      "categorias": ["Navidad", "Amor"]
+    },
+    {
+      "frase": "Que esta Navidad traiga paz a tu hogar y alegría a tu corazón.",
+      "autor_url": "anonimo",
+      "categorias": ["Navidad", "Paz"]
+    },
+    {
+      "frase": "El Año Nuevo es el primer capítulo de un libro de 365 páginas.",
+      "autor_url": "anonimo",
+      "categorias": ["Año Nuevo", "Inspiración"]
+    },
+    {
+      "frase": "Que cada día del Año Nuevo sea una página llena de buenos propósitos.",
+      "autor_url": "anonimo",
+      "categorias": ["Año Nuevo", "Esperanza"]
+    },
+    {
+      "frase": "La magia de la Navidad está en compartir momentos con quienes amas.",
+      "autor_url": "anonimo",
+      "categorias": ["Navidad", "Familia"]
+    },
+    {
+      "frase": "El Año Nuevo es una oportunidad para empezar de nuevo con fuerza y determinación.",
+      "autor_url": "anonimo",
+      "categorias": ["Año Nuevo", "Determinación"]
+    },
+    {
+      "frase": "No importa lo que traiga el Año Nuevo, mientras tengas fe y esperanza.",
+      "autor_url": "anonimo",
+      "categorias": ["Año Nuevo", "Esperanza"]
+    },
+    {
+      "frase": "Que esta Navidad sea el inicio de un camino de amor y unidad.",
+      "autor_url": "anonimo",
+      "categorias": ["Navidad", "Unidad"]
+    },
+    {
+      "frase": "El Año Nuevo nos recuerda que nunca es tarde para empezar de nuevo.",
+      "autor_url": "anonimo",
+      "categorias": ["Año Nuevo", "Renovación"]
+    },
+    {
+      "frase": "Que la luz de la Navidad ilumine cada rincón de tu hogar.",
+      "autor_url": "anonimo",
+      "categorias": ["Navidad", "Luz"]
+    },
+    {
+      "frase": "La Navidad es el espíritu de dar sin esperar nada a cambio.",
+      "autor_url": "anonimo",
+      "categorias": ["Navidad", "Generosidad"]
+    },
+    {
+      "frase": "En Navidad, el mejor regalo que puedes dar es tu tiempo y amor.",
+      "autor_url": "anonimo",
+      "categorias": ["Navidad", "Amor"]
+    },
+    {
+      "frase": "El Año Nuevo trae consigo la oportunidad de escribir una historia completamente nueva.",
+      "autor_url": "anonimo",
+      "categorias": ["Año Nuevo", "Oportunidad"]
+    },
+    {
+      "frase": "Que esta Navidad llenes tu vida con momentos inolvidables.",
+      "autor_url": "anonimo",
+      "categorias": ["Navidad", "Felicidad"]
+    },
+    {
+      "frase": "Año Nuevo, nuevas metas, nuevas aventuras y nuevas oportunidades.",
+      "autor_url": "anonimo",
+      "categorias": ["Año Nuevo", "Metas"]
+    },
+    {
+      "frase": "La Navidad es la chispa que enciende el espíritu de la esperanza.",
+      "autor_url": "anonimo",
+      "categorias": ["Navidad", "Esperanza"]
+    },
+    {
+      "frase": "Que el Año Nuevo traiga abundancia y paz a tu vida.",
+      "autor_url": "anonimo",
+      "categorias": ["Año Nuevo", "Paz"]
+    },
+    {
+      "frase": "En Navidad, el verdadero significado está en el amor que compartimos.",
+      "autor_url": "anonimo",
+      "categorias": ["Navidad", "Amor"]
+    },
+    {
+      "frase": "Que cada estrella de Navidad ilumine tu camino hacia la felicidad.",
+      "autor_url": "anonimo",
+      "categorias": ["Navidad", "Felicidad"]
+    },
+    {
+      "frase": "El Año Nuevo es la oportunidad perfecta para dejar atrás lo malo y enfocarte en lo bueno.",
+      "autor_url": "anonimo",
+      "categorias": ["Año Nuevo", "Optimismo"]
+    },
+    {
+      "frase": "La Navidad es el momento de dar gracias por todas las bendiciones recibidas.",
+      "autor_url": "anonimo",
+      "categorias": ["Navidad", "Gratitud"]
+    },
+    {
+      "frase": "El Año Nuevo es como un amanecer: lleno de luz, esperanza y posibilidades.",
+      "autor_url": "anonimo",
+      "categorias": ["Año Nuevo", "Inspiración"]
+    },
+    {
+      "frase": "Que la magia de la Navidad llene tu corazón con alegría infinita.",
+      "autor_url": "anonimo",
+      "categorias": ["Navidad", "Alegría"]
+    },
+    {
+      "frase": "Cada Año Nuevo es una oportunidad para ser la mejor versión de ti mismo.",
+      "autor_url": "anonimo",
+      "categorias": ["Año Nuevo", "Crecimiento"]
+    },
+    {
+      "frase": "Que esta Navidad renueves tus fuerzas y tu fe en el futuro.",
+      "autor_url": "anonimo",
+      "categorias": ["Navidad", "Fe"]
+    },
+    {
+      "frase": "El Año Nuevo no es un destino, sino un viaje lleno de oportunidades.",
+      "autor_url": "anonimo",
+      "categorias": ["Año Nuevo", "Viaje"]
+    },
+    {
+      "frase": "La Navidad es el mejor momento para hacer realidad tus sueños más profundos.",
+      "autor_url": "anonimo",
+      "categorias": ["Navidad", "Sueños"]
+    },
+    {
+      "frase": "Que el Año Nuevo sea el inicio de un capítulo lleno de éxitos y aprendizajes.",
+      "autor_url": "anonimo",
+      "categorias": ["Año Nuevo", "Éxito"]
+    },
+    {
+      "frase": "Que la paz y el amor de la Navidad te acompañen durante todo el Año Nuevo.",
+      "autor_url": "anonimo",
+      "categorias": ["Navidad", "Año Nuevo"]
+    },
+    {
       "frase": "El futuro pertenece a quienes se atreven a soñar.",
       "autor_url": "anonimo",
       "categorias": ["Futuro", "Sueños"]

@@ -36,7 +36,7 @@ function cargarAutores() {
                         <p class="mb-1 text-muted">${autor.biografia || "Sin biografía disponible."}</p>
                     `;
                     listaAutores.appendChild(li);
-                    console.log(autor)
+    
                 }
             });
         })

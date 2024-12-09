@@ -20,6 +20,8 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 const colorCategorias = {
+    "Navidad": "badge-navidad",
+    "Año Nuevo": "badge-ano-nuevo",
     "Futuro":"badge-futuro",
     "Acción" :"badge-accion",
     "Sueños":"badge-sueños",
