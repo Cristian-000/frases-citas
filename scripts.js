@@ -180,13 +180,14 @@ function compartirFrase(frase, autor) {
         ? `"${frase}"\n- ${capitalizarIniciales(autor)}`
         : `"${frase}"`;
     const urlCompartir = window.location.href; // URL actual
-    const mensajeFinal = `${textoCompartir}\n\n${acortarEnlace(urlCompartir)}`;
+    const enlaceAcortado = acortarEnlace(urlCompartir);
+    const mensajeFinal = `${textoCompartir}\n\n${enlaceAcortado}`;
 
     if (navigator.share) {
         navigator.share({
             title: "Frase Inspiradora",
-            text: mensajeFinal,
-            url: urlCompartir // Algunos navegadores prefieren incluirlo aquí
+            text: `${textoCompartir}\n\n${enlaceAcortado}`,
+            url: urlCompartir // Usar la URL completa para el enlace funcional
         })
             .then(() => console.log("Frase compartida exitosamente"))
             .catch(error => console.error("Error al compartir:", error));
@@ -195,10 +196,10 @@ function compartirFrase(frase, autor) {
     }
 }
 
-// Función para acortar el enlace de manera sencilla
+// Función para acortar el enlace visualmente
 function acortarEnlace(url) {
     const partes = url.split('/');
-    return `${partes[0]}//${partes[2]}/...`; // Ejemplo simple de acortador
+    return `${partes[0]}//${partes[2]}/...`; // Solo mostrar el dominio
 }
 
 // Función para capitalizar iniciales del autor
