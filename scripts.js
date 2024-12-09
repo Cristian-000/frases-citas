@@ -175,7 +175,7 @@ function copiarFrase(frase, url) {
     }
 }*/
 // Define la URL base como una variable global
-const urlCompartir = "https://cristian-000.github.io";
+const urlCompartir = "https://cristian-000.github.io/frases-citas/index.html";
 
 function compartirFrase(frase, autor) {
     // Formatear el texto para compartir
