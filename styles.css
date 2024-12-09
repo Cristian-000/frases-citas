@@ -430,7 +430,9 @@ background-color: rgb(155, 155, 155);
 
     text-transform: capitalize;
     text-decoration: none;
-    color: var(--color-acento);
+    color: var(--color-texto);
+    font-size: 1rem;
+    font-weight: 600;
 
 }
 
