@@ -26,6 +26,15 @@ document.addEventListener("DOMContentLoaded", function() {
     function obtenerClaseColor(categoria) {
         return colorCategorias[categoria] || colorCategorias["default"];
     }
+
+    // Función de mezcla aleatoria (Fisher-Yates)
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]]; // Intercambiar elementos
+        }
+    }
+
     fetch("frases.json") // Cambia el nombre si tu archivo JSON se llama diferente
         .then(response => response.json())
         .then(data => {
@@ -44,8 +53,17 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
             });
 
+            // Convertimos el Map de categorías a un array para poder mezclarlo
+            const categoriasArray = Array.from(categoriasMap, ([categoria, cantidad]) => ({
+                categoria,
+                cantidad
+            }));
+
+            // Mezclamos el array de categorías
+            shuffle(categoriasArray);
+
             // Crea un elemento de lista para cada categoría única
-            categoriasMap.forEach((cantidad, categoria) => {
+            categoriasArray.forEach(({ categoria, cantidad }) => {
                 const li = document.createElement("li");
                 li.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-center", "mb-2");
 
@@ -61,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 const badge = document.createElement("a"); // Cambiar a <a> para que sea un enlace
                 badge.href = `categoria.html?categoria=${encodeURIComponent(categoria)}`; // El mismo enlace
                 badge.classList.add("badge", badgeColor); // Usar el color de la categoría
-                badge.textContent = `${cantidad} Frase${cantidad !== 1 ? 's' : ''}`// Mostrar el número de frases
+                badge.textContent = `${cantidad} Frase${cantidad !== 1 ? 's' : ''}`; // Mostrar el número de frases
                 badge.style.marginLeft = "10px"; // Espacio a la derecha del nombre de la categoría
 
                 // Añadir el enlace de la categoría y la badge al li
