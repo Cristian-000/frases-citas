@@ -61,7 +61,7 @@ body {
     justify-content: center;
 }
 
-btn-holiday {
+.btn-holiday {
     display: inline-block;
     text-decoration: none;
     color: white;
