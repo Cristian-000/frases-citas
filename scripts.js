@@ -196,6 +196,7 @@ function mostrarModalCompartir(frase, autor) {
     const twitterURL = `https://twitter.com/intent/tweet?text=${encodeURIComponent(`${textoCompartir}\n${urlPagina}`)}`;
     const facebookURL = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(urlPagina)}`;
 
+    // Configurar acciones de los botones
     document.getElementById("btnCompartirWhatsapp").onclick = () => window.open(whatsappURL, '_blank');
     document.getElementById("btnCompartirTwitter").onclick = () => window.open(twitterURL, '_blank');
     document.getElementById("btnCompartirFacebook").onclick = () => window.open(facebookURL, '_blank');
@@ -204,7 +205,15 @@ function mostrarModalCompartir(frase, autor) {
     const modal = new bootstrap.Modal(document.getElementById('modalCompartir'));
     modal.show();
 }
-function compartirFrase(frase, autor) {
+
+// Función para capitalizar el nombre del autor
+function capitalizarIniciales(nombre) {
+    return nombre
+        .split(" ")
+        .map(palabra => palabra.charAt(0).toUpperCase() + palabra.slice(1).toLowerCase())
+        .join(" ");
+}
+/*function compartirFrase(frase, autor) {
     const textoCompartir = `${frase}\n- ${capitalizarIniciales(autor)}`;
     const urlCompartir = window.location.href; // URL actual
 
@@ -268,7 +277,7 @@ function mostrarModal(titulo, contenido) {
 
     // Eliminar modal del DOM al cerrarse
     modal.addEventListener("hidden.bs.modal", () => modal.remove());
-}
+}*/
 
 function configurarBarraBusqueda() {
     const barraBusqueda = document.getElementById("barra-busqueda");
