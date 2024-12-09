@@ -20,8 +20,25 @@ function cargarAutores() {
                 }
             });
            
+            // Convertimos el mapa de autores a un array para poder mezclarlo
+            const autoresArray = Array.from(autoresUnicos, ([autorUrl, cantidad]) => ({
+                autorUrl,
+                cantidad
+            }));
+
+            // Función de mezcla aleatoria (Fisher-Yates)
+            function shuffle(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]]; // Intercambiar elementos
+                }
+            }
+
+            // Mezclamos el array de autores
+            shuffle(autoresArray);
+
             // Crear la lista de autores
-            autoresUnicos.forEach((cantidad, autorUrl) => {
+            autoresArray.forEach(({ autorUrl, cantidad }) => {
                 const autor = autoresData.autores.find(a => a.autor_url === autorUrl);
                 if (autor) {
                     const li = document.createElement("li");
@@ -36,7 +53,6 @@ function cargarAutores() {
                         <p class="mb-1 text-muted">${autor.biografia || "Sin biografía disponible."}</p>
                     `;
                     listaAutores.appendChild(li);
-    
                 }
             });
         })
