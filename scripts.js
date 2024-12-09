@@ -167,7 +167,7 @@ function copiarFrase(frase, url) {
         });
 }
 // Función para compartir la frase seleccionada
-function compartirFrase(frase, autor) {
+/*function compartirFrase(frase, autor) {
     // Añade el salto de línea para que el autor quede debajo de la frase
     const textoCompartir = `${frase}\n- ${capitalizarIniciales(autor)}`;
     const urlCompartir = window.location.href; // URL actual
@@ -183,6 +183,71 @@ function compartirFrase(frase, autor) {
     } else {
         alert("La funcionalidad de compartir no está disponible en este navegador.");
     }
+}*/
+function compartirFrase(frase, autor) {
+    const textoCompartir = `${frase}\n- ${capitalizarIniciales(autor)}`;
+    const urlCompartir = window.location.href; // URL actual
+
+    if (navigator.share) {
+        // API Web Share para dispositivos modernos
+        navigator.share({
+            title: "Frase Inspiradora",
+            text: textoCompartir,
+            url: urlCompartir
+        })
+            .then(() => console.log("Frase compartida exitosamente"))
+            .catch(error => console.error("Error al compartir:", error));
+    } else {
+        // Fallback para navegadores sin soporte
+        const enlaces = `
+            <div class="d-flex flex-column align-items-start mt-2">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(urlCompartir)}" target="_blank" class="btn btn-primary btn-sm mb-1">
+                    Compartir en Facebook
+                </a>
+                <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(textoCompartir)}&url=${encodeURIComponent(urlCompartir)}" target="_blank" class="btn btn-info btn-sm mb-1">
+                    Compartir en Twitter
+                </a>
+                <a href="https://api.whatsapp.com/send?text=${encodeURIComponent(textoCompartir)}" target="_blank" class="btn btn-success btn-sm mb-1">
+                    Compartir en WhatsApp
+                </a>
+                <a href="mailto:?subject=Frase Inspiradora&body=${encodeURIComponent(textoCompartir)}" class="btn btn-secondary btn-sm">
+                    Compartir por Email
+                </a>
+            </div>
+        `;
+
+        // Mostrar enlaces en un modal o alert personalizado
+        mostrarModal("Compartir Frase", enlaces);
+    }
+}
+
+// Función para mostrar modal con contenido dinámico
+function mostrarModal(titulo, contenido) {
+    const modal = document.createElement("div");
+    modal.className = "modal fade";
+    modal.tabIndex = -1;
+    modal.innerHTML = `
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">${titulo}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    ${contenido}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    const bsModal = new bootstrap.Modal(modal);
+    bsModal.show();
+
+    // Eliminar modal del DOM al cerrarse
+    modal.addEventListener("hidden.bs.modal", () => modal.remove());
 }
 
 function configurarBarraBusqueda() {
