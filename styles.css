@@ -61,20 +61,28 @@ body {
     justify-content: center;
 }
 
-.btn-holiday {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 12px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #ffffff;
-    border-radius: 8px;
+tn-holiday {
+    display: inline-block;
     text-decoration: none;
-    transition: all 0.3s ease;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-align: center;
+    margin: 5px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.btn-holiday.navidad {
+    background-image: url('/img-btn-navidad.jpg');
+}
+
+.btn-holiday.ano-nuevo {
+    background-image: url('/img-btn-anio-nuevo.jpg');
+}
 .btn-holiday i {
     font-size: 20px;
 }
