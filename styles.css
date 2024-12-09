@@ -181,57 +181,48 @@ background-color: rgb(155, 155, 155);
 
 /* Estilos para el Navbar */
 .navbar {
-    background-color: var(--color-fondo);
-    /* Fondo del navbar */
-    box-shadow: 0 2px 4px var(--color-light-shadow);
-    /* Sombra sutil */
+    background-color: var(--color-fondo); /* Fondo del navbar */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    padding: 0.4rem 1rem; /* Relleno para un navbar más espacioso */
 }
 
 .navbar-nav .nav-link {
-    font-weight: bold;
-    /* Texto más grueso */
-    color: var(--color-texto);
-    /* Color de texto */
-    transition: color 0.3s ease;
-    /* Transición suave */
+    font-weight: 600; /* Texto más grueso */
+    color: var(--color-texto); /* Color de texto */
+    text-transform: uppercase; /* Letras en mayúsculas */
+    padding: 0.5rem 0.5rem; /* Espaciado alrededor de los enlaces */
+    letter-spacing: 1px; /* Espaciado entre letras */
+    transition: color 0.3s ease, transform 0.2s ease; /* Transición suave */
 }
 
 .navbar-nav .nav-link:hover {
-    color: var(--color-hover);
-    /* Color en hover */
+    color: var(--color-acento); /* Color en hover */
+    transform: scale(1.05); /* Efecto de agrandado en hover */
 }
 
 .navbar-brand {
-    font-size: 1.5rem;
-    /* Tamaño de la marca */
-    color: var(--color-acento);
-    /* Color de acento */
+    font-size: 1.5rem; /* Tamaño de la marca */
+    font-weight:600; /* Texto en negrita */
+    color: var(--color-acento); /* Color de acento */
+    text-transform: uppercase; /* Mayúsculas en el nombre */
 }
 
-.navbar-toggler {
-    border-color: var(--color-acento);
-    /* Color del botón de toggle */
-}
 
-.navbar-toggler-icon {
-    background-image: none;
-    /* Personalizar icono si lo deseas */
-}
+
 
 /* Centrado en pantallas pequeñas */
-@media (max-width: 992px) {
+@media (max-width: 800px) {
     .navbar-nav {
-        text-align: center;
-        /* Centra las opciones en dispositivos pequeños */
-        width: 100%;
-        /* Asegura que ocupe todo el ancho */
+        text-align: center; /* Centra las opciones en dispositivos pequeños */
+        width: 100%; /* Asegura que ocupe todo el ancho */
     }
 
     .navbar-nav .nav-item {
-        display: inline-block;
-        /* Muestra cada opción centrada */
+        display: inline-block; /* Muestra cada opción centrada */
+        margin: 0.1rem 0; /* Espaciado entre los elementos */
     }
 }
+
 
 
 
