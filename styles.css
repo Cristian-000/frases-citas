@@ -26,11 +26,14 @@
     --color-dark-shadow: rgba(0, 0, 0, 0.2);
     /* Sombra oscura: negro con opacidad del 20% */
 }
-
+html {
+    scroll-behavior: smooth;
+}
 /* General */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
+    background-attachement: fixedb
 }
 
 .background {
