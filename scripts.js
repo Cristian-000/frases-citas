@@ -187,7 +187,7 @@ function compartirFrase(frase, autor) {
         navigator.share({
             title: "Frase Inspiradora",
             text: `${textoCompartir}\n\n${enlaceAcortado}`,
-            url: urlCompartir // Usar la URL completa para el enlace funcional
+            url: acortarEnlace(urlCompartir) // Usar la URL completa para el enlace funcional
         })
             .then(() => console.log("Frase compartida exitosamente"))
             .catch(error => console.error("Error al compartir:", error));
