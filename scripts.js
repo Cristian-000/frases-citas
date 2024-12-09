@@ -145,16 +145,6 @@ function cargarFraseDelDia() {
     }
 }
 
-function capitalizarIniciales(texto) {
-    return texto
-        .toLowerCase()
-        .split('-')
-        .map(palabra => palabra.charAt(0).toUpperCase() + palabra.slice(1))
-        .join(' ');
-}
-
-
-
 // Función para copiar la frase y el enlace al portapapeles
 function copiarFrase(frase, url) {
     const textoCopiar = `${frase}\n${url}`;
