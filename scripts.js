@@ -174,32 +174,27 @@ function copiarFrase(frase, url) {
         alert("La funcionalidad de compartir no está disponible en este navegador.");
     }
 }*/
+// Define la URL base como una variable global
+const urlCompartir = "https://cristian-000.github.io";
+
 function compartirFrase(frase, autor) {
     // Formatear el texto para compartir
     const textoCompartir = autor 
         ? `"${frase}"\n- ${capitalizarIniciales(autor)}`
         : `"${frase}"`;
-    const urlCompartir = window.location.href; // URL actual
-    const enlaceAcortado = acortarEnlace(urlCompartir);
-    const mensajeFinal = `${textoCompartir}\n\n${enlaceAcortado}`;
+    const mensajeFinal = `${textoCompartir}\n\n${urlCompartir}`;
 
     if (navigator.share) {
         navigator.share({
             title: "Frase Inspiradora",
-            text: `${textoCompartir}\n\n${enlaceAcortado}`,
-            url: acortarEnlace(urlCompartir) // Usar la URL completa para el enlace funcional
+            text: mensajeFinal,
+            url: urlCompartir // Algunos navegadores prefieren incluirlo aquí
         })
             .then(() => console.log("Frase compartida exitosamente"))
             .catch(error => console.error("Error al compartir:", error));
     } else {
         alert("La funcionalidad de compartir no está disponible en este navegador.");
     }
-}
-
-// Función para acortar el enlace visualmente
-function acortarEnlace(url) {
-    const partes = url.split('/');
-    return `${partes[0]}//${partes[2]}/...`; // Solo mostrar el dominio
 }
 
 // Función para capitalizar iniciales del autor
