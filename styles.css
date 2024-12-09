@@ -77,36 +77,20 @@ body {
 }
 
 .btn-holiday.navidad {
-    background-image: url('/img-btn-navidad.jpg');
+    background-image: url('./img-btn-navidad.jpg');
 }
 
 .btn-holiday.ano-nuevo {
-    background-image: url('/img-btn-anio-nuevo.jpg');
+    background-image: url('./img-btn-anio-nuevo.jpg');
 }
+
+.btn-holiday:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 .btn-holiday i {
     font-size: 20px;
-}
-
-.btn-holiday.navidad {
-    background: linear-gradient(90deg, #d32f2f, #388e3c);
-    /* Rojo cálido a verde oscuro */
-}
-
-.btn-holiday.navidad:hover {
-    background: linear-gradient(90deg, #c62828, #2e7d32);
-    /* Más oscuro al pasar el mouse */
-    color: var(--color-fondo);
-}
-
-.btn-holiday.ano-nuevo {
-    background: linear-gradient(90deg, #f39c12, #f1c40f);
-    /* Dorado degradado */
-}
-
-.btn-holiday.ano-nuevo:hover {
-    background: linear-gradient(90deg, #e67e22, #d4ac0d);
-    /* Más oscuro al pasar el mouse */
-    color: var(--color-fondo);
 }
 
 h1 {
