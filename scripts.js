@@ -184,6 +184,26 @@ function copiarFrase(frase, url) {
         alert("La funcionalidad de compartir no está disponible en este navegador.");
     }
 }*/
+function mostrarModalCompartir(frase, autor) {
+    const textoCompartir = `"${frase}"\n- ${capitalizarIniciales(autor)}`;
+    const urlPagina = window.location.href;
+
+    // Actualizar contenido del modal
+    document.getElementById("fraseCompartirTexto").innerText = textoCompartir;
+
+    // Configurar enlaces para redes sociales
+    const whatsappURL = `https://wa.me/?text=${encodeURIComponent(`${textoCompartir}\n${urlPagina}`)}`;
+    const twitterURL = `https://twitter.com/intent/tweet?text=${encodeURIComponent(`${textoCompartir}\n${urlPagina}`)}`;
+    const facebookURL = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(urlPagina)}`;
+
+    document.getElementById("btnCompartirWhatsapp").onclick = () => window.open(whatsappURL, '_blank');
+    document.getElementById("btnCompartirTwitter").onclick = () => window.open(twitterURL, '_blank');
+    document.getElementById("btnCompartirFacebook").onclick = () => window.open(facebookURL, '_blank');
+
+    // Mostrar modal
+    const modal = new bootstrap.Modal(document.getElementById('modalCompartir'));
+    modal.show();
+}
 function compartirFrase(frase, autor) {
     const textoCompartir = `${frase}\n- ${capitalizarIniciales(autor)}`;
     const urlCompartir = window.location.href; // URL actual
@@ -298,7 +318,12 @@ function configurarBarraBusqueda() {
                                     <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${window.location.href}');" title="Copiar frase">
                                         <i class="fas fa-copy"></i>
                                     </button>
-                                  
+                                  <button 
+    class="btn btn-sm btn-outline-secondary border-0" 
+    onclick="mostrarModalCompartir('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');" 
+    title="Compartir">
+    <i class="fas fa-share-alt"></i>
+</button>
                                     <button class="btn btn-link heart-button ml-2" data-frase="${encodeURIComponent(fraseObj.frase)}">
                                         <i class="${isFavorito ? 'fas' : 'far'} fa-heart text-danger"></i>
                                     </button>
