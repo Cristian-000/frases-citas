@@ -462,14 +462,22 @@ background-color: rgb(155, 155, 155);
 #miCanvas {
     background-color: var(--color-background-card);
     border: 1px solid var(--color-border-light);
-    width:80vw; /* El canvas toma el 100% del contenedor */
+    width: 90vw; /* El canvas toma el 100% del contenedor */
     max-width: 800px; /* Limita el ancho máximo */
-   
-    height: auto; /* Mantiene la proporción al cambiar el ancho */
+    height: auto;
+    max-height: 60vh; /* Mantiene la proporción al cambiar el ancho */
     aspect-ratio: 9 / 16; /* Proporción vertical como un smartphone */
     box-shadow: 0 4px 10px var(--color-light-shadow);
     box-sizing: border-box; /* Incluye bordes en el cálculo total */
 }
+
+/* Asegúrate de que las imágenes dentro del canvas mantengan la proporción */
+#miCanvas img {
+    width: 100%; /* La imagen se adapta al 100% del contenedor */
+    height: 100%; /* Mantiene la altura proporcional al ancho */
+    object-fit: contain; /* Asegura que la imagen mantenga la proporción sin recortar */
+}
+
 
 
 /* Para pantallas pequeñas */
