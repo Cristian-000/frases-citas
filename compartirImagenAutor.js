@@ -281,7 +281,7 @@ const marcaDeAgua = urlCompartir; // Cambiar a tu URL deseada
 function actualizarCanvas() {
     const scale = window.devicePixelRatio || 1;
 
-    // Obtener el canvas
+    // Obtener el canvas y su contenedor
     const canvas = document.getElementById("miCanvas");
     const canvasContainer = document.getElementById("canvas-container");
 
@@ -289,84 +289,64 @@ function actualizarCanvas() {
     const canvasHeight = 600;  // Alto fijo de 600px
     const canvasWidth = canvasContainer.offsetWidth;  // Ancho del canvas según el contenedor
 
+    // Ajustar el tamaño del canvas
     canvas.style.width = `${canvasWidth}px`;
     canvas.style.height = `${canvasHeight}px`;
-    canvas.width = canvasWidth * scale;
+    canvas.width = canvasWidth * scale; // Ajustar el tamaño real del canvas (sin CSS)
     canvas.height = canvasHeight * scale;
 
+    // Obtener el contexto del canvas
     const ctx = canvas.getContext("2d");
 
-    ctx.setTransform(scale, 0, 0, scale, 0, 0);
+    // Limpiar el canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Obtener el color de fondo desde el input
-    const colorFondo = colorFondoInput.value;
+    // Establecer el fondo del canvas
+    if (imagenFondo) {
+        // Dibujar la imagen de fondo
+        const imgWidth = canvas.width;
+        const imgHeight = canvas.height;
 
-    // Cambiar el color de fondo del canvas
-    ctx.fillStyle = colorFondo;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // Proceder con el resto del dibujo
-    const quitarFondo = document.getElementById("removeFondoCheckbox").checked;
-
-    if (!quitarFondo && imagenFondo) {
-        ctx.drawImage(imagenFondo, 0, 0, canvas.width, canvas.height);
+        // Para ajustar la imagen al tamaño del canvas
+        ctx.drawImage(imagenFondo, 0, 0, imgWidth, imgHeight);
+    } else {
+        // Si no hay imagen de fondo, usar un color de fondo
+        const colorFondo = colorFondoInput.value || "#ffffff"; // Usar blanco por defecto
+        ctx.fillStyle = colorFondo;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
-    ctx.fillStyle = colorFraseInput.value;
-    ctx.textAlign = alineacionTextoInput.value;
+    // Establecer las propiedades del texto
+    const colorFrase = colorFraseInput.value || "#000000"; // Color del texto, por defecto negro
+    const tamanoFrase = parseInt(tamanoFraseInput.value) || 30; // Tamaño del texto, por defecto 30px
+    const tipoFuente = tipoFuenteInput.value || "Arial"; // Tipo de fuente, por defecto Arial
+    const alineacionTexto = alineacionTextoInput.value || "center"; // Alineación del texto, por defecto al centro
 
-    let fontSize = parseInt(tamanoFraseInput.value) || 16;
-    const maxWidth = canvasWidth - 40;
+    // Ajustar el texto a mostrar
+    ctx.fillStyle = colorFrase;
+    ctx.font = `${tamanoFrase * scale}px ${tipoFuente}`;
+    ctx.textAlign = alineacionTexto;
 
-    ctx.font = `${fontSize}px ${tipoFuenteInput.value || 'Arial'}`;
+    // Asegurar que el texto no se desborde
+    const lineas = ajustarTexto(ctx, fraseSeleccionada, canvas.width - 40, tamanoFrase * scale);
 
-    let lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, fontSize);
-    while (lineas.length * fontSize > canvasHeight - 40 && fontSize > 10) {
-        fontSize -= 2;
-        lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, fontSize);
-    }
+    // Posicionar el texto dentro del canvas
+    let posicionY = parseInt(posicionYInput.value) || 100; // Posición Y del texto
 
-    ctx.font = `${fontSize}px ${tipoFuenteInput.value || 'Arial'}`;
-
-    // Calcular la altura total del texto
-    const textoAlturaTotal = lineas.length * fontSize;
-
-    // El valor mínimo y máximo para la posición Y
-    const minPosY = 10;
-    const maxPosY = canvasHeight - textoAlturaTotal;
-
-    // Actualizamos los límites del input range
-    posicionYInput.min = minPosY;
-    posicionYInput.max = maxPosY;
-
-    // Establecer la posición X según la alineación
-    const posicionX = alineacionTextoInput.value === 'left' ? 20 :
-                      alineacionTextoInput.value === 'right' ? canvasWidth - 20 :
-                      canvasWidth / 2;
-
-    // Calcular la posición Y para centrar el texto
-    let posicionY = (canvasHeight - textoAlturaTotal) / 2;  // Centrar verticalmente por defecto
-
-    // Obtener el valor del input range y ajustarlo dentro de los límites
-    let inputY = parseFloat(posicionYInput.value);
-    inputY = Math.max(minPosY, Math.min(inputY, maxPosY)); // Limitar el valor entre los límites
-    posicionY = inputY;
-
-    // Dibujar el texto en el canvas
-    lineas.forEach(linea => {
-        ctx.fillText(linea, posicionX, posicionY);
-        posicionY += fontSize;
+    // Dibujar cada línea de texto
+    lineas.forEach((linea, index) => {
+        ctx.fillText(linea, canvas.width / 2, posicionY + (index * (tamanoFrase * scale)));
     });
 
-    // Marca de agua
-    ctx.font = "14px Arial";
-    ctx.globalAlpha = 0.3;
-    ctx.fillStyle = "#000000";
-    const margen = 10;
-    const anchoTextoMarcaDeAgua = ctx.measureText(marcaDeAgua).width;
-    ctx.fillText(marcaDeAgua, canvasWidth - anchoTextoMarcaDeAgua - margen, canvasHeight - margen);
-    ctx.globalAlpha = 1.0;
+    // Agregar marca de agua si es necesario
+    if (marcaDeAgua) {
+        const fuenteMarca = 15 * scale;
+        ctx.font = `${fuenteMarca}px ${tipoFuente}`;
+        ctx.globalAlpha = 0.5; // Opacidad de la marca de agua
+        ctx.fillStyle = "#000000";
+        ctx.fillText(marcaDeAgua, canvas.width - 150 * scale, canvas.height - 20 * scale);
+        ctx.globalAlpha = 1.0; // Restaurar opacidad
+    }
 }
 
 
