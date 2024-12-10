@@ -475,7 +475,7 @@ background-color: rgb(155, 155, 155);
 #miCanvas img {
     width: 100%; /* La imagen se adapta al 100% del contenedor */
     height: 100%; /* Mantiene la altura proporcional al ancho */
-    object-fit: contain; /* Asegura que la imagen mantenga la proporción sin recortar */
+    object-fit: cover; /* Asegura que la imagen mantenga la proporción sin recortar */
 }
 
 
