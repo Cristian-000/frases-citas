@@ -210,6 +210,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("barra-modificadores").style.display = "none";
 });
 
+
 const canvas = document.getElementById('miCanvas');
 const ctx = canvas.getContext('2d');
 let fraseSeleccionada = "";
@@ -224,7 +225,9 @@ const alineacionTextoInput = document.getElementById('alineacionTexto');
 const posicionYInput = document.getElementById('posicionY'); // Captura el control de posición Y
 const imagenFondoInput = document.getElementById('imagenFondo');
 let imagenFondo = null;
-
+colorFondoInput.addEventListener("input", function() {
+    actualizarCanvas();
+});
 // Inicialización del canvas
 
 tipoFuenteInput.value = "Arial"; // Tipo de fuente predeterminado
@@ -273,6 +276,8 @@ imagenFondoInput.addEventListener('change', (event) => {
 // Variable para la marca de agua
 const marcaDeAgua = urlCompartir; // Cambiar a tu URL deseada
 
+
+// Función para actualizar el canvas
 function actualizarCanvas() {
     const scale = window.devicePixelRatio || 1;
 
@@ -294,6 +299,14 @@ function actualizarCanvas() {
     ctx.setTransform(scale, 0, 0, scale, 0, 0);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    // Obtener el color de fondo desde el input
+    const colorFondo = colorFondoInput.value;
+
+    // Cambiar el color de fondo del canvas
+    ctx.fillStyle = colorFondo;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Proceder con el resto del dibujo
     const quitarFondo = document.getElementById("removeFondoCheckbox").checked;
 
     if (!quitarFondo && imagenFondo) {
