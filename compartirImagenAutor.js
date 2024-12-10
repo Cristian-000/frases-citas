@@ -239,6 +239,10 @@ function setFraseParaCompartir(frase, autor) {
     document.getElementById("canvas-container").style.display = "block";
     document.getElementById("barra-modificadores").style.display = "flex";
 }
+alineacionTextoInput.addEventListener("input", function() {
+    ctx.textAlign = alineacionTextoInput.value; // valores válidos: 'left', 'right', 'center', etc.
+    actualizarCanvas();
+});
 
 // Ajuste de texto dentro del canvas
 function ajustarTexto(ctx, texto, maxWidth, fontSize) {
@@ -276,43 +280,6 @@ imagenFondoInput.addEventListener('change', (event) => {
 // Variable para la marca de agua
 const marcaDeAgua = urlCompartir; // Cambiar a tu URL deseada
 
-let isTouching = false;  // Para saber si el usuario está tocando la pantalla
-let lastTouchX = 0;  // Para almacenar la posición del toque anterior
-let lastTouchY = 0;
-let offsetX = 0;  // Para ajustar el desplazamiento en X
-let offsetY = 0;  // Para ajustar el desplazamiento en Y
-
-// Función para manejar el inicio del toque
-canvas.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    isTouching = true;
-    const touch = e.touches[0];
-    lastTouchX = touch.clientX;
-    lastTouchY = touch.clientY;
-});
-
-// Función para manejar el movimiento del toque
-canvas.addEventListener('touchmove', (e) => {
-    e.preventDefault();
-    if (!isTouching) return;
-    const touch = e.touches[0];
-    const deltaX = touch.clientX - lastTouchX;
-    const deltaY = touch.clientY - lastTouchY;
-    
-    offsetX += deltaX;  // Modificar la posición de la imagen de fondo
-    offsetY += deltaY;
-    
-    lastTouchX = touch.clientX;
-    lastTouchY = touch.clientY;
-
-    actualizarCanvas();  // Volver a dibujar el canvas con la nueva posición de la imagen de fondo
-});
-
-// Función para manejar el fin del toque
-canvas.addEventListener('touchend', (e) => {
-    e.preventDefault();
-    isTouching = false;
-});
 // Función para actualizar el canvas
 function actualizarCanvas() {
     const scale = window.devicePixelRatio || 1;
