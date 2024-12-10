@@ -29,11 +29,33 @@
 html {
     scroll-behavior: smooth;
 }
+/* Contenedor general */
+.form-group {
+    position: relative;
+  }
+  
+  /* Campo de entrada con espacio para el ícono */
+  #barra-busqueda {
+    padding-left: 40px; /* Espacio para el ícono */
+  }
+  
+  /* Ícono de búsqueda */
+  .form-group::before {
+    content: "\f002"; /* Código Unicode de la lupa de Font Awesome */
+    font-family: "Font Awesome 5 Free"; /* Asegúrate de tener Font Awesome cargado */
+    font-weight: 900; /* Estilo del ícono */
+    position: absolute;
+    left: 10px; /* Espacio del borde izquierdo */
+    top: 50%; /* Centrado vertical */
+    transform: translateY(-50%);
+    color: gray;
+    font-size: 1.2em;
+  }
 /* General */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-attachement: fixedb
+    background-attachment: fixed;
 }
 
 .background {
@@ -104,6 +126,7 @@ body {
     background: linear-gradient(90deg, #ffffff, #ff0000, #ffff00, #00ff00, #ffcc00);
     background-size: 400% 400%;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: gradient-text 5s ease infinite;
 }
@@ -244,24 +267,6 @@ background-color: rgb(155, 155, 155);
 
 .frase-dia {
     font-size: 1.5rem;
-}
-
-/* Canvas */
-#canvas-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    margin-top: 20px;
-}
-
-#miCanvas {
-    background-color: var(--color-background-card);
-    border: 1px solid var(--color-border-light);
-    width: 70%;
-    max-width: 500px;
-    height: 500px;
-    box-shadow: 0 4px 10px var(--color-light-shadow);
 }
 
 
@@ -415,22 +420,6 @@ background-color: rgb(155, 155, 155);
 }
 
 
-
-
-/* Cards 
-.list-group-item {
-    background-color: var(--color-background-card);
-    border: 1px solid var(--color-border-light);
-    border-radius: 8px;
-    padding: 5px;
-    margin-bottom: 5px;
-    transition: box-shadow 0.3s ease;
-}
-
-.list-group-item:hover {
-    box-shadow: 0 4px 12px var(--color-light-shadow);
-}*/
-
 /* Autor */
 .autor-link {
 
@@ -452,29 +441,59 @@ background-color: rgb(155, 155, 155);
     line-height: 1.5;
     color: #6c757d;
 }
-
-/* Responsivo */
-@media (max-width: 768px) {
-
-    #canvas-container,
-    #barra-modificadores {
-
-        align-items: stretch;
-    }
-
-    #action-buttons {
-        flex-direction: column;
-        width: 100%;
-    }
-
-
+/* Estilos para el modal */
+#canvasModal .modal-dialog {
+    max-width: 830px; /* Controla el ancho máximo del modal */
+    width: 100%; /* Asegura que el modal ocupe el 100% del ancho disponible */
+    margin: 1.75rem auto; /* Centra el modal de manera automática */
 }
 
-@media (max-width: 400px) {
-    #miCanvas {
-        width: 90%;
-        height: 400px;
+/* Estilo para el contenedor del canvas */
+#canvas-container {
+    display: flex;
+    justify-content: center; /* Centra el canvas horizontalmente */
+    align-items: center;     /* Centra el canvas verticalmente */
+    width: 100%;
+    height: 100%;  /* Asegura que el contenedor tenga el tamaño correcto */
+    max-width: 800px;
+}
+
+/* Canvas */
+#miCanvas {
+    background-color: var(--color-background-card);
+    border: 1px solid var(--color-border-light);
+    width:70vw; /* El canvas toma el 100% del contenedor */
+    max-width: 800px; /* Limita el ancho máximo */
+   
+    height: auto; /* Mantiene la proporción al cambiar el ancho */
+    aspect-ratio: 9 / 16; /* Proporción vertical como un smartphone */
+    box-shadow: 0 4px 10px var(--color-light-shadow);
+    box-sizing: border-box; /* Incluye bordes en el cálculo total */
+}
+
+
+/* Para pantallas pequeñas */
+@media (max-width: 577px) {
+    #canvasModal .modal-dialog {
+        max-width: 100%; /* En pantallas pequeñas, el modal puede ocupar el 100% */
     }
+
+    #miCanvas {
+        width: 100%; /* El canvas sigue ocupando el 100% del contenedor */
+        max-width: 100%; /* Asegura que no se pase de este límite */
+    }
+}
+/* Para pantallas pequeñas */
+@media (max-width: 980px) {
+    #canvasModal .modal-dialog {
+        max-width: 80vw; /* En pantallas pequeñas, el modal puede ocupar el 100% */
+    }
+
+    #miCanvas {
+        width: 100%; /* El canvas sigue ocupando el 100% del contenedor */
+        max-width: 100%; /* Asegura que no se pase de este límite */
+    }
+   
 }
 
 
@@ -488,7 +507,7 @@ background-color: rgb(155, 155, 155);
 
     gap: 15px;
     bottom: 10px;
-    width: 95%;
+    width:100%;
     /* Reduce el ancho total de la barra */
     max-width: 900px;
     /* Limita el ancho máximo */
@@ -518,12 +537,9 @@ background-color: rgb(155, 155, 155);
     display: none;
     position: absolute;
     top: -220%;
-    /* Posición más cerca del label */
-    left: 50%;
-    transform: translateX(-50%);
-    background: white;
+    background: rgb(241, 241, 241);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    padding: 5px;
+    padding: 2px;
     border-radius: 5px;
     z-index: 10;
 }
@@ -535,16 +551,11 @@ background-color: rgb(155, 155, 155);
 #barra-modificadores label:hover select {
     display: block;
 }
-
-#action-buttons {
-    display: flex;
-    justify-content: center;
-    /* Centra los botones horizontalmente */
-    gap: 20px;
-    /* Espaciado entre botones */
-    margin-top: 20px;
-    /* Espaciado superior */
+/* Estilo cuando el checkbox está marcado */
+#barra-modificadores label input:checked + i {
+    color: var(--color-acento); /* Cambia el color del icono cuando el checkbox está marcado */
 }
+
 
 .frase-content {
     display: flex;

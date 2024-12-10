@@ -20,12 +20,14 @@ const colorCategorias = {
     "Superación": "badge-superacion",
     "default": "badge-primary" // Color por defecto
 };
+const urlCompartir = "https://cristian-000.github.io/frases-citas/index.html";
 
 function obtenerClaseColor(categoria) {
     return colorCategorias[categoria] || colorCategorias["default"];
 }
 const favoritos = JSON.parse(localStorage.getItem("favoritos")) || []; // Cargar favoritos
 
+// Función para inicializar el modal
 function cargarAutor() {
     return new Promise((resolve, reject) => {
         const urlParams = new URLSearchParams(window.location.search);
@@ -36,7 +38,7 @@ function cargarAutor() {
         // Título del autor
         const tituloAutor = document.getElementById("titulo-autor");
         tituloAutor.innerText = `Frases de ${capitalizarIniciales(autorSeleccionado)}`;
-        tituloAutor.classList.add("text-center", "mb-4"); // Asegura que el título sea centrado y tenga margen
+        tituloAutor.classList.add("text-center", "mb-4");
 
         // Fetch de frases
         fetch('frases.json')
@@ -50,7 +52,7 @@ function cargarAutor() {
                         const isFavorito = favoritos.some(fav => fav.frase === fraseObj.frase);
                         const autorCapitalizado = capitalizarIniciales(fraseObj.autor_url);
                         const li = document.createElement("li");
-                        li.className = "w-100 list-unstyled mb-1"; // Añadir margen entre frases
+                        li.className = "w-100 list-unstyled mb-1";
                         li.innerHTML = `
                             <div class="w-100 frase-content">
                                 <p class="mb-1"><strong>${fraseObj.frase}</strong></p>
@@ -62,16 +64,16 @@ function cargarAutor() {
                                         }).join(' ')}
                                     </div>
                                     <div class="button-group d-flex align-items-center mr-1">
-                                    <button class="btn btn-sm btn-outline-secondary border-0" onclick="setFraseParaCompartir('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}'); actualizarCanvas();" title="Crear Imagen">
+                                        <button class="btn btn-sm btn-outline-secondary border-0" onclick="setFraseParaCompartir('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}'); actualizarCanvas();" 
+                                                data-bs-toggle="modal" data-bs-target="#canvasModal" title="Crear Imagen">
                                             <i class="fas fa-image"></i>
                                         </button>
                                         <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${autorCapitalizado}');" title="Compartir">
                                             <i class="fas fa-share-alt"></i>
                                         </button>
-                                        <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${window.location.href}');" title="Copiar frase">
+                                        <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${urlCompartir}');" title="Copiar frase">
                                             <i class="fas fa-copy"></i>
                                         </button>
-                                      
                                         <button class="btn btn-link heart-button ml-2" data-frase="${encodeURIComponent(fraseObj.frase)}">
                                             <i class="${isFavorito ? 'fas' : 'far'} fa-heart text-danger"></i>
                                         </button>
@@ -85,18 +87,44 @@ function cargarAutor() {
                         const icon = heartButton.querySelector('i');
                         heartButton.addEventListener('click', () => toggleFavorito(fraseObj, icon));
 
-                        listaFrases.appendChild(li); // Añadir el li a la lista
+                        listaFrases.appendChild(li);
                     }
                 });
 
-                resolve(); // Resolver la promesa después de cargar todas las frases
+                // Reactivar el modal para los nuevos botones (si no se hace esto, los botones dinámicos no abrirán el modal)
+                const modales = document.querySelectorAll('[data-bs-toggle="modal"]');
+                modales.forEach(button => {
+                    const modalTarget = document.getElementById(button.getAttribute('data-bs-target').substring(1)); // Obtener el ID del modal
+                    button.addEventListener('click', function () {
+                        const modal = new bootstrap.Modal(modalTarget);
+                        modal.show();
+                    });
+                });
+
+                resolve();
             })
             .catch(error => {
                 console.error("Error al cargar frases del autor:", error);
-                reject(error); // Rechazar la promesa si hay error
+                reject(error);
             });
     });
 }
+
+// Configuración del modal para que solo se cierre con el botón de cerrar
+const modalElement = document.getElementById('canvasModal');
+const modal = new bootstrap.Modal(modalElement, {
+    backdrop: 'static',  // No permite cerrar el modal al hacer clic fuera
+    keyboard: false      // No permite cerrar el modal con la tecla ESC
+});
+
+// Reiniciar contenido del modal cuando se cierre
+modalElement.addEventListener('hidden.bs.modal', function () {
+    // Limpiar o reiniciar los elementos dentro del modal
+    document.getElementById('miCanvas').getContext('2d').clearRect(0, 0, 400, 600);  // Limpiar canvas
+    document.getElementById('titulo-autor').innerText = '';  // Limpiar título
+    // Otros elementos dentro del modal pueden ser reiniciados aquí
+});
+
 
 
 function toggleFavorito(fraseObj, icon) {
@@ -139,7 +167,7 @@ function copiarFrase(frase, url) {
 function compartirFrase(frase, autor) {
     // Añade el salto de línea para que el autor quede debajo de la frase
     const textoCompartir = `${frase}\n- ${capitalizarIniciales(autor)}`;
-    const urlCompartir = window.location.href; // URL actual
+    //const urlCompartir = window.location.href; // URL actual
 
     if (navigator.share) {
         navigator.share({
@@ -155,11 +183,26 @@ function compartirFrase(frase, autor) {
 }
 
 
+function ajustarCanvasTamano() {
+    // Obtener el ancho del contenedor
+    const canvasContainer = document.getElementById('canvas-container');
+    const containerWidth = canvasContainer.offsetWidth - 30; // Reducir 10px como margen interno
+    const containerHeight = window.innerHeight * 0.6; // 60% de la altura de la ventana
 
+    // Ajustar dimensiones del canvas
+    const canvas = document.getElementById('miCanvas');
+    canvas.width = Math.max(containerWidth, 100); // Evitar que el ancho sea menor a 100px
+    canvas.height = Math.max(containerHeight, 50); // Altura mínima
 
+    actualizarCanvas(); // Redibujar contenido
+}
+
+// Ajustar el tamaño al cargar la página y al redimensionar
+window.addEventListener('resize', ajustarCanvasTamano);
 
 // Llama a cargarAutor al cargar la página
 document.addEventListener("DOMContentLoaded", () => {
+    ajustarCanvasTamano();
     cargarAutor();
     actualizarCanvas();
     // Ocultar el canvas y controles de ajuste al inicio
@@ -176,26 +219,24 @@ const colorFondoInput = document.getElementById('colorFondo');
 const colorFraseInput = document.getElementById('colorFrase');
 const tamanoFraseInput = document.getElementById('tamanoFrase');
 const posicionXInput = document.getElementById('posicionX');
-
 const tipoFuenteInput = document.getElementById('tipoFuente');
-// Elemento del selector de alineación
 const alineacionTextoInput = document.getElementById('alineacionTexto');
 const posicionYInput = document.getElementById('posicionY'); // Captura el control de posición Y
-// Establece el tamaño inicial del canvas al tamaño de la ventana
-canvas.width = window.innerWidth * 0.9; // 90% del ancho de la ventana
-canvas.height = window.innerHeight * 0.8; // 90% del alto de la ventana
+const imagenFondoInput = document.getElementById('imagenFondo');
+let imagenFondo = null;
 
-// Establecer valor predeterminado de tipo de fuente
-tipoFuenteInput.value = "Arial"; // Tipo de fuente por defecto
+// Inicialización del canvas
+
+tipoFuenteInput.value = "Arial"; // Tipo de fuente predeterminado
 
 // Función para establecer una frase seleccionada y mostrar el canvas
 function setFraseParaCompartir(frase, autor) {
-    // Divide la frase y el autor en líneas separadas usando `\n`
     fraseSeleccionada = `${frase}\n- ${capitalizarIniciales(autor)}`;
     actualizarCanvas();
     document.getElementById("canvas-container").style.display = "block";
     document.getElementById("barra-modificadores").style.display = "flex";
 }
+
 // Ajuste de texto dentro del canvas
 function ajustarTexto(ctx, texto, maxWidth, fontSize) {
     const palabras = texto.split(" ");
@@ -218,179 +259,146 @@ function ajustarTexto(ctx, texto, maxWidth, fontSize) {
     return lineas;
 }
 
-const imagenFondoInput = document.getElementById('imagenFondo');
-let imagenFondo = null;
-
-
 imagenFondoInput.addEventListener('change', (event) => {
     const archivo = event.target.files[0];
     if (archivo) {
         imagenFondo = new Image();
-        imagenFondo.src = URL.createObjectURL(archivo); // Usar createObjectURL
+        imagenFondo.src = URL.createObjectURL(archivo);
         imagenFondo.onload = () => {
             actualizarCanvas();
         };
     }
 });
 
-// _/
-
 // Variable para la marca de agua
-const marcaDeAgua = "NombreDeLaPagina.com";
+const marcaDeAgua = urlCompartir; // Cambiar a tu URL deseada
 
 function actualizarCanvas() {
-    // Obtener el factor de escala para alta densidad de píxeles
     const scale = window.devicePixelRatio || 1;
 
-    // Calcular el tamaño del canvas en píxeles físicos
-    let canvasWidth = window.innerWidth * 0.9;  // Ancho al 90% de la ventana
-    let canvasHeight = window.innerHeight * 0.8; // Alto al 80% de la ventana
+    // Obtener el canvas
+    const canvas = document.getElementById("miCanvas");
+    const canvasContainer = document.getElementById("canvas-container");
 
-    // Establecer el tamaño en CSS
+    // Definir un alto fijo para el canvas
+    const canvasHeight = 600;  // Alto fijo de 600px
+    const canvasWidth = canvasContainer.offsetWidth;  // Ancho del canvas según el contenedor
+
     canvas.style.width = `${canvasWidth}px`;
     canvas.style.height = `${canvasHeight}px`;
-
-    // Configurar el tamaño interno del canvas en píxeles físicos para asegurar alta resolución
     canvas.width = canvasWidth * scale;
     canvas.height = canvasHeight * scale;
 
-    // Escalar el contexto para que los elementos se dibujen correctamente
-    ctx.setTransform(scale, 0, 0, scale, 0, 0);
+    const ctx = canvas.getContext("2d");
 
-    // Limpiar el canvas
+    ctx.setTransform(scale, 0, 0, scale, 0, 0);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     const quitarFondo = document.getElementById("removeFondoCheckbox").checked;
-    
-    if (quitarFondo) {
-        // Limpia el fondo o establece un fondo transparente
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-    } else {
-        // Dibujar el fondo si está disponible
-        if (imagenFondo) {
-            ctx.drawImage(imagenFondo, 0, 0, canvas.width, canvas.height);
-        }
+
+    if (!quitarFondo && imagenFondo) {
+        ctx.drawImage(imagenFondo, 0, 0, canvas.width, canvas.height);
     }
-    // Configuración de estilo de texto
+
     ctx.fillStyle = colorFraseInput.value;
     ctx.textAlign = alineacionTextoInput.value;
 
-    // Tamaño inicial de la fuente y ajuste dinámico
     let fontSize = parseInt(tamanoFraseInput.value) || 16;
-    const maxWidth = canvasWidth - 40; // Margen lateral
+    const maxWidth = canvasWidth - 40;
 
-    // Aplicar el tamaño de la fuente inicial al contexto
     ctx.font = `${fontSize}px ${tipoFuenteInput.value || 'Arial'}`;
 
-    // Ajustar el texto al ancho disponible en el canvas
     let lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, fontSize);
     while (lineas.length * fontSize > canvasHeight - 40 && fontSize > 10) {
         fontSize -= 2;
         lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, fontSize);
     }
 
-    // Reaplicar la fuente después del ajuste
     ctx.font = `${fontSize}px ${tipoFuenteInput.value || 'Arial'}`;
 
-    // Calcular los límites verticales del texto
+    // Calcular la altura total del texto
     const textoAlturaTotal = lineas.length * fontSize;
-    const minPosY = 0; // El límite superior del canvas
-    const maxPosY = canvasHeight - textoAlturaTotal; // El límite inferior, menos la altura del texto
 
-    // Actualizar los límites del control deslizante de `posicionY`
+    // El valor mínimo y máximo para la posición Y
+    const minPosY = 10;
+    const maxPosY = canvasHeight - textoAlturaTotal;
+
+    // Actualizamos los límites del input range
     posicionYInput.min = minPosY;
     posicionYInput.max = maxPosY;
 
-    // Cálculo de la posición del texto
+    // Establecer la posición X según la alineación
     const posicionX = alineacionTextoInput.value === 'left' ? 20 :
                       alineacionTextoInput.value === 'right' ? canvasWidth - 20 :
                       canvasWidth / 2;
 
-    // Tomar el valor de `posicionY` dentro de los nuevos límites
-    let posicionY = parseFloat(posicionYInput.value);
-    if (posicionY < minPosY) posicionY = minPosY;
-    if (posicionY > maxPosY) posicionY = maxPosY;
+    // Calcular la posición Y para centrar el texto
+    let posicionY = (canvasHeight - textoAlturaTotal) / 2;  // Centrar verticalmente por defecto
 
-    // Dibujar cada línea de texto en el canvas
+    // Obtener el valor del input range y ajustarlo dentro de los límites
+    let inputY = parseFloat(posicionYInput.value);
+    inputY = Math.max(minPosY, Math.min(inputY, maxPosY)); // Limitar el valor entre los límites
+    posicionY = inputY;
+
+    // Dibujar el texto en el canvas
     lineas.forEach(linea => {
         ctx.fillText(linea, posicionX, posicionY);
         posicionY += fontSize;
     });
 
-    // Dibujar la marca de agua en la esquina inferior derecha
-    ctx.font = "14px Arial"; // Tamaño y fuente de la marca de agua
-    ctx.globalAlpha = 0.3; // Opacidad para la marca de agua
-    ctx.fillStyle = "#000000"; // Color de la marca de agua
-    const margen = 10; // Margen desde el borde
+    // Marca de agua
+    ctx.font = "14px Arial";
+    ctx.globalAlpha = 0.3;
+    ctx.fillStyle = "#000000";
+    const margen = 10;
     const anchoTextoMarcaDeAgua = ctx.measureText(marcaDeAgua).width;
     ctx.fillText(marcaDeAgua, canvasWidth - anchoTextoMarcaDeAgua - margen, canvasHeight - margen);
-
-    // Restablecer la opacidad global después de dibujar la marca de agua
     ctx.globalAlpha = 1.0;
 }
-// _\
-// Event listeners para actualizar el canvas en tiempo real
-posicionYInput.addEventListener('input', actualizarCanvas);
-colorFondoInput.addEventListener('input', actualizarCanvas);
-colorFraseInput.addEventListener('input', actualizarCanvas);
-tamanoFraseInput.addEventListener('input', actualizarCanvas);
-//posicionXInput.addEventListener('input', actualizarCanvas);
-//posicionYInput.addEventListener('input', actualizarCanvas);
-tipoFuenteInput.addEventListener('input', actualizarCanvas);   // Cambiar a 'input' para detectar en tiempo real
-alineacionTextoInput.addEventListener('change', actualizarCanvas);  // Usar 'change' para select de alineación
 
-// Configuración de MutationObserver para asegurar que se detecten los cambios
-const observer = new MutationObserver(() => actualizarCanvas());
-observer.observe(tipoFuenteInput, { attributes: true, childList: true, subtree: true });
-observer.observe(alineacionTextoInput, { attributes: true, childList: true, subtree: true });
 
-// Función para descargar la imagen del canvas con nombre personalizado
+// Escuchar cuando el modal se abre para ajustar el canvas
+$('#canvasModal').on('shown.bs.modal', function () {
+    actualizarCanvas();
+});
+// Elimina la capa de fondo cuando el modal se cierra
+$('#canvasModal').on('hidden.bs.modal', function () {
+    $('.modal-backdrop').remove(); // Elimina el fondo opaco
+});
+
+
+// Event listeners para actualizaciones en tiempo real
+[...document.querySelectorAll("input, select")].forEach(el => {
+    el.addEventListener('input', actualizarCanvas);
+});
+
+// Función para descargar la imagen del canvas
 function descargarImagen() {
-    // Obtener la fecha actual en formato YYYY-MM-DD
     const fecha = new Date().toISOString().split('T')[0];
-
-    // Limitar la frase a los primeros 15 caracteres y quitar espacios adicionales
     const fraseCorta = fraseSeleccionada.split(' - ')[0].substring(0, 15).replace(/\s+/g, '_');
-
-    // Generar el nombre del archivo
     const nombreArchivo = `${fraseCorta}_${fecha}.png`;
 
-    // Crear un enlace temporal para la descarga
     const enlace = document.createElement('a');
     enlace.href = canvas.toDataURL('image/png');
     enlace.download = nombreArchivo;
     enlace.click();
 }
 
-// Asignar el evento al botón de descarga
 document.getElementById('botonDescargar').addEventListener('click', descargarImagen);
 
 document.getElementById('botonShare').addEventListener('click', async () => {
     try {
-
-        // Convierte el canvas a Blob para usarlo en la API Web Share
         const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
-
-        // Verifica que se pueda compartir archivos
         if (navigator.canShare({ files: [new File([blob], "imagen.png", { type: "image/png" })] })) {
             const file = new File([blob], "imagen.png", { type: "image/png" });
-
             await navigator.share({
                 files: [file],
                 title: 'Mira esta imagen',
                 text: '¡Mira la imagen que creé!',
             });
-            console.log("Imagen compartida exitosamente");
         } else {
-            // Mensaje alternativo para dispositivos que no pueden compartir archivos
-            alert("Tu dispositivo no admite la función de compartir archivos. Puedes descargar la imagen en su lugar.");
+            alert("Tu dispositivo no admite la función de compartir archivos.");
         }
-        // Verifica si el navegador y dispositivo admiten la API de Web Share
-        if (!navigator.canShare || !navigator.share) {
-            alert("La opción de compartir no está disponible en este dispositivo.");
-            return;
-        }
-
     } catch (error) {
         console.error("Error al compartir la imagen:", error);
         alert("Hubo un error al intentar compartir la imagen.");

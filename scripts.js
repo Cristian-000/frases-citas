@@ -157,23 +157,7 @@ function copiarFrase(frase, url) {
         });
 }
 // Función para compartir la frase seleccionada
-/*function compartirFrase(frase, autor) {
-    // Añade el salto de línea para que el autor quede debajo de la frase
-    const textoCompartir = `${frase}\n- ${capitalizarIniciales(autor)}`;
-    const urlCompartir = window.location.href; // URL actual
 
-    if (navigator.share) {
-        navigator.share({
-            title: "Frase Inspiradora",
-            text: textoCompartir,
-            url: urlCompartir
-        })
-            .then(() => console.log("Frase compartida exitosamente"))
-            .catch(error => console.error("Error al compartir:", error));
-    } else {
-        alert("La funcionalidad de compartir no está disponible en este navegador.");
-    }
-}*/
 // Define la URL base como una variable global
 const urlCompartir = "https://cristian-000.github.io/frases-citas/index.html";
 
@@ -204,100 +188,6 @@ function capitalizarIniciales(nombre) {
         .map(palabra => palabra.charAt(0).toUpperCase() + palabra.slice(1).toLowerCase())
         .join(" ");
 }
-/*function mostrarModalCompartir(frase, autor) {
-    const textoCompartir = `"${frase}"\n- ${capitalizarIniciales(autor)}`;
-    const urlPagina = window.location.href;
-
-    // Actualizar contenido del modal
-    document.getElementById("fraseCompartirTexto").innerText = textoCompartir;
-
-    // Configurar enlaces para redes sociales
-    const whatsappURL = `https://wa.me/?text=${encodeURIComponent(`${textoCompartir}\n${urlPagina}`)}`;
-    const twitterURL = `https://twitter.com/intent/tweet?text=${encodeURIComponent(`${textoCompartir}\n${urlPagina}`)}`;
-    const facebookURL = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(urlPagina)}`;
-
-    // Configurar acciones de los botones
-    document.getElementById("btnCompartirWhatsapp").onclick = () => window.open(whatsappURL, '_blank');
-    document.getElementById("btnCompartirTwitter").onclick = () => window.open(twitterURL, '_blank');
-    document.getElementById("btnCompartirFacebook").onclick = () => window.open(facebookURL, '_blank');
-
-    // Mostrar modal
-    const modal = new bootstrap.Modal(document.getElementById('modalCompartir'));
-    modal.show();
-}
-
-// Función para capitalizar el nombre del autor
-function capitalizarIniciales(nombre) {
-    return nombre
-        .split(" ")
-        .map(palabra => palabra.charAt(0).toUpperCase() + palabra.slice(1).toLowerCase())
-        .join(" ");
-}
-/*function compartirFrase(frase, autor) {
-    const textoCompartir = `${frase}\n- ${capitalizarIniciales(autor)}`;
-    const urlCompartir = window.location.href; // URL actual
-
-    if (navigator.share) {
-        // API Web Share para dispositivos modernos
-        navigator.share({
-            title: "Frase Inspiradora",
-            text: textoCompartir,
-            url: urlCompartir
-        })
-            .then(() => console.log("Frase compartida exitosamente"))
-            .catch(error => console.error("Error al compartir:", error));
-    } else {
-        // Fallback para navegadores sin soporte
-        const enlaces = `
-            <div class="d-flex flex-column align-items-start mt-2">
-                <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(urlCompartir)}" target="_blank" class="btn btn-primary btn-sm mb-1">
-                    Compartir en Facebook
-                </a>
-                <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(textoCompartir)}&url=${encodeURIComponent(urlCompartir)}" target="_blank" class="btn btn-info btn-sm mb-1">
-                    Compartir en Twitter
-                </a>
-                <a href="https://api.whatsapp.com/send?text=${encodeURIComponent(textoCompartir)}" target="_blank" class="btn btn-success btn-sm mb-1">
-                    Compartir en WhatsApp
-                </a>
-                <a href="mailto:?subject=Frase Inspiradora&body=${encodeURIComponent(textoCompartir)}" class="btn btn-secondary btn-sm">
-                    Compartir por Email
-                </a>
-            </div>
-        `;
-
-        // Mostrar enlaces en un modal o alert personalizado
-        mostrarModal("Compartir Frase", enlaces);
-    }
-}
-
-// Función para mostrar modal con contenido dinámico
-function mostrarModal(titulo, contenido) {
-    const modal = document.createElement("div");
-    modal.className = "modal fade";
-    modal.tabIndex = -1;
-    modal.innerHTML = `
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">${titulo}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                </div>
-                <div class="modal-body">
-                    ${contenido}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
-        </div>
-    `;
-    document.body.appendChild(modal);
-    const bsModal = new bootstrap.Modal(modal);
-    bsModal.show();
-
-    // Eliminar modal del DOM al cerrarse
-    modal.addEventListener("hidden.bs.modal", () => modal.remove());
-}*/
 
 function configurarBarraBusqueda() {
     const barraBusqueda = document.getElementById("barra-busqueda");
@@ -344,7 +234,7 @@ function configurarBarraBusqueda() {
                                     <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');" title="Compartir">
                                         <i class="fas fa-share-alt"></i>
                                     </button>
-                                    <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${window.location.href}');" title="Copiar frase">
+                                    <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${urlCompartir}');" title="Copiar frase">
                                         <i class="fas fa-copy"></i>
                                     </button>
                                     <button class="btn btn-link heart-button ml-2" data-frase="${encodeURIComponent(fraseObj.frase)}">
@@ -413,7 +303,7 @@ function cargarFrasesPorCategoria() {
                                 <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');" title="Compartir">
                                     <i class="fas fa-share-alt"></i>
                                 </button>
-                                <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${window.location.href}');" title="Copiar frase">
+                                <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${urlCompartir}');" title="Copiar frase">
                                     <i class="fas fa-copy"></i>
                                 </button>
                                 <button class="btn btn-link heart-button ml-2" data-frase="${encodeURIComponent(fraseObj.frase)}">
