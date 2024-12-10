@@ -275,10 +275,46 @@ imagenFondoInput.addEventListener('change', (event) => {
 
 // Variable para la marca de agua
 const marcaDeAgua = urlCompartir; // Cambiar a tu URL deseada
+//touchsistem
+let isTouching = false;  // Para saber si el usuario está tocando la pantalla
+let lastTouchX = 0;  // Para almacenar la posición del toque anterior
+let lastTouchY = 0;
+let offsetX = 0;  // Para ajustar el desplazamiento en X
+let offsetY = 0;  // Para ajustar el desplazamiento en Y
 
+// Función para manejar el inicio del toque
+canvas.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    isTouching = true;
+    const touch = e.touches[0];
+    lastTouchX = touch.clientX;
+    lastTouchY = touch.clientY;
+});
 
+// Función para manejar el movimiento del toque
+canvas.addEventListener('touchmove', (e) => {
+    e.preventDefault();
+    if (!isTouching) return;
+    const touch = e.touches[0];
+    const deltaX = touch.clientX - lastTouchX;
+    const deltaY = touch.clientY - lastTouchY;
+    
+    offsetX += deltaX;  // Modificar la posición de la imagen de fondo
+    offsetY += deltaY;
+    
+    lastTouchX = touch.clientX;
+    lastTouchY = touch.clientY;
+
+    actualizarCanvas();  // Volver a dibujar el canvas con la nueva posición de la imagen de fondo
+});
+
+// Función para manejar el fin del toque
+canvas.addEventListener('touchend', (e) => {
+    e.preventDefault();
+    isTouching = false;
+});
 // Función para actualizar el canvas
-function actualizarCanvas() {
+/*function actualizarCanvas() {
     const scale = window.devicePixelRatio || 1;
 
     // Obtener el canvas y su contenedor
@@ -347,8 +383,101 @@ function actualizarCanvas() {
         ctx.fillText(marcaDeAgua, canvas.width - 150 * scale, canvas.height - 20 * scale);
         ctx.globalAlpha = 1.0; // Restaurar opacidad
     }
+}*/
+
+// Función para actualizar el canvas
+function actualizarCanvas() {
+    const scale = window.devicePixelRatio || 1;
+
+    // Obtener el canvas y su contenedor
+    const canvas = document.getElementById("miCanvas");
+    const canvasContainer = document.getElementById("canvas-container");
+
+    // Definir un alto fijo para el canvas
+    const canvasHeight = 600;  // Alto fijo de 600px
+    const canvasWidth = canvasContainer.offsetWidth;  // Ancho del canvas según el contenedor
+
+    // Ajustar el tamaño del canvas
+    canvas.style.width = `${canvasWidth}px`;
+    canvas.style.height = `${canvasHeight}px`;
+    canvas.width = canvasWidth * scale; // Ajustar el tamaño real del canvas (sin CSS)
+
+    // Obtener el contexto para dibujar
+    const ctx = canvas.getContext('2d');
+    
+    // Limpiar el canvas antes de dibujar
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Dibujar imagen de fondo si está cargada
+    if (imagenFondo) {
+        const imageWidth = canvas.width;
+        const imageHeight = canvas.height;
+        ctx.drawImage(imagenFondo, 0, 0, imageWidth, imageHeight);
+    } else {
+        // Si no hay imagen de fondo, dibujar el color de fondo
+        ctx.fillStyle = colorFondoInput.value || "#ffffff"; // Color de fondo por defecto
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+
+    // Configuración del texto
+    ctx.fillStyle = colorFraseInput.value || "#000000"; // Color del texto
+    ctx.font = `${tamanoFraseInput.value || 30}px ${tipoFuenteInput.value || 'Arial'}`; // Tamaño y fuente
+    ctx.textAlign = alineacionTextoInput.value || 'center'; // Alineación del texto
+    ctx.textBaseline = 'middle'; // Alineación vertical
+    
+    const maxWidth = canvas.width - 40; // Dejar margen en los laterales
+    const lineHeight = tamanoFraseInput.value ? parseInt(tamanoFraseInput.value) * 1.4 : 42; // Altura de línea
+    const lines = ajustarTexto(ctx, fraseSeleccionada, maxWidth, tamanoFraseInput.value || 30);
+    let yOffset = canvas.height / 2 - (lineHeight * lines.length) / 2; // Centrar verticalmente
+
+    // Dibujar las líneas de texto
+    lines.forEach(line => {
+        ctx.fillText(line, canvas.width / 2, yOffset);
+        yOffset += lineHeight;
+    });
+
+    // Dibujar la marca de agua (URL de la imagen de fondo o la URL por defecto)
+    ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+    ctx.font = "12px Arial";
+    ctx.fillText(marcaDeAgua, canvas.width - 120, canvas.height - 20); // Marcar la URL en la parte inferior derecha
+
+    // Si hay imagen de fondo, actualizar el canvas para poder moverla con el toque
+    if (imagenFondo) {
+        canvas.addEventListener('touchstart', handleTouchStart);
+        canvas.addEventListener('touchmove', handleTouchMove);
+    }
 }
 
+// Función para manejar el inicio del toque
+function handleTouchStart(event) {
+    event.preventDefault();
+    // Guardar la posición inicial del toque
+    this.touchStart = {
+        x: event.touches[0].clientX,
+        y: event.touches[0].clientY,
+    };
+}
+
+// Función para mover la imagen de fondo al tocar
+function handleTouchMove(event) {
+    event.preventDefault();
+    // Calcular el desplazamiento en X y Y
+    const deltaX = event.touches[0].clientX - this.touchStart.x;
+    const deltaY = event.touches[0].clientY - this.touchStart.y;
+
+    // Actualizar las coordenadas de la imagen
+    imagenFondo.x += deltaX;
+    imagenFondo.y += deltaY;
+
+    // Redibujar el canvas con la nueva posición de la imagen
+    actualizarCanvas();
+
+    // Actualizar la posición inicial del toque
+    this.touchStart = {
+        x: event.touches[0].clientX,
+        y: event.touches[0].clientY,
+    };
+}
 
 // Escuchar cuando el modal se abre para ajustar el canvas
 $('#canvasModal').on('shown.bs.modal', function () {
