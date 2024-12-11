@@ -317,79 +317,75 @@ function ajustarTexto(ctx, texto, maxWidth, fontSize) {
 }
 
 function actualizarCanvas() {
-    const scale = window.devicePixelRatio || 1;
-
-
-    const canvasHeight = 600; // Alto fijo
-    const canvasWidth = canvasContainer.offsetWidth;
-
-    canvas.style.width = `${canvasWidth}px`;
-    canvas.style.height = `${canvasHeight}px`;
-    canvas.width = canvasWidth * scale;
-    canvas.height = canvasHeight * scale;
-
-    const ctx = canvas.getContext("2d");
+    // Limpiar el canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    if (imagenFondo) {
-        const imgWidth = imagenFondo.width * imagenFondoPos.scale;
-        const imgHeight = imagenFondo.height * imagenFondoPos.scale;
-        ctx.drawImage(
-            imagenFondo,
-            imagenFondoPos.x,
-            imagenFondoPos.y,
-            imgWidth,
-            imgHeight
-        );
+    // Dibujar el fondo
+    if (imagenFondo && !removeFondoCheckbox.checked) {
+        const scale = Math.min(canvas.width / imagenFondo.width, canvas.height / imagenFondo.height);
+        const x = (canvas.width - imagenFondo.width * scale) / 2;
+        const y = (canvas.height - imagenFondo.height * scale) / 2;
+        ctx.drawImage(imagenFondo, x, y, imagenFondo.width * scale, imagenFondo.height * scale);
     } else {
-        const colorFondo = colorFondoInput.value || "#ffffff";
-        ctx.fillStyle = colorFondo;
+        ctx.fillStyle = colorFondoInput.value || "#ffffff";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
-    const colorFrase = colorFraseInput.value || "#000000";
-    const tamanoFrase = parseInt(tamanoFraseInput.value) || 25;
-    const tipoFuente = tipoFuenteInput.value || "Arial";
-    const alineacionTexto = alineacionTextoInput.value || "center";
+    // Configurar texto
+    const isMobile = window.innerWidth <= 768; // Detectar pantallas móviles
+    const fontSize = isMobile ? canvas.width * 0.06 : tamanoFraseInput.value || 24; // Ajustar tamaño de texto
+    const lineHeight = fontSize * 1.5;
 
-    ctx.fillStyle = colorFrase;
-    ctx.font = `${tamanoFrase * scale}px ${tipoFuente}`;
+    ctx.fillStyle = colorFraseInput.value || "#000000";
+    ctx.textAlign = alineacionTextoInput.value || "center";
     ctx.textBaseline = "middle";
+    ctx.font = `${fontSize}px ${tipoFuenteInput.value || "Arial"}`;
 
-    const maxWidth = (canvas.width * 0.5) * scale; // Margen de 50px a cada lado
-    const lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, tamanoFrase * scale);
+    // Dividir texto en líneas si es necesario
+    const maxWidth = canvas.width * (isMobile ? 0.8 : 0.9); // Reducir ancho en móviles
+    const lineas = dividirTexto(fraseSeleccionada, ctx, maxWidth);
 
-    const lineHeight = tamanoFrase * scale * 1.2;
-    const posicionInicialY =
-        parseInt(posicionYInput.value) ||
-        canvas.height / 2 - ((lineas.length - 1) / 2) * lineHeight;
+    // Calcular posición inicial
+    let posicionX = posicionXInput.value ? parseInt(posicionXInput.value) : canvas.width / 2;
+    let posicionY = posicionYInput.value ? parseInt(posicionYInput.value) : canvas.height / 2;
 
-    lineas.forEach((linea, index) => {
-        let posicionX = canvas.width / 2; // Predeterminado para "center"
-        if (alineacionTexto === "left") {
-            ctx.textAlign = "left";
-            posicionX = (canvas.width * 0.02) * scale; // Margen izquierdo
-        } else if (alineacionTexto === "right") {
-            ctx.textAlign = "right";
-            posicionX = (canvas.width * 0.49) * scale; // Margen derecho
-        } else {
-            ctx.textAlign = "center";
-        }
-
-        ctx.fillText(linea, posicionX, posicionInicialY + index * lineHeight);
-    });
-
-    if (marcaDeAgua) {
-        // Dibujar marca de agua centrada
-        const marcaAgua = urlCompartir;
-        const tamanoMarca = 16; // Tamaño de fuente fijo o ajustable
-        ctx.font = `${tamanoMarca}px Arial`;
-        ctx.fillStyle = "rgba(0, 0, 0, 0.5)"; // Color semitransparente
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle"; // Asegura el centrado vertical
-        ctx.fillText(marcaAgua, (canvas.width/2 - 160) * scale , canvas.height -20 *scale);
+    if (isMobile) {
+        posicionX = canvas.width / 2; // Centrar texto en móviles
+        posicionY = canvas.height / 3; // Ajustar un poco hacia arriba en móviles
     }
 
+    // Dibujar líneas
+    lineas.forEach((linea, index) => {
+        ctx.fillText(linea, posicionX, posicionY + index * lineHeight);
+    });
+
+    // Dibujar marca de agua
+    const marcaFontSize = fontSize * 0.5;
+    ctx.font = `${marcaFontSize}px Arial`;
+    ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
+    ctx.textAlign = "right";
+    ctx.fillText(marcaDeAgua, canvas.width - 10, canvas.height - 10);
+}
+
+// Función para dividir texto en líneas
+function dividirTexto(texto, contexto, maxWidth) {
+    const palabras = texto.split(" ");
+    const lineas = [];
+    let linea = "";
+
+    palabras.forEach(palabra => {
+        const testLinea = linea + palabra + " ";
+        const testWidth = contexto.measureText(testLinea).width;
+        if (testWidth > maxWidth && linea !== "") {
+            lineas.push(linea.trim());
+            linea = palabra + " ";
+        } else {
+            linea = testLinea;
+        }
+    });
+
+    if (linea) lineas.push(linea.trim());
+    return lineas;
 }
 
 function initCanvasMouseControls() {
