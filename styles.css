@@ -458,11 +458,14 @@ background-color: rgb(155, 155, 155);
     position: relative;
 }*/
 #canvas-container {
-    
-    height: 60vh;  /* 60% de la altura de la ventana */
-    width: 100%;
+    display:flex;
+    aspect-ratio: 16/9;
+    height: 50vh;  /* 60% de la altura de la ventana */
+    width: auto;
     justify-content: center;
     align-items: center;
+
+
     max-width: 800px;  /* Evita que el canvas se haga demasiado grande */
     margin: 0 auto;  /* Centrar el contenedor */
 }
