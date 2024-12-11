@@ -318,7 +318,7 @@ function ajustarTexto(ctx, texto, maxWidth, fontSize) {
 
 function actualizarCanvas() {
     const scale = window.devicePixelRatio || 1;
-    const canvas = document.getElementById("miCanvas");
+
 
     const canvasHeight = 600; // Alto fijo
     const canvasWidth = canvasContainer.offsetWidth;
@@ -385,10 +385,36 @@ function actualizarCanvas() {
         const tamanoMarca = 16; // Tamaño de fuente fijo o ajustable
         ctx.font = `${tamanoMarca}px Arial`;
         ctx.fillStyle = "rgba(0, 0, 0, 0.5)"; // Color semitransparente
+            const posicionInicialY =
+        parseInt(posicionYInput.value) ||
+        canvas.height / 2 - ((lineas.length - 1) / 2) * lineHeight;
+
+    lineas.forEach((linea, index) => {
+        let posicionX = canvas.width / 2; // Predeterminado para "center"
+        if (alineacionTexto === "left") {
+            ctx.textAlign = "left";
+            posicionX = (canvas.width * 0.02) * scale; // Margen izquierdo
+        } else if (alineacionTexto === "right") {
+            ctx.textAlign = "right";
+            posicionX = (canvas.width * 0.49) * scale; // Margen derecho
+        } else {
+            ctx.textAlign = "center";
+        }
+
+        ctx.fillText(linea, posicionX, posicionInicialY + index * lineHeight);
+    });
+
+    if (marcaDeAgua) {
+        // Dibujar marca de agua centrada
+        const marcaAgua = urlCompartir;
+        const tamanoMarca = 16; // Tamaño de fuente fijo o ajustable
+        ctx.font = `${tamanoMarca}px Arial`;
+        ctx.fillStyle = "rgba(0, 0, 0, 0.5)"; // Color semitransparente
         ctx.textAlign = "center";
         ctx.textBaseline = "middle"; // Asegura el centrado vertical
         ctx.fillText(marcaAgua, (canvas.width/2 - 160) * scale , canvas.height -20 *scale);
     }
+
 }
 
 function initCanvasMouseControls() {
