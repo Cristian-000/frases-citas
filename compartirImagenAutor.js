@@ -234,7 +234,7 @@ tipoFuenteInput.value = "Arial"; // Tipo de fuente predeterminado
 
 // Función para establecer una frase seleccionada y mostrar el canvas
 function setFraseParaCompartir(frase, autor) {
-    fraseSeleccionada = `${frase}\n- ${capitalizarIniciales(autor)}`;
+    fraseSeleccionada = `${frase} \n -${capitalizarIniciales(autor)}`;
     actualizarCanvas();
     document.getElementById("canvas-container").style.display = "block";
     document.getElementById("barra-modificadores").style.display = "flex";
