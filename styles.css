@@ -449,13 +449,22 @@ background-color: rgb(155, 155, 155);
 }
 
 /* Estilo para el contenedor del canvas */
-#canvas-container {
+/* #canvas-container {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: auto; /* Permite que el contenedor se adapte */
+    height: auto; /* Permite que el contenedor se adapte 
     position: relative;
+}*/
+#canvas-container {
+    
+    height: 60vh;  /* 60% de la altura de la ventana */
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    max-width: 800px;  /* Evita que el canvas se haga demasiado grande */
+    margin: 0 auto;  /* Centrar el contenedor */
 }
 
 /* Canvas */
@@ -465,8 +474,8 @@ background-color: rgb(155, 155, 155);
     width: 90vw; /* El canvas toma el 100% del contenedor */
     max-width: 800px; /* Limita el ancho máximo */
     height: auto;
-    max-height: 60vh; /* Mantiene la proporción al cambiar el ancho */
-    aspect-ratio: 9 / 16; /* Proporción vertical como un smartphone */
+    
+ /*   aspect-ratio: 9 / 16; /* Proporción vertical como un smartphone */
     box-shadow: 0 4px 10px var(--color-light-shadow);
     box-sizing: border-box; /* Incluye bordes en el cálculo total */
 }
