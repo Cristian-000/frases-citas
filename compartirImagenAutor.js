@@ -313,7 +313,7 @@ function ajustarTexto(ctx, texto, maxWidth, fontSize) {
 }
 
 function actualizarCanvas() {
-    const scale = window.devicePixelRatio || 1;
+    const scale 0.9;
     const canvas = document.getElementById("miCanvas");
     const canvasContainer = document.getElementById("canvas-container");
 
