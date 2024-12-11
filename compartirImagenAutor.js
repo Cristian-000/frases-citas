@@ -472,3 +472,24 @@ document.getElementById('botonShare').addEventListener('click', async () => {
         alert("Hubo un error al intentar compartir la imagen.");
     }
 });
+ //cerrador de minipanel 
+document.querySelectorAll('#barra-modificadores label').forEach(label => {
+    const inputOrSelect = label.querySelector('input, select');
+
+    if (inputOrSelect) {
+        // Cierra el panel al cambiar el valor
+        inputOrSelect.addEventListener('change', () => {
+            inputOrSelect.style.display = 'none';
+        });
+
+        // Mantiene el panel cerrado al hacer clic fuera
+        inputOrSelect.addEventListener('blur', () => {
+            inputOrSelect.style.display = 'none';
+        });
+
+        // Opcional: abre el panel cuando se enfoca
+        label.addEventListener('click', () => {
+            inputOrSelect.style.display = 'block';
+        });
+    }
+});
