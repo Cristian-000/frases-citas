@@ -187,19 +187,23 @@ function compartirFrase(frase, autor) {
     }
 }
 
+const canvas = document.getElementById('miCanvas');
+const canvasContainer = document.getElementById('canvas-container');
 
 function ajustarCanvasTamano() {
-    // Obtener el ancho del contenedor
-    const canvasContainer = document.getElementById('canvas-container');
+
     const containerWidth = canvasContainer.offsetWidth - 30; // Reducir 10px como margen interno
     const containerHeight = window.innerHeight * 0.6; // 60% de la altura de la ventana
 
-    // Ajustar dimensiones del canvas
-    const canvas = document.getElementById('miCanvas');
-    canvas.width = Math.max(containerWidth, 100); // Evitar que el ancho sea menor a 100px
-    canvas.height = Math.max(containerHeight, 50); // Altura mínima
+    // Obtener el dispositivo y ajustar la resolución
+    
+    const ratio = window.devicePixelRatio || 1; // Escala de píxeles para pantallas de alta resolución
 
-    actualizarCanvas(); // Redibujar contenido
+    canvas.width = Math.max(containerWidth, 100) * ratio; // Escalar en función de la resolución
+    canvas.height = Math.max(containerHeight, 50) * ratio;
+
+    // Redibujar contenido del canvas con resolución ajustada
+    actualizarCanvas();
 }
 
 // Ajustar el tamaño al cargar la página y al redimensionar
@@ -216,7 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-const canvas = document.getElementById('miCanvas');
+
 const ctx = canvas.getContext('2d');
 let fraseSeleccionada = "";
 
@@ -315,7 +319,6 @@ function ajustarTexto(ctx, texto, maxWidth, fontSize) {
 function actualizarCanvas() {
     const scale = window.devicePixelRatio || 1;
     const canvas = document.getElementById("miCanvas");
-    const canvasContainer = document.getElementById("canvas-container");
 
     const canvasHeight = 600; // Alto fijo
     const canvasWidth = canvasContainer.offsetWidth;
