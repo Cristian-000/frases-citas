@@ -359,6 +359,25 @@ function actualizarCanvas() {
         ctx.fillText(marcaDeAgua, canvas.width - 150 * scale, canvas.height - 20 * scale);
         ctx.globalAlpha = 1.0; // Restaurar opacidad
     }
+
+    //adicional mause
+
+    // Eventos para touch y mouse
+    const manejarInteraccion = (event) => {
+        const esTouch = event.type.startsWith("touch");
+        const clientX = esTouch ? event.touches[0].clientX : event.clientX;
+        const clientY = esTouch ? event.touches[0].clientY : event.clientY;
+
+        const rect = canvas.getBoundingClientRect();
+        const x = (clientX - rect.left) * (canvas.width / rect.width);
+        const y = (clientY - rect.top) * (canvas.height / rect.height);
+
+        console.log(`Interacción detectada en (${x}, ${y})`);
+        // Aquí puedes manejar lo que sucede al tocar/hacer clic.
+    };
+
+    canvas.addEventListener("mousedown", manejarInteraccion);
+    canvas.addEventListener("touchstart", manejarInteraccion);
 }
 
 // Funciones táctiles para mover y escalar la imagen de fondo
