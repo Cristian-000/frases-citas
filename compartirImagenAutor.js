@@ -2,13 +2,13 @@
 const colorCategorias = {
     "Navidad": "badge-navidad",
     "Año Nuevo": "badge-ano-nuevo",
-    "Futuro":"badge-futuro",
-    "Acción" :"badge-accion",
-    "Sueños":"badge-sueños",
-    "Esperanza":"badge-esperanza",
-    "Melancolía":"badge-melancolia",
-    "Fuerza":"badge-fuerza",
-    "Felicidad":"badge-felicidad",
+    "Futuro": "badge-futuro",
+    "Acción": "badge-accion",
+    "Sueños": "badge-sueños",
+    "Esperanza": "badge-esperanza",
+    "Melancolía": "badge-melancolia",
+    "Fuerza": "badge-fuerza",
+    "Felicidad": "badge-felicidad",
     "Filosofía": "badge-filosofia",
     "Amor": "badge-amor",
     "Educación": "badge-educacion",
@@ -59,9 +59,9 @@ function cargarAutor() {
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
                                         ${fraseObj.categorias.map(categoria => {
-                                            const claseColor = obtenerClaseColor(categoria);
-                                            return `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge ${claseColor} ml-2">${categoria}</a>`;
-                                        }).join(' ')}
+                            const claseColor = obtenerClaseColor(categoria);
+                            return `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge ${claseColor} ml-2">${categoria}</a>`;
+                        }).join(' ')}
                                     </div>
                                     <div class="button-group d-flex align-items-center mr-1">
                                         <button class="btn btn-sm btn-outline-secondary border-0" onclick="setFraseParaCompartir('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}'); actualizarCanvas();" 
@@ -147,9 +147,14 @@ function toggleFavorito(fraseObj, icon) {
 
 
 function capitalizarIniciales(texto) {
-    return texto.toLowerCase().split('-').map(palabra => {
-        return palabra.charAt(0).toUpperCase() + palabra.slice(1);
-    }).join(' '); // Reemplazamos el guión por un espacio
+    return texto
+        .toLowerCase() // Convertir todo el texto a minúsculas
+        .split(/[-\s]/) // Dividir por guiones o espacios
+        .map(palabra => {
+            // Capitalizar la primera letra de cada palabra
+            return palabra.charAt(0).toUpperCase() + palabra.slice(1);
+        })
+        .join(' '); // Volver a unir las palabras con espacios
 }
 
 // Función para copiar la frase y el enlace al portapapeles
@@ -175,8 +180,8 @@ function compartirFrase(frase, autor) {
             text: textoCompartir,
             url: urlCompartir
         })
-        .then(() => console.log("Frase compartida exitosamente"))
-        .catch(error => console.error("Error al compartir:", error));
+            .then(() => console.log("Frase compartida exitosamente"))
+            .catch(error => console.error("Error al compartir:", error));
     } else {
         alert("La funcionalidad de compartir no está disponible en este navegador.");
     }
@@ -225,10 +230,10 @@ const alineacionTextoInput = document.getElementById('alineacionTexto');
 const posicionYInput = document.getElementById('posicionY'); // Captura el control de posición Y
 const imagenFondoInput = document.getElementById('imagenFondo');
 let imagenFondo = null;
-colorFondoInput.addEventListener("input", function() {
+colorFondoInput.addEventListener("input", function () {
     actualizarCanvas();
 });
-// Inicialización del canvas
+const removeFondoCheckbox = document.getElementById('removeFondoCheckbox');
 
 tipoFuenteInput.value = "Arial"; // Tipo de fuente predeterminado
 
@@ -239,33 +244,20 @@ function setFraseParaCompartir(frase, autor) {
     document.getElementById("canvas-container").style.display = "block";
     document.getElementById("barra-modificadores").style.display = "flex";
 }
-alineacionTextoInput.addEventListener("input", function() {
-    ctx.textAlign = alineacionTextoInput.value; // valores válidos: 'left', 'right', 'center', etc.
-    actualizarCanvas();
-});
 
-// Ajuste de texto dentro del canvas
-function ajustarTexto(ctx, texto, maxWidth, fontSize) {
-    const palabras = texto.split(" ");
-    let linea = "";
-    const lineas = [];
 
-    ctx.font = `${fontSize}px ${tipoFuenteInput.value || 'Arial'}`;
-
-    for (let i = 0; i < palabras.length; i++) {
-        const pruebaLinea = linea + palabras[i] + " ";
-        const ancho = ctx.measureText(pruebaLinea).width;
-        if (ancho > maxWidth && i > 0) {
-            lineas.push(linea);
-            linea = palabras[i] + " ";
-        } else {
-            linea = pruebaLinea;
+removeFondoCheckbox.addEventListener("change", function () {
+    if (removeFondoCheckbox.checked) {
+        // Si el checkbox está marcado, eliminar la imagen de fondo
+        imagenFondo = null;
+        actualizarCanvas(); // Redibujar el canvas sin fondo
+    } else {
+        // Si el checkbox no está marcado, restaurar la imagen de fondo
+        if (imagenFondo) {
+            actualizarCanvas(); // Redibujar el canvas con la imagen de fondo
         }
     }
-    lineas.push(linea);
-    return lineas;
-}
-
+});
 imagenFondoInput.addEventListener('change', (event) => {
     const archivo = event.target.files[0];
     if (archivo) {
@@ -279,35 +271,63 @@ imagenFondoInput.addEventListener('change', (event) => {
 
 // Variable para la marca de agua
 const marcaDeAgua = urlCompartir; // Cambiar a tu URL deseada
-        // Dibujar la imagen ajustada
-let imagenFondoPos = { x: 0, y: 0, scale: 1, startX: 0, startY: 0, lastScale: 1 }; // Control de posición y escala
+
+// Variables para la posición y escala de la imagen de fondo
+let imagenFondoPos = { x: 0, y: 0, scale: 1, startX: 0, startY: 0, lastScale: 1 };
 let isDragging = false;
 let pinchStartDistance = 0;
+let dragStart = { x: 0, y: 0 };
+
+// Ajuste de texto dentro del canvas
+function ajustarTexto(ctx, texto, maxWidth, fontSize) {
+    const lineasFinales = [];
+    ctx.font = `${fontSize}px ${tipoFuenteInput.value || 'Arial'}`;
+
+    // Dividir texto por saltos de línea explícitos
+    const lineas = texto.split("\n");
+
+    lineas.forEach(linea => {
+        const palabras = linea.split(" ");
+        let lineaActual = "";
+
+        // Ajustar cada línea al ancho máximo permitido
+        for (let i = 0; i < palabras.length; i++) {
+            const pruebaLinea = lineaActual + palabras[i] + " ";
+            const ancho = ctx.measureText(pruebaLinea).width;
+
+            if (ancho > maxWidth && i > 0) {
+                lineasFinales.push(lineaActual.trim());
+                lineaActual = palabras[i] + " ";
+            } else {
+                lineaActual = pruebaLinea;
+            }
+        }
+
+        // Añadir la última línea procesada
+        if (lineaActual) {
+            lineasFinales.push(lineaActual.trim());
+        }
+    });
+
+    return lineasFinales;
+}
 
 function actualizarCanvas() {
     const scale = window.devicePixelRatio || 1;
-
-    // Obtener el canvas y su contenedor
     const canvas = document.getElementById("miCanvas");
     const canvasContainer = document.getElementById("canvas-container");
 
-    // Definir un alto fijo para el canvas
-    const canvasHeight = 600; // Alto fijo de 600px
-    const canvasWidth = canvasContainer.offsetWidth; // Ancho del canvas según el contenedor
+    const canvasHeight = 600; // Alto fijo
+    const canvasWidth = canvasContainer.offsetWidth;
 
-    // Ajustar el tamaño del canvas
     canvas.style.width = `${canvasWidth}px`;
     canvas.style.height = `${canvasHeight}px`;
-    canvas.width = canvasWidth * scale; // Ajustar el tamaño real del canvas (sin CSS)
+    canvas.width = canvasWidth * scale;
     canvas.height = canvasHeight * scale;
 
-    // Obtener el contexto del canvas
     const ctx = canvas.getContext("2d");
-
-    // Limpiar el canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Establecer el fondo del canvas
     if (imagenFondo) {
         const imgWidth = imagenFondo.width * imagenFondoPos.scale;
         const imgHeight = imagenFondo.height * imagenFondoPos.scale;
@@ -319,68 +339,81 @@ function actualizarCanvas() {
             imgHeight
         );
     } else {
-        // Si no hay imagen de fondo, usar un color de fondo
-        const colorFondo = colorFondoInput.value || "#ffffff"; // Usar blanco por defecto
+        const colorFondo = colorFondoInput.value || "#ffffff";
         ctx.fillStyle = colorFondo;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
-    // Establecer las propiedades del texto
-    const colorFrase = colorFraseInput.value || "#000000"; // Color del texto, por defecto negro
-    const tamanoFrase = parseInt(tamanoFraseInput.value) || 30; // Tamaño del texto, por defecto 30px
-    const tipoFuente = tipoFuenteInput.value || "Arial"; // Tipo de fuente, por defecto Arial
-    const alineacionTexto = alineacionTextoInput.value || "center"; // Alineación del texto, por defecto al centro
+    const colorFrase = colorFraseInput.value || "#000000";
+    const tamanoFrase = parseInt(tamanoFraseInput.value) || 25;
+    const tipoFuente = tipoFuenteInput.value || "Arial";
+    const alineacionTexto = alineacionTextoInput.value || "center";
 
-    // Ajustar el texto a mostrar
     ctx.fillStyle = colorFrase;
     ctx.font = `${tamanoFrase * scale}px ${tipoFuente}`;
-    ctx.textAlign = alineacionTexto;
-    ctx.textBaseline = "middle"; // Asegura un centrado vertical adecuado
+    ctx.textBaseline = "middle";
 
-    // Asegurar que el texto no se desborde
-    const maxWidth = canvas.width - 40 * scale; // Margen de 40px para evitar desbordes laterales
+    const maxWidth = (canvas.width * 0.5) * scale; // Margen de 50px a cada lado
     const lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, tamanoFrase * scale);
 
-    // Posicionar el texto dentro del canvas
-    const lineHeight = tamanoFrase * scale * 1.5; // Altura entre líneas
-    const posicionInicialY = parseInt(posicionYInput.value) || canvas.height / 2 - (lineas.length - 1) / 2 * lineHeight; // Ajusta verticalmente para centrar
+    const lineHeight = tamanoFrase * scale * 1.2;
+    const posicionInicialY =
+        parseInt(posicionYInput.value) ||
+        canvas.height / 2 - ((lineas.length - 1) / 2) * lineHeight;
 
-    // Dibujar cada línea de texto
     lineas.forEach((linea, index) => {
-        ctx.fillText(linea, canvas.width / 2, posicionInicialY + index * lineHeight);
+        let posicionX = canvas.width / 2; // Predeterminado para "center"
+        if (alineacionTexto === "left") {
+            ctx.textAlign = "left";
+            posicionX = (canvas.width * 0.02) * scale; // Margen izquierdo
+        } else if (alineacionTexto === "right") {
+            ctx.textAlign = "right";
+            posicionX = (canvas.width * 0.49) * scale; // Margen derecho
+        } else {
+            ctx.textAlign = "center";
+        }
+
+        ctx.fillText(linea, posicionX, posicionInicialY + index * lineHeight);
     });
 
-    // Agregar marca de agua si es necesario
     if (marcaDeAgua) {
-        const fuenteMarca = 15 * scale;
-        ctx.font = `${fuenteMarca}px ${tipoFuente}`;
-        ctx.globalAlpha = 0.5; // Opacidad de la marca de agua
-        ctx.fillStyle = "#000000";
-        ctx.fillText(marcaDeAgua, canvas.width - 150 * scale, canvas.height - 20 * scale);
-        ctx.globalAlpha = 1.0; // Restaurar opacidad
+        // Dibujar marca de agua centrada
+        const marcaAgua = urlCompartir;
+        const tamanoMarca = 16; // Tamaño de fuente fijo o ajustable
+        ctx.font = `${tamanoMarca}px Arial`;
+        ctx.fillStyle = "rgba(0, 0, 0, 0.5)"; // Color semitransparente
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle"; // Asegura el centrado vertical
+        ctx.fillText(marcaAgua, (canvas.width/2 - 160) * scale , canvas.height -20 *scale);
     }
-
-    //adicional mause
-
-    // Eventos para touch y mouse
-    const manejarInteraccion = (event) => {
-        const esTouch = event.type.startsWith("touch");
-        const clientX = esTouch ? event.touches[0].clientX : event.clientX;
-        const clientY = esTouch ? event.touches[0].clientY : event.clientY;
-
-        const rect = canvas.getBoundingClientRect();
-        const x = (clientX - rect.left) * (canvas.width / rect.width);
-        const y = (clientY - rect.top) * (canvas.height / rect.height);
-
-        console.log(`Interacción detectada en (${x}, ${y})`);
-        // Aquí puedes manejar lo que sucede al tocar/hacer clic.
-    };
-
-    canvas.addEventListener("mousedown", manejarInteraccion);
-    canvas.addEventListener("touchstart", manejarInteraccion);
 }
 
-// Funciones táctiles para mover y escalar la imagen de fondo
+function initCanvasMouseControls() {
+    const canvas = document.getElementById("miCanvas");
+
+    canvas.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        dragStart.x = e.clientX - imagenFondoPos.x;
+        dragStart.y = e.clientY - imagenFondoPos.y;
+    });
+
+    canvas.addEventListener("mousemove", (e) => {
+        if (isDragging) {
+            imagenFondoPos.x = e.clientX - dragStart.x;
+            imagenFondoPos.y = e.clientY - dragStart.y;
+            actualizarCanvas();
+        }
+    });
+
+    canvas.addEventListener("mouseup", () => {
+        isDragging = false;
+    });
+
+    canvas.addEventListener("mouseleave", () => {
+        isDragging = false;
+    });
+}
+
 function initCanvasTouchControls() {
     const canvas = document.getElementById("miCanvas");
 
@@ -389,13 +422,11 @@ function initCanvasTouchControls() {
         const touches = e.touches;
 
         if (touches.length === 1) {
-            // Iniciar movimiento
             isDragging = true;
             const touch = touches[0];
             imagenFondoPos.startX = touch.clientX - imagenFondoPos.x;
             imagenFondoPos.startY = touch.clientY - imagenFondoPos.y;
         } else if (touches.length === 2) {
-            // Iniciar zoom
             pinchStartDistance = getDistance(
                 touches[0].clientX,
                 touches[0].clientY,
@@ -440,10 +471,10 @@ function getDistance(x1, y1, x2, y2) {
     return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
 }
 
-// Inicializar controles táctiles
 document.addEventListener("DOMContentLoaded", () => {
     actualizarCanvas();
     initCanvasTouchControls();
+    initCanvasMouseControls();
 });
 
 
@@ -494,7 +525,7 @@ document.getElementById('botonShare').addEventListener('click', async () => {
         alert("Hubo un error al intentar compartir la imagen.");
     }
 });
- //cerrador de minipanel 
+//cerrador de minipanel 
 document.querySelectorAll('#barra-modificadores label').forEach(label => {
     const inputOrSelect = label.querySelector('input, select');
 
