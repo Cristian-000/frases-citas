@@ -289,8 +289,8 @@ function actualizarCanvas() {
     const canvasContainer = document.getElementById("canvas-container");
 
     // Definir un alto fijo para el canvas
-    const canvasHeight = 600;  // Alto fijo de 600px
-    const canvasWidth = canvasContainer.offsetWidth;  // Ancho del canvas según el contenedor
+    const canvasHeight = 600; // Alto fijo de 600px
+    const canvasWidth = canvasContainer.offsetWidth; // Ancho del canvas según el contenedor
 
     // Ajustar el tamaño del canvas
     canvas.style.width = `${canvasWidth}px`;
@@ -306,12 +306,28 @@ function actualizarCanvas() {
 
     // Establecer el fondo del canvas
     if (imagenFondo) {
-        // Dibujar la imagen de fondo
-        const imgWidth = canvas.width;
-        const imgHeight = canvas.height;
+        // Calcular proporciones para evitar que la imagen se distorsione
+        const imgAspectRatio = imagenFondo.width / imagenFondo.height;
+        const canvasAspectRatio = canvas.width / canvas.height;
 
-        // Para ajustar la imagen al tamaño del canvas
-        ctx.drawImage(imagenFondo, 0, 0, imgWidth, imgHeight);
+        let imgWidth, imgHeight, offsetX, offsetY;
+
+        if (imgAspectRatio > canvasAspectRatio) {
+            // La imagen es más ancha que el canvas
+            imgWidth = canvas.width;
+            imgHeight = imgWidth / imgAspectRatio;
+            offsetX = 0;
+            offsetY = (canvas.height - imgHeight) / 2; // Centrar verticalmente
+        } else {
+            // La imagen es más alta que el canvas
+            imgHeight = canvas.height;
+            imgWidth = imgHeight * imgAspectRatio;
+            offsetX = (canvas.width - imgWidth) / 2; // Centrar horizontalmente
+            offsetY = 0;
+        }
+
+        // Dibujar la imagen ajustada
+        ctx.drawImage(imagenFondo, offsetX, offsetY, imgWidth, imgHeight);
     } else {
         // Si no hay imagen de fondo, usar un color de fondo
         const colorFondo = colorFondoInput.value || "#ffffff"; // Usar blanco por defecto
