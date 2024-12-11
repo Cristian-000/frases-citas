@@ -191,24 +191,24 @@ const canvas = document.getElementById('miCanvas');
 const canvasContainer = document.getElementById('canvas-container');
 
 function ajustarCanvasTamano() {
-
-    const containerWidth = canvasContainer.offsetWidth - 30; // Reducir 10px como margen interno
-    const containerHeight = window.innerHeight * 0.6; // 60% de la altura de la ventana
-
-    // Obtener el dispositivo y ajustar la resolución
+    const canvas = document.getElementById('miCanvas');
+    const container = document.getElementById('canvas-container');
     
-    const ratio = window.devicePixelRatio || 1; // Escala de píxeles para pantallas de alta resolución
+    // Ajusta el tamaño del canvas al ancho del contenedor
+    const containerWidth = container.offsetWidth;
+    const aspectRatio = 3 / 2; // Cambiar según las proporciones deseadas
 
-    canvas.width = Math.max(containerWidth, 100) * ratio; // Escalar en función de la resolución
-    canvas.height = Math.max(containerHeight, 50) * ratio;
+    canvas.width = containerWidth;
+    canvas.height = containerWidth / aspectRatio;
 
-    // Redibujar contenido del canvas con resolución ajustada
-    actualizarCanvas();
+    actualizarCanvas(); // Redibujar el contenido
 }
-
 // Ajustar el tamaño al cargar la página y al redimensionar
-window.addEventListener('resize', ajustarCanvasTamano);
-
+//window.addEventListener('resize', ajustarCanvasTamano);
+window.addEventListener('resize', () => {
+    ajustarCanvasTamano();
+    actualizarCanvas();
+});
 // Llama a cargarAutor al cargar la página
 document.addEventListener("DOMContentLoaded", () => {
     ajustarCanvasTamano();
