@@ -319,41 +319,6 @@ function actualizarCanvas() {
             imgHeight
         );
     } else {
-function actualizarCanvas() {
-    const scale = window.devicePixelRatio || 1;
-
-    // Obtener el canvas y su contenedor
-    const canvas = document.getElementById("miCanvas");
-    const canvasContainer = document.getElementById("canvas-container");
-
-    // Definir un alto fijo para el canvas
-    const canvasHeight = 600; // Alto fijo de 600px
-    const canvasWidth = canvasContainer.offsetWidth; // Ancho del canvas según el contenedor
-
-    // Ajustar el tamaño del canvas
-    canvas.style.width = `${canvasWidth}px`;
-    canvas.style.height = `${canvasHeight}px`;
-    canvas.width = canvasWidth * scale; // Ajustar el tamaño real del canvas (sin CSS)
-    canvas.height = canvasHeight * scale;
-
-    // Obtener el contexto del canvas
-    const ctx = canvas.getContext("2d");
-
-    // Limpiar el canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Establecer el fondo del canvas
-    if (imagenFondo) {
-        const imgWidth = imagenFondo.width * imagenFondoPos.scale;
-        const imgHeight = imagenFondo.height * imagenFondoPos.scale;
-        ctx.drawImage(
-            imagenFondo,
-            imagenFondoPos.x,
-            imagenFondoPos.y,
-            imgWidth,
-            imgHeight
-        );
-    } else {
         // Si no hay imagen de fondo, usar un color de fondo
         const colorFondo = colorFondoInput.value || "#ffffff"; // Usar blanco por defecto
         ctx.fillStyle = colorFondo;
