@@ -457,21 +457,20 @@ background-color: rgb(155, 155, 155);
     height: auto; /* Permite que el contenedor se adapte 
     position: relative;
 }*/
+#miCanvas {
+    max-width: 100%;
+    height: auto; /* Mantener la relación de aspecto */
+    display: block; /* Asegura que no haya márgenes extras */
+    margin: 0 auto; /* Centrar horizontalmente */
+}
 #canvas-container {
-    display:flex;
-    aspect-ratio: 16/9;
-    height: 50vh;  /* 60% de la altura de la ventana */
-    width: auto;
-    justify-content: center;
-    align-items: center;
-
-
-    max-width: 800px;  /* Evita que el canvas se haga demasiado grande */
-    margin: 0 auto;  /* Centrar el contenedor */
+    width: 100%; /* Se adapta al ancho del contenedor padre */
+    max-width: 600px; /* Opcional: limitar el tamaño máximo */
+    margin: auto;
 }
 
 /* Canvas */
-#miCanvas {
+#miCanvasno {
     background-color: var(--color-background-card);
     border: 1px solid var(--color-border-light);
     width: 90vw; /* El canvas toma el 100% del contenedor */
