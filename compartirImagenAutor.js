@@ -279,8 +279,11 @@ imagenFondoInput.addEventListener('change', (event) => {
 
 // Variable para la marca de agua
 const marcaDeAgua = urlCompartir; // Cambiar a tu URL deseada
+        // Dibujar la imagen ajustada
+let imagenFondoPos = { x: 0, y: 0, scale: 1, startX: 0, startY: 0, lastScale: 1 }; // Control de posición y escala
+let isDragging = false;
+let pinchStartDistance = 0;
 
-// Función para actualizar el canvas
 function actualizarCanvas() {
     const scale = window.devicePixelRatio || 1;
 
@@ -306,28 +309,15 @@ function actualizarCanvas() {
 
     // Establecer el fondo del canvas
     if (imagenFondo) {
-        // Calcular proporciones para evitar que la imagen se distorsione
-        const imgAspectRatio = imagenFondo.width / imagenFondo.height;
-        const canvasAspectRatio = canvas.width / canvas.height;
-
-        let imgWidth, imgHeight, offsetX, offsetY;
-
-        if (imgAspectRatio > canvasAspectRatio) {
-            // La imagen es más ancha que el canvas
-            imgWidth = canvas.width;
-            imgHeight = imgWidth / imgAspectRatio;
-            offsetX = 0;
-            offsetY = (canvas.height - imgHeight) / 2; // Centrar verticalmente
-        } else {
-            // La imagen es más alta que el canvas
-            imgHeight = canvas.height;
-            imgWidth = imgHeight * imgAspectRatio;
-            offsetX = (canvas.width - imgWidth) / 2; // Centrar horizontalmente
-            offsetY = 0;
-        }
-
-        // Dibujar la imagen ajustada
-        ctx.drawImage(imagenFondo, offsetX, offsetY, imgWidth, imgHeight);
+        const imgWidth = imagenFondo.width * imagenFondoPos.scale;
+        const imgHeight = imagenFondo.height * imagenFondoPos.scale;
+        ctx.drawImage(
+            imagenFondo,
+            imagenFondoPos.x,
+            imagenFondoPos.y,
+            imgWidth,
+            imgHeight
+        );
     } else {
         // Si no hay imagen de fondo, usar un color de fondo
         const colorFondo = colorFondoInput.value || "#ffffff"; // Usar blanco por defecto
@@ -367,6 +357,72 @@ function actualizarCanvas() {
         ctx.globalAlpha = 1.0; // Restaurar opacidad
     }
 }
+
+// Funciones táctiles para mover y escalar la imagen de fondo
+function initCanvasTouchControls() {
+    const canvas = document.getElementById("miCanvas");
+
+    canvas.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+        const touches = e.touches;
+
+        if (touches.length === 1) {
+            // Iniciar movimiento
+            isDragging = true;
+            const touch = touches[0];
+            imagenFondoPos.startX = touch.clientX - imagenFondoPos.x;
+            imagenFondoPos.startY = touch.clientY - imagenFondoPos.y;
+        } else if (touches.length === 2) {
+            // Iniciar zoom
+            pinchStartDistance = getDistance(
+                touches[0].clientX,
+                touches[0].clientY,
+                touches[1].clientX,
+                touches[1].clientY
+            );
+            imagenFondoPos.lastScale = imagenFondoPos.scale;
+        }
+    });
+
+    canvas.addEventListener("touchmove", (e) => {
+        e.preventDefault();
+        const touches = e.touches;
+
+        if (touches.length === 1 && isDragging) {
+            const touch = touches[0];
+            imagenFondoPos.x = touch.clientX - imagenFondoPos.startX;
+            imagenFondoPos.y = touch.clientY - imagenFondoPos.startY;
+        } else if (touches.length === 2) {
+            const currentDistance = getDistance(
+                touches[0].clientX,
+                touches[0].clientY,
+                touches[1].clientX,
+                touches[1].clientY
+            );
+            imagenFondoPos.scale =
+                (currentDistance / pinchStartDistance) * imagenFondoPos.lastScale;
+        }
+
+        actualizarCanvas();
+    });
+
+    canvas.addEventListener("touchend", (e) => {
+        isDragging = false;
+        if (e.touches.length === 0) {
+            pinchStartDistance = 0;
+        }
+    });
+}
+
+function getDistance(x1, y1, x2, y2) {
+    return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+}
+
+// Inicializar controles táctiles
+document.addEventListener("DOMContentLoaded", () => {
+    actualizarCanvas();
+    initCanvasTouchControls();
+});
 
 
 // Escuchar cuando el modal se abre para ajustar el canvas
