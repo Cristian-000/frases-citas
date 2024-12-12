@@ -335,6 +335,7 @@ function ajustarTexto(ctx, texto, maxWidth, fontSize) {
 
     return lineasFinales;
 }
+imagenFondoPos.initialized = false;
 
 function actualizarCanvas() {
     //const scale = window.devicePixelRatio || 1;
@@ -461,7 +462,7 @@ function initCanvasMouseControls() {
         isDragging = false;
     });
 }
-/*
+
 function initCanvasTouchControls() {
     const canvas = document.getElementById("miCanvas");
 
@@ -513,7 +514,7 @@ function initCanvasTouchControls() {
             pinchStartDistance = 0;
         }
     });
-}*/
+}
 /* function initCanvasMouseControls() {
     const canvas = document.getElementById("miCanvas");
     const ctx = canvas.getContext("2d");
@@ -580,7 +581,7 @@ function initCanvasTouchControls() {
 
     actualizarCanvas();
 }*/
-//let isDragging = false;
+/*let isDragging = false;
 let lastTouchDistance = 0;
 
 // Evento para inicio de toque
@@ -629,14 +630,14 @@ canvas.addEventListener("touchmove", function (e) {
 canvas.addEventListener("touchend", function (e) {
     isDragging = false;
     lastTouchDistance = 0;
-});
+});*/
 function getDistance(x1, y1, x2, y2) {
     return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     actualizarCanvas();
- //   initCanvasTouchControls();
+    initCanvasTouchControls();
     initCanvasMouseControls();
 });
 
