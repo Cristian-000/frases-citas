@@ -458,21 +458,21 @@ background-color: rgb(155, 155, 155);
     position: relative;
 }*/
 #miCanvas {
-    max-height: 80vh;
+ /*   max-height: 80vh;*/
     width: 100%;
     max-width: 100%;
 
     height: auto; /* Mantener la relación de aspecto */
     display: block; /* Asegura que no haya márgenes extras */
     margin: 0 auto; /* Centrar horizontalmente */
-    box-shadow: 0 4px 10px var(--color-light-shadow);
+    /*box-shadow: 0 4px 10px var(--color-light-shadow);*/
    
 }
 
 #canvas-container {
     display: flex;
     width: 100%; /* Se adapta al ancho del contenedor padre */
-    max-width: 90vw; /* Opcional: limitar el tamaño máximo */
+  /*  max-width: 90vw; /* Opcional: limitar el tamaño máximo */
     align-items: center;
     position: relative;
     margin: 0 auto;
@@ -526,12 +526,12 @@ background-color: rgb(155, 155, 155);
 
     width:100%;
     /* Reduce el ancho total de la barra */
-    max-width: 90vw;
+   /* max-width: 90vw;*/
     /* Limita el ancho máximo */
     margin: 0 auto;
     /* Centra la barra en la pantalla */
     background-color: var(--color-background-card);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
     padding: 8px 10px;
   background-color: #e6e6e6;
     /* Evita que padding afecte el ancho total */
@@ -554,7 +554,7 @@ background-color: rgb(155, 155, 155);
     top: -200%;
     background: rgb(241, 241, 241);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    padding: 2px;
+    padding: 3px;
     border-radius: 5px;
     z-index: 10;
 }
