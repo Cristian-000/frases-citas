@@ -366,19 +366,21 @@ function actualizarCanvas() {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }*/
 // Limpia el canvas
+// Limpia el canvas
 ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 if (imagenFondo) {
-    // Obtén las dimensiones de la imagen
+    // Si es la primera vez, inicializa la posición para centrarla
+    if (!imagenFondoPos.initialized) {
+        imagenFondoPos.x = (canvas.width - imagenFondo.width) / 2;
+        imagenFondoPos.y = (canvas.height - imagenFondo.height) / 2;
+        imagenFondoPos.initialized = true; // Marca como inicializado
+    }
+
+    // Dibuja la imagen en su posición actual
     const imgWidth = imagenFondo.width;
     const imgHeight = imagenFondo.height;
-
-    // Calcula la posición para centrar la imagen
-    const centerX = (canvas.width - imgWidth) / 2;
-    const centerY = (canvas.height - imgHeight) / 2;
-
-    // Dibuja la imagen centrada
-    ctx.drawImage(imagenFondo, centerX, centerY, imgWidth, imgHeight);
+    ctx.drawImage(imagenFondo, imagenFondoPos.x, imagenFondoPos.y, imgWidth, imgHeight);
 } else {
     // Dibuja el fondo de color si no hay imagen
     const colorFondo = colorFondoInput.value || "#ffffff";
