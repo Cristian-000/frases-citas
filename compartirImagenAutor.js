@@ -580,7 +580,7 @@ function initCanvasTouchControls() {
 
     actualizarCanvas();
 }*/
-let isDragging = false;
+//let isDragging = false;
 let lastTouchDistance = 0;
 
 // Evento para inicio de toque
