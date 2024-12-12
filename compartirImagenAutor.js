@@ -438,7 +438,6 @@ if (imagenFondo) {
         ctx.fillText(marcaAgua, (canvas.width / 2), canvas.height - 20 );
     }
 }
-
 function initCanvasMouseControls() {
     const canvas = document.getElementById("miCanvas");
 
@@ -517,6 +516,72 @@ function initCanvasTouchControls() {
         }
     });
 }*/
+/* function initCanvasMouseControls() {
+    const canvas = document.getElementById("miCanvas");
+    const ctx = canvas.getContext("2d");
+    let isDragging = false;
+    const dragStart = { x: 0, y: 0 };
+    const imagenFondoPos = { x: 0, y: 0 };
+    let scale = 1;
+    const scaleStep = 0.1; // Incremento o decremento del zoom
+
+    canvas.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        dragStart.x = e.clientX - imagenFondoPos.x;
+        dragStart.y = e.clientY - imagenFondoPos.y;
+    });
+
+    canvas.addEventListener("mousemove", (e) => {
+        if (isDragging) {
+            imagenFondoPos.x = e.clientX - dragStart.x;
+            imagenFondoPos.y = e.clientY - dragStart.y;
+            actualizarCanvas();
+        }
+    });
+
+    canvas.addEventListener("mouseup", () => {
+        isDragging = false;
+    });
+
+    canvas.addEventListener("mouseleave", () => {
+        isDragging = false;
+    });
+
+    canvas.addEventListener("wheel", (e) => {
+        e.preventDefault();
+
+        // Calcula el nuevo factor de escala
+        const delta = Math.sign(e.deltaY);
+        const prevScale = scale;
+        scale = Math.min(Math.max(scale - delta * scaleStep, 0.5), 3); // Limita el zoom entre 0.5 y 3
+
+        // Calcula las coordenadas del mouse en el canvas antes del zoom
+        const rect = canvas.getBoundingClientRect();
+        const mouseX = (e.clientX - rect.left - imagenFondoPos.x) / prevScale;
+        const mouseY = (e.clientY - rect.top - imagenFondoPos.y) / prevScale;
+
+        // Ajusta la posición para mantener el punto del mouse fijo durante el zoom
+        imagenFondoPos.x -= (mouseX * (scale - prevScale));
+        imagenFondoPos.y -= (mouseY * (scale - prevScale));
+
+        actualizarCanvas();
+    });
+
+    function actualizarCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.save();
+        ctx.translate(imagenFondoPos.x, imagenFondoPos.y);
+        ctx.scale(scale, scale);
+
+        // Aquí se dibuja tu contenido, ajusta según lo que necesites
+        ctx.fillStyle = "lightblue";
+        ctx.fillRect(0, 0, canvas.width / scale, canvas.height / scale);
+
+        ctx.restore();
+    }
+
+    actualizarCanvas();
+}*/
 let isDragging = false;
 let lastTouchDistance = 0;
 
@@ -534,7 +599,7 @@ canvas.addEventListener("touchstart", function (e) {
         // Un dedo: iniciar movimiento
         isDragging = true;
     }
-});
+}); 
 
 // Evento para mover o redimensionar
 canvas.addEventListener("touchmove", function (e) {
