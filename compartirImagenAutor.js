@@ -464,7 +464,7 @@ function initCanvasMouseControls() {
         isDragging = false;
     });
 }
-
+/*
 function initCanvasTouchControls() {
     const canvas = document.getElementById("miCanvas");
 
@@ -516,15 +516,64 @@ function initCanvasTouchControls() {
             pinchStartDistance = 0;
         }
     });
-}
+}*/
+let isDragging = false;
+let lastTouchDistance = 0;
 
+// Evento para inicio de toque
+canvas.addEventListener("touchstart", function (e) {
+    if (e.touches.length === 2) {
+        // Dos dedos: iniciar redimensión
+        const touch1 = e.touches[0];
+        const touch2 = e.touches[1];
+        lastTouchDistance = Math.sqrt(
+            Math.pow(touch2.clientX - touch1.clientX, 2) +
+            Math.pow(touch2.clientY - touch1.clientY, 2)
+        );
+    } else if (e.touches.length === 1) {
+        // Un dedo: iniciar movimiento
+        isDragging = true;
+    }
+});
+
+// Evento para mover o redimensionar
+canvas.addEventListener("touchmove", function (e) {
+    if (e.touches.length === 2) {
+        // Dos dedos: redimensionar
+        const touch1 = e.touches[0];
+        const touch2 = e.touches[1];
+        const currentTouchDistance = Math.sqrt(
+            Math.pow(touch2.clientX - touch1.clientX, 2) +
+            Math.pow(touch2.clientY - touch1.clientY, 2)
+        );
+
+        const scaleChange = currentTouchDistance / lastTouchDistance;
+        imagenFondoPos.scale *= scaleChange;
+        lastTouchDistance = currentTouchDistance;
+
+        actualizarCanvas();
+    } else if (e.touches.length === 1 && isDragging) {
+        // Un dedo: mover
+        const touch = e.touches[0];
+        imagenFondoPos.x += touch.movementX || 0;
+        imagenFondoPos.y += touch.movementY || 0;
+
+        actualizarCanvas();
+    }
+});
+
+// Evento para finalizar toque
+canvas.addEventListener("touchend", function (e) {
+    isDragging = false;
+    lastTouchDistance = 0;
+});
 function getDistance(x1, y1, x2, y2) {
     return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     actualizarCanvas();
-    initCanvasTouchControls();
+ //   initCanvasTouchControls();
     initCanvasMouseControls();
 });
 
