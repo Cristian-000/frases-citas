@@ -351,8 +351,8 @@ function actualizarCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     if (imagenFondo) {
-        const imgWidth = imagenFondo.width * imagenFondoPos.scale;
-        const imgHeight = imagenFondo.height * imagenFondoPos.scale;
+        const imgWidth = imagenFondo.width;
+        const imgHeight = imagenFondo.height;
         ctx.drawImage(
             imagenFondo,
             imagenFondoPos.x,
@@ -406,7 +406,7 @@ function actualizarCanvas() {
         const marcaAgua = urlCompartir;
         const tamanoMarca = 14; // Tamaño de fuente fijo o ajustable
         ctx.font = `${tamanoMarca}px Arial`;
-        ctx.fillStyle = "rgba(0, 0, 0, 0.5)"; // Color semitransparente
+        ctx.fillStyle = "rgba(0, 0, 0, 0.6)"; // Color semitransparente
         ctx.textAlign = "center";
         ctx.textBaseline = "middle"; // Asegura el centrado vertical
         ctx.fillText(marcaAgua, (canvas.width / 2), canvas.height - 20 );
