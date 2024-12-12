@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -68,17 +67,13 @@
 
 
     <!-- Modal para el canvas -->
-    <div class="modal h-80" id="canvasModal" tabindex="-1" aria-labelledby="canvasModalLabel" aria-hidden="true">
+    <div class="modal h-90 w-95" id="canvasModal" tabindex="-1" aria-labelledby="canvasModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content" style="max-height: 80vh; overflow-y: auto;">
-          <div class="modal-header">
-            <h5 class="modal-title" id="canvasModalLabel">Crear Imagen</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-          </div>
+        <div class="modal-content" style="max-height: 90vh; overflow-y: auto;">
           <div class="modal-body">
             <!-- Canvas Container -->
             <div id="canvas-container">
-              <canvas id="miCanvas" class="w-90" id="miCanvas" width="500" height="650"></canvas>
+              <canvas id="miCanvas" id="miCanvas" width="500" height="650"></canvas>
 
               <!-- Opciones de personalización -->
               <div id="barra-modificadores" class="modificadores">
