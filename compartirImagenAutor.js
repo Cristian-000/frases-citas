@@ -38,8 +38,13 @@ function cargarAutor() {
         // Título del autor
         const tituloAutor = document.getElementById("titulo-autor");
         tituloAutor.innerText = `Frases de ${capitalizarIniciales(autorSeleccionado)}`;
-        tituloAutor.classList.add("text-center", "mb-4");
+        tituloAutor.classList.add("text-center", "mb-2");
 
+        const bioAutor = document.getElementById("bio-autor");
+        bioAutor.innerText = `<p class="mb-1 text-muted">${autor.biografia || "Sin biografía disponible."}</p>`;
+        bioAutor.classList.add("text-center", "mb-4");
+
+        
         // Fetch de frases
         fetch('frases.json')
             .then(response => response.json())
