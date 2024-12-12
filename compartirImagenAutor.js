@@ -243,7 +243,7 @@ function resetearCanvas() {
     imagenFondo = null;
     removeFondoCheckbox.checked = false;
     imagenFondoPos = { x: 0, y: 0, scale: 1 };
-
+imagenFondoPos.initialized = false; 
     // Resetear favoritos
     localStorage.removeItem("favoritos");
 
