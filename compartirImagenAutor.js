@@ -334,7 +334,7 @@ function ajustarTexto(ctx, texto, maxWidth, fontSize) {
 }
 
 function actualizarCanvas() {
-    const scale = window.devicePixelRatio || 1;
+    //const scale = window.devicePixelRatio || 1;
     
     const windowHeight = window.innerHeight;
     const desiredHeight = windowHeight * 0.7;
@@ -346,7 +346,6 @@ function actualizarCanvas() {
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
 
-    console.log("canvas ancho" + canvasWidth + "canvas style w" + canvas.width )
 
     // const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -373,7 +372,7 @@ function actualizarCanvas() {
     const alineacionTexto = alineacionTextoInput.value || "center";
 
     ctx.fillStyle = colorFrase;
-    ctx.font = `${tamanoFrase * scale}px ${tipoFuente}`;
+    ctx.font = `${tamanoFrase}px ${tipoFuente}`;
     ctx.textBaseline = "middle";
 
     const maxWidth = canvas.width - 40; // Margen de 50px a cada lado
