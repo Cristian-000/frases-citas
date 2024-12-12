@@ -69,7 +69,7 @@ function cargarAutor() {
                                             <i class="fas fa-image"></i>
                                         </button>
                                         <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${autorCapitalizado}');" title="Compartir">
-                                            <i class="fas fa-share-alt"></i>
+                                            <i class="fas fa-share"></i>
                                         </button>
                                         <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${urlCompartir}');" title="Copiar frase">
                                             <i class="fas fa-copy"></i>
@@ -112,16 +112,11 @@ function cargarAutor() {
 
 // Configuración del modal para que solo se cierre con el botón de cerrar
 const modalElement = document.getElementById('canvasModal');
-const modal = new bootstrap.Modal(modalElement, {
-    backdrop: 'static',  // No permite cerrar el modal al hacer clic fuera
-    keyboard: false      // No permite cerrar el modal con la tecla ESC
-});
-
 // Reiniciar contenido del modal cuando se cierre
 modalElement.addEventListener('hidden.bs.modal', function () {
     // Limpiar o reiniciar los elementos dentro del modal
     document.getElementById('miCanvas').getContext('2d').clearRect(0, 0, 400, 600);  // Limpiar canvas
-    document.getElementById('titulo-autor').innerText = '';  // Limpiar título
+    // document.getElementById('titulo-autor').innerText = '';  // Limpiar título
     // Otros elementos dentro del modal pueden ser reiniciados aquí
 });
 
@@ -190,28 +185,12 @@ function compartirFrase(frase, autor) {
 const canvas = document.getElementById('miCanvas');
 const canvasContainer = document.getElementById('canvas-container');
 
-function ajustarCanvasTamano() {
-    const canvas = document.getElementById('miCanvas');
-    const container = document.getElementById('canvas-container');
-    
-    // Ajusta el tamaño del canvas al ancho del contenedor
-    const containerWidth = container.offsetWidth;
-    const aspectRatio = 3 / 2; // Cambiar según las proporciones deseadas
 
-    canvas.width = containerWidth;
-    canvas.height = containerWidth / aspectRatio;
 
-    actualizarCanvas(); // Redibujar el contenido
-}
-// Ajustar el tamaño al cargar la página y al redimensionar
-//window.addEventListener('resize', ajustarCanvasTamano);
-window.addEventListener('resize', () => {
-    ajustarCanvasTamano();
-    actualizarCanvas();
-});
+
 // Llama a cargarAutor al cargar la página
 document.addEventListener("DOMContentLoaded", () => {
-    ajustarCanvasTamano();
+    // ajustarCanvasTamano();
     cargarAutor();
     actualizarCanvas();
     // Ocultar el canvas y controles de ajuste al inicio
@@ -228,7 +207,7 @@ let fraseSeleccionada = "";
 const colorFondoInput = document.getElementById('colorFondo');
 const colorFraseInput = document.getElementById('colorFrase');
 const tamanoFraseInput = document.getElementById('tamanoFrase');
-const posicionXInput = document.getElementById('posicionX');
+//const posicionXInput = document.getElementById('posicionX');
 const tipoFuenteInput = document.getElementById('tipoFuente');
 const alineacionTextoInput = document.getElementById('alineacionTexto');
 const posicionYInput = document.getElementById('posicionY'); // Captura el control de posición Y
@@ -239,6 +218,44 @@ colorFondoInput.addEventListener("input", function () {
 });
 const removeFondoCheckbox = document.getElementById('removeFondoCheckbox');
 
+// Función para confirmar el reseteo
+const botonReset = document.getElementById('boton-reset');
+function confirmarReseteo() {
+    if (confirm('¿Estás seguro de que deseas restablecer el canvas? Se perderán todos los cambios.')) {
+        resetearCanvas(); // La función que ya definiste anteriormente
+    }
+}
+
+function resetearCanvas() {
+    // Valores por defecto
+    fraseSeleccionada = "";
+    colorFondoInput.value = "#ffffff";
+    colorFraseInput.value = "#000000";
+    tamanoFraseInput.value = 20;
+    tipoFuenteInput.value = "Arial";
+    alineacionTextoInput.value = "center";
+    posicionYInput.value = canvas.height / 2; // Centrar verticalmente
+    imagenFondo = null;
+    removeFondoCheckbox.checked = false;
+    imagenFondoPos = { x: 0, y: 0, scale: 1 };
+
+    // Resetear favoritos
+    localStorage.removeItem("favoritos");
+
+    // Resetear elementos del DOM
+    //const listaFrases = document.getElementById("lista-frases");
+    //listaFrases.innerHTML = '';
+
+    // Resetear canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Ocultar elementos si es necesario
+     // Cerrar el modal utilizando el atributo data-bs-dismiss
+     const botonCerrarModal = document.querySelector('#btn-close'); // Ajusta el selector según tu HTML
+     botonCerrarModal.click();
+    // Volver a dibujar el canvas con los valores iniciales
+    actualizarCanvas();
+}
 tipoFuenteInput.value = "Arial"; // Tipo de fuente predeterminado
 
 // Función para establecer una frase seleccionada y mostrar el canvas
@@ -317,75 +334,84 @@ function ajustarTexto(ctx, texto, maxWidth, fontSize) {
 }
 
 function actualizarCanvas() {
-    // Limpiar el canvas
+    const scale = window.devicePixelRatio || 1;
+    
+    const windowHeight = window.innerHeight;
+    const desiredHeight = windowHeight * 0.7;
+    const canvasHeight = desiredHeight; // Alto fijo
+    const canvasWidth = canvasContainer.offsetWidth ;
+    
+    canvas.style.width = `${canvasWidth}px`;
+    canvas.style.height = `${canvasHeight}px`;
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+
+    console.log("canvas ancho" + canvasWidth + "canvas style w" + canvas.width )
+
+    // const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Dibujar el fondo
-    if (imagenFondo && !removeFondoCheckbox.checked) {
-        const scale = Math.min(canvas.width / imagenFondo.width, canvas.height / imagenFondo.height);
-        const x = (canvas.width - imagenFondo.width * scale) / 2;
-        const y = (canvas.height - imagenFondo.height * scale) / 2;
-        ctx.drawImage(imagenFondo, x, y, imagenFondo.width * scale, imagenFondo.height * scale);
+    if (imagenFondo) {
+        const imgWidth = imagenFondo.width * imagenFondoPos.scale;
+        const imgHeight = imagenFondo.height * imagenFondoPos.scale;
+        ctx.drawImage(
+            imagenFondo,
+            imagenFondoPos.x,
+            imagenFondoPos.y,
+            imgWidth,
+            imgHeight
+        );
     } else {
-        ctx.fillStyle = colorFondoInput.value || "#ffffff";
+        const colorFondo = colorFondoInput.value || "#ffffff";
+        ctx.fillStyle = colorFondo;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
-    // Configurar texto
-    const isMobile = window.innerWidth <= 768; // Detectar pantallas móviles
-    const fontSize = isMobile ? canvas.width * 0.06 : tamanoFraseInput.value || 24; // Ajustar tamaño de texto
-    const lineHeight = fontSize * 1.5;
+    const colorFrase = colorFraseInput.value || "#000000";
+    const tamanoFrase = parseInt(tamanoFraseInput.value) || 20;
+    const tipoFuente = tipoFuenteInput.value || "Arial";
+    const alineacionTexto = alineacionTextoInput.value || "center";
 
-    ctx.fillStyle = colorFraseInput.value || "#000000";
-    ctx.textAlign = alineacionTextoInput.value || "center";
+    ctx.fillStyle = colorFrase;
+    ctx.font = `${tamanoFrase * scale}px ${tipoFuente}`;
     ctx.textBaseline = "middle";
-    ctx.font = `${fontSize}px ${tipoFuenteInput.value || "Arial"}`;
 
-    // Dividir texto en líneas si es necesario
-    const maxWidth = canvas.width * (isMobile ? 0.8 : 0.9); // Reducir ancho en móviles
-    const lineas = dividirTexto(fraseSeleccionada, ctx, maxWidth);
+    const maxWidth = canvas.width - 40; // Margen de 50px a cada lado
+    const lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, tamanoFrase);
 
-    // Calcular posición inicial
-    let posicionX = posicionXInput.value ? parseInt(posicionXInput.value) : canvas.width / 2;
-    let posicionY = posicionYInput.value ? parseInt(posicionYInput.value) : canvas.height / 2;
+    const lineHeight = tamanoFrase * 1.3;
 
-    if (isMobile) {
-        posicionX = canvas.width / 2; // Centrar texto en móviles
-        posicionY = canvas.height / 3; // Ajustar un poco hacia arriba en móviles
-    }
+    posicionYInput.min = 5 + lineHeight; // Valor mínimo (ajustable según tus necesidades)
+    posicionYInput.max = (canvas.height - 70) - lineHeight; // Valor máximo, dejando un margen inferior
+    const posicionInicialY =
+        parseInt(posicionYInput.value) ||
+        canvas.height / 2 - ((lineas.length - 1) / 2) * lineHeight;
 
-    // Dibujar líneas
     lineas.forEach((linea, index) => {
-        ctx.fillText(linea, posicionX, posicionY + index * lineHeight);
-    });
-
-    // Dibujar marca de agua
-    const marcaFontSize = fontSize * 0.5;
-    ctx.font = `${marcaFontSize}px Arial`;
-    ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
-    ctx.textAlign = "right";
-    ctx.fillText(marcaDeAgua, canvas.width - 10, canvas.height - 10);
-}
-
-// Función para dividir texto en líneas
-function dividirTexto(texto, contexto, maxWidth) {
-    const palabras = texto.split(" ");
-    const lineas = [];
-    let linea = "";
-
-    palabras.forEach(palabra => {
-        const testLinea = linea + palabra + " ";
-        const testWidth = contexto.measureText(testLinea).width;
-        if (testWidth > maxWidth && linea !== "") {
-            lineas.push(linea.trim());
-            linea = palabra + " ";
+        let posicionX = canvas.width / 2; // Predeterminado para "center"
+        if (alineacionTexto === "left") {
+            ctx.textAlign = "left";
+            posicionX = (canvas.width * 0.02); // Margen izquierdo
+        } else if (alineacionTexto === "right") {
+            ctx.textAlign = "right";
+            posicionX = (canvas.width * 0.98) ; // Margen derecho
         } else {
-            linea = testLinea;
+            ctx.textAlign = "center";
         }
+
+        ctx.fillText(linea, posicionX, posicionInicialY + index * lineHeight);
     });
 
-    if (linea) lineas.push(linea.trim());
-    return lineas;
+    if (marcaDeAgua) {
+        // Dibujar marca de agua centrada
+        const marcaAgua = urlCompartir;
+        const tamanoMarca = 14; // Tamaño de fuente fijo o ajustable
+        ctx.font = `${tamanoMarca}px Arial`;
+        ctx.fillStyle = "rgba(0, 0, 0, 0.5)"; // Color semitransparente
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle"; // Asegura el centrado vertical
+        ctx.fillText(marcaAgua, (canvas.width / 2), canvas.height - 20 );
+    }
 }
 
 function initCanvasMouseControls() {
@@ -546,3 +572,6 @@ document.querySelectorAll('#barra-modificadores label').forEach(label => {
         });
     }
 });
+
+// Ajustar el tamaño al cargar la página y al redimensionar
+window.addEventListener('resize', actualizarCanvas);
