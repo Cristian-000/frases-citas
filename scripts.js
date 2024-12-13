@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
         promises.push(cargarCategorias());
         promises.push(cargarFraseDelDia());
         configurarBarraBusqueda();
+        //configurarBarraBusquedaCats()
     }
     if (document.getElementById("titulo-categoria")) {
         promises.push(cargarFrasesPorCategoria());
@@ -12,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (document.getElementById("titulo-autor")) {
         promises.push(cargarAutor());
     }
-
+    configurarBarraBusquedaCats()
     // Esperar a que todas las promesas se resuelvan
     Promise.all(promises)
         .then(() => console.log("Carga completada"))
@@ -210,7 +211,13 @@ function configurarBarraBusqueda() {
 
                     const favoritos = JSON.parse(localStorage.getItem("favoritos")) || []; // Cargar favoritos
 
-                    frasesEncontradas.forEach(fraseObj => {
+                    
+                    if (frasesEncontradas.length === 0) {
+                        const noResultados = document.createElement("li");
+                        noResultados.classList.add("list-group-item", "text-center", "text-muted");
+                        noResultados.textContent = "No se encontraron coincidencias";
+                        resultadosBusqueda.appendChild(noResultados);
+                      } else {frasesEncontradas.forEach(fraseObj => {
                         const autorCapitalizado = capitalizarIniciales(fraseObj.autor_url);
 
                         // Verificar si la frase está en los favoritos
@@ -252,19 +259,183 @@ function configurarBarraBusqueda() {
                         li.querySelector(".heart-button").addEventListener("click", (e) => {
                             toggleFavorito(fraseObj, e.currentTarget.querySelector("i"));
                         });
-                    });
+                    })}
+
                 })
                 .catch(error => console.error("Error al cargar frases para búsqueda:", error));
         }
     });
 }
 
+function configurarBarraBusquedaCats() {
+    const listaFrases = document.getElementById("lista-frases-cat");
+    const barraBusquedaCat = document.getElementById("barra-busqueda-cat");
+    const resultadosBusquedaCat = document.getElementById("resultados-busqueda-cat");
+  
+    barraBusquedaCat.addEventListener("input", () => {
+      const query = barraBusquedaCat.value.toLowerCase();
+      resultadosBusquedaCat.innerHTML = "";
+  
+      if (query.trim() === ""){
+        listaFrases.style.display= "block"
+        resultadosBusquedaCat.style.display= "none" 
+      }else{
+         listaFrases.style.display= "none"
+          fetch('frases.json')
+          .then(response => response.json())
+          .then(data => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const selectedCategory = urlParams.get('categoria'); // Get category from URL
+  
+            const frasesEncontradas = data.frases.filter(fraseObj => {
+              const matchesQuery = fraseObj.frase.toLowerCase().includes(query) ||
+                fraseObj.autor_url.toLowerCase().includes(query) ||
+                fraseObj.categorias.some(categoria => categoria.toLowerCase().includes(query));
+  
+              // Filter by category only if a category is selected in the URL
+              return matchesQuery && (!selectedCategory || fraseObj.categorias.includes(selectedCategory));
+            });
+  
+            const favoritos = JSON.parse(localStorage.getItem("favoritos")) || []; // Cargar favoritos
+  
+            frasesEncontradas.forEach(fraseObj => {
+                const autorCapitalizado = capitalizarIniciales(fraseObj.autor_url);
+                console.log(autorCapitalizado)
+                // Verificar si la frase está en los favoritos
+                const isFavorito = favoritos.some(fav => fav.frase === fraseObj.frase);
 
-/*
-<button class="btn btn-sm btn-outline-secondary border-0" onclick="setFraseParaCompartir('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}'); actualizarCanvas();" title="Crear Imagen">
-                                            <i class="fas fa-image"></i>
-                                        </button>
-*/
+                const li = document.createElement("li");
+                li.className = "d-flex justify-content-between align-items-center";
+
+                li.innerHTML = `
+                <div class="w-100 frase-content frase-content-search-cat">
+                    <p class="mb-1"><strong>${fraseObj.frase}</strong></p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <small><a href="autor.html?autor=${fraseObj.autor_url}" class="autor-link">${autorCapitalizado}</a></small>
+                            ${fraseObj.categorias.map(categoria => {
+                    // Aplicar la función obtenerClaseColor para obtener el color adecuado
+                    const claseColor = obtenerClaseColor(categoria);
+                    return `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge ${claseColor} ml-2">${categoria}</a>`;
+                }).join(' ')}
+                        </div>
+                        <div class="button-group d-flex align-items-center mr-1">
+                            <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');" title="Compartir">
+                                <i class="fas fa-share-alt"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${urlCompartir}');" title="Copiar frase">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                            <button class="btn btn-link heart-button ml-2" data-frase="${encodeURIComponent(fraseObj.frase)}">
+                                <i class="${isFavorito ? 'fas' : 'far'} fa-heart text-danger"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+                resultadosBusquedaCat.appendChild(li);
+
+                // Asignar el evento de clic al botón de favoritos
+                li.querySelector(".heart-button").addEventListener("click", (e) => {
+                    toggleFavorito(fraseObj, e.currentTarget.querySelector("i"));
+                });
+            });
+          })
+          .catch(error => console.error("Error al cargar frases para búsqueda:", error));
+      }
+    });
+}
+
+function configurarBarraBusquedaCats() {
+    const listaFrases = document.getElementById("lista-frases-cat");
+    const barraBusquedaCat = document.getElementById("barra-busqueda-cat");
+    const resultadosBusquedaCat = document.getElementById("resultados-busqueda-cat");
+  
+    barraBusquedaCat.addEventListener("input", () => {
+      const query = barraBusquedaCat.value.toLowerCase();
+      resultadosBusquedaCat.innerHTML = "";
+  
+      if (query.trim() === "") {
+        // Show main list, hide search results
+        listaFrases.style.display = "block";
+        resultadosBusquedaCat.style.display = "none";
+      } else {
+        // Hide main list, show search results
+        listaFrases.style.display = "none";
+        resultadosBusquedaCat.style.display = "block";
+        fetch('frases.json')
+          .then(response => response.json())
+          .then(data => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const selectedCategory = urlParams.get('categoria'); // Get category from URL
+  
+            const frasesEncontradas = data.frases.filter(fraseObj => {
+              const matchesQuery = fraseObj.frase.toLowerCase().includes(query) ||
+                fraseObj.autor_url.toLowerCase().includes(query) ||
+                fraseObj.categorias.some(categoria => categoria.toLowerCase().includes(query));
+  
+              // Filter by category only if a category is selected in the URL
+              return matchesQuery && (!selectedCategory || fraseObj.categorias.includes(selectedCategory));
+            });
+  
+            const favoritos = JSON.parse(localStorage.getItem("favoritos")) || []; // Cargar favoritos
+  
+            if (frasesEncontradas.length === 0) {
+              const noResultados = document.createElement("li");
+              noResultados.classList.add("list-group-item", "text-center", "text-muted");
+              noResultados.textContent = "No se encontraron coincidencias";
+              resultadosBusquedaCat.appendChild(noResultados);
+            } else {
+                frasesEncontradas.forEach(fraseObj => {
+                    const autorCapitalizado = capitalizarIniciales(fraseObj.autor_url);
+                
+                    // Verificar si la frase está en los favoritos
+                    const isFavorito = favoritos.some(fav => fav.frase === fraseObj.frase);
+    
+                    const li = document.createElement("li");
+                    li.className = "d-flex justify-content-between align-items-center";
+    
+                    li.innerHTML = `
+                    <div class="w-100 frase-content frase-content-search-cat">
+                        <p class="mb-1"><strong>${fraseObj.frase}</strong></p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <small><a href="autor.html?autor=${fraseObj.autor_url}" class="autor-link">${autorCapitalizado}</a></small>
+                                ${fraseObj.categorias.map(categoria => {
+                        // Aplicar la función obtenerClaseColor para obtener el color adecuado
+                        const claseColor = obtenerClaseColor(categoria);
+                        return `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge ${claseColor} ml-2">${categoria}</a>`;
+                    }).join(' ')}
+                            </div>
+                            <div class="button-group d-flex align-items-center mr-1">
+                                <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');" title="Compartir">
+                                    <i class="fas fa-share-alt"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${urlCompartir}');" title="Copiar frase">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                                <button class="btn btn-link heart-button ml-2" data-frase="${encodeURIComponent(fraseObj.frase)}">
+                                    <i class="${isFavorito ? 'fas' : 'far'} fa-heart text-danger"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+    
+                    resultadosBusquedaCat.appendChild(li);
+    
+                    // Asignar el evento de clic al botón de favoritos
+                    li.querySelector(".heart-button").addEventListener("click", (e) => {
+                        toggleFavorito(fraseObj, e.currentTarget.querySelector("i"));
+                    });
+                });
+            }
+          })
+          .catch(error => console.error("Error al cargar frases para búsqueda:", error));
+      }
+    });
+  }
 
 function cargarFrasesPorCategoria() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -276,7 +447,7 @@ function cargarFrasesPorCategoria() {
     fetch('frases.json')
         .then(response => response.json())
         .then(data => {
-            const listaFrases = document.getElementById("lista-frases");
+            const listaFrases = document.getElementById("lista-frases-cat");
             listaFrases.innerHTML = '';
 
 

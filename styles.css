@@ -25,13 +25,35 @@
     /* Sombra ligera: negro con opacidad del 10% */
     --color-dark-shadow: rgba(0, 0, 0, 0.2);
     /* Sombra oscura: negro con opacidad del 20% */
+    --color-fondo-celeste: #d8f1ff;
 }
 html {
     scroll-behavior: smooth;
 }
+.top-screen {
+
+    position: fixed; /* Makes the element fixed relative to the viewport */
+    top: 0; /* Sticks it to the top */
+    left: 0; /* Sticks it to the left */
+    width: 100%; /* Ensures it spans the entire width */
+    background-color: white; /* Or whatever background you have */
+    z-index: 100; /* Ensure it's above other content */
+    padding: 20px; /* Add some padding so content doesn't touch the edges */
+    padding-top: 10vh;
+    box-sizing: border-box; /* Include padding in width calculation */
+    max-height: 30vh;; /* Add any other styles you want for the top section */
+}
+
+.bottom-screen {
+    margin-top: 25vh;
+   /* Adjust this value to be equal to the height of .top-screen + any margin/padding */
+    padding-bottom: 20px; /* Add padding to the bottom if needed */
+    box-sizing: border-box;
+    width: 100%;
+}
+
 #h1-frasedia{
     font-size: 1.1rem;
-    align-items: left;
     text-align: left;
 }
 /* Contenedor general */
@@ -40,10 +62,26 @@ html {
   }
   
   /* Campo de entrada con espacio para el ícono */
-  #barra-busqueda {
+  #barra-busqueda, #barra-busqueda-cat, #barra-busqueda-cats, #barra-busqueda-autores{
     padding-left: 40px; /* Espacio para el ícono */
   }
   
+  .frase-content {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    border: 1px solid #ccc;
+    /* Borde fino en gris claro */
+    border-radius: 8px;
+    /* Bordes redondeados */
+    background-color: white;
+    /* Fondo blanco */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    /* Sombra sutil */
+    margin-bottom: 5px;
+    /* Espacio entre tarjetas */
+}
+
   /* Ícono de búsqueda */
   .form-group::before {
     content: "\f002"; /* Código Unicode de la lupa de Font Awesome */
@@ -203,28 +241,36 @@ background-color: rgb(155, 155, 155);
     /* Ajusta según tus necesidades */
     overflow-y: auto;
     /* border: 1px solid var(--color-light-shadow); /* Añade un borde para separar visualmente */
-    padding: 4px;
+   
     /*   border-radius: 5px; /* Bordes redondeados */
+    max-width: 100%;
+    width: 100%;
+}
+.scrollable-container-cat {
+    max-height: 80vh;
+    /* Ajusta según tus necesidades */
+    overflow-y: auto;
+    /* border: 1px solid var(--color-light-shadow); /* Añade un borde para separar visualmente */
+   
+    /*   border-radius: 5px; /* Bordes redondeados */
+    max-width: 100%;
+    width: 100%;
 }
 
 /* Opcional: Estilo para la barra de desplazamiento */
-.scrollable-container::-webkit-scrollbar {
-    width: 6px;
+.scrollable-container::-webkit-scrollbar,.scrollable-container-cat::-webkit-scrollbar {
+    width: 8px;
 }
 
-.scrollable-container::-webkit-scrollbar-thumb {
-    background-color: var(--color-light-shadow);
+.scrollable-container::-webkit-scrollbar-thumb, .scrollable-container-cat::-webkit-scrollbar-thumb {
+    background-color: var(--color-dark-shadow);
     border-radius: 5px;
 }
-
-.scrollable-container::-webkit-scrollbar-thumb:hover {
-    background-color: var(--color-texto);
-}
-
 
 
 /* Estilos para el Navbar */
 .navbar {
+    z-index: 1000;
     background-color: var(--color-fondo); /* Fondo del navbar */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
     padding: 0.4rem 1rem; /* Relleno para un navbar más espacioso */
@@ -271,7 +317,8 @@ background-color: rgb(155, 155, 155);
 
 
 .frase-dia {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+  
 }
 
 
@@ -577,21 +624,6 @@ background-color: rgb(155, 155, 155);
 }
 
 
-.frase-content {
-    display: flex;
-    flex-direction: column;
-    padding: 8px;
-    border: 1px solid #ccc;
-    /* Borde fino en gris claro */
-    border-radius: 8px;
-    /* Bordes redondeados */
-    background-color: #fff;
-    /* Fondo blanco */
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    /* Sombra sutil */
-    margin-bottom: 5px;
-    /* Espacio entre tarjetas */
-}
 
 .badges {
     display: flex;

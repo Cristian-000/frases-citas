@@ -27,91 +27,101 @@ function obtenerClaseColor(categoria) {
 }
 const favoritos = JSON.parse(localStorage.getItem("favoritos")) || []; // Cargar favoritos
 
-// Función para inicializar el modal
+
 function cargarAutor() {
     return new Promise((resolve, reject) => {
         const urlParams = new URLSearchParams(window.location.search);
         const autorSeleccionado = urlParams.get("autor");
 
-        if (!autorSeleccionado) return resolve(); // Si no hay autor, resuelve inmediatamente
+        if (!autorSeleccionado) return resolve();
 
-        // Título del autor
-        const tituloAutor = document.getElementById("titulo-autor");
-        tituloAutor.innerText = `Frases de ${capitalizarIniciales(autorSeleccionado)}`;
-        tituloAutor.classList.add("text-center", "mb-2");
-// falla porque no se hace fetch a autores.json
-        //const bioAutor = document.getElementById("bio-autor");
-//bioAutor.innerText = `<p class="mb-1 text-muted">${autor.biografia || "Sin biografía disponible."}</p>`;
-       // bioAutor.classList.add("text-center", "mb-4");
-        // Fetch de frases
-        fetch('frases.json')
-            .then(response => response.json())
-            .then(data => {
+        Promise.all([fetch('frases.json'), fetch('autores.json')])
+            .then(responses => Promise.all(responses.map(response => response.json())))
+            .then(([frasesData, autoresData]) => {
+                const tituloAutor = document.getElementById("titulo-autor");
+                const bioAutor = document.getElementById("bio-autor"); // Obtener el elemento de la biografía
                 const listaFrases = document.getElementById("lista-frases");
-                listaFrases.innerHTML = ''; // Limpiar lista de frases
+                listaFrases.innerHTML = '';
 
-                data.frases.forEach(fraseObj => {
-                    if (fraseObj.autor_url === autorSeleccionado) {
-                        const isFavorito = favoritos.some(fav => fav.frase === fraseObj.frase);
-                        const autorCapitalizado = capitalizarIniciales(fraseObj.autor_url);
-                        const li = document.createElement("li");
-                        li.className = "w-100 list-unstyled mb-1";
-                        li.innerHTML = `
-                            <div class="w-100 frase-content">
-                                <p class="mb-1"><strong>${fraseObj.frase}</strong></p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        ${fraseObj.categorias.map(categoria => {
-                            const claseColor = obtenerClaseColor(categoria);
-                            return `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge ${claseColor} ml-2">${categoria}</a>`;
-                        }).join(' ')}
-                                    </div>
-                                    <div class="button-group d-flex align-items-center mr-1">
-                                        <button class="btn btn-sm btn-outline-secondary border-0" onclick="setFraseParaCompartir('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}'); actualizarCanvas();" 
-                                                data-bs-toggle="modal" data-bs-target="#canvasModal" title="Crear Imagen">
-                                            <i class="fas fa-image"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${autorCapitalizado}');" title="Compartir">
-                                            <i class="fas fa-share"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${urlCompartir}');" title="Copiar frase">
-                                            <i class="fas fa-copy"></i>
-                                        </button>
-                                        <button class="btn btn-link heart-button ml-2" data-frase="${encodeURIComponent(fraseObj.frase)}">
-                                            <i class="${isFavorito ? 'fas' : 'far'} fa-heart text-danger"></i>
-                                        </button>
+                // Buscar la información del autor
+                const autor = autoresData.autores.find(a => a.autor_url === autorSeleccionado);
+
+                if (autor) { //Si se encuentra al autor
+                    tituloAutor.innerText = `Frases de ${autor.nombre}`;
+                    tituloAutor.classList.add("text-center", "mb-2");
+
+                    if (bioAutor) {
+                        bioAutor.innerHTML = `<p class="mb-4 text-center text-muted">${autor.biografia || "Sin biografía disponible."}</p>`;
+                       
+                    }
+                    
+                    frasesData.frases.forEach(fraseObj => {
+                        if (fraseObj.autor_url === autorSeleccionado) {
+                            const isFavorito = favoritos.some(fav => fav.frase === fraseObj.frase);
+                            const autorCapitalizado = capitalizarIniciales(fraseObj.autor_url);
+                            const li = document.createElement("li");
+                            li.className = "w-100 list-unstyled mb-1";
+                            li.innerHTML = `
+                                <div class="w-100 frase-content">
+                                    <p class="mb-1"><strong>${fraseObj.frase}</strong></p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            ${fraseObj.categorias.map(categoria => {
+                                                const claseColor = obtenerClaseColor(categoria);
+                                                return `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge ${claseColor} ml-2">${categoria}</a>`;
+                                            }).join(' ')}
+                                        </div>
+                                        <div class="button-group d-flex align-items-center mr-1">
+                                            <button class="btn btn-sm btn-outline-secondary border-0" onclick="setFraseParaCompartir('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}'); actualizarCanvas();" data-bs-toggle="modal" data-bs-target="#canvasModal" title="Crear Imagen">
+                                                <i class="fas fa-image"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${autorCapitalizado}');" title="Compartir">
+                                                <i class="fas fa-share"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${urlCompartir}');" title="Copiar frase">
+                                                <i class="fas fa-copy"></i>
+                                            </button>
+                                            <button class="btn btn-link heart-button ml-2" data-frase="${encodeURIComponent(fraseObj.frase)}">
+                                                <i class="${isFavorito ? 'fas' : 'far'} fa-heart text-danger"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        `;
+                            `;
 
-                        // Asignar el evento click para hacer toggle
-                        const heartButton = li.querySelector('.heart-button');
-                        const icon = heartButton.querySelector('i');
-                        heartButton.addEventListener('click', () => toggleFavorito(fraseObj, icon));
-
-                        listaFrases.appendChild(li);
-                    }
-                });
-
-                // Reactivar el modal para los nuevos botones (si no se hace esto, los botones dinámicos no abrirán el modal)
-                const modales = document.querySelectorAll('[data-bs-toggle="modal"]');
-                modales.forEach(button => {
-                    const modalTarget = document.getElementById(button.getAttribute('data-bs-target').substring(1)); // Obtener el ID del modal
-                    button.addEventListener('click', function () {
-                        const modal = new bootstrap.Modal(modalTarget);
-                        modal.show();
+                            const heartButton = li.querySelector('.heart-button');
+                            const icon = heartButton.querySelector('i');
+                            heartButton.addEventListener('click', () => toggleFavorito(fraseObj, icon));
+                            listaFrases.appendChild(li);
+                        }
                     });
-                });
 
+                    const modales = document.querySelectorAll('[data-bs-toggle="modal"]');
+                    modales.forEach(button => {
+                        const modalTarget = document.getElementById(button.getAttribute('data-bs-target').substring(1));
+                        button.addEventListener('click', function () {
+                            const modal = new bootstrap.Modal(modalTarget);
+                            modal.show();
+                        });
+                    });
+                }else{
+                    tituloAutor.innerText = "Autor no encontrado";
+                    tituloAutor.classList.add("text-center", "mb-2");
+                    if (bioAutor) {
+                        bioAutor.innerHTML = `<p class="mb-4 text-center text-muted">El autor no existe en nuestra base de datos</p>`;
+                       
+                    }
+
+                }
                 resolve();
             })
             .catch(error => {
-                console.error("Error al cargar frases del autor:", error);
+                console.error("Error al cargar datos:", error);
                 reject(error);
             });
     });
 }
+
 
 // Configuración del modal para que solo se cierre con el botón de cerrar
 const modalElement = document.getElementById('canvasModal');

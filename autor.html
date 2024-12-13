@@ -32,7 +32,7 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <a class="navbar-brand" href="#">Autor</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,13 +60,14 @@
   </nav>
   <div class="background"></div>
   <div class="container py-3">
-
-    <h1 id="titulo-autor">Frases del Autor</h1>
-    <p id="bio-autor" class="text-muted"></p>
-    <ul id="lista-frases" class="list-group list-group-flush"></ul>
-
-
-
+    <section class="top-screen>">
+      <h2 id="titulo-autor" style="padding-top: 70px;" >Frases del Autor</h2>
+      <p id="bio-autor" class="text-muted"></p> 
+    </section> 
+    <section style="padding-top: 40px;" >
+      <ul id="lista-frases" class="list-group list-group-flush"></ul>
+    </section>
+    
     <!-- Modal para el canvas -->
     <div class="modal h-95 w-95" id="canvasModal" tabindex="-1" aria-labelledby="canvasModalLabel" aria-hidden="true" style="margin-top: 0;">
       <div class="modal-dialog modal-dialog-centered">
