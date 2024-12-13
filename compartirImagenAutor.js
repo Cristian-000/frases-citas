@@ -402,7 +402,6 @@ function actualizarCanvas() {
         ctx.fillStyle = colorFondo;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
-    console.log("1 " + ctx.font)
 
     const colorFrase = colorFraseInput.value || "#000000";
     const tamanoFrase = parseInt(tamanoFraseInput.value) || 20;
@@ -418,7 +417,6 @@ function actualizarCanvas() {
     // Concatenar con los demás valores
     ctx.font = `${fontStyle} ${fontWeight} ${tamanoFrase}px ${tipoFuente}`;
     
-    console.log("ctx.font configurado como: ", ctx.font);
     ctx.fillStyle = colorFrase;
   
     ctx.textBaseline = "middle";
@@ -476,7 +474,7 @@ function actualizarCanvas() {
         ctx.textBaseline = "middle"; // Asegura el centrado vertical
         ctx.fillText(marcaAgua, (canvas.width / 2), canvas.height - 20);
     }
-    console.log("8 " + ctx.font)
+ 
 }
 function initCanvasMouseControls() {
     const canvas = document.getElementById("miCanvas");
