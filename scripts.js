@@ -110,6 +110,7 @@ function cargarFraseDelDia() {
 
         // Mostrar frase guardada
         document.getElementById("frase-del-dia").innerHTML = `
+        <h1 id="h1-frasedia" class="mb-0" aria-label="Frase del día">Frase del día</h1>
             <p class="frase-dia"><strong>${storedFrase.frase}</strong></p>
             <div>
                 <small><a href="autor.html?autor=${storedFrase.autor_url}" class="autor-link">${autorCapitalizado}</a></small>
