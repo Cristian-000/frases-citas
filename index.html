@@ -4,88 +4,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Meta Tags SEO -->
-    <meta name="description" content="Descubre y comparte las mejores frases célebres de diferentes categorías, incluyendo amor, motivación, amistad y más. Encuentra frases para expresar tus emociones y pensamientos.">
-    <meta name="keywords" content="frases célebres, compartir frases, frases de amor, frases de motivación, frases de amistad, frases divertidas, frases inspiradoras, frases para compartir">
+
+    <title>Frases Célebres - Comparte y Encuentra Inspiración</title>
+    <meta name="description" content="Descubre y comparte las mejores frases célebres de amor, motivación, amistad y más. Encuentra inspiración para cada momento.">
+    <meta name="keywords" content="frases célebres, frases de amor, frases de motivación, frases de amistad, frases inspiradoras, citas, refranes">
     <meta name="author" content="Cristian Fernández">
     <meta name="robots" content="index, follow">
-    <meta property="og:title" content="Frases Célebres - Comparte y Encuentra Frases Inspiradoras">
+
+    <meta property="og:title" content="Frases Célebres - Comparte y Encuentra Inspiración">
     <meta property="og:description" content="Encuentra y comparte frases célebres sobre amor, motivación, amistad y más. Perfectas para cualquier ocasión.">
- <!--    <meta property="og:image" content="URL_DE_LA_IMAGEN_DE_PREVISUALIZACION"> -->
-    <!-- <meta property="og:url" content="URL_DE_TU_PAGINA"> -->
-    <meta name="twitter:title" content="Frases Célebres - Comparte y Encuentra Frases Inspiradoras">
+    <meta property="og:image" content="URL_DE_LA_IMAGEN_DE_PREVISUALIZACION"> <meta property="og:url" content="URL_DE_TU_PAGINA"> <meta property="og:type" content="website">
+
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Frases Célebres - Comparte y Encuentra Inspiración">
     <meta name="twitter:description" content="Descubre las mejores frases célebres y compártelas en tus redes sociales. Encuentra frases para cualquier emoción.">
- <!--    <meta name="twitter:image" content="URL_DE_LA_IMAGEN_DE_PREVISUALIZACION"> -->
-  <!--   <meta name="twitter:card" content="summary_large_image"> -->
+    <meta name="twitter:image" content="URL_DE_LA_IMAGEN_DE_PREVISUALIZACION">
 
-    <title>Frases Célebres</title>
-
-    <!-- Link to external CSS and JS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <!-- Favicon -->
-  <!--  <link rel="icon" href="favicon.ico" type="image/x-icon"> -->
+    <link rel="stylesheet" href="styles.css">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" defer></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" defer></script>
+    <script src="scripts.js" defer></script>
+    <script src="cargarAutoresIndex.js" defer></script>
+    <script src="mostrarEmociones.js" defer></script>
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 
 <body>
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="index.html" aria-label="Ir a la página de inicio">Frases Célebres</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <a class="navbar-brand" href="index.html">Frases Célebres</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Mostrar opciones de navegación">
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="categorias.html" aria-label="Ir a la página de categorías">Categorías</a>
+                    <a class="nav-link" href="categorias.html">Categorías</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="autores.html" aria-label="Ir a la página de autores">Autores</a>
+                    <a class="nav-link" href="autores.html">Autores</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="dichos.html" aria-label="Ir a la página de dichos">Dichos</a>
+                    <a class="nav-link" href="dichos.html">Dichos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="favoritos.html" aria-label="Ir a la página de favoritos">Favoritos</a>
+                    <a class="nav-link" href="favoritos.html">Favoritos</a>
                 </li>
             </ul>
         </div>
-        
-     
     </nav>
 
     <div class="background"></div>
 
-    <div class="container py-3">
-        <div id="frase-del-dia" class="alert alert-info mt-0" aria-live="polite">
-            <!-- La frase del día se mostrará aquí -->
-        </div>
+    <div class="container" style="margin-top: 10vh;">
+        <div id="frase-del-dia" class="alert alert-info mt-5">
+            </div>
 
         <section>
             <div class="texto-emocion">
-                <h2 aria-label="Comparte tus sentimientos">Comparte tus sentimientos</h2>
+                <h3>Comparte tus sentimientos</h3>
                 <p class="text-muted">Te recomendaremos frases según tu sentimiento para que puedas compartirlo.</p>
             </div>
 
             <div class="contenedor-emociones">
-                <!-- Botones de emociones -->
-                <div class="emocion tristeza" data-emocion="Tristeza" aria-label="Emoción tristeza">
+                <div class="emocion tristeza" data-emocion="Tristeza">
                     <i class="fas fa-sad-tear"></i>
                 </div>
-                <div class="emocion melancolia" data-emocion="Melancolía" aria-label="Emoción melancolía">
+                <div class="emocion melancolia" data-emocion="Melancolía">
                     <i class="fas fa-frown"></i>
                 </div>
-                <div class="emocion esperanza" data-emocion="Esperanza" aria-label="Emoción esperanza">
+                <div class="emocion esperanza" data-emocion="Esperanza">
                     <i class="fas fa-meh"></i>
                 </div>
-                <div class="emocion felicidad" data-emocion="Felicidad" aria-label="Emoción felicidad">
+                <div class="emocion felicidad" data-emocion="Felicidad">
                     <i class="fas fa-smile-beam"></i>
                 </div>
             </div>
@@ -94,43 +91,38 @@
         <hr>
 
         <section>
-            <h2 class="mb-1" aria-label="Categorías de frases">Categorías de Frases</h2>
+            <h3>Categorías de Frases</h3>
             <div class="holiday-buttons mb-4">
-                <a href="/frases-citas/categoria.html?categoria=Navidad" class="btn-holiday navidad" aria-label="Ver frases de Navidad">
+                <a href="/frases-citas/categoria.html?categoria=Navidad" class="btn-holiday navidad">
                     <span><i class="fas fa-tree"></i> Navidad</span>
                 </a>
-                <a href="/frases-citas/categoria.html?categoria=Año%20Nuevo" class="btn-holiday ano-nuevo" aria-label="Ver frases de Año Nuevo">
+                <a href="/frases-citas/categoria.html?categoria=Año%20Nuevo" class="btn-holiday ano-nuevo">
                     <span><i class="fas fa-glass-cheers"></i> Año Nuevo</span>
                 </a>
             </div>
-            <section>
-                <div class="form-group">
-                    <input type="text" id="barra-busqueda" class="form-control" placeholder="Buscar por frase, categoría o autor"
-                        aria-label="Campo de búsqueda">
-                   
-                </div>
-                <div class="scrollable-container">
-                    <div id="resultados-busqueda" class="list-group list-group-flush mb-2"></div>
-                </div>
-            </section>
+
+        <section>
+           <div class="form-group">
+                <input type="text" id="barra-busqueda" class="form-control" placeholder="Buscar por frase, categoría o autor">
+           </div>
+        <div class="scrollable-container">
+            <div id="resultados-busqueda" class="list-group list-group-flush mb-2"></div>
+        </div>
+        </section>
+
             <div class="scrollable-container">
                 <ul id="categorias" class="list-group list-group-flush"></ul>
             </div>
         </section>
 
         <section id="seccion-autores" class="mt-4">
-            <h2 aria-label="Autores destacados">Autores Destacados</h2>
+            <h3>Autores Destacados</h3>
             <div class="scrollable-container">
                 <ul id="lista-autores" class="list-group list-group-flush">
-                    <!-- Aquí se llenarán los autores -->
-                </ul>
+                    </ul>
             </div>
         </section>
-
-
-    <script src="scripts.js" defer></script>
-    <script src="cargarAutoresIndex.js" defer></script>
-    <script src="mostrarEmociones.js" defer></script>
+    </div>
 </body>
 
 </html>

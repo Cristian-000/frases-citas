@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -59,20 +60,22 @@
     </div>
   </nav>
   <div class="background"></div>
-  <div class="container py-3">
-    <section class="top-screen>">
-      <h2 id="titulo-autor" style="padding-top: 70px;" >Frases del Autor</h2>
-      <p id="bio-autor" class="text-muted"></p> 
-    </section> 
-    <section class="bottom-screen" >
+
+  <section class="top-screen">
+    <h2 id="titulo-autor">Frases del Autor</h2>
+    <p id="bio-autor" class="text-muted"></p>
+  </section>
+  <div class="container mt-3">
+    <section class="bottom-screen">
       <div class="scrollable-container-cat">
         <ul id="lista-frases" class="list-group list-group-flush"></ul>
       </div>
-  
+
     </section>
-    
+
     <!-- Modal para el canvas -->
-    <div class="modal h-95 w-95" id="canvasModal" tabindex="-1" aria-labelledby="canvasModalLabel" aria-hidden="true" style="margin-top: 0;">
+    <div class="modal h-95 w-95" id="canvasModal" tabindex="-1" aria-labelledby="canvasModalLabel" aria-hidden="true"
+      style="margin-top: 0;">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content" style="max-height: 95vh; overflow-y: auto;">
           <div class="modal-body">
@@ -107,26 +110,26 @@
                   <i class="fas fa-font"></i>
                   <select id="tipoFuente">
                     <option value="Arial">Arial</option>
-                    <option value="Impact">Impact</option> 
+                    <option value="Impact">Impact</option>
                     <option value="Verdana">Verdana</option>
                     <option value="Georgia">Georgia</option>
-                    <option value="Courier New">Courier New</option>                
+                    <option value="Courier New">Courier New</option>
                     <option value="Times New Roman">Times New Roman</option>
                   </select>
                 </label>
                 <label for="estiloFuente">
-                  <i class="fas fa-italic"></i> 
+                  <i class="fas fa-italic"></i>
                   <select id="estiloFuente">
-                      <option value="normal">Normal</option>
-                      <option value="italic">Itálica</option>
-                      <option value="bold">Negrita</option>
-                      <option value="bold italic">Negrita Itálica</option>
-                      <option value="underline">Subrayado</option>
-                      <option value="bold underline">Negrita Subrayado</option>
-                      <option value="italic underline">Itálica Subrayado</option>
-                      <option value="bold italic underline">Negrita Itálica Subrayado</option>
+                    <option value="normal">Normal</option>
+                    <option value="italic">Itálica</option>
+                    <option value="bold">Negrita</option>
+                    <option value="bold italic">Negrita Itálica</option>
+                    <option value="underline">Subrayado</option>
+                    <option value="bold underline">Negrita Subrayado</option>
+                    <option value="italic underline">Itálica Subrayado</option>
+                    <option value="bold italic underline">Negrita Itálica Subrayado</option>
                   </select>
-              </label>
+                </label>
                 <label for="colorFondo">
                   <i class="fas fa-fill-drip"></i>
                   <input type="color" id="colorFondo" value="#ffffff" />

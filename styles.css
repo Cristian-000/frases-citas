@@ -27,54 +27,67 @@
     /* Sombra oscura: negro con opacidad del 20% */
     --color-fondo-celeste: #d8f1ff;
 }
+
 html {
     scroll-behavior: smooth;
 }
-.top-screen {
 
+.top-screen {
     position: sticky;
     top: 0;
-    width: 100%;
-    background-color: var(--color-fondo); /* Asegúrate de tener un color de fondo */
+    background-color: var(--color-fondo);
     z-index: 100;
-    padding-top: 10vh; /* Padding para contenido interno */
-     /* Incluye el padding en el alto */
-    display: flex; /* Usar flexbox para centrar verticalmente el contenido */
-    flex-direction: column; /* Alinear elementos verticalmente */
-    /* Centrar horizontalmente *//* Add any other styles you want for the top section */
+    padding-top: 11vh;
+    padding-left: 12px;
+    padding-right: 12px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
 }
-
-
 
 .bottom-screen {
+
     width: 100%;
     /* Espacio entre top-screen y bottom-screen */
- 
 }
-.container{
-    max-width: 800px;
-    background-color: var(--color-fondo);
-}
+/* General */
+body {
+    padding: 0;
+    margin: 0;
+    font-family: Arial, sans-serif, impact, Verdana, Georgia, Tahoma, 'Courier New', Courier, monospace, 'Times New Roman', Times, serif Roman;
 
-#h1-frasedia{
+}
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+#h1-frasedia {
     font-size: 1.1rem;
     text-align: left;
 }
+
 /* Contenedor general */
 .form-group {
     position: relative;
-  }
-  
-  /* Campo de entrada con espacio para el ícono */
-  #barra-busqueda, #barra-busqueda-cat, #barra-busqueda-cats, #barra-busqueda-autores, #barra-busqueda-dich{
-    padding-left: 40px; /* Espacio para el ícono */
-  }
-  
-  .frase-content {
+}
+
+/* Campo de entrada con espacio para el ícono */
+#barra-busqueda,
+#barra-busqueda-cat,
+#barra-busqueda-cats,
+#barra-busqueda-autores,
+#barra-busqueda-dich {
+    padding-left: 40px;
+   
+    /* Espacio para el ícono */
+}
+
+.frase-content {
     display: flex;
     flex-direction: column;
     padding: 8px;
-    
+
     /* Borde fino en gris claro */
     border-radius: 8px;
     /* Bordes redondeados */
@@ -86,39 +99,39 @@ html {
     /* Espacio entre tarjetas */
 }
 
-  /* Ícono de búsqueda */
-  .form-group::before {
-    content: "\f002"; /* Código Unicode de la lupa de Font Awesome */
-    font-family: "Font Awesome 5 Free"; /* Asegúrate de tener Font Awesome cargado */
-    font-weight: 900; /* Estilo del ícono */
+/* Ícono de búsqueda */
+.form-group::before {
+    content: "\f002";
+    /* Código Unicode de la lupa de Font Awesome */
+    font-family: "Font Awesome 5 Free";
+    /* Asegúrate de tener Font Awesome cargado */
+    font-weight: 900;
+    /* Estilo del ícono */
     position: absolute;
-    left: 10px; /* Espacio del borde izquierdo */
-    top: 50%; /* Centrado vertical */
+    left: 10px;
+    /* Espacio del borde izquierdo */
+    top: 50%;
+    /* Centrado vertical */
     transform: translateY(-50%);
     color: gray;
     font-size: 1.2em;
     margin-right: 40px;
- 
-  }
-/* General */
-body {
-    margin: 0;
-    font-family: Arial, sans-serif, impact, Verdana, Georgia, Tahoma, 'Courier New', Courier, monospace, 'Times New Roman', Times, serif Roman ;
 
 }
-.container{
-    max-width: 800px;
-    align-items: center;
-    justify-content: center;
-}
+
+
+
+
 .background {
-    position: absolute; /* Cambiar a absolute */
+    position: absolute;
+    /* Cambiar a absolute */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: url('arbol-fondo-00.png') center/cover no-repeat;
-    background-attachment: fixed; /* Fija el fondo */
+    background-attachment: fixed;
+    /* Fija el fondo */
     opacity: 0.1;
     z-index: -1;
 }
@@ -143,9 +156,11 @@ body {
     0% {
         background-position: 0% 50%;
     }
+
     50% {
         background-position: 100% 50%;
     }
+
     100% {
         background-position: 0% 50%;
     }
@@ -180,6 +195,7 @@ body {
     -webkit-text-fill-color: transparent;
     animation: gradient-text 5s ease infinite;
 }
+
 .btn-holiday.navidad {
     background-image: url('./img-btn-navidad.jpg');
 }
@@ -240,37 +256,64 @@ h2 {
     /* Transición suave de color */
 }
 
+h3 {
+    color: var(--color-texto);
+    /* Color del texto */
+    font-size: 1.6rem;
+    /* Tamaño más grande */
+    /* Texto en negrita */
+    margin-bottom: 1rem;
+    /* Espaciado inferior */
+    text-align: center;
+    /* Centrado horizontal */
+    letter-spacing: 1.2px;
+    /* Espaciado entre letras */
+    display: inline-block;
+    /* Ajusta el ancho al contenido */
+    padding-bottom: 0.5rem;
+    /* Espaciado entre texto y borde */
+    width: 100%;
+    /* Ocupa el ancho completo */
+    box-sizing: border-box;
+    /* Incluye el borde en el ancho total */
+    transition: color 0.3s ease;
+    /* Transición suave de color */
+}
+
 /*#resultados-busqueda{
 background-color: rgb(155, 155, 155);
 }*/
 .scrollable-container {
-    max-height: 300px;
+    max-height: 200px;
     /* Ajusta según tus necesidades */
     overflow-y: auto;
     /* border: 1px solid var(--color-light-shadow); /* Añade un borde para separar visualmente */
-   
+
     /*   border-radius: 5px; /* Bordes redondeados */
     max-width: 100%;
     width: 100%;
 }
+
 .scrollable-container-cat {
-   
+
     max-height: 80vh;
     /* Ajusta según tus necesidades */
     overflow-y: auto;
     /* border: 1px solid var(--color-light-shadow); /* Añade un borde para separar visualmente */
-   
+
     /*   border-radius: 5px; /* Bordes redondeados */
     max-width: 100%;
     width: 100%;
 }
 
 /* Opcional: Estilo para la barra de desplazamiento */
-.scrollable-container::-webkit-scrollbar,.scrollable-container-cat::-webkit-scrollbar {
+.scrollable-container::-webkit-scrollbar,
+.scrollable-container-cat::-webkit-scrollbar {
     width: 8px;
 }
 
-.scrollable-container::-webkit-scrollbar-thumb, .scrollable-container-cat::-webkit-scrollbar-thumb {
+.scrollable-container::-webkit-scrollbar-thumb,
+.scrollable-container-cat::-webkit-scrollbar-thumb {
     background-color: var(--color-dark-shadow);
     border-radius: 5px;
 }
@@ -279,31 +322,46 @@ background-color: rgb(155, 155, 155);
 /* Estilos para el Navbar */
 .navbar {
     z-index: 1000;
-    background-color: var(--color-fondo); /* Fondo del navbar */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-    padding: 0.4rem 1rem; /* Relleno para un navbar más espacioso */
+    background-color: var(--color-fondo);
+    /* Fondo del navbar */
+    box-shadow: 0 5px 4px rgba(0, 0, 0, 0.1);
+    /* Sombra sutil */
+    padding: 0.3rem 0.5rem;
+    /* Relleno para un navbar más espacioso */
 }
 
 .navbar-nav .nav-link {
     text-align: center;
-    font-weight: 600; /* Texto más grueso */
-    color: var(--color-texto); /* Color de texto */
-    text-transform: uppercase; /* Letras en mayúsculas */
-    padding: 0.5rem 0.5rem; /* Espaciado alrededor de los enlaces */
-    letter-spacing: 1px; /* Espaciado entre letras */
-    transition: color 0.3s ease, transform 0.2s ease; /* Transición suave */
+    font-weight: 600;
+    /* Texto más grueso */
+    color: var(--color-texto);
+    /* Color de texto */
+    text-transform: uppercase;
+    /* Letras en mayúsculas */
+    padding: 0.3rem 0.3rem;
+    /* Espaciado alrededor de los enlaces */
+    letter-spacing: 1px;
+    /* Espaciado entre letras */
+    transition: color 0.3s ease, transform 0.2s ease;
+    /* Transición suave */
 }
 
 .navbar-nav .nav-link:hover {
-    color: var(--color-acento); /* Color en hover */
-    transform: scale(1.05); /* Efecto de agrandado en hover */
+    color: var(--color-acento);
+    /* Color en hover */
+    transform: scale(1.05);
+    /* Efecto de agrandado en hover */
 }
 
 .navbar-brand {
-    font-size: 1.5rem; /* Tamaño de la marca */
-    font-weight:600; /* Texto en negrita */
-    color: var(--color-acento); /* Color de acento */
-    text-transform: uppercase; /* Mayúsculas en el nombre */
+    font-size: 1.5rem;
+    /* Tamaño de la marca */
+    font-weight: 600;
+    /* Texto en negrita */
+    color: var(--color-acento);
+    /* Color de acento */
+    text-transform: uppercase;
+    /* Mayúsculas en el nombre */
 }
 
 
@@ -312,13 +370,17 @@ background-color: rgb(155, 155, 155);
 /* Centrado en pantallas pequeñas */
 @media (max-width: 800px) {
     .navbar-nav {
-        text-align: center; /* Centra las opciones en dispositivos pequeños */
-        width: 100%; /* Asegura que ocupe todo el ancho */
+        text-align: center;
+        /* Centra las opciones en dispositivos pequeños */
+        width: 100%;
+        /* Asegura que ocupe todo el ancho */
     }
 
     .navbar-nav .nav-item {
-        display: inline-block; /* Muestra cada opción centrada */
-        margin: 0.1rem 0; /* Espaciado entre los elementos */
+        display: inline-block;
+        /* Muestra cada opción centrada */
+        margin: 0.1rem 0;
+        /* Espaciado entre los elementos */
     }
 }
 
@@ -327,7 +389,7 @@ background-color: rgb(155, 155, 155);
 
 .frase-dia {
     font-size: 1.4rem;
-  
+
 }
 
 
@@ -499,14 +561,18 @@ background-color: rgb(155, 155, 155);
 /* Biografía */
 .text-muted {
     font-size: 0.9rem;
-    line-height: 1.5;
+    line-height: 1.2;
     color: #6c757d;
 }
+
 /* Estilos para el modal */
 #canvasModal .modal-dialog {
-    max-width: 830px; /* Controla el ancho máximo del modal */
-    width: 100%; /* Asegura que el modal ocupe el 100% del ancho disponible */
-    margin: 1.75rem auto; /* Centra el modal de manera automática */
+    max-width: 830px;
+    /* Controla el ancho máximo del modal */
+    width: 100%;
+    /* Asegura que el modal ocupe el 100% del ancho disponible */
+    margin: 1.75rem auto;
+    /* Centra el modal de manera automática */
 }
 
 /* Estilo para el contenedor del canvas */
@@ -519,21 +585,25 @@ background-color: rgb(155, 155, 155);
     position: relative;
 }*/
 #miCanvas {
- /*   max-height: 80vh;*/
+    /*   max-height: 80vh;*/
     width: 100%;
     max-width: 100%;
 
-    height: auto; /* Mantener la relación de aspecto */
-    display: block; /* Asegura que no haya márgenes extras */
-    margin: 0 auto; /* Centrar horizontalmente */
+    height: auto;
+    /* Mantener la relación de aspecto */
+    display: block;
+    /* Asegura que no haya márgenes extras */
+    margin: 0 auto;
+    /* Centrar horizontalmente */
     /*box-shadow: 0 4px 10px var(--color-light-shadow);*/
-   
+
 }
 
 #canvas-container {
     display: flex;
-    width: 100%; /* Se adapta al ancho del contenedor padre */
-  /*  max-width: 90vw; /* Opcional: limitar el tamaño máximo */
+    width: 100%;
+    /* Se adapta al ancho del contenedor padre */
+    /*  max-width: 90vw; /* Opcional: limitar el tamaño máximo */
     align-items: center;
     position: relative;
     margin: 0 auto;
@@ -543,9 +613,12 @@ background-color: rgb(155, 155, 155);
 
 /* Asegúrate de que las imágenes dentro del canvas mantengan la proporción */
 #miCanvas img {
-    width: 100%; /* La imagen se adapta al 100% del contenedor */
-    height: auto; /* Mantiene la altura proporcional al ancho */
-    object-fit: cover; /* Asegura que la imagen mantenga la proporción sin recortar */
+    width: 100%;
+    /* La imagen se adapta al 100% del contenedor */
+    height: auto;
+    /* Mantiene la altura proporcional al ancho */
+    object-fit: cover;
+    /* Asegura que la imagen mantenga la proporción sin recortar */
 }
 
 
@@ -553,25 +626,32 @@ background-color: rgb(155, 155, 155);
 /* Para pantallas pequeñas */
 @media (max-width: 577px) {
     #canvasModal .modal-dialog {
-        max-width: 100%; /* En pantallas pequeñas, el modal puede ocupar el 100% */
+        max-width: 100%;
+        /* En pantallas pequeñas, el modal puede ocupar el 100% */
     }
 
     #miCanvas {
-        width: 100%; /* El canvas sigue ocupando el 100% del contenedor */
-        max-width: 100%; /* Asegura que no se pase de este límite */
+        width: 100%;
+        /* El canvas sigue ocupando el 100% del contenedor */
+        max-width: 100%;
+        /* Asegura que no se pase de este límite */
     }
 }
+
 /* Para pantallas pequeñas */
 @media (max-width: 980px) {
     #canvasModal .modal-dialog {
-        max-width: 95vw; /* En pantallas pequeñas, el modal puede ocupar el 100% */
+        max-width: 95vw;
+        /* En pantallas pequeñas, el modal puede ocupar el 100% */
     }
 
     #miCanvas {
-        width: 100%; /* El canvas sigue ocupando el 100% del contenedor */
-        max-width: 100%; /* Asegura que no se pase de este límite */
+        width: 100%;
+        /* El canvas sigue ocupando el 100% del contenedor */
+        max-width: 100%;
+        /* Asegura que no se pase de este límite */
     }
-   
+
 }
 
 
@@ -585,16 +665,16 @@ background-color: rgb(155, 155, 155);
 
     gap: 20px;
 
-    width:100%;
+    width: 100%;
     /* Reduce el ancho total de la barra */
-   /* max-width: 90vw;*/
+    /* max-width: 90vw;*/
     /* Limita el ancho máximo */
     margin: 0 auto;
     /* Centra la barra en la pantalla */
     background-color: var(--color-background-card);
-   /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
     padding: 8px 10px;
-  background-color: #e6e6e6;
+    background-color: #e6e6e6;
     /* Evita que padding afecte el ancho total */
     z-index: 1000;
 }
@@ -627,9 +707,11 @@ background-color: rgb(155, 155, 155);
 #barra-modificadores label:hover select {
     display: block;
 }
+
 /* Estilo cuando el checkbox está marcado */
-#barra-modificadores label input:checked + i {
-    color: var(--color-acento); /* Cambia el color del icono cuando el checkbox está marcado */
+#barra-modificadores label input:checked+i {
+    color: var(--color-acento);
+    /* Cambia el color del icono cuando el checkbox está marcado */
 }
 
 
@@ -664,7 +746,7 @@ background-color: rgb(155, 155, 155);
 
 .contenedor-emociones {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     gap: 15px;
     /*   margin-top: 50px;*/
 }
@@ -742,12 +824,4 @@ background-color: rgb(155, 155, 155);
     font-size: 0.8rem;
     color: #6c757d;
     /* Texto mutado (gris suave) */
-}
-
-.contenedor-emociones {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    /* Espaciado entre los botones */
-    /* margin-top: 1rem; /* Espaciado entre el texto y las emociones */
 }
