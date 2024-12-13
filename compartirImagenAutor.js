@@ -311,14 +311,26 @@ let imagenFondoPos = { x: 0, y: 0, scale: 1, startX: 0, startY: 0, lastScale: 1,
 let isDragging = false;
 let pinchStartDistance = 0;
 let dragStart = { x: 0, y: 0 };
-let minScale = 0.5; // Escala mínima
+let minScale = 0.1; // Escala mínima
 let maxScale = 3;   // Escala máxima
 
 
-// Ajuste de texto dentro del canvas
 function ajustarTexto(ctx, texto, maxWidth, fontSize) {
     const lineasFinales = [];
-    ctx.font = `${fontSize}px ${tipoFuenteInput.value || 'Arial'}`;
+    const tipoFuente = tipoFuenteInput.value || "Arial";
+    const estiloFuenteSelect = document.getElementById('estiloFuente');
+    const estiloFuente = estiloFuenteSelect.value;
+
+    let fontStyle = "";
+    if (estiloFuente.includes("bold")) {
+        fontStyle += "bold ";
+    }
+    if (estiloFuente.includes("italic")) {
+        fontStyle += "italic ";
+    }
+
+    // Aplicar el estilo completo
+    ctx.font = `${fontStyle}${fontSize}px ${tipoFuente}`;
 
     // Dividir texto por saltos de línea explícitos
     const lineas = texto.split("\n");
@@ -348,6 +360,7 @@ function ajustarTexto(ctx, texto, maxWidth, fontSize) {
 
     return lineasFinales;
 }
+
 imagenFondoPos.initialized = false;
 
 function actualizarCanvas() {
@@ -362,28 +375,7 @@ function actualizarCanvas() {
     canvas.style.height = `${canvasHeight}px`;
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
-
-
-    // const ctx = canvas.getContext("2d");
-    /*ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    if (imagenFondo) {
-        const imgWidth = imagenFondo.width;
-        const imgHeight = imagenFondo.height;
-        ctx.drawImage(
-            imagenFondo,
-            imagenFondoPos.x,
-            imagenFondoPos.y,
-            imgWidth,
-            imgHeight
-        );
-    } else {
-        const colorFondo = colorFondoInput.value || "#ffffff";
-        ctx.fillStyle = colorFondo;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-    }*/
-    // Limpia el canvas
-    // Limpia el canvas
+    
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     if (imagenFondo) {
@@ -410,13 +402,25 @@ function actualizarCanvas() {
         ctx.fillStyle = colorFondo;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
+    console.log("1 " + ctx.font)
+
     const colorFrase = colorFraseInput.value || "#000000";
     const tamanoFrase = parseInt(tamanoFraseInput.value) || 20;
     const tipoFuente = tipoFuenteInput.value || "Arial";
     const alineacionTexto = alineacionTextoInput.value || "center";
+    const estiloFuenteSelect = document.getElementById('estiloFuente');
+    const estiloFuente = estiloFuenteSelect.value;
 
+    // Construcción de `ctx.font` con validación
+    let fontWeight = estiloFuente.includes("bold") ? "bold" : "normal";
+    let fontStyle = estiloFuente.includes("italic") ? "italic" : "normal";
+    let fontDecoration = estiloFuente.includes("underline") ? "underline" : "";
+    // Concatenar con los demás valores
+    ctx.font = `${fontStyle} ${fontWeight} ${tamanoFrase}px ${tipoFuente}`;
+    
+    console.log("ctx.font configurado como: ", ctx.font);
     ctx.fillStyle = colorFrase;
-    ctx.font = `${tamanoFrase}px ${tipoFuente}`;
+  
     ctx.textBaseline = "middle";
 
     const maxWidth = canvas.width - 40; // Margen de 50px a cada lado
@@ -440,21 +444,39 @@ function actualizarCanvas() {
             posicionX = (canvas.width * 0.98); // Margen derecho
         } else {
             ctx.textAlign = "center";
+        } 
+   
+        if (estiloFuente.includes("underline")) {
+            const textWidth = ctx.measureText(linea).width;
+            let underlineX = posicionX;
+            if (alineacionTexto === "center") {
+                underlineX -= textWidth / 2;
+            } else if (alineacionTexto === "right") {
+                underlineX -= textWidth;
+            }
+            ctx.strokeStyle = colorFrase; // Color del subrayado
+            ctx.lineWidth = tamanoFrase / 15; // Grosor del subrayado (ajustable)
+            ctx.beginPath();
+            ctx.moveTo(underlineX, posicionInicialY + index * lineHeight + tamanoFrase / 2); // Ajuste vertical
+            ctx.lineTo(underlineX + textWidth, posicionInicialY + index * lineHeight + tamanoFrase / 2);
+            ctx.stroke();
         }
-
+       
         ctx.fillText(linea, posicionX, posicionInicialY + index * lineHeight);
+       
     });
 
     if (marcaDeAgua) {
         // Dibujar marca de agua centrada
         const marcaAgua = urlCompartir;
-        const tamanoMarca = 14; // Tamaño de fuente fijo o ajustable
-        ctx.font = `${tamanoMarca}px Arial`;
+        const tamanoMarca = 12; // Tamaño de fuente fijo o ajustable
+        ctx.font = `${tamanoMarca}px Verdana`;
         ctx.fillStyle = "rgba(0, 0, 0, 0.6)"; // Color semitransparente
         ctx.textAlign = "center";
         ctx.textBaseline = "middle"; // Asegura el centrado vertical
         ctx.fillText(marcaAgua, (canvas.width / 2), canvas.height - 20);
     }
+    console.log("8 " + ctx.font)
 }
 function initCanvasMouseControls() {
     const canvas = document.getElementById("miCanvas");
@@ -563,122 +585,7 @@ function initCanvasTouchControls() {
         pinchStartDistance = 0;
     });
 }
-/* function initCanvasMouseControls() {
-    const canvas = document.getElementById("miCanvas");
-    const ctx = canvas.getContext("2d");
-    let isDragging = false;
-    const dragStart = { x: 0, y: 0 };
-    const imagenFondoPos = { x: 0, y: 0 };
-    let scale = 1;
-    const scaleStep = 0.1; // Incremento o decremento del zoom
 
-    canvas.addEventListener("mousedown", (e) => {
-        isDragging = true;
-        dragStart.x = e.clientX - imagenFondoPos.x;
-        dragStart.y = e.clientY - imagenFondoPos.y;
-    });
-
-    canvas.addEventListener("mousemove", (e) => {
-        if (isDragging) {
-            imagenFondoPos.x = e.clientX - dragStart.x;
-            imagenFondoPos.y = e.clientY - dragStart.y;
-            actualizarCanvas();
-        }
-    });
-
-    canvas.addEventListener("mouseup", () => {
-        isDragging = false;
-    });
-
-    canvas.addEventListener("mouseleave", () => {
-        isDragging = false;
-    });
-
-    canvas.addEventListener("wheel", (e) => {
-        e.preventDefault();
-
-        // Calcula el nuevo factor de escala
-        const delta = Math.sign(e.deltaY);
-        const prevScale = scale;
-        scale = Math.min(Math.max(scale - delta * scaleStep, 0.5), 3); // Limita el zoom entre 0.5 y 3
-
-        // Calcula las coordenadas del mouse en el canvas antes del zoom
-        const rect = canvas.getBoundingClientRect();
-        const mouseX = (e.clientX - rect.left - imagenFondoPos.x) / prevScale;
-        const mouseY = (e.clientY - rect.top - imagenFondoPos.y) / prevScale;
-
-        // Ajusta la posición para mantener el punto del mouse fijo durante el zoom
-        imagenFondoPos.x -= (mouseX * (scale - prevScale));
-        imagenFondoPos.y -= (mouseY * (scale - prevScale));
-
-        actualizarCanvas();
-    });
-
-    function actualizarCanvas() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.save();
-        ctx.translate(imagenFondoPos.x, imagenFondoPos.y);
-        ctx.scale(scale, scale);
-
-        // Aquí se dibuja tu contenido, ajusta según lo que necesites
-        ctx.fillStyle = "lightblue";
-        ctx.fillRect(0, 0, canvas.width / scale, canvas.height / scale);
-
-        ctx.restore();
-    }
-
-    actualizarCanvas();
-}*/
-/*let isDragging = false;
-let lastTouchDistance = 0;
-
-// Evento para inicio de toque
-canvas.addEventListener("touchstart", function (e) {
-    if (e.touches.length === 2) {
-        // Dos dedos: iniciar redimensión
-        const touch1 = e.touches[0];
-        const touch2 = e.touches[1];
-        lastTouchDistance = Math.sqrt(
-            Math.pow(touch2.clientX - touch1.clientX, 2) +
-            Math.pow(touch2.clientY - touch1.clientY, 2)
-        );
-    } else if (e.touches.length === 1) {
-        // Un dedo: iniciar movimiento
-        isDragging = true;
-    }
-}); 
-
-// Evento para mover o redimensionar
-canvas.addEventListener("touchmove", function (e) {
-    if (e.touches.length === 2) {
-        // Dos dedos: redimensionar
-        const touch1 = e.touches[0];
-        const touch2 = e.touches[1];
-        const currentTouchDistance = Math.sqrt(
-            Math.pow(touch2.clientX - touch1.clientX, 2) +
-            Math.pow(touch2.clientY - touch1.clientY, 2)
-        );
-
-        const scaleChange = currentTouchDistance / lastTouchDistance;
-        imagenFondoPos.scale *= scaleChange;
-        lastTouchDistance = currentTouchDistance;
-
-        actualizarCanvas();
-    } else if (e.touches.length === 1 && isDragging) {
-        // Un dedo: mover
-        const touch = e.touches[0];
-        imagenFondoPos.x += touch.movementX || 0;
-        imagenFondoPos.y += touch.movementY || 0;
-
-        actualizarCanvas();
-    }
-});
-
-// Evento para finalizar toque
-canvas.addEventListener("touchend", function (e) {
-    isDragging = false;
-    lastTouchDistance = 0;
-});*/
 function getDistance(x1, y1, x2, y2) {
     return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
 }
@@ -703,6 +610,7 @@ $('#canvasModal').on('hidden.bs.modal', function () {
 // Event listeners para actualizaciones en tiempo real
 [...document.querySelectorAll("input, select")].forEach(el => {
     el.addEventListener('input', actualizarCanvas);
+    el.addEventListener('change', actualizarCanvas); // Para el selec
 });
 
 // Función para descargar la imagen del canvas
