@@ -52,9 +52,9 @@ function cargarAutor() {
 
                     if (bioAutor) {
                         bioAutor.innerHTML = `<p class="mb-4 text-center text-muted">${autor.biografia || "Sin biografía disponible."}</p>`;
-                       
+
                     }
-                    
+
                     frasesData.frases.forEach(fraseObj => {
                         if (fraseObj.autor_url === autorSeleccionado) {
                             const isFavorito = favoritos.some(fav => fav.frase === fraseObj.frase);
@@ -67,9 +67,9 @@ function cargarAutor() {
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
                                             ${fraseObj.categorias.map(categoria => {
-                                                const claseColor = obtenerClaseColor(categoria);
-                                                return `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge ${claseColor} ml-2">${categoria}</a>`;
-                                            }).join(' ')}
+                                const claseColor = obtenerClaseColor(categoria);
+                                return `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge ${claseColor} ml-2">${categoria}</a>`;
+                            }).join(' ')}
                                         </div>
                                         <div class="button-group d-flex align-items-center mr-1">
                                             <button class="btn btn-sm btn-outline-secondary border-0" onclick="setFraseParaCompartir('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}'); actualizarCanvas();" data-bs-toggle="modal" data-bs-target="#canvasModal" title="Crear Imagen">
@@ -104,12 +104,12 @@ function cargarAutor() {
                             modal.show();
                         });
                     });
-                }else{
+                } else {
                     tituloAutor.innerText = "Autor no encontrado";
                     tituloAutor.classList.add("text-center", "mb-2");
                     if (bioAutor) {
                         bioAutor.innerHTML = `<p class="mb-4 text-center text-muted">El autor no existe en nuestra base de datos</p>`;
-                       
+
                     }
 
                 }
@@ -251,7 +251,7 @@ function resetearCanvas() {
     imagenFondo = null;
     removeFondoCheckbox.checked = false;
     imagenFondoPos = { x: 0, y: 0, scale: 1 };
-imagenFondoPos.initialized = false; 
+    imagenFondoPos.initialized = false;
     // Resetear favoritos
     localStorage.removeItem("favoritos");
 
@@ -263,9 +263,9 @@ imagenFondoPos.initialized = false;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Ocultar elementos si es necesario
-     // Cerrar el modal utilizando el atributo data-bs-dismiss
-     const botonCerrarModal = document.querySelector('#btn-close'); // Ajusta el selector según tu HTML
-     botonCerrarModal.click();
+    // Cerrar el modal utilizando el atributo data-bs-dismiss
+    const botonCerrarModal = document.querySelector('#btn-close'); // Ajusta el selector según tu HTML
+    botonCerrarModal.click();
     // Volver a dibujar el canvas con los valores iniciales
     actualizarCanvas();
 }
@@ -307,10 +307,13 @@ imagenFondoInput.addEventListener('change', (event) => {
 const marcaDeAgua = urlCompartir; // Cambiar a tu URL deseada
 
 // Variables para la posición y escala de la imagen de fondo
-let imagenFondoPos = { x: 0, y: 0, scale: 1, startX: 0, startY: 0, lastScale: 1 };
+let imagenFondoPos = { x: 0, y: 0, scale: 1, startX: 0, startY: 0, lastScale: 1, initialWidth: 0, initialHeight: 0 }; // Guarda dimensiones originales
 let isDragging = false;
 let pinchStartDistance = 0;
 let dragStart = { x: 0, y: 0 };
+let minScale = 0.5; // Escala mínima
+let maxScale = 3;   // Escala máxima
+
 
 // Ajuste de texto dentro del canvas
 function ajustarTexto(ctx, texto, maxWidth, fontSize) {
@@ -349,12 +352,12 @@ imagenFondoPos.initialized = false;
 
 function actualizarCanvas() {
     //const scale = window.devicePixelRatio || 1;
-    
+
     const windowHeight = window.innerHeight;
     const desiredHeight = windowHeight * 0.7;
     const canvasHeight = desiredHeight; // Alto fijo
-    const canvasWidth = canvasContainer.offsetWidth ;
-    
+    const canvasWidth = canvasContainer.offsetWidth;
+
     canvas.style.width = `${canvasWidth}px`;
     canvas.style.height = `${canvasHeight}px`;
     canvas.width = canvasWidth;
@@ -379,28 +382,34 @@ function actualizarCanvas() {
         ctx.fillStyle = colorFondo;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }*/
-// Limpia el canvas
-// Limpia el canvas
-ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Limpia el canvas
+    // Limpia el canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-if (imagenFondo) {
-    // Si es la primera vez, inicializa la posición para centrarla
-    if (!imagenFondoPos.initialized) {
-        imagenFondoPos.x = (canvas.width - imagenFondo.width) / 2;
-        imagenFondoPos.y = (canvas.height - imagenFondo.height) / 2;
-        imagenFondoPos.initialized = true; // Marca como inicializado
+    if (imagenFondo) {
+        if (!imagenFondoPos.initialWidth) { // Guarda las dimensiones originales solo una vez
+            imagenFondoPos.initialWidth = imagenFondo.width;
+            imagenFondoPos.initialHeight = imagenFondo.height;
+            imagenFondoPos.x = (canvas.width - imagenFondo.width) / 2;
+            imagenFondoPos.y = (canvas.height - imagenFondo.height) / 2;
+        }
+
+        const scaledWidth = imagenFondoPos.initialWidth * imagenFondoPos.scale; // Aplica la escala
+        const scaledHeight = imagenFondoPos.initialHeight * imagenFondoPos.scale;// Aplica la escala
+
+        // Calcula el centro actual de la imagen
+        const currentCenterX = imagenFondoPos.x + scaledWidth / 2;
+        const currentCenterY = imagenFondoPos.y + scaledHeight / 2;
+
+        // Dibuja la imagen centrada usando las dimensiones escaladas
+        ctx.drawImage(imagenFondo, currentCenterX - scaledWidth / 2, currentCenterY - scaledHeight / 2, scaledWidth, scaledHeight);
+
+    } else {
+        // Dibuja el fondo de color si no hay imagen
+        const colorFondo = colorFondoInput.value || "#ffffff";
+        ctx.fillStyle = colorFondo;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
-
-    // Dibuja la imagen en su posición actual
-    const imgWidth = imagenFondo.width;
-    const imgHeight = imagenFondo.height;
-    ctx.drawImage(imagenFondo, imagenFondoPos.x, imagenFondoPos.y, imgWidth, imgHeight);
-} else {
-    // Dibuja el fondo de color si no hay imagen
-    const colorFondo = colorFondoInput.value || "#ffffff";
-    ctx.fillStyle = colorFondo;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-}
     const colorFrase = colorFraseInput.value || "#000000";
     const tamanoFrase = parseInt(tamanoFraseInput.value) || 20;
     const tipoFuente = tipoFuenteInput.value || "Arial";
@@ -428,7 +437,7 @@ if (imagenFondo) {
             posicionX = (canvas.width * 0.02); // Margen izquierdo
         } else if (alineacionTexto === "right") {
             ctx.textAlign = "right";
-            posicionX = (canvas.width * 0.98) ; // Margen derecho
+            posicionX = (canvas.width * 0.98); // Margen derecho
         } else {
             ctx.textAlign = "center";
         }
@@ -444,16 +453,23 @@ if (imagenFondo) {
         ctx.fillStyle = "rgba(0, 0, 0, 0.6)"; // Color semitransparente
         ctx.textAlign = "center";
         ctx.textBaseline = "middle"; // Asegura el centrado vertical
-        ctx.fillText(marcaAgua, (canvas.width / 2), canvas.height - 20 );
+        ctx.fillText(marcaAgua, (canvas.width / 2), canvas.height - 20);
     }
 }
 function initCanvasMouseControls() {
     const canvas = document.getElementById("miCanvas");
+    let isDragging = false;
+    const dragStart = { x: 0, y: 0 };
+    const scaleStep = 0.1; // Ajusta la velocidad del zoom con la rueda
+    let lastMouseX;
+    let lastMouseY;
 
     canvas.addEventListener("mousedown", (e) => {
         isDragging = true;
         dragStart.x = e.clientX - imagenFondoPos.x;
         dragStart.y = e.clientY - imagenFondoPos.y;
+        lastMouseX = e.clientX;
+        lastMouseY = e.clientY;
     });
 
     canvas.addEventListener("mousemove", (e) => {
@@ -471,6 +487,25 @@ function initCanvasMouseControls() {
     canvas.addEventListener("mouseleave", () => {
         isDragging = false;
     });
+
+    canvas.addEventListener("wheel", (e) => {
+        e.preventDefault();
+
+        const delta = Math.sign(e.deltaY); // 1 para scroll hacia abajo, -1 para arriba
+        const prevScale = imagenFondoPos.scale;
+        imagenFondoPos.scale = Math.max(minScale, Math.min(maxScale, imagenFondoPos.scale - delta * scaleStep));
+
+        // Calcula las coordenadas del mouse en el canvas *antes* del escalado
+        const rect = canvas.getBoundingClientRect();
+        const mouseX = (e.clientX - rect.left - imagenFondoPos.x) / prevScale;
+        const mouseY = (e.clientY - rect.top - imagenFondoPos.y) / prevScale;
+
+        // Ajusta la posición de la imagen para que el mouse se mantenga en el mismo lugar
+        imagenFondoPos.x -= mouseX * (imagenFondoPos.scale - prevScale);
+        imagenFondoPos.y -= mouseY * (imagenFondoPos.scale - prevScale);
+
+        actualizarCanvas();
+    });
 }
 
 function initCanvasTouchControls() {
@@ -486,33 +521,38 @@ function initCanvasTouchControls() {
             imagenFondoPos.startX = touch.clientX - imagenFondoPos.x;
             imagenFondoPos.startY = touch.clientY - imagenFondoPos.y;
         } else if (touches.length === 2) {
+            const touch1 = touches[0];
+            const touch2 = touches[1];
             pinchStartDistance = getDistance(
-                touches[0].clientX,
-                touches[0].clientY,
-                touches[1].clientX,
-                touches[1].clientY
+                touch1.clientX, touch1.clientY,
+                touch2.clientX, touch2.clientY
             );
             imagenFondoPos.lastScale = imagenFondoPos.scale;
+            dragStart.x = (touch1.clientX + touch2.clientX)/2 - imagenFondoPos.x;
+            dragStart.y = (touch1.clientY + touch2.clientY)/2 - imagenFondoPos.y;
         }
     });
 
     canvas.addEventListener("touchmove", (e) => {
         e.preventDefault();
         const touches = e.touches;
-
         if (touches.length === 1 && isDragging) {
             const touch = touches[0];
             imagenFondoPos.x = touch.clientX - imagenFondoPos.startX;
             imagenFondoPos.y = touch.clientY - imagenFondoPos.startY;
         } else if (touches.length === 2) {
+            const touch1 = touches[0];
+            const touch2 = touches[1];
             const currentDistance = getDistance(
-                touches[0].clientX,
-                touches[0].clientY,
-                touches[1].clientX,
-                touches[1].clientY
+                touch1.clientX, touch1.clientY,
+                touch2.clientX, touch2.clientY
             );
-            imagenFondoPos.scale =
-                (currentDistance / pinchStartDistance) * imagenFondoPos.lastScale;
+
+            imagenFondoPos.scale = (currentDistance / pinchStartDistance) * imagenFondoPos.lastScale;
+            imagenFondoPos.scale = Math.max(minScale, Math.min(maxScale, imagenFondoPos.scale));
+            imagenFondoPos.x = (touch1.clientX + touch2.clientX)/2 - dragStart.x;
+            imagenFondoPos.y = (touch1.clientY + touch2.clientY)/2 - dragStart.y;
+
         }
 
         actualizarCanvas();
@@ -520,9 +560,7 @@ function initCanvasTouchControls() {
 
     canvas.addEventListener("touchend", (e) => {
         isDragging = false;
-        if (e.touches.length === 0) {
-            pinchStartDistance = 0;
-        }
+        pinchStartDistance = 0;
     });
 }
 /* function initCanvasMouseControls() {
