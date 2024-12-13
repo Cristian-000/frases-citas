@@ -29,6 +29,11 @@
 html {
     scroll-behavior: smooth;
 }
+#h1-frasedia{
+    font-size: 1.1rem;
+    align-items: left;
+    text-align: left;
+}
 /* Contenedor general */
 .form-group {
     position: relative;
