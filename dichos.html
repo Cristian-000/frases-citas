@@ -1,36 +1,39 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- Meta Tags SEO -->
-    <meta name="description" content="Descubre y comparte las mejores frases célebres de diferentes categorías, incluyendo amor, motivación, amistad y más. Encuentra frases para expresar tus emociones y pensamientos.">
-    <meta name="keywords" content="dichos populares, dichos,frases célebres, compartir frases, frases de amor, frases de motivación, frases de amistad, frases divertidas, frases inspiradoras, frases para compartir">
+    <meta name="description"
+        content="Descubre y comparte las mejores frases célebres de diferentes categorías, incluyendo amor, motivación, amistad y más. Encuentra frases para expresar tus emociones y pensamientos.">
+    <meta name="keywords"
+        content="dichos populares, dichos,frases célebres, compartir frases, frases de amor, frases de motivación, frases de amistad, frases divertidas, frases inspiradoras, frases para compartir">
     <meta name="author" content="Cristian Fernández">
     <meta name="robots" content="index, follow">
     <meta property="og:title" content="Frases Célebres - Comparte y Encuentra Frases Inspiradoras">
-    <meta property="og:description" content="Encuentra y comparte frases célebres sobre amor, motivación, amistad y más. Perfectas para cualquier ocasión.">
- <!--    <meta property="og:image" content="URL_DE_LA_IMAGEN_DE_PREVISUALIZACION"> -->
+    <meta property="og:description"
+        content="Encuentra y comparte frases célebres sobre amor, motivación, amistad y más. Perfectas para cualquier ocasión.">
+    <!--    <meta property="og:image" content="URL_DE_LA_IMAGEN_DE_PREVISUALIZACION"> -->
     <!-- <meta property="og:url" content="URL_DE_TU_PAGINA"> -->
     <meta name="twitter:title" content="Frases Célebres - Comparte y Encuentra Frases Inspiradoras">
-    <meta name="twitter:description" content="Descubre las mejores frases célebres y compártelas en tus redes sociales. Encuentra frases para cualquier emoción.">
- <!--    <meta name="twitter:image" content="URL_DE_LA_IMAGEN_DE_PREVISUALIZACION"> -->
-  <!--   <meta name="twitter:card" content="summary_large_image"> -->
+    <meta name="twitter:description"
+        content="Descubre las mejores frases célebres y compártelas en tus redes sociales. Encuentra frases para cualquier emoción.">
+    <!--    <meta name="twitter:image" content="URL_DE_LA_IMAGEN_DE_PREVISUALIZACION"> -->
+    <!--   <meta name="twitter:card" content="summary_large_image"> -->
     <title>Dichos Populares</title>
-    
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <a class="navbar-brand" href="#">Dichos Populares</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -51,13 +54,29 @@
         </div>
     </nav>
     <div class="background"></div>
-    <div class="container py-3">
-        <h1>Dichos Populares</h1>
-        <ul id="lista-dichos" class="list-group">
-            <!-- Dichos cargados dinámicamente -->
-        </ul>
+    <div class="container">
+
+        <section class="top-screen">
+            <h2>Dichos Populares</h2>
+            <div class="form-group">
+                <input type="text" id="barra-busqueda-dich" class=" form-control" placeholder="Buscar"
+                    aria-label="Campo de búsqueda">
+            </div>
+            <div class="scrollable-container-cat">
+                <div id="resultados-busqueda-dich" class="list-group list-group-flush"></div>
+            </div>
+        </section>
+        <section class="bottom-screen">
+            <ul id="lista-dichos" class="list-group">
+                <!-- Dichos cargados dinámicamente -->
+            </ul>
+        </section>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="dichos.js"></script>
 </body>
+
 </html>

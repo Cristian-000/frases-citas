@@ -32,24 +32,28 @@ html {
 }
 .top-screen {
 
-    position: fixed; /* Makes the element fixed relative to the viewport */
-    top: 0; /* Sticks it to the top */
-    left: 0; /* Sticks it to the left */
-    width: 100%; /* Ensures it spans the entire width */
-    background-color: white; /* Or whatever background you have */
-    z-index: 100; /* Ensure it's above other content */
-    padding: 20px; /* Add some padding so content doesn't touch the edges */
-    padding-top: 10vh;
-    box-sizing: border-box; /* Include padding in width calculation */
-    max-height: 30vh;; /* Add any other styles you want for the top section */
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: var(--color-fondo); /* Asegúrate de tener un color de fondo */
+    z-index: 100;
+    padding-top: 10vh; /* Padding para contenido interno */
+     /* Incluye el padding en el alto */
+    display: flex; /* Usar flexbox para centrar verticalmente el contenido */
+    flex-direction: column; /* Alinear elementos verticalmente */
+    /* Centrar horizontalmente *//* Add any other styles you want for the top section */
 }
 
+
+
 .bottom-screen {
-    margin-top: 25vh;
-   /* Adjust this value to be equal to the height of .top-screen + any margin/padding */
-    padding-bottom: 20px; /* Add padding to the bottom if needed */
-    box-sizing: border-box;
     width: 100%;
+    /* Espacio entre top-screen y bottom-screen */
+ 
+}
+.container{
+    max-width: 800px;
+    background-color: var(--color-fondo);
 }
 
 #h1-frasedia{
@@ -62,7 +66,7 @@ html {
   }
   
   /* Campo de entrada con espacio para el ícono */
-  #barra-busqueda, #barra-busqueda-cat, #barra-busqueda-cats, #barra-busqueda-autores{
+  #barra-busqueda, #barra-busqueda-cat, #barra-busqueda-cats, #barra-busqueda-autores, #barra-busqueda-dich{
     padding-left: 40px; /* Espacio para el ícono */
   }
   
@@ -70,7 +74,7 @@ html {
     display: flex;
     flex-direction: column;
     padding: 8px;
-    border: 1px solid #ccc;
+    
     /* Borde fino en gris claro */
     border-radius: 8px;
     /* Bordes redondeados */
@@ -93,14 +97,20 @@ html {
     transform: translateY(-50%);
     color: gray;
     font-size: 1.2em;
+    margin-right: 40px;
+ 
   }
 /* General */
 body {
     margin: 0;
     font-family: Arial, sans-serif, impact, Verdana, Georgia, Tahoma, 'Courier New', Courier, monospace, 'Times New Roman', Times, serif Roman ;
-    background-attachment: fixed;
-}
 
+}
+.container{
+    max-width: 800px;
+    align-items: center;
+    justify-content: center;
+}
 .background {
     position: absolute; /* Cambiar a absolute */
     top: 0;
@@ -112,11 +122,8 @@ body {
     opacity: 0.1;
     z-index: -1;
 }
-@media (max-width: 768px) {
-    .background {
-        background-attachment: scroll; /* Cambia el fondo a scroll en móviles */
-    }
-}
+
+
 .content {
     position: relative;
     z-index: 1;
@@ -247,6 +254,7 @@ background-color: rgb(155, 155, 155);
     width: 100%;
 }
 .scrollable-container-cat {
+   
     max-height: 80vh;
     /* Ajusta según tus necesidades */
     overflow-y: auto;
@@ -277,6 +285,7 @@ background-color: rgb(155, 155, 155);
 }
 
 .navbar-nav .nav-link {
+    text-align: center;
     font-weight: 600; /* Texto más grueso */
     color: var(--color-texto); /* Color de texto */
     text-transform: uppercase; /* Letras en mayúsculas */

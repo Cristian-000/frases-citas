@@ -266,7 +266,7 @@ function configurarBarraBusqueda() {
         }
     });
 }
-
+/*
 function configurarBarraBusquedaCats() {
     const listaFrases = document.getElementById("lista-frases-cat");
     const barraBusquedaCat = document.getElementById("barra-busqueda-cat");
@@ -345,7 +345,7 @@ function configurarBarraBusquedaCats() {
           .catch(error => console.error("Error al cargar frases para búsqueda:", error));
       }
     });
-}
+}*/
 
 function configurarBarraBusquedaCats() {
     const listaFrases = document.getElementById("lista-frases-cat");
