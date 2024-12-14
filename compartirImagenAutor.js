@@ -51,7 +51,7 @@ function cargarAutor() {
                     tituloAutor.classList.add("text-center", "mb-2");
 
                     if (bioAutor) {
-                        bioAutor.innerHTML = `<p class="mb-4 text-center text-muted">${autor.biografia || "Sin biografía disponible."}</p>`;
+                        bioAutor.innerHTML = `<p class="mb-2 text-center text-muted">${autor.biografia || "Sin biografía disponible."}</p>`;
 
                     }
 
@@ -68,7 +68,7 @@ function cargarAutor() {
                                         <div>
                                             ${fraseObj.categorias.map(categoria => {
                                 const claseColor = obtenerClaseColor(categoria);
-                                return `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge ${claseColor} ml-2">${categoria}</a>`;
+                                return `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge ${claseColor} mr-1">${categoria}</a>`;
                             }).join(' ')}
                                         </div>
                                         <div class="button-group d-flex align-items-center mr-1">
@@ -81,7 +81,7 @@ function cargarAutor() {
                                             <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${urlCompartir}');" title="Copiar frase">
                                                 <i class="fas fa-copy"></i>
                                             </button>
-                                            <button class="btn btn-link heart-button ml-2" data-frase="${encodeURIComponent(fraseObj.frase)}">
+                                            <button class="btn btn-link heart-button" data-frase="${encodeURIComponent(fraseObj.frase)}">
                                                 <i class="${isFavorito ? 'fas' : 'far'} fa-heart text-danger"></i>
                                             </button>
                                         </div>
@@ -108,7 +108,7 @@ function cargarAutor() {
                     tituloAutor.innerText = "Autor no encontrado";
                     tituloAutor.classList.add("text-center", "mb-2");
                     if (bioAutor) {
-                        bioAutor.innerHTML = `<p class="mb-4 text-center text-muted">El autor no existe en nuestra base de datos</p>`;
+                        bioAutor.innerHTML = `<p class="mb-2 text-center text-muted">El autor no existe en nuestra base de datos</p>`;
 
                     }
 
@@ -220,51 +220,6 @@ colorFondoInput.addEventListener("input", function () {
 });
 const removeFondoCheckbox = document.getElementById('removeFondoCheckbox');
 
-// Función para confirmar el reseteo
-const botonReset = document.getElementById('boton-reset');
-function confirmarReseteo() {
-    if (confirm('¿Estás seguro de que deseas restablecer el canvas? Se perderán todos los cambios.')) {
-        resetearCanvas(); // La función que ya definiste anteriormente
-    }
-}
-
-function resetearCanvas() {
-    // Valores por defecto
-    fraseSeleccionada = "";
-    colorFondoInput.value = "#ffffff";
-    colorFraseInput.value = "#000000";
-    tamanoFraseInput.value = 20;
-    tipoFuenteInput.value = "Arial";
-    alineacionTextoInput.value = "center";
-    posicionYInput.value = canvas.height / 2; // Centrar verticalmente
-    imagenFondo = null;
-    removeFondoCheckbox.checked = false;
-
-
-    // Variables para la posición y escala de la imagen de fondo
-    imagenFondoPos = { x: 0, y: 0, scale: 1, startX: 0, startY: 0, lastScale: 1, initialWidth: 0, initialHeight: 0 }; // Guarda dimensiones originales
-    isDragging = false;
-    pinchStartDistance = 0;
-    dragStart = { x: 0, y: 0 };
-    minScale = 0.1; // Escala mínima
-    maxScale = 4;   // Escala máxima
-    // Resetear favoritos
-    //localStorage.removeItem("favoritos");
-    imagenFondoPos.initialized = false;
-    // Resetear elementos del DOM
-    //const listaFrases = document.getElementById("lista-frases");
-    //listaFrases.innerHTML = '';
-
-    // Resetear canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Ocultar elementos si es necesario
-    // Cerrar el modal utilizando el atributo data-bs-dismiss
-    const botonCerrarModal = document.querySelector('#btn-close'); // Ajusta el selector según tu HTML
-    botonCerrarModal.click();
-    // Volver a dibujar el canvas con los valores iniciales
-    actualizarCanvas();
-}
 tipoFuenteInput.value = "Arial"; // Tipo de fuente predeterminado
 
 function setFraseParaCompartir(frase, autor) {
