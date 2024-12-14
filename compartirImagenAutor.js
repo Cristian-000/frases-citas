@@ -170,7 +170,8 @@ function copiarFrase(frase, url) {
     const textoCopiar = `${frase}\n${url}`;
     navigator.clipboard.writeText(textoCopiar)
         .then(() => {
-            alert("Frase copiada al portapapeles");
+            console.log(textoCopiar)
+          //  alert("Frase copiada al portapapeles");
         })
         .catch(err => {
             console.error("Error al copiar:", err);
