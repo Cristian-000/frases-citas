@@ -51,7 +51,8 @@ html {
 }
 
 /* Asegura el centrado horizontal del .form-group */
-.top-screen .form-group, .bar-index .form-group  {
+.top-screen .form-group,
+.bar-index .form-group {
     display: flex;
     justify-content: center;
     /* Centra el contenido horizontalmente */
@@ -63,7 +64,7 @@ html {
     /* Ocupa todo el espacio disponible */
     position: relative;
     margin-bottom: 8px;
-  
+
 }
 
 /* Campo de entrada con espacio para el ícono */

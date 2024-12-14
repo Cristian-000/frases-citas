@@ -23,13 +23,13 @@ document.addEventListener("DOMContentLoaded", () => {
 const colorCategorias = {
     "Navidad": "badge-navidad",
     "Año Nuevo": "badge-ano-nuevo",
-    "Futuro":"badge-futuro",
-    "Acción" :"badge-accion",
-    "Sueños":"badge-sueños",
-    "Esperanza":"badge-esperanza",
-    "Melancolía":"badge-melancolia",
-    "Fuerza":"badge-fuerza",
-    "Felicidad":"badge-felicidad",
+    "Futuro": "badge-futuro",
+    "Acción": "badge-accion",
+    "Sueños": "badge-sueños",
+    "Esperanza": "badge-esperanza",
+    "Melancolía": "badge-melancolia",
+    "Fuerza": "badge-fuerza",
+    "Felicidad": "badge-felicidad",
     "Filosofía": "badge-filosofia",
     "Amor": "badge-amor",
     "Educación": "badge-educacion",
@@ -41,6 +41,8 @@ const colorCategorias = {
     "Superación": "badge-superacion",
     "default": "badge-primary" // Color por defecto
 };
+// Define la URL base como una variable global
+const urlCompartir = "https://cristian-000.github.io/frases-citas/index.html";
 
 function obtenerClaseColor(categoria) {
     return colorCategorias[categoria] || colorCategorias["default"];
@@ -160,12 +162,9 @@ function copiarFrase(frase, url) {
 }
 // Función para compartir la frase seleccionada
 
-// Define la URL base como una variable global
-const urlCompartir = "https://cristian-000.github.io/frases-citas/index.html";
-
 function compartirFrase(frase, autor) {
     // Formatear el texto para compartir
-    const textoCompartir = autor 
+    const textoCompartir = autor
         ? `"${frase}"\n- ${capitalizarIniciales(autor)}`
         : `"${frase}"`;
     const mensajeFinal = `${textoCompartir}\n\n`;
@@ -211,32 +210,33 @@ function configurarBarraBusqueda() {
 
                     const favoritos = JSON.parse(localStorage.getItem("favoritos")) || []; // Cargar favoritos
 
-                    
+
                     if (frasesEncontradas.length === 0) {
                         const noResultados = document.createElement("li");
                         noResultados.classList.add("list-group-item", "text-center", "text-muted");
                         noResultados.textContent = "No se encontraron coincidencias";
                         resultadosBusqueda.appendChild(noResultados);
-                      } else {frasesEncontradas.forEach(fraseObj => {
-                        const autorCapitalizado = capitalizarIniciales(fraseObj.autor_url);
+                    } else {
+                        frasesEncontradas.forEach(fraseObj => {
+                            const autorCapitalizado = capitalizarIniciales(fraseObj.autor_url);
 
-                        // Verificar si la frase está en los favoritos
-                        const isFavorito = favoritos.some(fav => fav.frase === fraseObj.frase);
+                            // Verificar si la frase está en los favoritos
+                            const isFavorito = favoritos.some(fav => fav.frase === fraseObj.frase);
 
-                        const li = document.createElement("li");
-                        li.className = "d-flex justify-content-between align-items-center";
+                            const li = document.createElement("li");
+                            li.className = "d-flex justify-content-between align-items-center";
 
-                        li.innerHTML = `
+                            li.innerHTML = `
                         <div class="w-100 frase-content">
                             <p class="mb-1"><strong>${fraseObj.frase}</strong></p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
                                     <small><a href="autor.html?autor=${fraseObj.autor_url}" class="autor-link">${autorCapitalizado}</a></small>
                                     ${fraseObj.categorias.map(categoria => {
-                            // Aplicar la función obtenerClaseColor para obtener el color adecuado
-                            const claseColor = obtenerClaseColor(categoria);
-                            return `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge ${claseColor} ml-2">${categoria}</a>`;
-                        }).join(' ')}
+                                // Aplicar la función obtenerClaseColor para obtener el color adecuado
+                                const claseColor = obtenerClaseColor(categoria);
+                                return `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge ${claseColor} ml-2">${categoria}</a>`;
+                            }).join(' ')}
                                 </div>
                                 <div class="button-group d-flex align-items-center mr-1">
                                     <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');" title="Compartir">
@@ -253,13 +253,14 @@ function configurarBarraBusqueda() {
                         </div>
                     `;
 
-                        resultadosBusqueda.appendChild(li);
+                            resultadosBusqueda.appendChild(li);
 
-                        // Asignar el evento de clic al botón de favoritos
-                        li.querySelector(".heart-button").addEventListener("click", (e) => {
-                            toggleFavorito(fraseObj, e.currentTarget.querySelector("i"));
-                        });
-                    })}
+                            // Asignar el evento de clic al botón de favoritos
+                            li.querySelector(".heart-button").addEventListener("click", (e) => {
+                                toggleFavorito(fraseObj, e.currentTarget.querySelector("i"));
+                            });
+                        })
+                    }
 
                 })
                 .catch(error => console.error("Error al cargar frases para búsqueda:", error));
@@ -351,62 +352,62 @@ function configurarBarraBusquedaCats() {
     const listaFrases = document.getElementById("lista-frases-cat");
     const barraBusquedaCat = document.getElementById("barra-busqueda-cat");
     const resultadosBusquedaCat = document.getElementById("resultados-busqueda-cat");
-  
+
     barraBusquedaCat.addEventListener("input", () => {
-      const query = barraBusquedaCat.value.toLowerCase();
-      resultadosBusquedaCat.innerHTML = "";
-  
-      if (query.trim() === "") {
-        // Show main list, hide search results
-        listaFrases.style.display = "block";
-        resultadosBusquedaCat.style.display = "none";
-      } else {
-        // Hide main list, show search results
-        listaFrases.style.display = "none";
-        resultadosBusquedaCat.style.display = "block";
-        fetch('frases.json')
-          .then(response => response.json())
-          .then(data => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const selectedCategory = urlParams.get('categoria'); // Get category from URL
-  
-            const frasesEncontradas = data.frases.filter(fraseObj => {
-              const matchesQuery = fraseObj.frase.toLowerCase().includes(query) ||
-                fraseObj.autor_url.toLowerCase().includes(query) ||
-                fraseObj.categorias.some(categoria => categoria.toLowerCase().includes(query));
-  
-              // Filter by category only if a category is selected in the URL
-              return matchesQuery && (!selectedCategory || fraseObj.categorias.includes(selectedCategory));
-            });
-  
-            const favoritos = JSON.parse(localStorage.getItem("favoritos")) || []; // Cargar favoritos
-  
-            if (frasesEncontradas.length === 0) {
-              const noResultados = document.createElement("li");
-              noResultados.classList.add("list-group-item", "text-center", "text-muted");
-              noResultados.textContent = "No se encontraron coincidencias";
-              resultadosBusquedaCat.appendChild(noResultados);
-            } else {
-                frasesEncontradas.forEach(fraseObj => {
-                    const autorCapitalizado = capitalizarIniciales(fraseObj.autor_url);
-                
-                    // Verificar si la frase está en los favoritos
-                    const isFavorito = favoritos.some(fav => fav.frase === fraseObj.frase);
-    
-                    const li = document.createElement("li");
-                    li.className = "d-flex justify-content-between align-items-center";
-    
-                    li.innerHTML = `
+        const query = barraBusquedaCat.value.toLowerCase();
+        resultadosBusquedaCat.innerHTML = "";
+
+        if (query.trim() === "") {
+            // Show main list, hide search results
+            listaFrases.style.display = "block";
+            resultadosBusquedaCat.style.display = "none";
+        } else {
+            // Hide main list, show search results
+            listaFrases.style.display = "none";
+            resultadosBusquedaCat.style.display = "block";
+            fetch('frases.json')
+                .then(response => response.json())
+                .then(data => {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const selectedCategory = urlParams.get('categoria'); // Get category from URL
+
+                    const frasesEncontradas = data.frases.filter(fraseObj => {
+                        const matchesQuery = fraseObj.frase.toLowerCase().includes(query) ||
+                            fraseObj.autor_url.toLowerCase().includes(query) ||
+                            fraseObj.categorias.some(categoria => categoria.toLowerCase().includes(query));
+
+                        // Filter by category only if a category is selected in the URL
+                        return matchesQuery && (!selectedCategory || fraseObj.categorias.includes(selectedCategory));
+                    });
+
+                    const favoritos = JSON.parse(localStorage.getItem("favoritos")) || []; // Cargar favoritos
+
+                    if (frasesEncontradas.length === 0) {
+                        const noResultados = document.createElement("li");
+                        noResultados.classList.add("list-group-item", "text-center", "text-muted");
+                        noResultados.textContent = "No se encontraron coincidencias";
+                        resultadosBusquedaCat.appendChild(noResultados);
+                    } else {
+                        frasesEncontradas.forEach(fraseObj => {
+                            const autorCapitalizado = capitalizarIniciales(fraseObj.autor_url);
+
+                            // Verificar si la frase está en los favoritos
+                            const isFavorito = favoritos.some(fav => fav.frase === fraseObj.frase);
+
+                            const li = document.createElement("li");
+                            li.className = "d-flex justify-content-between align-items-center";
+
+                            li.innerHTML = `
                     <div class="w-100 frase-content frase-content-search-cat">
                         <p class="mb-1"><strong>${fraseObj.frase}</strong></p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
                                 <small><a href="autor.html?autor=${fraseObj.autor_url}" class="autor-link">${autorCapitalizado}</a></small>
                                 ${fraseObj.categorias.map(categoria => {
-                        // Aplicar la función obtenerClaseColor para obtener el color adecuado
-                        const claseColor = obtenerClaseColor(categoria);
-                        return `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge ${claseColor} ml-2">${categoria}</a>`;
-                    }).join(' ')}
+                                // Aplicar la función obtenerClaseColor para obtener el color adecuado
+                                const claseColor = obtenerClaseColor(categoria);
+                                return `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge ${claseColor} ml-2">${categoria}</a>`;
+                            }).join(' ')}
                             </div>
                             <div class="button-group d-flex align-items-center mr-1">
                                 <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');" title="Compartir">
@@ -422,20 +423,20 @@ function configurarBarraBusquedaCats() {
                         </div>
                     </div>
                 `;
-    
-                    resultadosBusquedaCat.appendChild(li);
-    
-                    // Asignar el evento de clic al botón de favoritos
-                    li.querySelector(".heart-button").addEventListener("click", (e) => {
-                        toggleFavorito(fraseObj, e.currentTarget.querySelector("i"));
-                    });
-                });
-            }
-          })
-          .catch(error => console.error("Error al cargar frases para búsqueda:", error));
-      }
+
+                            resultadosBusquedaCat.appendChild(li);
+
+                            // Asignar el evento de clic al botón de favoritos
+                            li.querySelector(".heart-button").addEventListener("click", (e) => {
+                                toggleFavorito(fraseObj, e.currentTarget.querySelector("i"));
+                            });
+                        });
+                    }
+                })
+                .catch(error => console.error("Error al cargar frases para búsqueda:", error));
+        }
     });
-  }
+}
 
 function cargarFrasesPorCategoria() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -499,10 +500,6 @@ function cargarFrasesPorCategoria() {
         })
         .catch(error => console.error("Error al cargar frases por categoría:", error));
 }
-
-
-
-
 
 function toggleFavorito(fraseObj, icon) {
     let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];

@@ -50,8 +50,8 @@ function compartirDicho(dicho, url) {
             title: "Dicho Inspirador",
             text: textoCompartir
         })
-        .then(() => console.log("Dicho compartido exitosamente"))
-        .catch(error => console.error("Error al compartir:", error));
+            .then(() => console.log("Dicho compartido exitosamente"))
+            .catch(error => console.error("Error al compartir:", error));
     } else {
         alert("La funcionalidad de compartir no está disponible en este navegador.");
     }

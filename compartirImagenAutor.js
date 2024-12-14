@@ -375,7 +375,7 @@ function actualizarCanvas() {
     canvas.style.height = `${canvasHeight}px`;
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
-    
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     if (imagenFondo) {
@@ -416,9 +416,9 @@ function actualizarCanvas() {
     let fontDecoration = estiloFuente.includes("underline") ? "underline" : "";
     // Concatenar con los demás valores
     ctx.font = `${fontStyle} ${fontWeight} ${tamanoFrase}px ${tipoFuente}`;
-    
+
     ctx.fillStyle = colorFrase;
-  
+
     ctx.textBaseline = "middle";
 
     const maxWidth = canvas.width - 40; // Margen de 50px a cada lado
@@ -442,8 +442,8 @@ function actualizarCanvas() {
             posicionX = (canvas.width * 0.98); // Margen derecho
         } else {
             ctx.textAlign = "center";
-        } 
-   
+        }
+
         if (estiloFuente.includes("underline")) {
             const textWidth = ctx.measureText(linea).width;
             let underlineX = posicionX;
@@ -459,9 +459,9 @@ function actualizarCanvas() {
             ctx.lineTo(underlineX + textWidth, posicionInicialY + index * lineHeight + tamanoFrase / 2);
             ctx.stroke();
         }
-       
+
         ctx.fillText(linea, posicionX, posicionInicialY + index * lineHeight);
-       
+
     });
 
     if (marcaDeAgua) {
@@ -474,7 +474,7 @@ function actualizarCanvas() {
         ctx.textBaseline = "middle"; // Asegura el centrado vertical
         ctx.fillText(marcaAgua, (canvas.width / 2), canvas.height - 20);
     }
- 
+
 }
 function initCanvasMouseControls() {
     const canvas = document.getElementById("miCanvas");
@@ -548,8 +548,8 @@ function initCanvasTouchControls() {
                 touch2.clientX, touch2.clientY
             );
             imagenFondoPos.lastScale = imagenFondoPos.scale;
-            dragStart.x = (touch1.clientX + touch2.clientX)/2 - imagenFondoPos.x;
-            dragStart.y = (touch1.clientY + touch2.clientY)/2 - imagenFondoPos.y;
+            dragStart.x = (touch1.clientX + touch2.clientX) / 2 - imagenFondoPos.x;
+            dragStart.y = (touch1.clientY + touch2.clientY) / 2 - imagenFondoPos.y;
         }
     });
 
@@ -570,8 +570,8 @@ function initCanvasTouchControls() {
 
             imagenFondoPos.scale = (currentDistance / pinchStartDistance) * imagenFondoPos.lastScale;
             imagenFondoPos.scale = Math.max(minScale, Math.min(maxScale, imagenFondoPos.scale));
-            imagenFondoPos.x = (touch1.clientX + touch2.clientX)/2 - dragStart.x;
-            imagenFondoPos.y = (touch1.clientY + touch2.clientY)/2 - dragStart.y;
+            imagenFondoPos.x = (touch1.clientX + touch2.clientX) / 2 - dragStart.x;
+            imagenFondoPos.y = (touch1.clientY + touch2.clientY) / 2 - dragStart.y;
 
         }
 
