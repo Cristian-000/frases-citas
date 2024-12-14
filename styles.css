@@ -624,17 +624,23 @@ background-color: rgb(155, 155, 155);
     justify-content: center;
 }
 
-
-/* Asegúrate de que las imágenes dentro del canvas mantengan la proporción */
+/*
+/* Asegúrate de que las imágenes dentro del canvas mantengan la proporción 
 #miCanvas img {
     width: 100%;
-    /* La imagen se adapta al 100% del contenedor */
+    /* La imagen se adapta al 100% del contenedor 
     height: auto;
-    /* Mantiene la altura proporcional al ancho */
+    /* Mantiene la altura proporcional al ancho 
     object-fit: contain;
-    /* Asegura que la imagen mantenga la proporción sin recortar */
-}
+    /* Asegura que la imagen mantenga la proporción sin recortar 
+}*/
 
+#miCanvas img {
+    width: auto;
+    height: auto;
+    max-width: 100%; /* Evita que la imagen sea más ancha que su contenedor */
+    max-height: 100%; /* Evita que la imagen sea más alta que su contenedor */
+}
 
 
 /* Para pantallas pequeñas */
