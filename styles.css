@@ -38,7 +38,6 @@ html {
     background-color: var(--color-fondo);
     z-index: 100;
     padding-top: 9vh;
-    min-height: 220px;
     padding-left: 12px;
     padding-right: 12px;
     display: flex;
@@ -49,7 +48,12 @@ html {
     margin: 0 auto;
     /* Centra el contenedor en la página */
 }
-
+/* Para pantallas grandes*/
+@media (min-height: 700px) {
+    .top-screen{
+        min-height: 250px;
+    }
+}
 /* Asegura el centrado horizontal del .form-group */
 .top-screen .form-group,
 .bar-index .form-group {
