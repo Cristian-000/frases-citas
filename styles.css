@@ -638,8 +638,8 @@ background-color: rgb(155, 155, 155);
 #miCanvas img {
     width: auto;
     height: auto;
-    max-width: 100%; /* Evita que la imagen sea más ancha que su contenedor */
-    max-height: 100%; /* Evita que la imagen sea más alta que su contenedor */
+   /* max-width: 100%; /* Evita que la imagen sea más ancha que su contenedor */
+   /* max-height: 100%; /* Evita que la imagen sea más alta que su contenedor */
 }
 
 
