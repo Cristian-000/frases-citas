@@ -171,7 +171,7 @@ function copiarFrase(frase, url) {
     navigator.clipboard.writeText(textoCopiar)
         .then(() => {
             console.log(textoCopiar)
-          //  alert("Frase copiada al portapapeles");
+            //  alert("Frase copiada al portapapeles");
         })
         .catch(err => {
             console.error("Error al copiar:", err);
@@ -200,22 +200,10 @@ const canvas = document.getElementById('miCanvas');
 const canvasContainer = document.getElementById('canvas-container');
 
 
-
-
-// Llama a cargarAutor al cargar la página
-document.addEventListener("DOMContentLoaded", () => {
-    // ajustarCanvasTamano();
-    cargarAutor();
-    actualizarCanvas();
-    // Ocultar el canvas y controles de ajuste al inicio
-    document.getElementById("canvas-container").style.display = "none";
-    document.getElementById("barra-modificadores").style.display = "none";
-});
-
-
-
 const ctx = canvas.getContext('2d');
 let fraseSeleccionada = "";
+let autorSeleccionado = ""; // Autor actual
+let mostrarAutor = true; // Control para mostrar/ocultar autor
 
 // Opciones de personalización
 const colorFondoInput = document.getElementById('colorFondo');
@@ -251,11 +239,18 @@ function resetearCanvas() {
     posicionYInput.value = canvas.height / 2; // Centrar verticalmente
     imagenFondo = null;
     removeFondoCheckbox.checked = false;
-    imagenFondoPos = { x: 0, y: 0, scale: 1 };
-    imagenFondoPos.initialized = false;
-    // Resetear favoritos
-    localStorage.removeItem("favoritos");
 
+
+    // Variables para la posición y escala de la imagen de fondo
+    imagenFondoPos = { x: 0, y: 0, scale: 1, startX: 0, startY: 0, lastScale: 1, initialWidth: 0, initialHeight: 0 }; // Guarda dimensiones originales
+    isDragging = false;
+    pinchStartDistance = 0;
+    dragStart = { x: 0, y: 0 };
+    minScale = 0.1; // Escala mínima
+    maxScale = 4;   // Escala máxima
+    // Resetear favoritos
+    //localStorage.removeItem("favoritos");
+    imagenFondoPos.initialized = false;
     // Resetear elementos del DOM
     //const listaFrases = document.getElementById("lista-frases");
     //listaFrases.innerHTML = '';
@@ -272,19 +267,33 @@ function resetearCanvas() {
 }
 tipoFuenteInput.value = "Arial"; // Tipo de fuente predeterminado
 
-// Función para establecer una frase seleccionada y mostrar el canvas
 function setFraseParaCompartir(frase, autor) {
-    fraseSeleccionada = `${frase} \n -${capitalizarIniciales(autor)}`;
+    fraseSeleccionada = frase;
+    autorSeleccionado = capitalizarIniciales(autor); // Guarda el autor separado
     actualizarCanvas();
     document.getElementById("canvas-container").style.display = "block";
     document.getElementById("barra-modificadores").style.display = "flex";
 }
 
 
+// Variable para la marca de agua
+const marcaDeAgua = urlCompartir; // Cambiar a tu URL deseada
+
+// Variables para la posición y escala de la imagen de fondo
+let imagenFondoPos = { x: 0, y: 0, scale: 1, startX: 0, startY: 0, lastScale: 1, initialWidth: 0, initialHeight: 0 }; // Guarda dimensiones originales
+let isDragging = false;
+let pinchStartDistance = 0;
+let dragStart = { x: 0, y: 0 };
+let minScale = 0.1; // Escala mínima
+let maxScale = 4;   // Escala máxima
+
+
 removeFondoCheckbox.addEventListener("change", function () {
     if (removeFondoCheckbox.checked) {
         // Si el checkbox está marcado, eliminar la imagen de fondo
         imagenFondo = null;
+
+
         actualizarCanvas(); // Redibujar el canvas sin fondo
     } else {
         // Si el checkbox no está marcado, restaurar la imagen de fondo
@@ -299,21 +308,20 @@ imagenFondoInput.addEventListener('change', (event) => {
         imagenFondo = new Image();
         imagenFondo.src = URL.createObjectURL(archivo);
         imagenFondo.onload = () => {
+            // Variables para la posición y escala de la imagen de fondo
+            imagenFondoPos = { x: 0, y: 0, scale: 1, startX: 0, startY: 0, lastScale: 1, initialWidth: 0, initialHeight: 0 }; // Guarda dimensiones originales
+            isDragging = false;
+            pinchStartDistance = 0;
+            dragStart = { x: 0, y: 0 };
+            minScale = 0.1; // Escala mínima
+            maxScale = 4;   // Escala máxima
+
             actualizarCanvas();
         };
     }
 });
 
-// Variable para la marca de agua
-const marcaDeAgua = urlCompartir; // Cambiar a tu URL deseada
 
-// Variables para la posición y escala de la imagen de fondo
-let imagenFondoPos = { x: 0, y: 0, scale: 1, startX: 0, startY: 0, lastScale: 1, initialWidth: 0, initialHeight: 0 }; // Guarda dimensiones originales
-let isDragging = false;
-let pinchStartDistance = 0;
-let dragStart = { x: 0, y: 0 };
-let minScale = 0.1; // Escala mínima
-let maxScale = 3;   // Escala máxima
 
 
 function ajustarTexto(ctx, texto, maxWidth, fontSize) {
@@ -361,6 +369,31 @@ function ajustarTexto(ctx, texto, maxWidth, fontSize) {
 
     return lineasFinales;
 }
+
+
+// Función para alternar la visibilidad del autor
+function toggleAutor() {
+    mostrarAutor = !mostrarAutor; // Cambia el estado de visibilidad del autor
+
+    // Cambiar el icono del botón según el estado
+    const botonToggle = document.getElementById("toggleAutor");
+    const icono = botonToggle.querySelector("i");
+
+    if (mostrarAutor) {
+        icono.classList.remove("fa-user-slash");
+        icono.classList.add("fa-user");
+    } else {
+        icono.classList.remove("fa-user");
+        icono.classList.add("fa-user-slash");
+    }
+
+    // Actualiza el canvas con o sin el autor
+    actualizarCanvas();
+}
+// Asigna la función al botón
+document.getElementById("toggleAutor").addEventListener("click", toggleAutor);
+
+
 
 imagenFondoPos.initialized = false;
 
@@ -461,10 +494,57 @@ function actualizarCanvas() {
             ctx.stroke();
         }
 
+    
         ctx.fillText(linea, posicionX, posicionInicialY + index * lineHeight);
 
     });
-
+    //autor
+    if (fraseSeleccionada) {
+        const lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, tamanoFrase);
+        const lineHeight = tamanoFrase * 1.3;
+    
+        const posicionInicialY = 
+            parseInt(posicionYInput.value) || 
+            canvas.height / 2 - ((lineas.length - 1) / 2) * lineHeight;
+    
+        // Dibujar las líneas de la frase
+        lineas.forEach((linea, index) => {
+            let posicionX = canvas.width / 2; // Default para "center"
+            if (alineacionTexto === "left") {
+                ctx.textAlign = "left";
+                posicionX = canvas.width * 0.02;
+            } else if (alineacionTexto === "right") {
+                ctx.textAlign = "right";
+                posicionX = canvas.width * 0.98;
+            } else {
+                ctx.textAlign = "center";
+            }
+    
+            ctx.fillText(linea, posicionX, posicionInicialY + index * lineHeight);
+        });
+    
+        // Dibujar autor si está habilitado
+        if (mostrarAutor && autorSeleccionado) {
+            const posicionAutorY = posicionInicialY + lineas.length * lineHeight + lineHeight / 2;
+    
+            let posicionAutorX = canvas.width / 2; // Default para "center"
+            if (alineacionTexto === "left") {
+                ctx.textAlign = "left";
+                posicionAutorX = canvas.width * 0.02;
+            } else if (alineacionTexto === "right") {
+                ctx.textAlign = "right";
+                posicionAutorX = canvas.width * 0.98;
+            } else {
+                ctx.textAlign = "center";
+            }
+    
+            ctx.fillText(`- ${autorSeleccionado}`, posicionAutorX, posicionAutorY);
+        }
+        // Redibujar emoji
+    
+    }
+     // Dibujar el emoji en su posición
+   
     if (marcaDeAgua) {
         // Dibujar marca de agua centrada
         const marcaAgua = urlCompartir;
@@ -590,9 +670,17 @@ function getDistance(x1, y1, x2, y2) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("canvas-container").style.display = "none";
+    document.getElementById("barra-modificadores").style.display = "none";
+    cargarAutor();
     actualizarCanvas();
     initCanvasTouchControls();
     initCanvasMouseControls();
+      
+       
+       
+      
+    
 });
 
 
