@@ -11,7 +11,7 @@ function cargarDichos() {
                 const isFavorito = favoritos.some(fav => fav.texto === dicho.texto);
 
                 const li = document.createElement("li");
-                li.className = "list-group-item d-flex justify-content-between align-items-center";
+                li.className = "list-group-item d-flex justify-content-between align-items-center mb-2";
 
                 li.innerHTML = `
                     <div class="dicho-content">

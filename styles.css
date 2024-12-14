@@ -37,39 +37,33 @@ html {
     top: 0;
     background-color: var(--color-fondo);
     z-index: 100;
-    padding-top: 11vh;
+    padding-top: 9vh;
+    min-height: 220px;
     padding-left: 12px;
     padding-right: 12px;
-    margin: 0;
     display: flex;
     flex-direction: column;
-}
+    justify-content: center;
 
-.bottom-screen {
-
-    width: 100%;
-    /* Espacio entre top-screen y bottom-screen */
-}
-/* General */
-body {
-    padding: 0;
-    margin: 0;
-    font-family: Arial, sans-serif, impact, Verdana, Georgia, Tahoma, 'Courier New', Courier, monospace, 'Times New Roman', Times, serif Roman;
-
-}
-.container {
-    max-width: 800px;
+    /* Centra los elementos dentro del contenedor */
     margin: 0 auto;
-    padding: 0 15px;
-}
-#h1-frasedia {
-    font-size: 1.1rem;
-    text-align: left;
+    /* Centra el contenedor en la página */
 }
 
-/* Contenedor general */
-.form-group {
+/* Asegura el centrado horizontal del .form-group */
+.top-screen .form-group, .bar-index .form-group  {
+    display: flex;
+    justify-content: center;
+    /* Centra el contenido horizontalmente */
+    margin: 0 auto;
+    /* Centra el contenedor */
+    max-width: 770px;
+    /* Opcional: ajusta el ancho máximo */
+    width: 100%;
+    /* Ocupa todo el espacio disponible */
     position: relative;
+    margin-bottom: 8px;
+  
 }
 
 /* Campo de entrada con espacio para el ícono */
@@ -79,8 +73,44 @@ body {
 #barra-busqueda-autores,
 #barra-busqueda-dich {
     padding-left: 40px;
-   
-    /* Espacio para el ícono */
+    flex: 1;
+    max-width: 800px;
+    border-radius: 8px;
+}
+
+.bottom-screen {
+
+    width: 100%;
+    max-width: 800px;
+    /* Espacio entre top-screen y bottom-screen */
+}
+
+/* General */
+body {
+    padding: 0;
+    margin: 0;
+    font-family: Arial, sans-serif, impact, Verdana, Georgia, Tahoma, 'Courier New', Courier, monospace, 'Times New Roman', Times, serif Roman;
+
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+#h1-frasedia {
+    font-size: 1.1rem;
+    text-align: left;
+}
+
+
+.list-group-item {
+    border-radius: 8px;
+    /* Bordes redondeados */
+    background-color: rgba(255, 255, 255, 0.7);
+    /* Fondo blanco */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .frase-content {
@@ -91,7 +121,7 @@ body {
     /* Borde fino en gris claro */
     border-radius: 8px;
     /* Bordes redondeados */
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.8);
     /* Fondo blanco */
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     /* Sombra sutil */
@@ -121,30 +151,18 @@ body {
 
 
 
-
 .background {
-    position: absolute;
-    /* Cambiar a absolute */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: url('arbol-fondo-00.png') center/cover no-repeat;
     background-attachment: fixed;
-    /* Fija el fondo */
     opacity: 0.1;
     z-index: -1;
 }
 
-
-.content {
-    position: relative;
-    z-index: 1;
-    /* Frente del fondo */
-    color: black;
-    /* Ajusta el texto para que sea legible */
-    padding: 20px;
-}
 
 .holiday-buttons {
     display: flex;
@@ -284,7 +302,7 @@ h3 {
 background-color: rgb(155, 155, 155);
 }*/
 .scrollable-container {
-    max-height: 200px;
+    max-height: 225px;
     /* Ajusta según tus necesidades */
     overflow-y: auto;
     /* border: 1px solid var(--color-light-shadow); /* Añade un borde para separar visualmente */
@@ -322,8 +340,9 @@ background-color: rgb(155, 155, 155);
 /* Estilos para el Navbar */
 .navbar {
     z-index: 1000;
-    background-color: var(--color-fondo);
+    background-color: var(--color-badge-primario);
     /* Fondo del navbar */
+    color: var(--color-acento);
     box-shadow: 0 5px 4px rgba(0, 0, 0, 0.1);
     /* Sombra sutil */
     padding: 0.3rem 0.5rem;
@@ -354,13 +373,15 @@ background-color: rgb(155, 155, 155);
 }
 
 .navbar-brand {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     /* Tamaño de la marca */
-    font-weight: 600;
+    font-weight: 400;
     /* Texto en negrita */
     color: var(--color-acento);
     /* Color de acento */
     text-transform: uppercase;
+    letter-spacing: 1px;
+    padding-left: 6px;
     /* Mayúsculas en el nombre */
 }
 
@@ -554,10 +575,6 @@ background-color: rgb(155, 155, 155);
 
 }
 
-.autor-link:hover {
-    color: var(--color-acento);
-}
-
 /* Biografía */
 .text-muted {
     font-size: 0.9rem;
@@ -575,15 +592,7 @@ background-color: rgb(155, 155, 155);
     /* Centra el modal de manera automática */
 }
 
-/* Estilo para el contenedor del canvas */
-/* #canvas-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: auto; /* Permite que el contenedor se adapte 
-    position: relative;
-}*/
+
 #miCanvas {
     /*   max-height: 80vh;*/
     width: 100%;

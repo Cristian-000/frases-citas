@@ -62,13 +62,15 @@ function cargarAutores() {
                             const cantidadFrases = autoresUnicos.get(autor.autor_url) || 0;
 
                             const li = document.createElement("li");
-                            li.className = "list-group-item";
+                            li.className = "list-group-item mb-2";
                             li.innerHTML = `
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <a href="autor.html?autor=${encodeURIComponent(autor.autor_url)}" class="author-link">
+                                    <a href="autor.html?autor=${encodeURIComponent(autor.autor_url)}" class="autor-link">
                                         <h5 class="font-weight-bold text-primary mb-0">${autor.nombre}</h5>
                                     </a>
-                                    <span class="badge badge-primary">${cantidadFrases} frase${cantidadFrases !== 1 ? 's' : ''}</span>
+                                     <a href="autor.html?autor=${encodeURIComponent(autor.autor_url)}" class="author-link">
+                                        <span class="badge badge-primary">${cantidadFrases} frase${cantidadFrases !== 1 ? 's' : ''}</span>
+                                     </a>
                                 </div>
                                 <p class="mb-1 text-muted">${autor.biografia || "Sin biografía disponible."}</p>
                             `;
@@ -82,13 +84,15 @@ function cargarAutores() {
                 const autor = autoresData.autores.find(a => a.autor_url === autorUrl);
                 if (autor) {
                     const li = document.createElement("li");
-                    li.className = "list-group-item";
+                    li.className = "list-group-item mb-2";
                     li.innerHTML = `
                         <div class="d-flex justify-content-between align-items-center">
-                            <a href="autor.html?autor=${encodeURIComponent(autor.autor_url)}" class="author-link">
+                            <a href="autor.html?autor=${encodeURIComponent(autor.autor_url)}" class="autor-link">
                                 <h5 class="font-weight-bold text-primary mb-0">${autor.nombre}</h5>
                             </a>
-                            <span class="badge badge-primary">${cantidad} frase${cantidad !== 1 ? 's' : ''}</span>
+                            <a href="autor.html?autor=${encodeURIComponent(autor.autor_url)}" class="author-link">
+                                        <span class="badge badge-primary">${cantidad} frase${cantidad !== 1 ? 's' : ''}</span>
+                                     </a>
                         </div>
                         <p class="mb-1 text-muted">${autor.biografia || "Sin biografía disponible."}</p>
                     `;
@@ -100,9 +104,9 @@ function cargarAutores() {
 }
 
 // Ajustar padding top dinamicamente al cargar el DOM
-document.addEventListener('DOMContentLoaded', function() {
-  
+document.addEventListener('DOMContentLoaded', function () {
+
     if (document.getElementById("lista-autores")) {
-      cargarAutores();
-  }
+        cargarAutores();
+    }
 });
