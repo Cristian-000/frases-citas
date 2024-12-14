@@ -584,7 +584,75 @@ function initCanvasTouchControls() {
         pinchStartDistance = 0;
     });
 }
+canvas.addEventListener("touchstart", (e) => {
+    const touches = e.touches;
 
+    if (touches.length === 2) {
+        const touch1 = touches[0];
+        const touch2 = touches[1];
+
+        // Guardar distancia inicial y ángulo inicial
+        pinchStartDistance = getDistance(
+            touch1.clientX, touch1.clientY,
+            touch2.clientX, touch2.clientY
+        );
+        pinchStartAngle = Math.atan2(
+            touch2.clientY - touch1.clientY,
+            touch2.clientX - touch1.clientX
+        );
+
+        // Guardar ángulo acumulado
+        lastAngle = imagenFondoPos.rotation || 0;
+    }
+});
+
+canvas.addEventListener("touchmove", (e) => {
+    e.preventDefault();
+    const touches = e.touches;
+
+    if (touches.length === 1 && isDragging) {
+        // Pan (desplazamiento)
+        const touch = touches[0];
+        imagenFondoPos.x = touch.clientX - imagenFondoPos.startX;
+        imagenFondoPos.y = touch.clientY - imagenFondoPos.startY;
+    } else if (touches.length === 2) {
+        // Zoom y Rotación
+        const touch1 = touches[0];
+        const touch2 = touches[1];
+
+        // Calcular distancia actual entre los dedos
+        const currentDistance = getDistance(
+            touch1.clientX, touch1.clientY,
+            touch2.clientX, touch2.clientY
+        );
+
+        // Calcular ángulo actual entre los dedos
+        const currentAngle = Math.atan2(
+            touch2.clientY - touch1.clientY,
+            touch2.clientX - touch1.clientX
+        );
+
+        // Zoom
+        imagenFondoPos.scale = (currentDistance / pinchStartDistance) * imagenFondoPos.lastScale;
+        imagenFondoPos.scale = Math.max(minScale, Math.min(maxScale, imagenFondoPos.scale));
+
+        // Rotación
+        imagenFondoPos.rotation = lastAngle + (currentAngle - pinchStartAngle);
+
+        // Actualizar posición (opcional, basado en centro de dedos)
+        imagenFondoPos.x = (touch1.clientX + touch2.clientX) / 2 - dragStart.x;
+        imagenFondoPos.y = (touch1.clientY + touch2.clientY) / 2 - dragStart.y;
+
+    }
+
+    actualizarCanvas();
+});
+
+canvas.addEventListener("touchend", (e) => {
+    isDragging = false;
+    pinchStartDistance = 0;
+    pinchStartAngle = 0;
+});
 function getDistance(x1, y1, x2, y2) {
     return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
 }
