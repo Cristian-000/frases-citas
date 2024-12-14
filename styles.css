@@ -631,7 +631,7 @@ background-color: rgb(155, 155, 155);
     /* La imagen se adapta al 100% del contenedor */
     height: auto;
     /* Mantiene la altura proporcional al ancho */
-    object-fit: cover;
+    object-fit: contain;
     /* Asegura que la imagen mantenga la proporción sin recortar */
 }
 
