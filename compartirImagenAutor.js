@@ -122,9 +122,9 @@ function cargarAutor() {
     });
 }
 const imagenesPredefinidas = [
-    "./f5244048-26fa-49f8-a690-255004ad1ccf.jpeg",
-    "./f5244048-26fa-49f8-a690-255004ad1ccf.jpeg",
-    "./f5244048-26fa-49f8-a690-255004ad1ccf.jpeg",
+    "61220a66-751f-44e2-ad8c-9596e72a41a6.jpeg",
+    "3237267e-3c70-45b9-9799-1bcaee0b85d6.jpeg",
+    "f5244048-26fa-49f8-a690-255004ad1ccf.jpeg",
     // ... más imágenes
 ];
 
@@ -140,10 +140,13 @@ imagenesPredefinidas.forEach((url, index) => {
     option.text = `Imagen ${index + 1}`;
     selectImagenPredefinida.appendChild(option);
 });
+const modal = new bootstrap.Modal(document.getElementById('modalImagenes'));
+
 
 seleccionarImagenPredefinidaBtn.addEventListener('click', () => {
     modalImagenes.show();
 });
+
 
 btnSeleccionarImagen.addEventListener('click', () => {
     const selectedUrl = selectImagenPredefinida.value;
@@ -167,8 +170,6 @@ btnSeleccionarImagen.addEventListener('click', () => {
         // Redibujar el canvas para mostrar la nueva imagen
         actualizarCanvas();
 
-        // Cerrar el modal
-        modalImagenes.hide();
     };
 });
 
@@ -499,7 +500,7 @@ function actualizarCanvas() {
             ctx.stroke();
         }
 
-    
+
         ctx.fillText(linea, posicionX, posicionInicialY + index * lineHeight);
 
     });
@@ -507,11 +508,11 @@ function actualizarCanvas() {
     if (fraseSeleccionada) {
         const lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, tamanoFrase);
         const lineHeight = tamanoFrase * 1.3;
-    
-        const posicionInicialY = 
-            parseInt(posicionYInput.value) || 
+
+        const posicionInicialY =
+            parseInt(posicionYInput.value) ||
             canvas.height / 2 - ((lineas.length - 1) / 2) * lineHeight;
-    
+
         // Dibujar las líneas de la frase
         lineas.forEach((linea, index) => {
             let posicionX = canvas.width / 2; // Default para "center"
@@ -524,14 +525,14 @@ function actualizarCanvas() {
             } else {
                 ctx.textAlign = "center";
             }
-    
+
             ctx.fillText(linea, posicionX, posicionInicialY + index * lineHeight);
         });
-    
+
         // Dibujar autor si está habilitado
         if (mostrarAutor && autorSeleccionado) {
             const posicionAutorY = posicionInicialY + lineas.length * lineHeight + lineHeight / 2;
-    
+
             let posicionAutorX = canvas.width / 2; // Default para "center"
             if (alineacionTexto === "left") {
                 ctx.textAlign = "left";
@@ -542,14 +543,14 @@ function actualizarCanvas() {
             } else {
                 ctx.textAlign = "center";
             }
-    
+
             ctx.fillText(`- ${autorSeleccionado}`, posicionAutorX, posicionAutorY);
         }
         // Redibujar emoji
-    
+
     }
-     // Dibujar el emoji en su posición
-   
+    // Dibujar el emoji en su posición
+
     if (marcaDeAgua) {
         // Dibujar marca de agua centrada
         const marcaAgua = urlCompartir;
@@ -681,11 +682,7 @@ document.addEventListener("DOMContentLoaded", () => {
     actualizarCanvas();
     initCanvasTouchControls();
     initCanvasMouseControls();
-      
-       
-       
-      
-    
+
 });
 
 
