@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch(error => console.error("Error en la carga:", error));
 });
 
-const colorCategorias = {
+const COLORCATEGORIAS = {
     "Navidad": "badge-navidad",
     "Año Nuevo": "badge-ano-nuevo",
     "Futuro": "badge-futuro",
@@ -45,7 +45,7 @@ const colorCategorias = {
 const urlCompartir = "https://cristian-000.github.io/frases-citas/index.html";
 
 function obtenerClaseColor(categoria) {
-    return colorCategorias[categoria] || colorCategorias["default"];
+    return COLORCATEGORIAS[categoria] || COLORCATEGORIAS["default"];
 }
 
 async function cargarCategorias() {
@@ -240,6 +240,9 @@ function configurarBarraBusqueda() {
                             }).join(' ')}
                                 </div>
                                 <div class="button-group d-flex align-items-center mr-1">
+                                <button class="btn btn-sm btn-outline-secondary border-0" onclick="setFraseParaCompartir('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}'); actualizarCanvas();" data-bs-toggle="modal" data-bs-target="#canvasModal" title="Crear Imagen">
+                                                <i class="fas fa-image"></i>
+                                            </button>
                                     <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');" title="Compartir">
                                         <i class="fas fa-share-alt"></i>
                                     </button>
@@ -268,86 +271,6 @@ function configurarBarraBusqueda() {
         }
     });
 }
-/*
-function configurarBarraBusquedaCats() {
-    const listaFrases = document.getElementById("lista-frases-cat");
-    const barraBusquedaCat = document.getElementById("barra-busqueda-cat");
-    const resultadosBusquedaCat = document.getElementById("resultados-busqueda-cat");
-  
-    barraBusquedaCat.addEventListener("input", () => {
-      const query = barraBusquedaCat.value.toLowerCase();
-      resultadosBusquedaCat.innerHTML = "";
-  
-      if (query.trim() === ""){
-        listaFrases.style.display= "block"
-        resultadosBusquedaCat.style.display= "none" 
-      }else{
-         listaFrases.style.display= "none"
-          fetch('frases.json')
-          .then(response => response.json())
-          .then(data => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const selectedCategory = urlParams.get('categoria'); // Get category from URL
-  
-            const frasesEncontradas = data.frases.filter(fraseObj => {
-              const matchesQuery = fraseObj.frase.toLowerCase().includes(query) ||
-                fraseObj.autor_url.toLowerCase().includes(query) ||
-                fraseObj.categorias.some(categoria => categoria.toLowerCase().includes(query));
-  
-              // Filter by category only if a category is selected in the URL
-              return matchesQuery && (!selectedCategory || fraseObj.categorias.includes(selectedCategory));
-            });
-  
-            const favoritos = JSON.parse(localStorage.getItem("favoritos")) || []; // Cargar favoritos
-  
-            frasesEncontradas.forEach(fraseObj => {
-                const autorCapitalizado = capitalizarIniciales(fraseObj.autor_url);
-                console.log(autorCapitalizado)
-                // Verificar si la frase está en los favoritos
-                const isFavorito = favoritos.some(fav => fav.frase === fraseObj.frase);
-
-                const li = document.createElement("li");
-                li.className = "d-flex justify-content-between align-items-center";
-
-                li.innerHTML = `
-                <div class="w-100 frase-content frase-content-search-cat">
-                    <p class="mb-1"><strong>${fraseObj.frase}</strong></p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <small><a href="autor.html?autor=${fraseObj.autor_url}" class="autor-link">${autorCapitalizado}</a></small>
-                            ${fraseObj.categorias.map(categoria => {
-                    // Aplicar la función obtenerClaseColor para obtener el color adecuado
-                    const claseColor = obtenerClaseColor(categoria);
-                    return `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge ${claseColor} ml-2">${categoria}</a>`;
-                }).join(' ')}
-                        </div>
-                        <div class="button-group d-flex align-items-center mr-1">
-                            <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');" title="Compartir">
-                                <i class="fas fa-share-alt"></i>
-                            </button>
-                            <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${urlCompartir}');" title="Copiar frase">
-                                <i class="fas fa-copy"></i>
-                            </button>
-                            <button class="btn btn-link heart-button ml-2" data-frase="${encodeURIComponent(fraseObj.frase)}">
-                                <i class="${isFavorito ? 'fas' : 'far'} fa-heart text-danger"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-                resultadosBusquedaCat.appendChild(li);
-
-                // Asignar el evento de clic al botón de favoritos
-                li.querySelector(".heart-button").addEventListener("click", (e) => {
-                    toggleFavorito(fraseObj, e.currentTarget.querySelector("i"));
-                });
-            });
-          })
-          .catch(error => console.error("Error al cargar frases para búsqueda:", error));
-      }
-    });
-}*/
 
 function configurarBarraBusquedaCats() {
     const listaFrases = document.getElementById("lista-frases-cat");
