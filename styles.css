@@ -703,7 +703,7 @@ background-color: rgb(155, 155, 155);
 
     background-color: #e6e6e6;
     /* Evita que padding afecte el ancho total */
-    z-index: 1000;
+    z-index: 300;
     border-radius:8px;
 }
 
@@ -725,6 +725,7 @@ background-color: rgb(155, 155, 155);
 
 #barra-modificadores label input,
 #barra-modificadores label select {
+    
     display: none;
     position: absolute;
     top: -200%;
@@ -801,6 +802,7 @@ background-color: rgb(155, 155, 155);
     gap: 15px;
     /*   margin-top: 50px;*/
 }
+
 
 /* Estilo para cada emoción */
 .emocion {
