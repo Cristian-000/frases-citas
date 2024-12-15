@@ -122,8 +122,9 @@ function cargarAutor() {
     });
 }
 const imagenesPredefinidas = [
-    "https://example.com/imagen1.jpg",
-    "https://example.com/imagen2.png",
+    "f5244048-26fa-49f8-a690-255004ad1ccf.jpeg",
+    "./f5244048-26fa-49f8-a690-255004ad1ccf.jpeg",
+    "/f5244048-26fa-49f8-a690-255004ad1ccf.jpeg",
     // ... más imágenes
 ];
 
