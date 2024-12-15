@@ -121,6 +121,55 @@ function cargarAutor() {
             });
     });
 }
+const imagenesPredefinidas = [
+    "https://example.com/imagen1.jpg",
+    "https://example.com/imagen2.png",
+    // ... más imágenes
+];
+
+const selectImagenPredefinida = document.getElementById('selectImagenPredefinida');
+const modalImagenes = new bootstrap.Modal(document.getElementById('modalImagenes'));
+const btnSeleccionarImagen = document.getElementById('btnSeleccionarImagen');
+const seleccionarImagenPredefinidaBtn = document.getElementById('seleccionarImagenPredefinida');
+
+// Llenar el select con las opciones
+imagenesPredefinidas.forEach((url, index) => {
+    const option = document.createElement('option');
+    option.value = url;
+    option.text = `Imagen ${index + 1}`;
+    selectImagenPredefinida.appendChild(option);
+});
+
+seleccionarImagenPredefinidaBtn.addEventListener('click', () => {
+    modalImagenes.show();
+});
+
+btnSeleccionarImagen.addEventListener('click', () => {
+    const selectedUrl = selectImagenPredefinida.value;
+
+    // Crear una nueva imagen
+    const nuevaImagen = new Image();
+    nuevaImagen.src = selectedUrl;
+
+    // Esperar a que la imagen se cargue completamente
+    nuevaImagen.onload = () => {
+        // Asignar la nueva imagen al fondo del canvas
+        imagenFondo = nuevaImagen;
+
+        // Ajustar el tamaño y posición de la imagen en el canvas
+        // Aquí puedes ajustar el tamaño y la posición de la imagen según tus necesidades
+        // Por ejemplo:
+        imagenFondoPos.initialWidth = imagenFondo.width;
+        imagenFondoPos.initialHeight = imagenFondo.height;
+        // ... (otros ajustes)
+
+        // Redibujar el canvas para mostrar la nueva imagen
+        actualizarCanvas();
+
+        // Cerrar el modal
+        modalImagenes.hide();
+    };
+});
 
 
 // Configuración del modal para que solo se cierre con el botón de cerrar
