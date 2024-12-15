@@ -26,7 +26,7 @@ function obtenerClaseColor(categoria) {
     return colorCategorias[categoria] || colorCategorias["default"];
 }
 const favoritos = JSON.parse(localStorage.getItem("favoritos")) || []; // Cargar favoritos
-
+const categoriaSeleccionada = urlParams.get("categoria");
 
 function cargarAutor() {
     return new Promise((resolve, reject) => {

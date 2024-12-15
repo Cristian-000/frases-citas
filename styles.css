@@ -153,7 +153,14 @@ body {
     margin-right: 40px;
 
 }
-
+.top-screen-annuev{
+    background-image: url("img-btn-anio-nuevo.jpg"); /* Reemplaza con la ruta correcta */
+    background-size: cover; /* Para que la imagen cubra todo el fondo */
+    background-repeat: no-repeat; /* Para evitar que la imagen se repita */
+    background-position: center; /* Para centrar la imagen */
+    height: auto; /* O la altura que desees */
+    /* Otras propiedades como padding, color de texto, etc. */
+  }
 .modal-body{
     padding: 0;
     margin: 0;
