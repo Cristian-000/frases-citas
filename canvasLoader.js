@@ -1,8 +1,8 @@
 
 //////////////////////////////////
 const imagenesPredefinidas = [
-    "/img-precarg/1.jpeg",
-    "/img-precarg/2.jpeg",
+    "./img-precarg/1.jpeg",
+    "./img-precarg/2.jpeg",
     "/img-precarg/3.jpeg",
     "/img-precarg/4.jpeg",
     "/img-precarg/5.jpeg",
