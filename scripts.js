@@ -334,6 +334,9 @@ function configurarBarraBusquedaCats() {
                             }).join(' ')}
                             </div>
                             <div class="button-group d-flex align-items-center mr-1">
+                                <button class="btn btn-sm btn-outline-secondary border-0" onclick="setFraseParaCompartir('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}'); actualizarCanvas();" data-bs-toggle="modal" data-bs-target="#canvasModal" title="Crear Imagen">
+                                    <i class="fas fa-image"></i>
+                                </button>
                                 <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');" title="Compartir">
                                     <i class="fas fa-share-alt"></i>
                                 </button>
@@ -397,6 +400,9 @@ function cargarFrasesPorCategoria() {
                     }).join(' ')}
                             </div>
                             <div class="button-group d-flex align-items-center mr-1">
+                                <button class="btn btn-sm btn-outline-secondary border-0" onclick="setFraseParaCompartir('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}'); actualizarCanvas();" data-bs-toggle="modal" data-bs-target="#canvasModal" title="Crear Imagen">
+                                    <i class="fas fa-image"></i>
+                                </button>
                                 <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');" title="Compartir">
                                     <i class="fas fa-share-alt"></i>
                                 </button>

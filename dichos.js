@@ -1,4 +1,5 @@
 function cargarDichos() {
+    mostrarAutor = false;
     fetch('dichos.json')
         .then(response => response.json())
         .then(data => {
@@ -18,6 +19,9 @@ function cargarDichos() {
                         <p class="mb-2">${dicho.texto}</p>
                     </div>
                     <div class="button-group d-flex align-items-center mr-1">
+                        <button class="btn btn-sm btn-outline-secondary border-0" onclick="setFraseParaCompartir('${dicho.texto}', ' '); actualizarCanvas();" data-bs-toggle="modal" data-bs-target="#canvasModal" title="Crear Imagen">
+                                    <i class="fas fa-image"></i>
+                        </button>
                         <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirDicho('${dicho.texto}', '${window.location.href}');" title="Compartir">
                             <i class="fas fa-share-alt"></i>
                         </button>
@@ -89,7 +93,7 @@ function configurarBarraBusquedaDichos() {
     const listaDichos = document.getElementById("lista-dichos");
     const barraBusquedaDich = document.getElementById("barra-busqueda-dich");
     const resultadosBusquedaDich = document.getElementById("resultados-busqueda-dich");
-
+    mostrarAutor = false;
     barraBusquedaDich.addEventListener("input", () => {
         const query = barraBusquedaDich.value.toLowerCase();
         resultadosBusquedaDich.innerHTML = "";
@@ -121,6 +125,9 @@ function configurarBarraBusquedaDichos() {
                                 <p class="mb-2">${dicho.texto}</p>
                             </div>
                             <div class="button-group d-flex align-items-center mr-1">
+                            <button class="btn btn-sm btn-outline-secondary border-0" onclick="setFraseParaCompartir('${dicho.texto}', ' '); actualizarCanvas();" data-bs-toggle="modal" data-bs-target="#canvasModal" title="Crear Imagen">
+                                    <i class="fas fa-image"></i>
+                                </button>
                                 <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirDicho('${dicho.texto}', '${window.location.href}');" title="Compartir">
                                     <i class="fas fa-share-alt"></i>
                                 </button>
