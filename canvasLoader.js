@@ -1,20 +1,23 @@
 
 //////////////////////////////////
 const imagenesPredefinidas = [
-    "/img-precarg/1.jpg","/img-precarg/2.jpg","/img-precarg/3.jpg",
-    "/img-precarg/4.jpg","/img-precarg/5.jpg","/img-precarg/6.jpg",
-    "/img-precarg/7.jpg","/img-precarg/8.jpg","/img-precarg/9.jpg",
-    "/img-precarg/3.jpg","/img-precarg/3.jpg",
-    "/img-precarg/11.jpg","/img-precarg/12.jpg",
-    "/img-precarg/13.jpg","/img-precarg/14.jpg",
-    "/img-precarg/15.jpg","/img-precarg/16.jpg",
-    "/img-precarg/17.jpg","/img-precarg/18.jpg","/img-precarg/19.jpg",
-    "/img-precarg/20.jpg","/img-precarg/21.jpg",
-    "/img-precarg/22.jpg","/img-precarg/23.jpg",
-    "/img-precarg/24.jpg","/img-precarg/25.jpg","/img-precarg/26.jpg",
-    "/img-precarg/27.jpg","/img-precarg/28.jpg","/img-precarg/29.jpg",
-    "/img-precarg/30.jpg","/img-precarg/31.jpg","/img-precarg/32.jpg",
-    "/img-precarg/33.jpg","/img-precarg/34.jpg","/img-precarg/35.jpg",
+    "/img-precarg/1.webp",
+    "/img-precarg/2.webp",
+    "/img-precarg/3.webp",
+    "/img-precarg/4.webp",
+    "/img-precarg/5.webp","/img-precarg/6.webp",
+    "/img-precarg/7.webp","/img-precarg/8.webp","/img-precarg/9.webp",
+    "/img-precarg/3.webp","/img-precarg/3.webp",
+    "/img-precarg/11.webp","/img-precarg/12.webp",
+    "/img-precarg/13.webp","/img-precarg/14.webp",
+    "/img-precarg/15.webp","/img-precarg/16.webp",
+    "/img-precarg/17.webp","/img-precarg/18.webp","/img-precarg/19.webp",
+    "/img-precarg/20.webp","/img-precarg/21.webp",
+    "/img-precarg/22.webp","/img-precarg/23.webp",
+    "/img-precarg/24.webp","/img-precarg/25.webp","/img-precarg/26.webp",
+    "/img-precarg/27.webp","/img-precarg/28.webp","/img-precarg/29.webp",
+    "/img-precarg/30.webp","/img-precarg/31.webp","/img-precarg/32.webp",
+    "/img-precarg/33.webp","/img-precarg/34.webp","/img-precarg/35.webp",
 
     
     // ... más imágenes
@@ -528,6 +531,27 @@ $('#canvasModal').on('shown.bs.modal', function () {
     el.addEventListener('change', actualizarCanvas); // Para el selec
 });
 
+function descargarImagen() {
+    // Obtener la fecha en formato YYYY-MM-DD
+    const fecha = new Date().toISOString().slice(0, 10);
+
+    // Extraer la frase corta (hasta 15 caracteres)
+    const fraseCorta = (fraseSeleccionada.split(' - ')[0] || '').substring(0, 15).replace(/\s+/g, '_');
+
+    // Si no hay frase válida, usar un nombre genérico
+    const nombreArchivo = `${fraseCorta || 'imagen_sin_titulo'}_${fecha}.png`;
+
+    // Crear un enlace temporal y descargar la imagen en formato WebP
+    const enlace = document.createElement('a');
+    enlace.href = canvas.toDataURL('image/png');
+    enlace.download = nombreArchivo;
+    enlace.click();
+
+    // Limpiar el enlace después de la descarga
+    enlace.remove();
+}
+
+/*
 // Función para descargar la imagen del canvas
 function descargarImagen() {
     const fecha = new Date().toISOString().split('T')[0];
@@ -538,7 +562,7 @@ function descargarImagen() {
     enlace.href = canvas.toDataURL('image/png');
     enlace.download = nombreArchivo;
     enlace.click();
-}
+}*/
 
 document.getElementById('botonDescargar').addEventListener('click', descargarImagen);
 
