@@ -3,7 +3,7 @@
 const imagenesPredefinidas = [
     "./img-precarg/1.jpeg",
     "./img-precarg/2.jpeg",
-    "/frases-citas/img-precarg/3.jpeg",
+    "https://cristian-000.github.io/frases-citas/img-precarg/3.jpeg",
     "/img-precarg/4.jpeg",
     "/img-precarg/5.jpeg",
     "/img-precarg/6.jpeg",
