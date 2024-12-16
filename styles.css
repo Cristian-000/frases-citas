@@ -32,6 +32,8 @@ html {
     scroll-behavior: smooth;
 }
 
+* a {text-decoration: none;}
+
 .top-screen {
     position: sticky;
     top: 0;
@@ -590,6 +592,7 @@ background-color: rgb(155, 155, 155);
     color: var(--color-texto);
     font-size: 1rem;
     font-weight: 600;
+    margin-right: 5px;
 
 }
 

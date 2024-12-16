@@ -182,13 +182,18 @@ function compartirFrase(frase, autor) {
         alert("La funcionalidad de compartir no está disponible en este navegador.");
     }
 }
-
+/*
 // Función para capitalizar iniciales del autor
 function capitalizarIniciales(nombre) {
     return nombre
         .split(" ")
-        .map(palabra => palabra.charAt(0).toUpperCase() + palabra.slice(1).toLowerCase())
+        .map(palabra => palabra.charAt(0).toUpperCase() + palabra.slice(1).toLowerCase().replace('-', ' '))
         .join(" ");
+}*/
+function capitalizarIniciales(nombre) {
+    return nombre.replace(/(^|\s|-)+([a-z])/g, function(match, separador, letra) {
+        return (separador ? " " : "") + letra.toUpperCase();
+    });
 }
 
 function configurarBarraBusqueda() {
@@ -240,7 +245,7 @@ function configurarBarraBusqueda() {
                             }).join(' ')}
                                 </div>
                                 <div class="button-group d-flex align-items-center mr-1">
-                                <button class="btn btn-sm btn-outline-secondary border-0" onclick="setFraseParaCompartir('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}'); actualizarCanvas();" data-bs-toggle="modal" data-bs-target="#canvasModal" title="Crear Imagen">
+                                  <button class="btn btn-sm btn-outline-secondary border-0" onclick="setFraseParaCompartir('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}'); actualizarCanvas();" data-bs-toggle="modal" data-bs-target="#canvasModal" title="Crear Imagen">
                                                 <i class="fas fa-image"></i>
                                             </button>
                                     <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');" title="Compartir">
@@ -381,7 +386,7 @@ function cargarFrasesPorCategoria() {
 
 
             data.frases.forEach(fraseObj => {
-                const autorCapitalizadoCat = fraseObj.autor_url.charAt(0).toUpperCase() + fraseObj.autor_url.slice(1).toLowerCase().replace('-', ' ');
+                const autorCapitalizado = capitalizarIniciales(fraseObj.autor_url);
                 const favoritos = JSON.parse(localStorage.getItem("favoritos")) || []; // Cargar favoritos
                 if (fraseObj.categorias.includes(categoriaSeleccionada)) {
                     const isFavorito = favoritos.some(fav => fav.frase === fraseObj.frase);
@@ -393,7 +398,7 @@ function cargarFrasesPorCategoria() {
                         <p class="mb-1"><strong>${fraseObj.frase}</strong></p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="badges">
-                                <small><a href="autor.html?autor=${fraseObj.autor_url}" class="autor-link">${autorCapitalizadoCat}</a></small>
+                                <small><a href="autor.html?autor=${fraseObj.autor_url}" class="autor-link">${autorCapitalizado}</a></small>
                                 ${fraseObj.categorias.map(categoria => {
                         const claseColor = obtenerClaseColor(categoria);
                         return `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge ${claseColor} ml-2">${categoria}</a>`;
