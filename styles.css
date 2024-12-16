@@ -986,3 +986,51 @@ background-color: rgb(155, 155, 155);
     border-color: #800020; /* Borde bordó al enfocar */
     box-shadow: 0 0 5px rgba(128, 0, 32, 0.5); /* Sombra bordó suave */
 }
+
+#contenedorImagenes img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+#contenedorImagenes img.selected {
+    border-color: var(--color-acento, #800020); /* Color de selección */
+}
+#contenedorImagenes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    max-height: 300px; /* Altura máxima del contenedor */
+    overflow-y: auto; /* Scroll vertical si el contenido excede la altura */
+}
+
+/* Opcional: estilizar el scroll */
+#contenedorImagenes::-webkit-scrollbar {
+    width: 8px;
+}
+
+#contenedorImagenes::-webkit-scrollbar-thumb {
+    background-color: var(--color-acento, #800020); /* Color del scroll */
+    border-radius: 4px;
+}
+
+#contenedorImagenes::-webkit-scrollbar-track {
+    background-color: var(--color-secundario, #f5f5f5); /* Fondo del scroll */
+}
+
+@media (max-height: 700px) {
+    #contenedorImagenes {
+        max-height: 200px; /* Reduce la altura máxima para pantallas más pequeñas */
+    }
+}
+
+@media (max-height: 500px) {
+    #contenedorImagenes {
+        max-height: 150px; /* Todavía más pequeña en pantallas reducidas */
+    }
+}
+

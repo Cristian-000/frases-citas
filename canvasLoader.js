@@ -27,16 +27,52 @@ const selectImagenPredefinida = document.getElementById('selectImagenPredefinida
 const modalImagenes = new bootstrap.Modal(document.getElementById('modalImagenes'));
 const btnSeleccionarImagen = document.getElementById('btnSeleccionarImagen');
 const seleccionarImagenPredefinidaBtn = document.getElementById('seleccionarImagenPredefinida');
-
+/*
 // Llenar el select con las opciones
 imagenesPredefinidas.forEach((url, index) => {
     const option = document.createElement('option');
     option.value = url;
     option.text = `Imagen ${index + 1}`;
     selectImagenPredefinida.appendChild(option);
-});
+});*/
 //const modal = new bootstrap.Modal(document.getElementById('modalImagenes'));
 
+const contenedorImagenes = document.getElementById('contenedorImagenes');
+let imagenSeleccionada = null; // Guardar la URL de la imagen seleccionada
+
+// Llenar el contenedor con miniaturas
+imagenesPredefinidas.forEach((url) => {
+    const img = document.createElement('img');
+    img.src = url;
+    img.alt = 'Miniatura';
+    img.addEventListener('click', () => {
+        // Quitar la clase 'selected' de cualquier otra miniatura
+        document.querySelectorAll('#contenedorImagenes img').forEach((img) => img.classList.remove('selected'));
+        // Agregar la clase 'selected' a la miniatura clickeada
+        img.classList.add('selected');
+        // Guardar la URL seleccionada
+        imagenSeleccionada = url;
+        // Habilitar el botón de selección
+        btnSeleccionarImagen.disabled = false;
+    });
+    contenedorImagenes.appendChild(img);
+});
+
+// Manejar la selección de la imagen
+btnSeleccionarImagen.addEventListener('click', () => {
+    if (imagenSeleccionada) {
+        const nuevaImagen = new Image();
+        nuevaImagen.src = imagenSeleccionada;
+
+        nuevaImagen.onload = () => {
+            imagenFondo = nuevaImagen;
+            imagenFondoPos.initialWidth = imagenFondo.width;
+            imagenFondoPos.initialHeight = imagenFondo.height;
+            actualizarCanvas();
+        };
+        modalImagenes.hide(); // Cerrar el modal
+    }
+});
 
 seleccionarImagenPredefinidaBtn.addEventListener('click', () => {
     modalImagenes.show();
