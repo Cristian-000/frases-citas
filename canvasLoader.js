@@ -1,9 +1,21 @@
 
 //////////////////////////////////
 const imagenesPredefinidas = [
-    "/img-precarg/61220a66-751f-44e2-ad8c-9596e72a41a6.jpeg",
-    "/img-precarg/3237267e-3c70-45b9-9799-1bcaee0b85d6.jpeg",
-    "/img-precarg/f5244048-26fa-49f8-a690-255004ad1ccf.jpeg",
+    "/img-precarg/1.jpg","/img-precarg/2.jpg","/img-precarg/3.jpg",
+    "/img-precarg/4.jpg","/img-precarg/5.jpg","/img-precarg/6.jpg",
+    "/img-precarg/7.jpg","/img-precarg/8.jpg","/img-precarg/9.jpg",
+    "/img-precarg/3.jpg","/img-precarg/3.jpg",
+    "/img-precarg/11.jpg","/img-precarg/12.jpg",
+    "/img-precarg/13.jpg","/img-precarg/14.jpg",
+    "/img-precarg/15.jpg","/img-precarg/16.jpg",
+    "/img-precarg/17.jpg","/img-precarg/18.jpg","/img-precarg/19.jpg",
+    "/img-precarg/20.jpg","/img-precarg/21.jpg",
+    "/img-precarg/22.jpg","/img-precarg/23.jpg",
+    "/img-precarg/24.jpg","/img-precarg/25.jpg","/img-precarg/26.jpg",
+    "/img-precarg/27.jpg","/img-precarg/28.jpg","/img-precarg/29.jpg",
+    "/img-precarg/30.jpg","/img-precarg/31.jpg","/img-precarg/32.jpg",
+    "/img-precarg/33.jpg","/img-precarg/34.jpg","/img-precarg/35.jpg",
+
     
     // ... más imágenes
 ];
