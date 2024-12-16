@@ -899,7 +899,7 @@ background-color: rgb(155, 155, 155);
 
 /* Encabezado del modal */
 #modalImagenes .modal-header {
-    background-color: #800020; /* Rojo bordó */
+    background-color: var(--color-acento); /* Rojo bordó */
     color: #ffffff; /* Texto blanco */
     border-bottom: none; /* Sin borde inferior */
     border-top-left-radius: 10px; /* Redondear esquinas */
@@ -909,7 +909,7 @@ background-color: rgb(155, 155, 155);
 /* Título del modal */
 #modalImagenes .modal-title {
     font-weight: bold; /* Negrita */
-    font-size: 1.25rem; /* Tamaño del texto */
+    font-size: 1rem; /* Tamaño del texto */
 }
 
 /* Botón de cierre */
@@ -917,10 +917,6 @@ background-color: rgb(155, 155, 155);
     background-color: #ffffff; /* Fondo blanco */
     border-radius: 50%; /* Forma redonda */
     opacity: 1; /* Sin transparencia */
-}
-
-#modalImagenes .modal-header .btn-close:hover {
-    background-color: #f5f5f5; /* Fondo más claro al pasar el cursor */
 }
 
 /* Cuerpo del modal */
@@ -948,15 +944,12 @@ background-color: rgb(155, 155, 155);
 
 /* Botón primario (Seleccionar) */
 #modalImagenes .modal-footer .btn-primary {
-    background-color: #800020; /* Rojo bordó */
+    background-color:var(--color-acento); /* Rojo bordó */
     border: none;
     color: #ffffff;
     transition: background-color 0.3s ease;
 }
 
-#modalImagenes .modal-footer .btn-primary:hover {
-    background-color: #a83244; /* Rojo más claro */
-}
 
 /* Botón secundario (Cerrar) */
 #modalImagenes .modal-footer .btn-secondary {
@@ -966,9 +959,6 @@ background-color: rgb(155, 155, 155);
     transition: background-color 0.3s ease;
 }
 
-#modalImagenes .modal-footer .btn-secondary:hover {
-    background-color: #c5c5c5; /* Gris más oscuro */
-}
 
 /* Select en el cuerpo del modal */
 #modalImagenes #selectImagenPredefinida {
@@ -983,13 +973,13 @@ background-color: rgb(155, 155, 155);
 
 #modalImagenes #selectImagenPredefinida:focus {
     outline: none;
-    border-color: #800020; /* Borde bordó al enfocar */
+    border-color: var(--color-acento); /* Borde bordó al enfocar */
     box-shadow: 0 0 5px rgba(128, 0, 32, 0.5); /* Sombra bordó suave */
 }
 
 #contenedorImagenes img {
     width: 80px;
-    height: 80px;
+    height: 100px;
     object-fit: cover;
     cursor: pointer;
     border: 2px solid transparent;
@@ -1004,7 +994,7 @@ background-color: rgb(155, 155, 155);
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
-    max-height: 300px; /* Altura máxima del contenedor */
+    max-height: 350px; /* Altura máxima del contenedor */
     overflow-y: auto; /* Scroll vertical si el contenido excede la altura */
 }
 
@@ -1024,13 +1014,13 @@ background-color: rgb(155, 155, 155);
 
 @media (max-height: 700px) {
     #contenedorImagenes {
-        max-height: 200px; /* Reduce la altura máxima para pantallas más pequeñas */
+        max-height: 300px; /* Reduce la altura máxima para pantallas más pequeñas */
     }
 }
 
 @media (max-height: 500px) {
     #contenedorImagenes {
-        max-height: 150px; /* Todavía más pequeña en pantallas reducidas */
+        max-height: 200px; /* Todavía más pequeña en pantallas reducidas */
     }
 }
 
