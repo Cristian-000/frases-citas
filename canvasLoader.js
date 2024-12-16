@@ -55,6 +55,7 @@ imagenesPredefinidas.forEach((url, index) => {
 
 const contenedorImagenes = document.getElementById('contenedorImagenes');
 let imagenSeleccionada = null; // Guardar la URL de la imagen seleccionada
+let imagenFondoOriginal = null;
 
 // Llenar el contenedor con miniaturas
 imagenesPredefinidas.forEach((url) => {
@@ -74,6 +75,25 @@ imagenesPredefinidas.forEach((url) => {
     contenedorImagenes.appendChild(img);
 });
 
+btnSeleccionarImagen.addEventListener('click', () => {
+    if (imagenSeleccionada) {
+        const nuevaImagen = new Image();
+        nuevaImagen.src = imagenSeleccionada;
+        nuevaImagen.onload = () => {
+            imagenFondo = nuevaImagen;
+            imagenFondoPos.initialWidth = imagenFondo.width;
+            imagenFondoPos.initialHeight = imagenFondo.height;
+            //Reseteo de Posicion
+            imagenFondoPos.x = (canvas.width - imagenFondo.width) / 2;
+            imagenFondoPos.y = (canvas.height - imagenFondo.height) / 2;
+            imagenFondoPos.scale = 1
+            imagenFondoOriginal = imagenFondo; // Guarda la imagen original
+            actualizarCanvas();
+            modalImagenes.hide();
+        };
+    }
+});
+/*
 // Manejar la selección de la imagen
 btnSeleccionarImagen.addEventListener('click', () => {
     if (imagenSeleccionada) {
@@ -89,7 +109,7 @@ btnSeleccionarImagen.addEventListener('click', () => {
         modalImagenes.hide(); // Cerrar el modal
     }
 });
-
+*/
 seleccionarImagenPredefinidaBtn.addEventListener('click', () => {
     modalImagenes.show();
 });
@@ -178,7 +198,7 @@ let dragStart = { x: 0, y: 0 };
 let minScale = 0.1; // Escala mínima
 let maxScale = 4;   // Escala máxima
 
-
+/*
 removeFondoCheckbox.addEventListener("change", function () {
     if (removeFondoCheckbox.checked) {
         // Si el checkbox está marcado, eliminar la imagen de fondo
@@ -192,8 +212,37 @@ removeFondoCheckbox.addEventListener("change", function () {
             actualizarCanvas(); // Redibujar el canvas con la imagen de fondo
         }
     }
+});*/
+imagenFondoInput.addEventListener('change', (event) => {
+    const archivo = event.target.files[0];
+    if (archivo) {
+        imagenFondo = new Image();
+        imagenFondo.src = URL.createObjectURL(archivo);
+        imagenFondo.onload = () => {
+            imagenFondoPos = { x: 0, y: 0, scale: 1, startX: 0, startY: 0, lastScale: 1, initialWidth: 0, initialHeight: 0 };
+            isDragging = false;
+            pinchStartDistance = 0;
+            dragStart = { x: 0, y: 0 };
+            minScale = 0.1;
+            maxScale = 4;
+            imagenFondoOriginal = imagenFondo; // Guarda la imagen original
+            actualizarCanvas();
+        };
+    }
 });
 
+removeFondoCheckbox.addEventListener("change", function () {
+    if (removeFondoCheckbox.checked) {
+        imagenFondo = null;
+        actualizarCanvas();
+    } else {
+        imagenFondo = imagenFondoOriginal;
+        if(imagenFondo){//verifica que exista una imagen
+          actualizarCanvas();
+        }
+    }
+});
+/*
 imagenFondoInput.addEventListener('change', (event) => {
     const archivo = event.target.files[0];
     if (archivo) {
@@ -212,7 +261,7 @@ imagenFondoInput.addEventListener('change', (event) => {
         };
     }
 });
-
+*/
 
 
 
