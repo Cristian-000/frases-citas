@@ -1,5 +1,5 @@
 
-//////////////////////////////////
+//no funciona en index pero si nen el resto, igualmente no estan los preview////////////////////////////////
 const imagenesPredefinidas = [
     "/img-precarg/1.jpg","/img-precarg/2.jpg","/img-precarg/3.jpg",
     "/img-precarg/4.jpg","/img-precarg/5.jpg","/img-precarg/6.jpg",
