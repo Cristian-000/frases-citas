@@ -61,6 +61,7 @@ imagenesPredefinidas.forEach((url) => {
     const img = document.createElement('img');
     img.src = url;
     img.alt = 'Miniatura';
+    img.loading = "lazy"
     img.addEventListener('click', () => {
         // Quitar la clase 'selected' de cualquier otra miniatura
         document.querySelectorAll('#contenedorImagenes img').forEach((img) => img.classList.remove('selected'));
