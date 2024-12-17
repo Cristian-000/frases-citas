@@ -1,40 +1,24 @@
 
 //////////////////////////////////
 const imagenesPredefinidas = [
-    "./img-precarg/1.jpeg",
-    "./img-precarg/2.jpeg",
-    "./img-precarg/3.jpeg",
-    "./img-precarg/4.jpeg",
-    "./img-precarg/5.jpeg",
-    "./img-precarg/6.jpeg",
-    "./img-precarg/7.jpeg",
-    "./img-precarg/8.jpeg",
-    "./img-precarg/9.jpeg",
-    "./img-precarg/11.jpeg",
-    "./img-precarg/12.jpeg",
-    "./img-precarg/13.jpeg",
-    "./img-precarg/14.jpeg",
-    "./img-precarg/15.jpeg",
-    "./img-precarg/16.jpeg",
-    "./img-precarg/17.jpeg",
-    "./img-precarg/18.jpeg",
-    "./img-precarg/19.jpeg",
-    "./img-precarg/20.jpeg",
-    "./img-precarg/21.jpeg",
-    "./img-precarg/22.jpeg",
-    "./img-precarg/23.jpeg",
-    "./img-precarg/24.jpeg",
-    "./img-precarg/25.jpeg",
-    "./img-precarg/26.jpeg",
-    "./img-precarg/27.jpeg",
-    "./img-precarg/28.jpeg",
-    "./img-precarg/29.jpeg",
-    "./img-precarg/30.jpeg",
-    "./img-precarg/31.jpeg",
-    "./img-precarg/32.jpeg",
-    "./img-precarg/33.jpeg",
-    "./img-precarg/34.jpeg",
-    "./img-precarg/35.jpeg",
+    "/img-precarg/1.webp",
+    "/img-precarg/2.webp",
+    "/img-precarg/3.webp",
+    "/img-precarg/4.webp",
+    "/img-precarg/5.webp","/img-precarg/6.webp",
+    "/img-precarg/7.webp","/img-precarg/8.webp","/img-precarg/9.webp",
+    "/img-precarg/3.webp","/img-precarg/3.webp",
+    "/img-precarg/11.webp","/img-precarg/12.webp",
+    "/img-precarg/13.webp","/img-precarg/14.webp",
+    "/img-precarg/15.webp","/img-precarg/16.webp",
+    "/img-precarg/17.webp","/img-precarg/18.webp","/img-precarg/19.webp",
+    "/img-precarg/20.webp","/img-precarg/21.webp",
+    "/img-precarg/22.webp","/img-precarg/23.webp",
+    "/img-precarg/24.webp","/img-precarg/25.webp","/img-precarg/26.webp",
+    "/img-precarg/27.webp","/img-precarg/28.webp","/img-precarg/29.webp",
+    "/img-precarg/30.webp","/img-precarg/31.webp","/img-precarg/32.webp",
+    "/img-precarg/33.webp","/img-precarg/34.webp","/img-precarg/35.webp",
+
     
     // ... más imágenes
 ];
@@ -55,7 +39,6 @@ imagenesPredefinidas.forEach((url, index) => {
 
 const contenedorImagenes = document.getElementById('contenedorImagenes');
 let imagenSeleccionada = null; // Guardar la URL de la imagen seleccionada
-let imagenFondoOriginal = null;
 
 // Llenar el contenedor con miniaturas
 imagenesPredefinidas.forEach((url) => {
@@ -75,25 +58,6 @@ imagenesPredefinidas.forEach((url) => {
     contenedorImagenes.appendChild(img);
 });
 
-btnSeleccionarImagen.addEventListener('click', () => {
-    if (imagenSeleccionada) {
-        const nuevaImagen = new Image();
-        nuevaImagen.src = imagenSeleccionada;
-        nuevaImagen.onload = () => {
-            imagenFondo = nuevaImagen;
-            imagenFondoPos.initialWidth = imagenFondo.width;
-            imagenFondoPos.initialHeight = imagenFondo.height;
-            //Reseteo de Posicion
-            imagenFondoPos.x = (canvas.width - imagenFondo.width) / 2;
-            imagenFondoPos.y = (canvas.height - imagenFondo.height) / 2;
-            imagenFondoPos.scale = 1
-            imagenFondoOriginal = imagenFondo; // Guarda la imagen original
-            actualizarCanvas();
-            modalImagenes.hide();
-        };
-    }
-});
-/*
 // Manejar la selección de la imagen
 btnSeleccionarImagen.addEventListener('click', () => {
     if (imagenSeleccionada) {
@@ -109,7 +73,7 @@ btnSeleccionarImagen.addEventListener('click', () => {
         modalImagenes.hide(); // Cerrar el modal
     }
 });
-*/
+
 seleccionarImagenPredefinidaBtn.addEventListener('click', () => {
     modalImagenes.show();
 });
@@ -198,7 +162,7 @@ let dragStart = { x: 0, y: 0 };
 let minScale = 0.1; // Escala mínima
 let maxScale = 4;   // Escala máxima
 
-/*
+
 removeFondoCheckbox.addEventListener("change", function () {
     if (removeFondoCheckbox.checked) {
         // Si el checkbox está marcado, eliminar la imagen de fondo
@@ -212,37 +176,8 @@ removeFondoCheckbox.addEventListener("change", function () {
             actualizarCanvas(); // Redibujar el canvas con la imagen de fondo
         }
     }
-});*/
-imagenFondoInput.addEventListener('change', (event) => {
-    const archivo = event.target.files[0];
-    if (archivo) {
-        imagenFondo = new Image();
-        imagenFondo.src = URL.createObjectURL(archivo);
-        imagenFondo.onload = () => {
-            imagenFondoPos = { x: 0, y: 0, scale: 1, startX: 0, startY: 0, lastScale: 1, initialWidth: 0, initialHeight: 0 };
-            isDragging = false;
-            pinchStartDistance = 0;
-            dragStart = { x: 0, y: 0 };
-            minScale = 0.1;
-            maxScale = 4;
-            imagenFondoOriginal = imagenFondo; // Guarda la imagen original
-            actualizarCanvas();
-        };
-    }
 });
 
-removeFondoCheckbox.addEventListener("change", function () {
-    if (removeFondoCheckbox.checked) {
-        imagenFondo = null;
-        actualizarCanvas();
-    } else {
-        imagenFondo = imagenFondoOriginal;
-        if(imagenFondo){//verifica que exista una imagen
-          actualizarCanvas();
-        }
-    }
-});
-/*
 imagenFondoInput.addEventListener('change', (event) => {
     const archivo = event.target.files[0];
     if (archivo) {
@@ -261,7 +196,7 @@ imagenFondoInput.addEventListener('change', (event) => {
         };
     }
 });
-*/
+
 
 
 
