@@ -735,17 +735,18 @@ background-color: rgb(155, 155, 155);
 
 #barra-modificadores label input,
 #barra-modificadores label select {
-    
     display: none;
     position: absolute;
-    top: -200%;
+    top: -210%;
     background: rgb(241, 241, 241);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     padding: 3px;
     
     z-index: 10;
 }
-
+#barra-modificadores label select {
+    top: -250%;
+}
 /* Mostrar el minipanel al enfocar el input o select */
 #barra-modificadores label:focus-within input,
 #barra-modificadores label:focus-within select,
@@ -777,7 +778,9 @@ background-color: rgb(155, 155, 155);
     border: none; /* Elimina el borde del botón */
 }
 
-
+#barra-modificadores #tamanoFrase {
+    margin-left: 80px; /* Ajusta este valor según necesites */
+}
 .badges {
     display: flex;
     flex-wrap: wrap;
@@ -787,6 +790,7 @@ background-color: rgb(155, 155, 155);
     margin-right: 5px;
     margin-bottom: 5px;
 }
+
 
 .button-group {
     display: flex;
