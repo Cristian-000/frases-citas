@@ -3,7 +3,27 @@ document.addEventListener("DOMContentLoaded", () => {
     cargarFrasesPorCategoriaAnnuev();
     configurarBarraBusquedaAnnuev();
 });
-
+const colorCategorias = {
+    "Navidad": "badge-navidad",
+    "Año Nuevo": "badge-ano-nuevo",
+    "Futuro": "badge-futuro",
+    "Acción": "badge-accion",
+    "Sueños": "badge-sueños",
+    "Esperanza": "badge-esperanza",
+    "Melancolía": "badge-melancolia",
+    "Fuerza": "badge-fuerza",
+    "Felicidad": "badge-felicidad",
+    "Filosofía": "badge-filosofia",
+    "Amor": "badge-amor",
+    "Educación": "badge-educacion",
+    "Trabajo": "badge-trabajo",
+    "Motivación": "badge-motivacion",
+    "Vida": "badge-vida",
+    "Tristeza": "badge-tristeza",
+    "Inspiración": "badge-inspiracion",
+    "Superación": "badge-superacion",
+    "default": "badge-primary" // Color por defecto
+};
 
 
 function configurarBarraBusquedaAnnuev() {
@@ -126,6 +146,9 @@ function cargarFrasesPorCategoriaAnnuev() {
                     }).join(' ')}
                         </div>
                         <div class="button-group d-flex align-items-center mr-1">
+                        <button class="btn btn-sm btn-outline-secondary border-0" onclick="setFraseParaCompartir('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}'); actualizarCanvas();" data-bs-toggle="modal" data-bs-target="#canvasModal" title="Crear Imagen">
+                                                <i class="fas fa-image"></i>
+                                            </button>
                             <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');" title="Compartir">
                                 <i class="fas fa-share-alt"></i>
                             </button>
@@ -154,27 +177,7 @@ function cargarFrasesPorCategoriaAnnuev() {
         .catch(error => console.error("Error al cargar frases por categoría:", error));
 };
 
-const colorCategorias = {
-    "Navidad": "badge-navidad",
-    "Año Nuevo": "badge-ano-nuevo",
-    "Futuro": "badge-futuro",
-    "Acción": "badge-accion",
-    "Sueños": "badge-sueños",
-    "Esperanza": "badge-esperanza",
-    "Melancolía": "badge-melancolia",
-    "Fuerza": "badge-fuerza",
-    "Felicidad": "badge-felicidad",
-    "Filosofía": "badge-filosofia",
-    "Amor": "badge-amor",
-    "Educación": "badge-educacion",
-    "Trabajo": "badge-trabajo",
-    "Motivación": "badge-motivacion",
-    "Vida": "badge-vida",
-    "Tristeza": "badge-tristeza",
-    "Inspiración": "badge-inspiracion",
-    "Superación": "badge-superacion",
-    "default": "badge-primary" // Color por defecto
-};
+
 // Define la URL base como una variable global
 //const urlCompartir = "https://cristian-000.github.io/frases-citas/index.html";
 

@@ -64,6 +64,9 @@ function configurarBarraBusquedaNavidad() {
                             }).join(' ')}
                         </div>
                         <div class="button-group d-flex align-items-center mr-1">
+                        <button class="btn btn-sm btn-outline-secondary border-0" onclick="setFraseParaCompartir('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}'); actualizarCanvas();" data-bs-toggle="modal" data-bs-target="#canvasModal" title="Crear Imagen">
+                                                <i class="fas fa-image"></i>
+                                            </button>
                             <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');" title="Compartir">
                                 <i class="fas fa-share-alt"></i>
                             </button>
@@ -122,6 +125,9 @@ function cargarFrasesPorCategoriaNavidad() {
                     }).join(' ')}
                         </div>
                         <div class="button-group d-flex align-items-center mr-1">
+                        <button class="btn btn-sm btn-outline-secondary border-0" onclick="setFraseParaCompartir('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}'); actualizarCanvas();" data-bs-toggle="modal" data-bs-target="#canvasModal" title="Crear Imagen">
+                                                <i class="fas fa-image"></i>
+                                            </button>
                             <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');" title="Compartir">
                                 <i class="fas fa-share-alt"></i>
                             </button>
@@ -172,7 +178,7 @@ const colorCategorias = {
     "default": "badge-primary" // Color por defecto
 };
 // Define la URL base como una variable global
-const urlCompartir = "https://cristian-000.github.io/frases-citas/index.html";
+//const urlCompartir = "https://cristian-000.github.io/frases-citas/index.html";
 
 function obtenerClaseColor(categoria) {
     return colorCategorias[categoria] || colorCategorias["default"];
