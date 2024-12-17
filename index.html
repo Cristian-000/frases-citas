@@ -37,7 +37,7 @@
   <script src="scripts.js" defer></script>
 
   <script src="cargarAutoresIndex.js" defer></script>
-  <script src="mostrarEmociones.js" defer></script>
+   <!--<script src="mostrarEmociones.js" defer></script>-->
   <script src="canvasLoader.js" defer></script>
 
   <!-- <link rel="icon" href="favicon.ico" type="image/x-icon"> -->
@@ -85,19 +85,26 @@
       </div>
 
       <div class="contenedor-emociones">
+        <a href="/categoria.html?categoria=Tristeza" >
         <div class="emocion tristeza" data-emocion="Tristeza">
           <i class="fas fa-sad-tear"></i>
-        </div>
+        </div></a>
+        <a href="/categoria.html?categoria=Melancolía" >
         <div class="emocion melancolia" data-emocion="Melancolía">
           <i class="fas fa-frown"></i>
         </div>
-        <div class="emocion esperanza" data-emocion="Esperanza">
-          <i class="fas fa-meh"></i>
-        </div>
+      </a>
+        
+        <a href="/categoria.html?categoria=Esperanza" >
+          <div class="emocion esperanza" data-emocion="Esperanza">
+            <i class="fas fa-meh"></i>
+          </div>
+        </a>
+        <a href="/categoria.html?categoria=Felicidad" >
         <div class="emocion felicidad" data-emocion="Felicidad">
           <i class="fas fa-smile-beam"></i>
         </div>
-      </div>
+      </div> </a>
     </section>
 
     <hr>
@@ -238,6 +245,7 @@
         </div>
       </div>
     </div>
+
     <div class="modal fade" id="modalImagenes" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
       data-bs-focus="false">
       <div class="modal-dialog modal-dialog-centered">
