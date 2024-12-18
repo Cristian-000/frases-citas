@@ -90,7 +90,7 @@ function configurarBarraBusquedaAnnuev() {
                             <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');" title="Compartir">
                                 <i class="fas fa-share-alt"></i>
                             </button>
-                            <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${urlCompartir}');" title="Copiar frase">
+                            <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${URLCOMPARTIR}');" title="Copiar frase">
                                 <i class="fas fa-copy"></i>
                             </button>
                             <button class="btn btn-link heart-button ml-2" data-frase="${encodeURIComponent(fraseObj.frase)}">
@@ -152,7 +152,7 @@ function cargarFrasesPorCategoriaAnnuev() {
                             <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');" title="Compartir">
                                 <i class="fas fa-share-alt"></i>
                             </button>
-                            <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${urlCompartir}');" title="Copiar frase">
+                            <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${URLCOMPARTIR}');" title="Copiar frase">
                                 <i class="fas fa-copy"></i>
                             </button>
                             <button class="btn btn-link heart-button ml-2" data-frase="${encodeURIComponent(fraseObj.frase)}">
@@ -210,7 +210,7 @@ function compartirFrase(frase, autor) {
         navigator.share({
             title: "Frase",
             text: mensajeFinal,
-            url: urlCompartir // Algunos navegadores prefieren incluirlo aquí
+            url: URLCOMPARTIR // Algunos navegadores prefieren incluirlo aquí
         })
             .then(() => console.log("Frase compartida exitosamente"))
             .catch(error => console.error("Error al compartir:", error));
