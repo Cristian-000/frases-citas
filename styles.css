@@ -34,28 +34,6 @@ html {
 
 * a {text-decoration: none;}
 
-.top-screen {
-    position: sticky;
-    top: 0;
-    background-color: var(--color-fondo);
-    z-index: 4;
-    padding-top: 9vh;
-    padding-left: 12px;
-    padding-right: 12px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    /* Centra los elementos dentro del contenedor */
-    margin: 0 auto;
-    /* Centra el contenedor en la página */
-}
-/* Para pantallas grandes*/
-@media (min-height: 700px) {
-    .top-screen{
-        min-height: 250px;
-    }
-}
 /* Asegura el centrado horizontal del .form-group */
 .top-screen .form-group,
 .bar-index .form-group {
@@ -372,9 +350,10 @@ background-color: rgb(155, 155, 155);
     border-radius: 5px;
 }
 
-
 /* Estilos para el Navbar */
 .navbar {
+    position: sticky;
+    top: 0;
     z-index: 20;
     background-color: var(--color-badge-primario);
     /* Fondo del navbar */
@@ -385,6 +364,7 @@ background-color: rgb(155, 155, 155);
     /* Relleno para un navbar más espacioso */
 }
 
+/* Estilo de los enlaces de la navbar */
 .navbar-nav .nav-link {
     text-align: center;
     font-weight: 600;
@@ -421,10 +401,61 @@ background-color: rgb(155, 155, 155);
     /* Mayúsculas en el nombre */
 }
 
+/* Estilos para el contenedor Top-Screen */
+.top-screen {
+    position: sticky;
+    top: 3rem; /* Espacio debajo del navbar */
+    background-color: var(--color-fondo);
+    z-index: 15;
+    padding: 1rem 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    /* Centra el contenedor */
+}
 
+/* Para pantallas grandes */
+@media (min-height: 700px) {
+    .top-screen {
+        min-height: 250px;
+    }
+}
 
+/* Estilos para el breadcrumb */
+.breadcrumb-container {
+    position: sticky;
+    top: calc(3rem + 250px); /* Asegura que quede debajo del top-screen */
+    z-index: 10;
+    background-color: var(--color-fondo);
+    padding: 0.5rem 12px;
+    width: 100%;
+}
 
-/* Centrado en pantallas pequeñas */
+.breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.breadcrumb-item {
+    color: #666; /* Color del texto */
+    font-size: 0.9rem;
+}
+
+.breadcrumb-item a {
+    color: #666; /* Color del enlace */
+    text-decoration: none;
+}
+
+.breadcrumb-item.active {
+    color: var(--color-acento);
+    font-weight: bold; /* Hace el elemento activo más destacado */
+}
+
+/* Ajustes para pantallas pequeñas */
 @media (max-width: 800px) {
     .navbar-nav {
         text-align: center;
@@ -439,7 +470,17 @@ background-color: rgb(155, 155, 155);
         margin: 0.1rem 0;
         /* Espaciado entre los elementos */
     }
+
+    .top-screen {
+        padding-top: 2rem;
+        min-height: 200px;
+    }
+
+    .breadcrumb-container {
+        padding: 0.3rem 8px;
+    }
 }
+
 .frase-dia {
     font-size: 1.4rem;
 
@@ -1028,30 +1069,3 @@ background-color: rgb(155, 155, 155);
     }
 }
 
-.breadcrumb {
-    position: absolute;
-    top: 100%; /* Ajusta este valor según el alto del nav */
-    left: 10px;
-    width: 100%;
-  }
-  
-  .breadcrumb-item {
-    display: inline-block;
-    margin-right: 1vw; /* Ajusta el espacio entre los elementos */
-    color: #666; /* Color del texto */
-  }
-  
-  .breadcrumb-item a{
-    font-size: 0.9rem;
-    color: #666; /* Color del texto */
-  }
-  
-  .breadcrumb-item.active {
-    color: var(--color-acento);
-    font-weight: bold; /* Hace el elemento activo más destacado */
-  }
-  .breadcrumb-container {
-   
-    position: relative;
-    top: 4px; /* Ajusta este valor según el alto del nav */
-}
