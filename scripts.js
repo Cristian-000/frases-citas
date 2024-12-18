@@ -199,12 +199,21 @@ function capitalizarIniciales(nombre) {
 function configurarBarraBusqueda() {
     const barraBusqueda = document.getElementById("barra-busqueda");
     const resultadosBusqueda = document.getElementById("resultados-busqueda");
-
+    const listaCats = document.getElementById("categorias")
+    if(!resultadosBusqueda) return;
     barraBusqueda.addEventListener("input", () => {
         const query = barraBusqueda.value.toLowerCase();
         resultadosBusqueda.innerHTML = "";
 
-        if (query) {
+        if (query.trim() === "") {
+            // Show main list, hide search results
+            listaCats.style.display = "block";
+            resultadosBusqueda.style.display = "none";
+        } else {
+            // Hide main list, show search results
+            listaCats.style.display = "none";
+            resultadosBusqueda.style.display = "block";
+
             fetch('frases.json')
                 .then(response => response.json())
                 .then(data => {
@@ -276,12 +285,100 @@ function configurarBarraBusqueda() {
         }
     });
 }
+/*
+function configurarBarraBusqueda() {
+    const barraBusqueda = document.getElementById("barra-busqueda");
+    const resultadosBusqueda = document.getElementById("resultados-busqueda");
+    const listaCats = document.getElementById("categorias");
+
+    if (!resultadosBusqueda) return;
+
+    barraBusqueda.addEventListener("input", () => {
+        const query = barraBusqueda.value.toLowerCase();
+        resultadosBusqueda.innerHTML = "";
+
+        if (query.trim() === "") {
+            listaCats.style.display = "block"; // Mostrar categorías principales
+            resultadosBusqueda.style.display = "none"; // Ocultar resultados
+        } else {
+            listaCats.style.display = "none"; // Ocultar categorías principales
+            resultadosBusqueda.style.display = "block"; // Mostrar resultados
+
+            fetch('frases.json')
+                .then(response => response.json())
+                .then(data => {
+                    const categoriasEncontradas = new Set();
+                    const frasesEncontradas = data.frases.filter(fraseObj => {
+                        const matches = 
+                            fraseObj.frase.toLowerCase().includes(query) ||
+                            fraseObj.autor_url.toLowerCase().includes(query) ||
+                            fraseObj.categorias.some(categoria => categoria.toLowerCase().includes(query));
+                        
+                        if (matches) {
+                            fraseObj.categorias.forEach(categoria => {
+                                if (categoria.toLowerCase().includes(query)) {
+                                    categoriasEncontradas.add(categoria);
+                                }
+                            });
+                        }
+                        return matches;
+                    });
+
+                    // Mostrar categorías encontradas primero
+                    if (categoriasEncontradas.size > 0) {
+                        const header = document.createElement("li");
+                        header.textContent = "Categorías encontradas:";
+                        header.classList.add("list-group-item", "font-weight-bold");
+                        resultadosBusqueda.appendChild(header);
+
+                        categoriasEncontradas.forEach(categoria => {
+                            const li = document.createElement("li");
+                            li.className = "list-group-item";
+                            li.innerHTML = `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}">${categoria}</a>`;
+                            resultadosBusqueda.appendChild(li);
+                        });
+                    }
+
+                    // Mostrar frases encontradas
+                    if (frasesEncontradas.length === 0) {
+                        const noResultados = document.createElement("li");
+                        noResultados.classList.add("list-group-item", "text-center", "text-muted");
+                        noResultados.textContent = "No se encontraron coincidencias";
+                        resultadosBusqueda.appendChild(noResultados);
+                    } else {
+                        const frasesHeader = document.createElement("li");
+                        frasesHeader.textContent = "Frases encontradas:";
+                        frasesHeader.classList.add("list-group-item", "font-weight-bold");
+                        resultadosBusqueda.appendChild(frasesHeader);
+
+                        frasesEncontradas.forEach(fraseObj => {
+                            const li = document.createElement("li");
+                            li.className = "d-flex justify-content-between align-items-center";
+
+                            const autorCapitalizado = capitalizarIniciales(fraseObj.autor_url);
+                            li.innerHTML = `
+                                <div>
+                                    <p><strong>${fraseObj.frase}</strong></p>
+                                    <small><a href="autor.html?autor=${fraseObj.autor_url}">${autorCapitalizado}</a></small>
+                                    ${fraseObj.categorias.map(categoria =>
+                                        `<span class="badge badge-secondary ml-1">${categoria}</span>`
+                                    ).join('')}
+                                </div>`;
+                            resultadosBusqueda.appendChild(li);
+                        });
+                    }
+                })
+                .catch(error => console.error("Error al cargar frases para búsqueda:", error));
+        }
+    });
+}
+*/
 
 function configurarBarraBusquedaCats() {
     const listaFrases = document.getElementById("lista-frases-cat");
     const barraBusquedaCat = document.getElementById("barra-busqueda-cat");
     const resultadosBusquedaCat = document.getElementById("resultados-busqueda-cat");
-
+    if(!resultadosBusquedaCat) return;
     barraBusquedaCat.addEventListener("input", () => {
         const query = barraBusquedaCat.value.toLowerCase();
         resultadosBusquedaCat.innerHTML = "";
@@ -375,7 +472,7 @@ function cargarFrasesPorCategoria() {
     const categoriaSeleccionada = urlParams.get("categoria");
 
     if (!categoriaSeleccionada) return;
-
+    document.getElementById("titulo-categoria-nav").innerText = categoriaSeleccionada;
     document.getElementById("titulo-categoria").innerText = `Frases de ${categoriaSeleccionada}`;
     fetch('frases.json')
         .then(response => response.json())

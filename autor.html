@@ -30,6 +30,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
  
+  <script src="scripts.js"></script>
   <script src="compartirImagenAutor.js" defer></script>
   <script src="canvasLoader.js" defer></script>
 
@@ -70,10 +71,17 @@
   <section class="top-screen">
     <h2 id="titulo-autor"></h2>
     <p id="bio-autor" class="text-muted"></p>
+    <div class="breadcrumb-container">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="/autores.html">Autores</a></li>
+        <li class="breadcrumb-item active" id="titulo-autor-nav">Autor</a></li>
+      </ol>
+    </div>
   </section>
   <div class="container mt-3">
     <section class="bottom-screen">
-      <div class="scrollable-container-cat">
+      <div class="scrollable-container-cat mt-4">
         <ul id="lista-frases" class="list-group list-group-flush"></ul>
       </div>
 

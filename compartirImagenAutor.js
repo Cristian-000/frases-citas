@@ -39,6 +39,7 @@ function cargarAutor() {
             .then(responses => Promise.all(responses.map(response => response.json())))
             .then(([frasesData, autoresData]) => {
                 const tituloAutor = document.getElementById("titulo-autor");
+                const tituloAutorNav = document.getElementById("titulo-autor-nav");
                 const bioAutor = document.getElementById("bio-autor"); // Obtener el elemento de la biografía
                 const listaFrases = document.getElementById("lista-frases");
                 listaFrases.innerHTML = '';
@@ -49,6 +50,8 @@ function cargarAutor() {
                 if (autor) { //Si se encuentra al autor
                     tituloAutor.innerText = `Frases de ${autor.nombre}`;
                     tituloAutor.classList.add("text-center", "mb-2");
+                    tituloAutorNav.innerText = autor.nombre;
+                   
 
                     if (bioAutor) {
                         bioAutor.innerHTML = `<p class="mb-2 text-center text-muted">${autor.biografia || "Sin biografía disponible."}</p>`;

@@ -86,7 +86,6 @@ html {
 }
 
 .bottom-screen {
-
     width: 100%;
     max-width: 800px;
     /* Espacio entre top-screen y bottom-screen */
@@ -351,7 +350,7 @@ background-color: rgb(155, 155, 155);
 .scrollable-container-cat {
     
    
-    max-height: 80vh;
+    max-height: 65vh;
     /* Ajusta según tus necesidades */
     overflow-y: auto;
     /* border: 1px solid var(--color-light-shadow); /* Añade un borde para separar visualmente */
@@ -364,12 +363,12 @@ background-color: rgb(155, 155, 155);
 /* Opcional: Estilo para la barra de desplazamiento */
 .scrollable-container::-webkit-scrollbar,
 .scrollable-container-cat::-webkit-scrollbar {
-    width: 8px;
+    width: 5px;
 }
 
 .scrollable-container::-webkit-scrollbar-thumb,
 .scrollable-container-cat::-webkit-scrollbar-thumb {
-    background-color: var(--color-dark-shadow);
+    background-color: rgba(255, 228, 196, 0.055);
     border-radius: 5px;
 }
 
@@ -1032,25 +1031,27 @@ background-color: rgb(155, 155, 155);
 .breadcrumb {
     position: absolute;
     top: 100%; /* Ajusta este valor según el alto del nav */
-    left: 15px;
+    left: 10px;
     width: 100%;
   }
   
   .breadcrumb-item {
     display: inline-block;
-    margin-right: 10px; /* Ajusta el espacio entre los elementos */
+    margin-right: 1vw; /* Ajusta el espacio entre los elementos */
     color: #666; /* Color del texto */
   }
   
-  .breadcrumb-item + .breadcrumb-item::before {
-    content: "/"; /* Agrega un separador entre los elementos */
-    padding: 0 5px;
+  .breadcrumb-item a{
+    font-size: 0.9rem;
+    color: #666; /* Color del texto */
   }
   
   .breadcrumb-item.active {
+    color: var(--color-acento);
     font-weight: bold; /* Hace el elemento activo más destacado */
   }
   .breadcrumb-container {
+   
     position: relative;
-    top: 0px; /* Ajusta este valor según el alto del nav */
+    top: 4px; /* Ajusta este valor según el alto del nav */
 }
