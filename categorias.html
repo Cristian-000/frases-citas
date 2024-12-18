@@ -57,27 +57,40 @@
             </ul>
         </div>
     </nav>
+    
+     
     <div class="background-wrapper">
         <img src="arbol-fondo-00.png" alt="Fondo" loading="lazy" class="background-image">
       </div>
+     
     <section class="top-screen">
         <h2>Categorías de Frases</h2>
         <p class="text-center text-muted mb-4">Explora frases por diferentes temas y encuentra inspiración en
             cada
             categoría.</p>
         <div class="form-group">
+            
             <input type="text" id="barra-busqueda-cats" class="form-control" placeholder="Buscar categoría"
                 aria-label="Campo de búsqueda">
-
+             
         </div>
-
+        <div class="breadcrumb-container-ni">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+              <li class="breadcrumb-item active">Todas las categorias</li>
+            </ol>
+          </div>
     </section>
+
     <div class="container mt-3">
         <section class="bottom-screen">
             <div class="scrollable-container-cat">
                 <div id="resultados-busqueda-cats" class="list-group list-group-flush"></div>
             </div>
-            <ul id="categorias" class="list-group list-group-flush"></ul>
+            <div class="scrollable-container-cat mt-3">
+                <ul id="categorias" class="list-group list-group-flush"></ul>
+            </div>
+            
         </section>
     </div>
 

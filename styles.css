@@ -349,7 +349,8 @@ background-color: rgb(155, 155, 155);
 }
 
 .scrollable-container-cat {
-
+    
+   
     max-height: 80vh;
     /* Ajusta según tus necesidades */
     overflow-y: auto;
@@ -1028,3 +1029,28 @@ background-color: rgb(155, 155, 155);
     }
 }
 
+.breadcrumb {
+    position: absolute;
+    top: 100%; /* Ajusta este valor según el alto del nav */
+    left: 15px;
+    width: 100%;
+  }
+  
+  .breadcrumb-item {
+    display: inline-block;
+    margin-right: 10px; /* Ajusta el espacio entre los elementos */
+    color: #666; /* Color del texto */
+  }
+  
+  .breadcrumb-item + .breadcrumb-item::before {
+    content: "/"; /* Agrega un separador entre los elementos */
+    padding: 0 5px;
+  }
+  
+  .breadcrumb-item.active {
+    font-weight: bold; /* Hace el elemento activo más destacado */
+  }
+  .breadcrumb-container {
+    position: relative;
+    top: 0px; /* Ajusta este valor según el alto del nav */
+}

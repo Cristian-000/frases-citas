@@ -489,8 +489,8 @@ function actualizarCanvas() {
 
     if (marcaDeAgua) {
         // Dibujar marca de agua centrada
-        const marcaAgua = URLCOMPARTIR;
-        const tamanoMarca = 12; // Tamaño de fuente fijo o ajustable
+        const marcaAgua = `Creada en ${URLCOMPARTIR}`;
+        const tamanoMarca = 13; // Tamaño de fuente fijo o ajustable
         ctx.font = `${tamanoMarca}px Verdana`;
         ctx.fillStyle = "rgba(0, 0, 0, 0.6)"; // Color semitransparente
         ctx.textAlign = "center";

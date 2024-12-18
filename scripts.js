@@ -42,7 +42,7 @@ const COLORCATEGORIAS = {
     "default": "badge-primary" // Color por defecto
 };
 // Define la URL base como una variable global
-const URLCOMPARTIR = "https://cristian-000.github.io/frases-citas/index.html";
+const URLCOMPARTIR = "https://cristian-000.github.io/frases-citas/";
 
 function obtenerClaseColor(categoria) {
     return COLORCATEGORIAS[categoria] || COLORCATEGORIAS["default"];
