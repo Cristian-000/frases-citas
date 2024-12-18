@@ -1,7 +1,10 @@
 /* Variables */
 :root {
+
     --color-fondo: #f8f9fa;
+    --color-fondo-navs:rgb(16, 105, 146);
     /* Color de fondo general: un gris muy claro (casi blanco) */
+    --color-texto-nav: #d8d8d8;
     --color-texto: #343a40;
     /* Color de texto principal: un gris oscuro (casi negro) */
     --color-acento: #a00a3c;
@@ -352,13 +355,14 @@ background-color: rgb(155, 155, 155);
 
 /* Estilos para el Navbar */
 .navbar {
+    background-color: var(--color-fondo-navs)!important;
     position: sticky;
     top: 0;
     z-index: 20;
     background-color: var(--color-badge-primario);
     /* Fondo del navbar */
-    color: var(--color-acento);
-    box-shadow: 0 5px 4px rgba(0, 0, 0, 0.1);
+   
+    box-shadow: 0 7px 4px rgba(0, 0, 0, 0.15);
     /* Sombra sutil */
     padding: 0.3rem 0.5rem;
     /* Relleno para un navbar más espacioso */
@@ -369,7 +373,7 @@ background-color: rgb(155, 155, 155);
     text-align: center;
     font-weight: 600;
     /* Texto más grueso */
-    color: var(--color-texto);
+    color: var(--color-texto-nav);
     /* Color de texto */
     text-transform: uppercase;
     /* Letras en mayúsculas */
@@ -377,23 +381,25 @@ background-color: rgb(155, 155, 155);
     /* Espaciado alrededor de los enlaces */
     letter-spacing: 1px;
     /* Espaciado entre letras */
-    transition: color 0.3s ease, transform 0.2s ease;
+    transition: color 0.1s ease;
     /* Transición suave */
 }
 
-.navbar-nav .nav-link:hover {
+.navbar-nav .nav-link:hover, .navbar-brand:hover{
     color: var(--color-acento);
     /* Color en hover */
-    transform: scale(1.05);
+
     /* Efecto de agrandado en hover */
 }
 
 .navbar-brand {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 800;
     font-size: 1.4rem;
     /* Tamaño de la marca */
-    font-weight: 400;
+    transform: scaleY(1.3); /* Escala vertical */
     /* Texto en negrita */
-    color: var(--color-acento);
+    color:var(--color-texto-nav);
     /* Color de acento */
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -407,7 +413,7 @@ background-color: rgb(155, 155, 155);
     top: 3rem; /* Espacio debajo del navbar */
     background-color: var(--color-fondo);
     z-index: 15;
-    padding: 1rem 12px;
+    padding: 0 15px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -429,15 +435,16 @@ background-color: rgb(155, 155, 155);
     top: calc(3rem + 250px); /* Asegura que quede debajo del top-screen */
     z-index: 10;
     background-color: var(--color-fondo);
-    padding: 0.5rem 12px;
+    padding-left: 18px;
     width: 100%;
+    max-width: 800px;
 }
 
 .breadcrumb {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.5rem;
+
 }
 
 .breadcrumb-item {
