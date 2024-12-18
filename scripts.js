@@ -42,7 +42,7 @@ const COLORCATEGORIAS = {
     "default": "badge-primary" // Color por defecto
 };
 // Define la URL base como una variable global
-const urlCompartir = "https://cristian-000.github.io/frases-citas/index.html";
+const URLCOMPARTIR = "https://cristian-000.github.io/frases-citas/index.html";
 
 function obtenerClaseColor(categoria) {
     return COLORCATEGORIAS[categoria] || COLORCATEGORIAS["default"];
@@ -174,7 +174,7 @@ function compartirFrase(frase, autor) {
         navigator.share({
             title: "Frase",
             text: mensajeFinal,
-            url: urlCompartir // Algunos navegadores prefieren incluirlo aquí
+            url: URLCOMPARTIR // Algunos navegadores prefieren incluirlo aquí
         })
             .then(() => console.log("Frase compartida exitosamente"))
             .catch(error => console.error("Error al compartir:", error));
@@ -251,7 +251,7 @@ function configurarBarraBusqueda() {
                                     <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');" title="Compartir">
                                         <i class="fas fa-share-alt"></i>
                                     </button>
-                                    <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${urlCompartir}');" title="Copiar frase">
+                                    <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${URLCOMPARTIR}');" title="Copiar frase">
                                         <i class="fas fa-copy"></i>
                                     </button>
                                     <button class="btn btn-link heart-button ml-2" data-frase="${encodeURIComponent(fraseObj.frase)}">
@@ -345,7 +345,7 @@ function configurarBarraBusquedaCats() {
                                 <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');" title="Compartir">
                                     <i class="fas fa-share-alt"></i>
                                 </button>
-                                <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${urlCompartir}');" title="Copiar frase">
+                                <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${URLCOMPARTIR}');" title="Copiar frase">
                                     <i class="fas fa-copy"></i>
                                 </button>
                                 <button class="btn btn-link heart-button ml-2" data-frase="${encodeURIComponent(fraseObj.frase)}">
@@ -411,7 +411,7 @@ function cargarFrasesPorCategoria() {
                                 <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');" title="Compartir">
                                     <i class="fas fa-share-alt"></i>
                                 </button>
-                                <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${urlCompartir}');" title="Copiar frase">
+                                <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${URLCOMPARTIR}');" title="Copiar frase">
                                     <i class="fas fa-copy"></i>
                                 </button>
                                 <button class="btn btn-link heart-button ml-2" data-frase="${encodeURIComponent(fraseObj.frase)}">

@@ -188,7 +188,7 @@ tipoFuenteInput.value = "Arial"; // Tipo de fuente predeterminado
 
 
 // Variable para la marca de agua
-const marcaDeAgua = urlCompartir; // Cambiar a tu URL deseada
+const marcaDeAgua = URLCOMPARTIR; // Cambiar a tu URL deseada
 
 // Variables para la posición y escala de la imagen de fondo
 let imagenFondoPos = { x: 0, y: 0, scale: 1, startX: 0, startY: 0, lastScale: 1, initialWidth: 0, initialHeight: 0 }; // Guarda dimensiones originales
@@ -489,7 +489,7 @@ function actualizarCanvas() {
 
     if (marcaDeAgua) {
         // Dibujar marca de agua centrada
-        const marcaAgua = urlCompartir;
+        const marcaAgua = URLCOMPARTIR;
         const tamanoMarca = 12; // Tamaño de fuente fijo o ajustable
         ctx.font = `${tamanoMarca}px Verdana`;
         ctx.fillStyle = "rgba(0, 0, 0, 0.6)"; // Color semitransparente
