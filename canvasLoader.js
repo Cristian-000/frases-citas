@@ -396,7 +396,7 @@ function actualizarCanvas() {
 
     ctx.textBaseline = "middle";
 
-    const maxWidth = canvas.width * 0.60; 
+    const maxWidth = canvas.width * 0.65; 
     const lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, tamanoFrase);
 
     const lineHeight = tamanoFrase * 1.3;
