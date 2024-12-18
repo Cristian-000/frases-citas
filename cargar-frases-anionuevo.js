@@ -220,11 +220,17 @@ function compartirFrase(frase, autor) {
 }
 
 // Función para capitalizar iniciales del autor
+/*
 function capitalizarIniciales(nombre) {
     return nombre
         .split(" ")
         .map(palabra => palabra.charAt(0).toUpperCase() + palabra.slice(1).toLowerCase())
         .join(" ");
+}*/
+function capitalizarIniciales(nombre) {
+    return nombre.replace(/(^|\s|-)+([a-z])/g, function(match, separador, letra) {
+        return (separador ? " " : "") + letra.toUpperCase();
+    });
 }
 
 function toggleFavorito(fraseObj, icon) {
