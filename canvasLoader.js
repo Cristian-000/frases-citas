@@ -178,9 +178,9 @@ const alineacionTextoInput = document.getElementById('alineacionTexto');
 const posicionYInput = document.getElementById('posicionY'); // Captura el control de posición Y
 const imagenFondoInput = document.getElementById('imagenFondo');
 let imagenFondo = null;
-colorFondoInput.addEventListener("input", function () {
+/*colorFondoInput.addEventListener("input", function () {
     actualizarCanvas();
-});
+});*/
 const removeFondoCheckbox = document.getElementById('removeFondoCheckbox');
 
 tipoFuenteInput.value = "Arial"; // Tipo de fuente predeterminado
@@ -403,10 +403,11 @@ function actualizarCanvas() {
 
     posicionYInput.min = 5 + lineHeight; // Valor mínimo (ajustable según tus necesidades)
     posicionYInput.max = (canvas.height - 70) - lineHeight; // Valor máximo, dejando un margen inferior
+    
+    const desplazamientoY = 50; // Ajusta este valor para mover hacia arriba o abajo
     const posicionInicialY =
-        parseInt(posicionYInput.value) ||
-        canvas.height / 2 - ((lineas.length - 1) / 2) * lineHeight;
-
+        (parseInt(posicionYInput.value) || 
+        canvas.height / 2 - ((lineas.length - 1) / 2) * lineHeight) - desplazamientoY;
     lineas.forEach((linea, index) => {
         let posicionX = canvas.width / 2; // Predeterminado para "center"
         if (alineacionTexto === "left") {
@@ -442,11 +443,11 @@ function actualizarCanvas() {
     //autor
     if (fraseSeleccionada) {
         const lineas = ajustarTexto(ctx, fraseSeleccionada, maxWidth, tamanoFrase);
-        const lineHeight = tamanoFrase * 1.3;
+        //const lineHeight = tamanoFrase * 1.3;
 
-        const posicionInicialY =
-            parseInt(posicionYInput.value) ||
-            canvas.height / 2 - ((lineas.length - 1) / 2) * lineHeight;
+        //const posicionInicialY =
+          //  parseInt(posicionYInput.value) ||
+          //  canvas.height / 2 - ((lineas.length - 1) / 2) * lineHeight;
 
         // Dibujar las líneas de la frase
         lineas.forEach((linea, index) => {
