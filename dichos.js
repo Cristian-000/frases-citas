@@ -12,7 +12,7 @@ function cargarDichos() {
                 const isFavorito = favoritos.some(fav => fav.texto === dicho.texto);
 
                 const li = document.createElement("li");
-                li.className = "list-group-item d-flex justify-content-between align-items-center mb-2";
+                li.className = "list-group-item d-flex justify-content-between align-items-center";
 
                 li.innerHTML = `
                     <div class="dicho-content">
@@ -121,24 +121,25 @@ function configurarBarraBusquedaDichos() {
                         li.className = "list-group-item d-flex justify-content-between align-items-center";
 
                         li.innerHTML = `
-                            <div class="dicho-content">
-                                <p class="mb-2">${dicho.texto}</p>
-                            </div>
-                            <div class="button-group d-flex align-items-center mr-1">
+                        <div class="dicho-content">
+                            <p class="mb-2">${dicho.texto}</p>
+                        </div>
+                        <div class="button-group d-flex align-items-center mr-1">
                             <button class="btn btn-sm btn-outline-secondary border-0" onclick="setFraseParaCompartir('${dicho.texto}', ' '); actualizarCanvas();" data-bs-toggle="modal" data-bs-target="#canvasModal" title="Crear Imagen">
-                                    <i class="fas fa-image"></i>
-                                </button>
-                                <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirDicho('${dicho.texto}', '${window.location.href}');" title="Compartir">
-                                    <i class="fas fa-share-alt"></i>
-                                </button>
-                                <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarDicho('${dicho.texto}', '${window.location.href}');" title="Copiar frase">
-                                    <i class="fas fa-copy"></i>
-                                </button>
-                                <button class="btn btn-link heart-button ml-2" data-texto="${encodeURIComponent(dicho.texto)}">
-                                    <i class="${isFavorito ? 'fas' : 'far'} fa-heart text-danger"></i>
-                                </button>
-                            </div>
-                        `;
+                                        <i class="fas fa-image"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirDicho('${dicho.texto}', '${window.location.href}');" title="Compartir">
+                                <i class="fas fa-share-alt"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarDicho('${dicho.texto}', '${window.location.href}');" title="Copiar frase">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                            <button class="btn btn-link heart-button ml-2" data-texto="${encodeURIComponent(dicho.texto)}">
+                                <i class="${isFavorito ? 'fas' : 'far'} fa-heart text-danger"></i>
+                            </button>
+                        </div>
+                    `;
+    
 
                         resultadosBusquedaDich.appendChild(li);
 

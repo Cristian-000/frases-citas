@@ -71,9 +71,9 @@
         <section class="bottom-screen">
 
             <div class="scrollable-container-cat">
-                <h5 class="text-center mt-2">Frases:</h5>
+                <h4 class="autor-link">Frases:</h4>
                 <ul id="lista-frases-favoritas" class="list-group mt-3"></ul>
-                <h5 class="text-center mt-2">Dichos:</h5>
+                <h4 class="autor-link mt-2">Dichos:</h4>
                 <ul id="lista-dichos-favoritos" class="list-group mt-3"></ul>
 
             </div>
@@ -93,7 +93,7 @@
             cargarListaFavoritos('favoritos', 'lista-frases-favoritas', 'frase');
             cargarListaFavoritos('favoritos_dichos', 'lista-dichos-favoritos', 'texto');
         });
-
+        const urlCompartir = "https://mipagina.com"; // URL de la página
         function cargarListaFavoritos(localStorageKey, listaId, propiedadTexto) {
             const listaFavoritos = document.getElementById(listaId);
             const favoritos = JSON.parse(localStorage.getItem(localStorageKey)) || [];
@@ -107,7 +107,7 @@
 
                     li.innerHTML = `
                         <div>
-                            <p class="mb-1"><strong>${elemento[propiedadTexto]}</strong></p>
+                            <p class="mb-1 autor-link"><strong>${elemento[propiedadTexto]}</strong></p>
                         </div>
                         <div class="button-group">
                             <button class="btn btn-sm mr-2" onclick='compartirElemento("${elemento[propiedadTexto]}")'>
@@ -127,7 +127,7 @@
         }
 
         function compartirElemento(texto) {
-            const urlCompartir = "https://mipagina.com"; // URL de la página
+          
             const textoCompartir = `${texto}\n\n${urlCompartir}`;
 
             if (navigator.share) {
@@ -143,8 +143,8 @@
         }
 
         function copiarElemento(texto) {
-            const urlCompartir = "https://mipagina.com"; // URL de la página
-            const textoCopiar = `${texto}\n\n${urlCompartir}`;
+           
+            const textoCopiar = `${texto}\n${urlCompartir}`;
 
             navigator.clipboard.writeText(textoCopiar)
                 .then(() => alert("Elemento copiado al portapapeles"))

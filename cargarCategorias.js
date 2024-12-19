@@ -52,7 +52,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     const link = document.createElement("a");
                     link.href = `categoria.html?categoria=${encodeURIComponent(categoria)}`;
                     link.textContent = categoria;
-
+                    link.classList.add("autor-link")
+                    
                     const badgeColor = colorCategorias[categoria] || colorCategorias["default"];
                     const badge = document.createElement("a");
                     badge.href = `categoria.html?categoria=${encodeURIComponent(categoria)}`;
@@ -99,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     const link = document.createElement("a");
                     link.href = `categoria.html?categoria=${encodeURIComponent(categoria)}`;
                     link.textContent = categoria; // Solo el nombre de la categoría
-
+                    link.classList.add("autor-link")
                     // Obtener la clase de color para la categoría
                     const badgeColor = colorCategorias[categoria] || colorCategorias["default"];
 
@@ -171,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const link = document.createElement("a");
                 link.href = `categoria.html?categoria=${encodeURIComponent(categoria)}`;
                 link.textContent = categoria; // Solo el nombre de la categoría
-
+                link.classList.add("autor-link")
                 // Obtener la clase de color para la categoría
                 const badgeColor = colorCategorias[categoria] || colorCategorias["default"];
 

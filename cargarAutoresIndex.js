@@ -44,10 +44,10 @@ function cargarAutores() {
                 li.className = "list-group-item";
                 li.innerHTML = `
                     <div class="d-flex justify-content-between align-items-center">
-                        <a href="autor.html?autor=${encodeURIComponent(autor.autor_url)}" class="author-link">
-                            <h5 class="font-weight-bold text-primary mb-0">${autor.nombre}</h5>
+                        <a href="autor.html?autor=${encodeURIComponent(autor.autor_url)}">
+                            <h5 class="font-weight-bold mb-0 autor-link">${autor.nombre}</h5>
                         </a>
-                        <a href="autor.html?autor=${encodeURIComponent(autor.autor_url)}" class="author-link">
+                        <a href="autor.html?autor=${encodeURIComponent(autor.autor_url)}" class="autor-link">
                             <span class="badge badge-primary">${cantidad} frase${cantidad !== 1 ? 's' : ''}</span>
                         </a>
                     </div>

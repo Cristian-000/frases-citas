@@ -77,10 +77,35 @@
 
 
   <div class="container">
-    <div id="frase-del-dia" class="alert alert-info mt-3">
+    <div id="frase-del-dia">
     </div>
 
     <section>
+      
+      <div class="holiday-buttons mb-2">
+        <a href="/frases-citas/cat-navidad.html" class="btn-holiday navidad">
+          <span><i class="fas fa-tree"></i> Navidad</span>
+        </a>
+        <a href="/frases-citas/cat-anio-nuevo.html" class="btn-holiday ano-nuevo">
+          <span><i class="fas fa-glass-cheers"></i> Año Nuevo</span>
+        </a>
+      </div>
+
+      <section class="bar-index">
+        <div class="form-group">
+          <input type="text" id="barra-busqueda" class="form-control" placeholder="Buscar por frase, categoría o autor">
+        </div>
+        <div class="scrollable-container">
+          <div id="resultados-busqueda" class="list-group list-group-flush mb-2"></div>
+        </div>
+      </section>
+
+      <div class="scrollable-container">
+        <ul id="categorias" class="list-group list-group-flush"></ul>
+      </div>
+    </section>
+
+    <section id="div-emociones">
       <div class="texto-emocion">
         <h3>Comparte tus sentimientos</h3>
         <p class="text-muted">Te recomendaremos frases según tu sentimiento para que puedas compartirlo.</p>
@@ -109,34 +134,7 @@
       </div> </a>
     </section>
 
-    <hr>
-
-    <section>
-      <h3>Categorías de Frases</h3>
-      <div class="holiday-buttons mb-4">
-        <a href="/frases-citas/cat-navidad.html" class="btn-holiday navidad">
-          <span><i class="fas fa-tree"></i> Navidad</span>
-        </a>
-        <a href="/frases-citas/cat-anio-nuevo.html" class="btn-holiday ano-nuevo">
-          <span><i class="fas fa-glass-cheers"></i> Año Nuevo</span>
-        </a>
-      </div>
-
-      <section class="bar-index">
-        <div class="form-group">
-          <input type="text" id="barra-busqueda" class="form-control" placeholder="Buscar por frase, categoría o autor">
-        </div>
-        <div class="scrollable-container">
-          <div id="resultados-busqueda" class="list-group list-group-flush mb-2"></div>
-        </div>
-      </section>
-
-      <div class="scrollable-container">
-        <ul id="categorias" class="list-group list-group-flush"></ul>
-      </div>
-    </section>
-
-    <section id="seccion-autores" class="mt-4">
+    <section id="seccion-autores" class="mt-2">
       <h3>Autores Destacados</h3>
       <div class="scrollable-container">
         <ul id="lista-autores" class="list-group list-group-flush">

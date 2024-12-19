@@ -90,7 +90,7 @@ async function cargarCategorias() {
 
             // Agregamos la categoría y el badge con la cantidad de frases
             li.innerHTML = `
-                <a href="categoria.html?categoria=${encodeURIComponent(categoriaObj.nombre)}">${categoriaObj.nombre}</a>
+                <a href="categoria.html?categoria=${encodeURIComponent(categoriaObj.nombre)}" class="autor-link">${categoriaObj.nombre}</a>
                 <a href="categoria.html?categoria=${encodeURIComponent(categoriaObj.nombre)}">
                     <span class="badge ${obtenerClaseColor(categoriaObj.nombre)}">${categoriaObj.cantidad} frase${categoriaObj.cantidad !== 1 ? 's' : ''}</span>
                 </a>
@@ -243,7 +243,7 @@ function configurarBarraBusqueda() {
 
                             li.innerHTML = `
                         <div class="w-100 frase-content">
-                            <p class="mb-1"><strong>${fraseObj.frase}</strong></p>
+                            <p class="mb-1 frase-lista"><strong>${fraseObj.frase}</strong></p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
                                     <small><a href="autor.html?autor=${fraseObj.autor_url}" class="autor-link">${autorCapitalizado}</a></small>
@@ -425,7 +425,7 @@ function configurarBarraBusquedaCats() {
 
                             li.innerHTML = `
                     <div class="w-100 frase-content frase-content-search-cat">
-                        <p class="mb-1"><strong>${fraseObj.frase}</strong></p>
+                        <p class="mb-1 frase-lista"><strong>${fraseObj.frase}</strong></p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
                                 <small><a href="autor.html?autor=${fraseObj.autor_url}" class="autor-link">${autorCapitalizado}</a></small>

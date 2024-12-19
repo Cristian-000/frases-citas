@@ -2,9 +2,11 @@
 :root {
 
     --color-fondo: #f8f9fa;
-    --color-fondo-navs:rgb(16, 105, 146);
+
+    --color-fondo-navs: #37474F  ;  /*#E3F2FD; 
+
     /* Color de fondo general: un gris muy claro (casi blanco) */
-    --color-texto-nav: #d8d8d8;
+    --color-texto-nav:#E3F2FD  ;
     --color-texto: #343a40;
     /* Color de texto principal: un gris oscuro (casi negro) */
     --color-acento: #a00a3c;
@@ -87,10 +89,27 @@ body {
 }
 
 #h1-frasedia {
-    font-size: 1.1rem;
+    margin-top: 5px;
+    font-size: 1rem;
     text-align: left;
+    color:var(--color-acento)
 }
-
+#frase-del-dia {
+    background-color: var(--color-texto-nav);
+    padding: 10px;
+    border-bottom-left-radius: 10px; /* Esquina inferior izquierda */
+  border-bottom-right-radius: 10px; 
+    margin-bottom: 10px;
+   
+}
+#div-emociones{
+    margin-top: 10px;
+    background-color: var(--color-texto-nav);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+   
+}
 
 .list-group-item {
     border-radius: 8px;
@@ -267,7 +286,7 @@ h1 {
 }
 
 h2 {
-    color: var(--color-texto);
+    color: var(--color-fondo-navs);
     /* Color del texto */
     font-size: 2rem;
     /* Tamaño más grande */
@@ -385,13 +404,15 @@ background-color: rgb(155, 155, 155);
     /* Transición suave */
 }
 
-.navbar-nav .nav-link:hover, .navbar-brand:hover{
-    color: var(--color-acento);
+.navbar-nav .nav-link:hover{
+    color: var(--color-badge-tag-1);
     /* Color en hover */
 
     /* Efecto de agrandado en hover */
 }
-
+.navbar-brand:hover{
+    color: var(--color-texto-nav);
+}
 .navbar-brand {
     font-family: 'Roboto', sans-serif;
     font-weight: 800;
@@ -411,7 +432,7 @@ background-color: rgb(155, 155, 155);
 .top-screen {
     position: sticky;
     top: 3rem; /* Espacio debajo del navbar */
-    background-color: var(--color-fondo);
+    background-color: var(--color-texto-nav);
     z-index: 15;
     padding: 0 15px;
     display: flex;
@@ -423,10 +444,11 @@ background-color: rgb(155, 155, 155);
 }
 
 /* Para pantallas grandes */
-@media (min-height: 700px) {
+@media (min-height: 780px) {
     .top-screen {
         min-height: 250px;
     }
+  
 }
 
 /* Estilos para el breadcrumb */
@@ -434,7 +456,7 @@ background-color: rgb(155, 155, 155);
     position: sticky;
     top: calc(3rem + 250px); /* Asegura que quede debajo del top-screen */
     z-index: 10;
-    background-color: var(--color-fondo);
+    background-color: var(--color-texto-nav);
     padding-left: 18px;
     width: 100%;
     max-width: 800px;
@@ -456,7 +478,7 @@ background-color: rgb(155, 155, 155);
     color: #666; /* Color del enlace */
     text-decoration: none;
 }
-
+.breadcrumb-item a:hover{color: var(--color-acento);}
 .breadcrumb-item.active {
     color: var(--color-acento);
     font-weight: bold; /* Hace el elemento activo más destacado */
@@ -490,6 +512,7 @@ background-color: rgb(155, 155, 155);
 
 .frase-dia {
     font-size: 1.4rem;
+    color: var(--color-fondo-navs);
 
 }
 /* Tags y Badges */
@@ -620,7 +643,7 @@ background-color: rgb(155, 155, 155);
 .badge:hover {
     transform: translateY(-3px);
     /* Mueve ligeramente hacia arriba */
-    color: #fff;
+    color: #000;
     /* Mantén el color del texto constante */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -629,33 +652,36 @@ background-color: rgb(155, 155, 155);
 
 
 .badge-primary {
-    background-color: var(--color-badge-primario);
-    color: #4d4d4d;
+    background-color: var(--color-texto-nav);
+    color: var(--color-fondo-navs);
 }
 
 .badge-secondary {
     background-color: var(--color-badge-secundario);
     color: #444;
 }
-
+.frase-lista{
+    color: var(--color-fondo-navs);
+}
 
 /* Autor */
 .autor-link {
 
     text-transform: capitalize;
     text-decoration: none;
-    color: var(--color-texto);
+    color: var(--color-fondo-navs);
     font-size: 1rem;
-    font-weight: 600;
-    margin-right: 5px;
+    font-weight: 500;
+    
 
 }
 
 /* Biografía */
 .text-muted {
     font-size: 0.9rem;
-    line-height: 1.2;
-    color: #6c757d;
+    line-height: 1.1;
+    font-weight: 500;
+    color: var(--color-fondo-navs);
 }
 
 /* Estilos para el modal */
