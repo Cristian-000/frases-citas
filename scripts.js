@@ -331,12 +331,12 @@ function configurarBarraBusqueda() {
                         header.classList.add("list-group-item", "font-weight-bold");
                         resultadosBusqueda.appendChild(header);
 
-                        categoriasEncontradas.forEach(categoria => {
-                            const li = document.createElement("li");
-                            li.className = "list-group-item";
-                            li.innerHTML = `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}">${categoria}</a>`;
-                            resultadosBusqueda.appendChild(li);
-                        });
+                       categoriasEncontradas.forEach(categoria => {
+    const div = document.createElement("div");
+    div.className = "categoria-item";
+    div.innerHTML = `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}">${categoria}</a>`;
+    resultadosBusqueda.appendChild(div);
+});
                     }
 
                     // Mostrar frases encontradas
