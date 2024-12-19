@@ -405,7 +405,7 @@ background-color: rgb(155, 155, 155);
 }
 
 .navbar-nav .nav-link:hover{
-    color: var(--color-badge-tag-1);
+    color: #000000;
     /* Color en hover */
 
     /* Efecto de agrandado en hover */
