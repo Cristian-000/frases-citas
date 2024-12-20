@@ -93,23 +93,7 @@ btnSeleccionarImagen.addEventListener('click', () => {
         };
     }
 });
-/*
-// Manejar la selección de la imagen
-btnSeleccionarImagen.addEventListener('click', () => {
-    if (imagenSeleccionada) {
-        const nuevaImagen = new Image();
-        nuevaImagen.src = imagenSeleccionada;
 
-        nuevaImagen.onload = () => {
-            imagenFondo = nuevaImagen;
-            imagenFondoPos.initialWidth = imagenFondo.width;
-            imagenFondoPos.initialHeight = imagenFondo.height;
-            actualizarCanvas();
-        };
-        modalImagenes.hide(); // Cerrar el modal
-    }
-});
-*/
 seleccionarImagenPredefinidaBtn.addEventListener('click', () => {
     modalImagenes.show();
 });
@@ -188,7 +172,7 @@ tipoFuenteInput.value = "Arial"; // Tipo de fuente predeterminado
 
 
 // Variable para la marca de agua
-const marcaDeAgua = URLCOMPARTIR; // Cambiar a tu URL deseada
+const marcaDeAgua = "https://frasescitas.net"; // Cambiar a tu URL deseada
 
 // Variables para la posición y escala de la imagen de fondo
 let imagenFondoPos = { x: 0, y: 0, scale: 1, startX: 0, startY: 0, lastScale: 1, initialWidth: 0, initialHeight: 0 }; // Guarda dimensiones originales
@@ -198,21 +182,7 @@ let dragStart = { x: 0, y: 0 };
 let minScale = 0.1; // Escala mínima
 let maxScale = 4;   // Escala máxima
 
-/*
-removeFondoCheckbox.addEventListener("change", function () {
-    if (removeFondoCheckbox.checked) {
-        // Si el checkbox está marcado, eliminar la imagen de fondo
-        imagenFondo = null;
 
-
-        actualizarCanvas(); // Redibujar el canvas sin fondo
-    } else {
-        // Si el checkbox no está marcado, restaurar la imagen de fondo
-        if (imagenFondo) {
-            actualizarCanvas(); // Redibujar el canvas con la imagen de fondo
-        }
-    }
-});*/
 imagenFondoInput.addEventListener('change', (event) => {
     const archivo = event.target.files[0];
     if (archivo) {
@@ -242,26 +212,6 @@ removeFondoCheckbox.addEventListener("change", function () {
         }
     }
 });
-/*
-imagenFondoInput.addEventListener('change', (event) => {
-    const archivo = event.target.files[0];
-    if (archivo) {
-        imagenFondo = new Image();
-        imagenFondo.src = URL.createObjectURL(archivo);
-        imagenFondo.onload = () => {
-            // Variables para la posición y escala de la imagen de fondo
-            imagenFondoPos = { x: 0, y: 0, scale: 1, startX: 0, startY: 0, lastScale: 1, initialWidth: 0, initialHeight: 0 }; // Guarda dimensiones originales
-            isDragging = false;
-            pinchStartDistance = 0;
-            dragStart = { x: 0, y: 0 };
-            minScale = 0.1; // Escala mínima
-            maxScale = 4;   // Escala máxima
-
-            actualizarCanvas();
-        };
-    }
-});
-*/
 
 
 
@@ -489,7 +439,7 @@ function actualizarCanvas() {
 
     if (marcaDeAgua) {
         // Dibujar marca de agua centrada
-        const marcaAgua = `Creada en ${URLCOMPARTIR}`;
+        const marcaAgua = `Creada en https://frasescitas.net`;
         const tamanoMarca = 13; // Tamaño de fuente fijo o ajustable
         ctx.font = `${tamanoMarca}px Verdana`;
         ctx.fillStyle = "rgba(0, 0, 0, 0.6)"; // Color semitransparente

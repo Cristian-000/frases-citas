@@ -14,10 +14,12 @@ document.addEventListener("DOMContentLoaded", () => {
         promises.push(cargarAutor());
     }
     configurarBarraBusquedaCats()
+    //configurarBarraBusquedaFooter();
     // Esperar a que todas las promesas se resuelvan
     Promise.all(promises)
         .then(() => console.log("Carga completada"))
         .catch(error => console.error("Error en la carga:", error));
+   
 });
 
 const COLORCATEGORIAS = {
@@ -195,7 +197,6 @@ function capitalizarIniciales(nombre) {
         return (separador ? " " : "") + letra.toUpperCase();
     });
 }
-
 function configurarBarraBusqueda() {
     const barraBusqueda = document.getElementById("barra-busqueda");
     const resultadosBusqueda = document.getElementById("resultados-busqueda");
@@ -285,6 +286,96 @@ function configurarBarraBusqueda() {
         }
     });
 }
+/*
+function configurarBarraBusquedaFooter() {
+    const barraBusqueda = document.getElementById("barra-busqueda-footer");
+    const resultadosBusqueda = document.getElementById("resultados-busqueda-footer");
+    const listaCats = document.getElementById("categorias")
+    if(!resultadosBusqueda) return;
+    barraBusqueda.addEventListener("input", () => {
+        const query = barraBusqueda.value.toLowerCase();
+        resultadosBusqueda.innerHTML = "";
+
+        if (query.trim() === "") {
+            // Show main list, hide search results
+            //listaCats.style.display = "block";
+            resultadosBusqueda.style.display = "none";
+        } else {
+            // Hide main list, show search results
+            //listaCats.style.display = "none";
+            resultadosBusqueda.style.display = "block";
+
+            fetch('frases.json')
+                .then(response => response.json())
+                .then(data => {
+                    const frasesEncontradas = data.frases.filter(fraseObj =>
+                        fraseObj.frase.toLowerCase().includes(query) ||
+                        fraseObj.autor_url.toLowerCase().includes(query) ||
+                        fraseObj.categorias.some(categoria => categoria.toLowerCase().includes(query))
+                    );
+
+                    const favoritos = JSON.parse(localStorage.getItem("favoritos")) || []; // Cargar favoritos
+
+
+                    if (frasesEncontradas.length === 0) {
+                        const noResultados = document.createElement("li");
+                        noResultados.classList.add("list-group-item", "text-center", "text-muted");
+                        noResultados.textContent = "No se encontraron coincidencias";
+                        resultadosBusqueda.appendChild(noResultados);
+                    } else {
+                        frasesEncontradas.forEach(fraseObj => {
+                            const autorCapitalizado = capitalizarIniciales(fraseObj.autor_url);
+
+                            // Verificar si la frase está en los favoritos
+                            const isFavorito = favoritos.some(fav => fav.frase === fraseObj.frase);
+
+                            const li = document.createElement("li");
+                            li.className = "d-flex justify-content-between align-items-center";
+
+                            li.innerHTML = `
+                        <div class="w-100 frase-content">
+                            <p class="mb-1 frase-lista"><strong>${fraseObj.frase}</strong></p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <small><a href="autor.html?autor=${fraseObj.autor_url}" class="autor-link">${autorCapitalizado}</a></small>
+                                    ${fraseObj.categorias.map(categoria => {
+                                // Aplicar la función obtenerClaseColor para obtener el color adecuado
+                                const claseColor = obtenerClaseColor(categoria);
+                                return `<a href="categoria.html?categoria=${encodeURIComponent(categoria)}" class="badge ${claseColor} ml-2">${categoria}</a>`;
+                            }).join(' ')}
+                                </div>
+                                <div class="button-group d-flex align-items-center mr-1">
+                                  <button class="btn btn-sm btn-outline-secondary border-0" onclick="setFraseParaCompartir('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}'); actualizarCanvas();" data-bs-toggle="modal" data-bs-target="#canvasModal" title="Crear Imagen">
+                                                <i class="fas fa-image"></i>
+                                            </button>
+                                    <button class="btn btn-sm btn-outline-secondary border-0" onclick="compartirFrase('${fraseObj.frase}', '${capitalizarIniciales(fraseObj.autor_url)}');" title="Compartir">
+                                        <i class="fas fa-share-alt"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-secondary border-0" onclick="copiarFrase('${fraseObj.frase}', '${URLCOMPARTIR}');" title="Copiar frase">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <button class="btn btn-link heart-button ml-2" data-frase="${encodeURIComponent(fraseObj.frase)}">
+                                        <i class="${isFavorito ? 'fas' : 'far'} fa-heart text-danger"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                            resultadosBusqueda.appendChild(li);
+
+                            // Asignar el evento de clic al botón de favoritos
+                            li.querySelector(".heart-button").addEventListener("click", (e) => {
+                                toggleFavorito(fraseObj, e.currentTarget.querySelector("i"));
+                            });
+                        })
+                    }
+
+                })
+                .catch(error => console.error("Error al cargar frases para búsqueda:", error));
+        }
+    });
+}*/
 /*
 function configurarBarraBusqueda() {
     const barraBusqueda = document.getElementById("barra-busqueda");
